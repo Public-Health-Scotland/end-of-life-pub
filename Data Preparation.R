@@ -1,5 +1,3 @@
-
-
 ##################################################################
 ## Name of File: End of Life All Activity                       ##
 ## Original Authors : Federico Centoni/Alice Byers              ##
