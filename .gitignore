@@ -2,6 +2,23 @@
 .Rhistory
 .RData
 .Ruserdata
-.docx
+
+# 'data' folder #
+data/
+
+# Common text files that may contain data #
+*.[cC][sS][vV]
+*.[tT][xX][tT]
+
+# Excel files #
+*.[xX][lL][sS]*
+
+# SPSS formats #
+*.[sS][aA][vV]
+
+# R data files #
+*.[rR][dD][aA][tT][aA]
+*.[rR][dD][sS]
+
 EOL publication_R script_layout.docx
 ~$L publication_R script_layout.docx

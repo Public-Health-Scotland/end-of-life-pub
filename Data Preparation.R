@@ -4,7 +4,7 @@
 ## Name of File: End of Life All Activity                       ##
 ## Original Authors : Federico Centoni/Alice Byers              ##
 ## Originally written: November 2018                            ##                      
-## Latest Update Date: 05/07/2019.                              ##
+## Latest Update Date: 23/07/2019.                              ##
 ## Written/run on : R Studio Server                             ##
 ## R version:                                                   ##
 ## Package version:                                             ##
@@ -40,7 +40,7 @@ library(tictoc)
 
 ## 2. Define dates ##
 
-extract_date <- "_extracted_03072019"
+extract_date <- "_extracted_22072019"
 
 start_date        <- "2009-10-01"  # start date for SMR01 and SMR50 extracts
 end_date          <- "2018-03-31"  # end date for SMR01 and SMR50 extracts
@@ -155,7 +155,7 @@ group_by(link_no,gls_cis_marker) %>%
                                  discharge_date = max(discharge_date)) %>% 
                                  ungroup() 
 
-### Duplicates Removal  ###
+### Duplicates Removal ###
 
 #### SMR01_50 ####
 
