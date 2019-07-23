@@ -40,7 +40,7 @@ library(tictoc)
 
 ## 2. Define dates ##
 
-extract_date <- "_extracted_03072019"
+extract_date <- "_extracted_22072019"
 
 start_date        <- "2009-10-01"  # start date for SMR01 and SMR50 extracts
 end_date          <- "2018-03-31"  # end date for SMR01 and SMR50 extracts
