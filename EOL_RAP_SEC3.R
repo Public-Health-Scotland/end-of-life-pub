@@ -4,7 +4,7 @@
 ## Name of File: End of Life All Activity                       ##
 ## Original Authors : Federico Centoni/Alice Byers              ##
 ## Originally written: November 2018                            ##                      
-## Latest Update Date: 05/07/2019.                              ##
+## Latest Update Date: 23/07/2019.                              ##
 ## Written/run on : R Studio Server                             ##
 ## R version:                                                   ##
 ## Package version:                                             ##
