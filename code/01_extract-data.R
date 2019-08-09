@@ -1,5 +1,5 @@
 #########################################################################
-# Name of file - ##_extract-data.R
+# Name of file - 01_extract-data.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
 # Orginal Date - August 2019
@@ -39,7 +39,7 @@ deaths <-
   filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD"))
 
 
-### 4 - SMRA queries
+### 4 - SMR01 query
 
 smr01 <-
   
@@ -50,24 +50,64 @@ smr01 <-
   
   filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
   
-  arrange(LINK_NO, CIS_MARKER, ADMISSION_DATE, DISCHARGE_DATE, 
-          ADMISSION, DISCHARGE, URI) %>% 
+  arrange(LINK_NO, GLS_CIS_MARKER, CIS_MARKER, ADMISSION_DATE, 
+          DISCHARGE_DATE, ADMISSION, DISCHARGE, URI) %>% 
   
   inner_join(deaths, by = "LINK_NO") %>%
   
   select(LINK_NO, GLS_CIS_MARKER, CIS_MARKER, 
-         ADMISSION_DATE, DISCHARGE_DATE, DATE_OF_DEATH) %>%
+         ADMISSION_DATE, DISCHARGE_DATE, DATE_OF_DEATH)
+
+
+### 5 - SMR50 query
+
+smr50 <-
   
-  collect() %>%
-  clean_names()
+  tbl(SMRA_connect, 
+      dbplyr::in_schema("ANALYSIS", "SMR01_1E_PI")) %>%
+  
+  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+         DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
+  
+  filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
+  
+  arrange(LINK_NO, GLS_CIS_MARKER, ADMISSION_DATE, 
+          DISCHARGE_DATE, ADMISSION, DISCHARGE, URI) %>% 
+  
+  inner_join(deaths, by = "LINK_NO") %>%
+  
+  select(LINK_NO, GLS_CIS_MARKER, ADMISSION_DATE, 
+         DISCHARGE_DATE, DATE_OF_DEATH)
+
+
+### 6 - SMR04 query
+
+smr04 <-
+  
+  tbl(SMRA_connect, 
+      dbplyr::in_schema("ANALYSIS", "SMR04_PI")) %>%
+  
+  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+         (DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD") |
+            is.na(DISCHARGE_DATE))) %>%
+  
+  filter(MANAGEMENT_OF_PATIENT %in% c("1", "3", "5", "7", "A")) %>%
+  
+  arrange(LINK_NO, CIS_MARKER, ADMISSION_DATE, 
+          DISCHARGE_DATE, ADMISSION, DISCHARGE, URI) %>% 
+  
+  inner_join(deaths, by = "LINK_NO") %>%
+  
+  select(LINK_NO, CIS_MARKER, ADMISSION_DATE, 
+         DISCHARGE_DATE, DATE_OF_DEATH)
 
 
 ### 5 - Extract data
   
-deaths %<>% collect() %>% clean_names()
 smr01  %<>% collect() %>% clean_names()
 smr50  %<>% collect() %>% clean_names()
 smr04  %<>% collect() %>% clean_names()
+deaths %<>% collect() %>% clean_names()
 
 
 ### END OF SCRIPT ###
