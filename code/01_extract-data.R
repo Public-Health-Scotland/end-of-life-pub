@@ -28,7 +28,7 @@ SMRA_connect <-
                pwd = .rs.askForPassword("SMRA Password:")))
 
 
-### 3 - Deaths extract
+### 3 - Deaths query
 
 deaths <- 
   
@@ -36,9 +36,38 @@ deaths <-
       dbplyr::in_schema("ANALYSIS", "GRO_DEATHS_C")) %>%
   
   select(LINK_NO, DATE_OF_DEATH, AGE, SEX, POSTCODE) %>%
-  filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD")) %>%
+  filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD"))
+
+
+### 4 - SMRA queries
+
+smr01 <-
+  
+  tbl(SMRA_connect, "SMR01_PI") %>%
+  
+  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+         DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
+  
+  filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
+  
+  arrange(LINK_NO, CIS_MARKER, ADMISSION_DATE, DISCHARGE_DATE, 
+          ADMISSION, DISCHARGE, URI) %>% 
+  
+  inner_join(deaths, by = "LINK_NO") %>%
+  
+  select(LINK_NO, GLS_CIS_MARKER, CIS_MARKER, 
+         ADMISSION_DATE, DISCHARGE_DATE, DATE_OF_DEATH) %>%
+  
   collect() %>%
   clean_names()
 
+
+### 5 - Extract data
   
-  
+deaths %<>% collect() %>% clean_names()
+smr01  %<>% collect() %>% clean_names()
+smr50  %<>% collect() %>% clean_names()
+smr04  %<>% collect() %>% clean_names()
+
+
+### END OF SCRIPT ###
