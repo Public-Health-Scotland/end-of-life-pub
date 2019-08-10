@@ -40,8 +40,8 @@ platform <- c("server")
 # Define root directory for stats server based on whether script is running 
 # locally or on server
 filepath <- dplyr::if_else(platform == "server",
-                           "/conf/",
-                           "//stats/")
+                           "/conf/linkage/output/",
+                           "//stats/cl-out/")
 
 
 ### 3 - Extract dates ----
@@ -58,12 +58,48 @@ end_date   <- lubridate::ymd(20190331)
 deaths_start_date <- lubridate::ymd(20100401)
 
 
-### 4 - Define list of external causes of death codes
+### 4 - Define list of external causes of death codes ----
 
 external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
                paste0("W", 20:99),
                paste0("X", 0, 0:9), paste0("X", 10:99),
                paste0("Y", 0, 0:9), paste0("Y", 10:84))
+
+
+### 5 - Read in lookup files ----
+## TO DO - do we need all three lookups?
+
+postcode <- 
+  
+  read_rds(glue("{filepath}lookups/Unicode/Geography/",
+                "Scottish Postcode Directory/",
+                "Scottish_Postcode_Directory_2019_1.5.rds")) %>%
+  
+  clean_names() %>%
+  
+  select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
+         hscp2019, hscp2019name, hscp2018, ur8_2016, 
+         data_zone2011, locality_2016)
+  
+            
+simd     <- 
+  
+  read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
+                "postcode_2019_1.5_simd2016.rds")) %>%
+  
+  clean_names() %>%
+  
+  select(pc7, simd2016_sc_quintile, simd2016tp15)
+  
+
+locality <- 
+  
+  read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
+                "HSCP Localities_DZ11_Lookup_20180903.rds")) %>%
+  
+  clean_names() %>%
+  
+  select(data_zone2011, hscp_locality)
 
 
 ### END OF SCRIPT ###
