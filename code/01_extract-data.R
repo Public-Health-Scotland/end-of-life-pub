@@ -17,6 +17,11 @@
 
 source(here::here("code", "00_setup-environment.R"))
 
+external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
+               paste0("W", 20:99),
+               paste0("X", 0, 0:9), paste0("X", 10:99),
+               paste0("Y", 0, 0:9), paste0("Y", 10:84))
+
 
 ### 2 - Open SMRA Connection
 
@@ -35,15 +40,20 @@ deaths <-
   tbl(SMRA_connect,
       dbplyr::in_schema("ANALYSIS", "GRO_DEATHS_C")) %>%
   
-  select(LINK_NO, DATE_OF_DEATH, AGE, SEX, POSTCODE) %>%
-  filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD"))
+  filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD") &
+         DATE_OF_DEATH <= To_date(end_date, "YYYY-MM-DD")) %>%
+  
+  filter(!(UNDERLYING_CAUSE_OF_DEATH %in% external)) %>%
+  
+  select(LINK_NO, DATE_OF_DEATH, AGE, SEX, POSTCODE)
 
 
 ### 4 - SMR01 query
 
 smr01 <-
   
-  tbl(SMRA_connect, "SMR01_PI") %>%
+  tbl(SMRA_connect, 
+      dbplyr::in_schema("ANALYSIS", "SMR01_PI")) %>%
   
   filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
          DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
