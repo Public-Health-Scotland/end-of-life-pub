@@ -17,11 +17,6 @@
 
 source(here::here("code", "00_setup-environment.R"))
 
-external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
-               paste0("W", 20:99),
-               paste0("X", 0, 0:9), paste0("X", 10:99),
-               paste0("Y", 0, 0:9), paste0("Y", 10:84))
-
 
 ### 2 - Open SMRA Connection
 

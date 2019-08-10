@@ -58,4 +58,12 @@ end_date   <- lubridate::ymd(20190331)
 deaths_start_date <- lubridate::ymd(20100401)
 
 
+### 4 - Define list of external causes of death codes
+
+external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
+               paste0("W", 20:99),
+               paste0("X", 0, 0:9), paste0("X", 10:99),
+               paste0("Y", 0, 0:9), paste0("Y", 10:84))
+
+
 ### END OF SCRIPT ###
