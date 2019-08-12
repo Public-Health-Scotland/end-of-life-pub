@@ -33,11 +33,11 @@ chart <- ggplot(data = ChartData, aes(x = Month, y = Count, group = Year, color 
 ggsave("charts/chart1.png", plot = chart, width = 8, height = 4, device = "png", dpi = 300)
 
 #Create contact information
-contact1 <- c("Federico Centoni", "Information Analyst", 
+contact1 <- c("**Federico Centoni**", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
-contact2 <- c("Alice Byers", "Senior Information Analyst", 
+contact2 <- c("**Alice Byers**", "Senior Information Analyst", 
               "0131 314 1725", "alice.byers@nhs.net")
-contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst", 
+contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst", 
               "0141 207 1616", "aghimien.iyayi-igbinovia@nhs.net")
 
 contact <- data.frame(contact1, contact2, contact3)
