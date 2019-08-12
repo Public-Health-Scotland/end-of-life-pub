@@ -219,27 +219,15 @@ Wide stakeholder consultation on technical methodology",
 MetaData <- data.frame(Indicator, Description)
 ```
 
-###### This is a National Statistics Publication
+###### This is an Official Statistics Publication
 
 <br>
 
-National Statistics status means that the official statistics meet the highest standards of trustworthiness, quality and public value. They are identified by the quality mark shown above.
+The [Official Statistics (Scotland) Order 2008](http://www.legislation.gov.uk/ssi/2008/131/contents/made) authorises NHS National Services Scotland (the legal name being the Common Services Agency for the Scottish Health Service) to produce official statistics. 
 
 <br>
 
-The UK Statistics Authority has designated these statistics as National Statistics signifying compliance with the Code of Practice for Statistics.
-
-<br>
-
-Once statistics have been designated as National Statistics, it is a statutory requirement that the Code of Practice shall continue to be observed.
-
-<br>
-
-The statistics last underwent a full [assessment](https://www.statisticsauthority.gov.uk/archive/assessment/assessment/assessment-reports/confirmation-of-designation-letters/letter-of-confirmation-as-national-statistics---assessment-report-177.pdf) by the Office for Statistics Regulation (OSR) against the Code of Practice in June 2019. The OSR is the regulatory arm of the UK Statistics Authority.
-
-<br>
-
-The continued designation of these statistics as National Statistics was confirmed in June 2019 following a compliance check by the Office for Statistics Regulation. The [compliance check report](https://www.statisticsauthority.gov.uk/correspondence/compliance-check-on-home-offices-statistics-on-immigration/) highlighted a number of strengths and made suggestions for improvements.
+All official statistics should comply with the UK Statistics Authority’s Code of Practice which promotes the production and dissemination of official statistics that inform decision making. They can be formally assessed by the UK Statistics Authority’s regulatory arm for National Statistics status. 
 
 <br>
 
