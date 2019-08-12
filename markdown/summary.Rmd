@@ -30,7 +30,7 @@ chart <- ggplot(data = ChartData, aes(x = Month, y = Count, group = Year, color 
   xlab("Month") + ylab("Count") +
   ggtitle("Percentage of last six months of life spent at home or in a community setting; 2010/11 - 2018/19(1)")
 
-ggsave("charts/chart1.png", plot = chart, device = "png", dpi = 300)
+ggsave("charts/chart1.png", plot = chart, width = 8, height = 4, device = "png", dpi = 300)
 
 #Create contact information
 contact1 <- c("Federico Centoni", "Information Analyst", 
