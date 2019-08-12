@@ -30,7 +30,7 @@ chart <- ggplot(data = ChartData, aes(x = Month, y = Count, group = Year, color 
   xlab("Month") + ylab("Count") +
   ggtitle("Percentage of last six months of life spent at home or in a community setting; 2010/11 - 2018/19(1)")
 
-ggsave("chart1.png", plot = chart, device = "png", dpi = 300)
+ggsave("charts/chart1.png", plot = chart, device = "png", dpi = 300)
 
 #Create contact information
 contact1 <- c("Federico Centoni", "Information Analyst", 
@@ -64,7 +64,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 * Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
 
 <div custom-style = "style-centre">
-![Appropriate ALT Text to be added.](chart1.png) \
+![Appropriate ALT Text to be added.](charts/chart1.png) \
 1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.
 </div>
 <br>
