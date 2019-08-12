@@ -28,7 +28,7 @@ chart <- ggplot(data = ChartData, aes(x = Month, y = Count, group = Year, color 
     axis.line = element_line(colour="grey"),
     axis.ticks = element_line(colour="grey")) +
   xlab("Month") + ylab("Count") +
-  ggtitle("Chart title")
+  ggtitle("Percentage of last six months of life spent at home or in a community setting; 2010/11 - 2018/19(1)")
 
 ggsave("chart1.png", plot = chart, device = "png", dpi = 300)
 
@@ -43,46 +43,41 @@ contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst",
 contact <- data.frame(contact1, contact2, contact3)
 ```
 
-# Insert publication Title here
-## Subtitle
-#### A National Statistics publication for Scotland
+# Percentage of End of Life Spent at Home or in a Community Setting (Provisional)
+## Financial years ending 31 March 2011 to 2019
+#### An Official Statistics publication for Scotland
 
-#### Publication date: DD Month YYYY
-##### RESTRICTED STATISTICS: embargoed to 09:30 dd/mm/yyyy
+#### Publication date: 28 May 2019
+##### RESTRICTED STATISTICS: embargoed to 09:30 29/05/2019
 
 ### About this release
 
-Vestibulum lacinia, turpis eu sagittis lacinia, justo orci blandit orci, ut suscipit tortor turpis et metus. Pellentesque sollicitudin nisl et porttitor laoreet. Nunc id purus pretium, suscipit justo vitae, pretium dui. Quisque congue ex dignissim tellus pulvinar, a interdum libero fermentum.
+This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. This is one of the measures used to support and determine progress towards the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf). Data are presented by financial year from 2010/11 to 2018/19, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
+
+Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates.
+
 
 ### Main Points
 
-Proin nec ultricies dolor. Maecenas pulvinar, enim et imperdiet cursus, mi
+* In 2018/19, there were 53,168 deaths in Scotland excluding those where an external cause such as unintentional injury was recorded.  For these individuals, 89.2% of their last six months of life was spent either at home or in a community setting, with the remaining 10.8% spent in hospital. This is equivalent to an average of 20 days in hospital in the six months prior to death.
 
-* Maecenas ut sagittis mi. Vestibulum faucibus ligula sit amet facilisis pulvinar. Morbi mollis odio id est consequat, a convallis quam finibus. Morbi id congue turpis, sit amet ultrices tortor. Phasellus vel nisi.
+* Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
 
-* Quisque iaculis congue aliquet. Aenean in dictum nisl. Etiam quis ullamcorper ex. Aenean mollis ante eget.
-
+<div custom-style = "style-centre">
 ![Appropriate ALT Text to be added.](chart1.png) \
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.
+</div>
+<br>
 
-Maecenas bibendum consequat vehicula. Fusce id viverra lorem, et
+* In 2018/19, females aged 85 and older spent a higher percentage of their last six months of life in the community (90.0%) compared to males (87.8%); this equates to females spending, on average an extra four days in the community in their last six months of life.
 
-* Curabitur luctus luctus lorem, at commodo mauris rutrum quis. Mauris aliquet turpis vel magna bibendum hendrerit. Nulla finibus porta sapien ut pretium. Aliquam elementum mauris.
-
-* Vivamus bibendum ut tellus rhoncus porttitor. Nam id nibh et.
-
-* Ut in dapibus massa, ut gravida ligula. Vestibulum ut consectetur:
-
-    + Vivamus luctus varius nibh, a scelerisque ex tincidunt non. Etiam dignissim.
-    + Curabitur laoreet viverra magna eget dapibus. Maecenas scelerisque euismod mattis. Sed cursus.
-    + Sed in iaculis lectus, sed fermentum urna. Donec efficitur diam eu ipsum viverra, eu ornare justo mollis. Phasellus in dictum tellus.
 
 ### Background
 
-Aliquam sed maximus ante, a imperdiet est. Vivamus vel diam facilisis, pulvinar erat consequat, consequat nulla. Praesent lorem dolor, luctus ut libero vitae, venenatis congue tortor.
+This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well](http://www.gov.scot/Resource/Doc/239823/0066155.pdf): A National Action Plan for Palliative and End of Life in Scotland”. 
 
-Nunc at mauris euismod, mattis tellus sed, vehicula dolor. Duis quis auctor elit. Fusce eu dui eu magna convallis porttitor in ac purus. Proin sed tellus massa. In pulvinar augue sit amet faucibus maximus. Aenean porttitor arcu vitae lacus fringilla condimentum. Praesent laoreet, felis non dignissim viverra, libero nunc eleifend sapien, sed dignissim felis risus et tellus.
+The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
 
-Please see [News and Updates section](http://www.isdscotland.org/) of our website for more details.
 
 ### Contact
 
@@ -92,14 +87,8 @@ Please see [News and Updates section](http://www.isdscotland.org/) of our websit
 
 ### Further Information
 
-Find out more in the [full report](http://www.isdscotland.org/). The data from this publication is available to download [from our webpage](http://www.isdscotland.org/) along with a [background information and glossary](http://www.isdscotland.org/), and [metadata document](http://www.isdscotland.org/). 
+Find out more in the [full report](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/2019-05-28/2019-05-28-End-of-Life-Report.docx). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp). For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
-For more information on XXX see the [XXX section of our website](http://www.isdscotland.org/). For related topics, please see the [XXX](http://www.isdscotland.org/) pages.
-
-The next release of this publication will be DD Month YYYY.
-
-### NHS Performs
-
-A selection of information from this publication is included in [NHS Performs](http://www.nhsperforms.scot/). NHS Performs is a website that brings together a range of information on how hositals and NHS Boards within NHSScotland are performing.
+The next release of this publication will be in October 2019.
 
 
