@@ -69,7 +69,7 @@ FigureOne <- ggplot(data = FigureOneData, aes(x = HBR, y = UptakeRate, fill = HB
                                "#0391BF", "#092869", "#0391BF", "#0391BF", "#0391BF")) +
   xlab("NHS Board of Residence") + ylab("Uptake rate (%)")
 
-ggsave("Figure1_ggplot.png", plot = FigureOne, width = 17.79, height = 14.24, units = "cm", 
+ggsave("charts/Figure1_ggplot.png", plot = FigureOne, width = 17.79, height = 14.24, units = "cm", 
        device = "png", dpi = 600)
 
 #Create Figure 2
@@ -93,7 +93,7 @@ FigureTwo <- ggplot(data = FigureTwoData, aes(x = RollingYear, y = DetectionRate
     axis.text = element_text(size = 12)) +
   xlab("Three Year Rolling Period") + ylab("Cancer detection rate \n (per 1000 women screened)")
 
-ggsave("Figure2_ggplot.png", plot = FigureTwo, width = 17.78, height = 14.24, units = "cm", 
+ggsave("charts/Figure2_ggplot.png", plot = FigureTwo, width = 17.78, height = 14.24, units = "cm", 
        device = "png", dpi = 600)
 ```
 
@@ -264,7 +264,7 @@ knitr::kable(TableData, col.names = c("**NHS Board**", "**Q2 Cases**", "**Q2 Bed
 ```
 
 <Div custom-style = "Heading 4_pgbrk">Figure 1: Uptake rate^1^ by NHS Board by three-year rolling period 2013-16^1,2,3,4^</div>
-![Uptake rate by NHS Board by three-year rolling period 2013-16.](Figure1_ggplot.png) \
+![Uptake rate by NHS Board by three-year rolling period 2013-16.](charts/Figure1_ggplot.png) \
 
 <Div custom-style = "Normal_Notes">
 1. Note one.
@@ -280,7 +280,7 @@ Pellentesque aliquam imperdiet neque et interdum. Nulla sodales tellus magna, id
 
 
 #### Figure 2: Trend in invasive cancer detection rate for Scotland
-![Trend in invasive cancer detection rates for Scotland, three-year rolling periods (2007/10 to 2013/16). There is a bar for each three-year rolling period.](Figure2_ggplot.png) \
+![Trend in invasive cancer detection rates for Scotland, three-year rolling periods (2007/10 to 2013/16). There is a bar for each three-year rolling period.](charts/Figure2_ggplot.png) \
 
 Fusce hendrerit nibh sit amet tellus tincidunt vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam non libero eu orci viverra rhoncus eu sed massa. Donec viverra scelerisque orci, sit amet dignissim eros ullamcorper rhoncus. Donec et metus sodales, aliquet ligula nec, bibendum leo. 
 
