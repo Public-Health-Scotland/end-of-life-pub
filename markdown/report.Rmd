@@ -129,11 +129,24 @@ ListofTables <- data.frame(file_name, file_size)
 ```
 
 ```{r glossary, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
-glossary1 <- c("Hendrerit", "Class aptent")
-glossary2 <- c("Donec et metus sodales, aliquet ligula nec, bibendum leo.",
-               "Nullam mi libero, hendrerit vitae condimentum in, iaculis porta purus. Suspendisse potenti. Donec sed molestie nisi, ut blandit ex. Proin tempor, mauris sit amet consectetur placerat, elit lorem placerat dui, sed placerat mi ante a purus.")
+glossary1 <- c("Palliative Care", "Palliative care is an approach that improves the quality of life of patients and their families facing the problems associated with life-threatening illness. This is achieved through the prevention and relief of suffering by means of early identification and impeccable assessment and treatment of pain and other physical, psychosocial and spiritual problems.")
 
-glossary <- data.frame(glossary1, glossary2)
+glossary2 <- c("End of Life",
+               "End of Life Care is that part of palliative care which should follow from the diagnosis of a person entering the process of dying, whether or not he or she is already in receipt of palliative care. This phase could vary between weeks, days or hours in the context of different disease trajectories. There can be uncertainty involved in identifying when someone might be expected to die – illness can be unpredictable, and changes can occur suddenly and unexpectedly.")
+
+glossary3 <- c("Bed day", "Unit of measurement relating to an overnight stay in an inpatient hospital bed.")
+
+glossary4 <- c("Time spent in a hospital setting", "Time spent in acute, community or psychiatric hospitals. Refers to all hospital bed days calculated from SMR01 records (acute and geriatric long stay specialties) and SMR04 records (mental health specialties).")
+
+glossary5 <- c("Deprivation (SIMD)", "SIMD- Scottish Index of Multiple Deprivation. 
+Deprivation for individuals is estimated from aggregate data derived from the census and other routine sources. These are used to estimate the deprivation of small geographical areas. Data in this report are analysed by the ‘Scotland level’ Scottish Index of Multiple Deprivation population weighted quintiles. Each quintile consists of approximately 20% of the population living in Scotland, with deprivation quintile 1 indicating the 20% of the population living in the most deprived areas and deprivation quintile 5 the 20% of the population living in the least deprived areas.")
+
+glossary6 <- c("Data Zone", "The Scottish Government introduced Data Zones in 2004 as their preferred small area geography. ISD has used these as a replacement for postcode sectors. Data Zones have been designed to cover the whole of Scotland, nesting within council area (also known as local authority) boundaries. Data Zones are a composite geography based on aggregates of 2001 Census output areas and originally had a population of between 500 and 1,000 people per Data Zone. Where possible, they have been made to respect physical boundaries and natural communities, have a regular shape and contain households with similar social characteristics.")
+
+glossary7 <- c("Urban/Rural Classification", "The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the SG website.")
+
+glossary <- data.frame(glossary1, glossary2, glossary3, glossary4,
+                       glossary5, glossary6, glossary7)
 ```
 
 ```{r MetaData, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
