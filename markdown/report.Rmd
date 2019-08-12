@@ -254,23 +254,51 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 
 <Div custom-style = "Heading 2_pgbrk">Main Points</div>
-* In tristique lobortis sagittis. Phasellus mollis mattis iaculis. Vivamus nunc justo, finibus nec maximus vel, ultricies vel urna. Ut ac mi sit amet augue fringilla egestas et ut mauris. Morbi volutpat, felis vel egestas scelerisque, nunc purus auctor ligula, non lobortis nulla felis in tortor. In nec commodo sem.
-* Proin vitae vehicula purus. Cras consequat iaculis venenatis. Morbi vel risus vestibulum, aliquet mi in, volutpat massa. Sed urna sem, posuere eu semper vitae, ullamcorper quis leo. Mauris nisi metus, scelerisque sed urna eu, maximus porttitor ante. Sed scelerisque accumsan commodo. Sed interdum justo volutpat, sodales nisi sed, consectetur arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-* Praesent congue molestie nisi, ut congue dui mattis in. Vivamus vel urna risus. Donec sed blandit ex. Donec vel aliquam velit, in vestibulum lectus.
+
+*	In 2018/19, there were 53,168 deaths in Scotland excluding those where an external cause such as unintentional injury was recorded. For these individuals, 89.2% of their last six months of life was spent either at home or in a community setting, with the remaining 10.8% spent in hospital. This is equivalent to an average of 20 days in hospital in the six months prior to death.
+
+*	Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
+
+*	In 2018/19, females aged 85 years and over spent a higher percentage of their last six months of life at home or in the community (90.0%) compared to males (87.8%); this equates to females spending, on average, an extra four days in the community in their last six months of life.
 
 <Div custom-style = "Heading 2_pgbrk">Results and Commentary</div>
-Suspendisse velit nisi, tempor ut posuere ut, blandit in mauris. Suspendisse commodo sagittis pretium. Nullam.
 
-### Sub-heading
-Suspendisse potenti. Donec sit amet porttitor urna. Fusce egestas et elit quis imperdiet. Quisque tempor, metus vel gravida fermentum, odio neque imperdiet justo, vitae sagittis turpis velit vitae velit. Nulla iaculis egestas tellus, non efficitur lorem molestie at. Donec urna sem, pharetra ut nunc non, tempor ullamcorper dolor. Duis fringilla mi eu erat lobortis, ac sagittis ipsum eleifend. Fusce eget rhoncus lorem.
-Sed suscipit nisl vel orci scelerisque mattis. Proin ut tortor et purus bibendum pharetra vel elementum dolor. Morbi orci massa, egestas vel dictum quis, maximus id justo. Fusce eu sem consequat, mollis nulla in, mollis nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at facilisis augue.
+For the 53,168 residents of Scotland who died in financial year 2018/19, 89.2% of their last six months of life was spent either at home or in the community (Table 1) and 10.8% of their last six months of life was spent in hospital. This is equivalent to each individual spending an average of 20 days in hospital in the six months prior to their death (Table 1 in the [data tables](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/2019-05-28/QOM_tables_201905.xls)).
 
-##### Table title
+Over the nine years, 2010/11 to 2018/19 the percentage of time spent at home or in a community setting has increased from 85.3% to 89.2%, this equates to, on average an extra seven days within the last six months of life being spent at home or in a community setting in 2018/19 compared to 2010/11 (see Figure 1 below or [Appendix A1](#AppendixA1)).
+
+##### Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; 2010/11 - 2018/19
 ```{r kable_TableData, echo = FALSE}
 knitr::kable(TableData, col.names = c("**NHS Board**", "**Q2 Cases**", "**Q2 Bed Days**", 
                                       "**Q2 Rate**", "**Q3 Cases**", "**Q3 Bed Days**", "**Q3 Rate**"),
              align = c('l','r','r','r','r','r','r'))
 ```
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
+
+### Health Board of Residence
+Figure 2 shows the variation in the percentage of time spent at home or in the community in the last six months of life across Scotland by NHS Board. 
+
+The NHS Board where residents spent the highest percentage of time in their last six months of life at home or in the community was NHS Shetland where 94.2% of an individual’s last six months of life was spent at home or in a community setting and 5.8% in hospital. On average, this equates to approximately 11 days spent in a hospital setting within the last six months of life. 
+
+The NHS Board with the lowest percentage of time on average spent at home or in a community setting in their last six months of life was NHS Borders where 86.4% of an individual’s last six months of life was spent at home or in a community setting and 13.6% in hospital. This equates to approximately twenty five days spent in a hospital setting within the last six months of life. The variation in percentages across Scotland could be affected by the age profile and rurality of the different health boards.
+
+Note that hospital data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution particularly NHS Greater Glasgow & Clyde and NHS Forth Valley. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#Appendix2) for more information.
+
+##### Map will go here
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+2.	The Health Board of Residence is the usual place of residence prior to death.
+3.	Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+
+Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past nine years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
+
+##### HB Res Table here
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
+2.	The Health Board of Residence is the usual place of residence prior to death.
+3.	Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+4.	Calculation based on a possible 182.5 days in the last six months of life.
 
 <Div custom-style = "Heading 4_pgbrk">Figure 1: Uptake rate^1^ by NHS Board by three-year rolling period 2013-16^1,2,3,4^</div>
 ![Uptake rate by NHS Board by three-year rolling period 2013-16.](charts/Figure1_ggplot.png) \
