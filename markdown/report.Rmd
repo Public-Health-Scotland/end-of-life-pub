@@ -202,8 +202,6 @@ MetaData <- data.frame(Indicator, Description)
 
 ###### This is a National Statistics Publication
 
-![National Statistics Quality Mark](kitemark_tcm97-17949.jpg) \
-
 <br>
 
 National Statistics status means that the official statistics meet the highest standards of trustworthiness, quality and public value. They are identified by the quality mark shown above.
@@ -310,7 +308,7 @@ The next release of this publication will be DD Month YYYY.
 <br>
 
 ## Rate this publication
-Please [provide feedback](http://www.isdscotland.org/Health-Topics/HEALTHTOPIC/Publications/rate-this-publication.asp?ID=XXXX) on this publication to help us improve our services.
+Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/rate-this-publication.asp?ID=2417) on this publication to help us improve our services.
 
 <Div custom-style = "Heading 2_pgbrk">Appendices</div>
 ### Appendix 1 - Background information
@@ -338,18 +336,6 @@ Under terms of the "Pre-Release Access to Official Statistics (Scotland) Order 2
 Scottish Government Health Department  
 NHS Board Chief Executives  
 NHS Board Communication leads  
-
-<br>
-
-**Early Access for Management Information**  
-These statistics will also have been made available to those who needed access to 'management information', ie as part of the delivery of health and care:
-
-<br>
-
-**Early Access for Quality Assurance**  
-These statistics will also have been made available to those who needed access to help quality assure the publication:
-
-<Div custom-style = "Heading 3_pgbrk">Appendix 4 - ISD and Official Statistics</div>
 
 <br>
 
