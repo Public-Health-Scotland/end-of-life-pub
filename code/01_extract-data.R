@@ -35,7 +35,7 @@ deaths <-
   tbl(SMRA_connect,
       dbplyr::in_schema("ANALYSIS", "GRO_DEATHS_C")) %>%
   
-  filter(DATE_OF_DEATH >= To_date(deaths_start_date, "YYYY-MM-DD") &
+  filter(DATE_OF_DEATH >= To_date(start_date, "YYYY-MM-DD") &
          DATE_OF_DEATH <= To_date(end_date, "YYYY-MM-DD")) %>%
   
   filter(!(UNDERLYING_CAUSE_OF_DEATH %in% external)) %>%
@@ -50,7 +50,7 @@ smr01 <-
   tbl(SMRA_connect, 
       dbplyr::in_schema("ANALYSIS", "SMR01_PI")) %>%
   
-  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+  filter(ADMISSION_DATE >= To_date(smr_start_date, "YYYY-MM-DD") &
          DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
   
   filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
@@ -71,7 +71,7 @@ smr50 <-
   tbl(SMRA_connect, 
       dbplyr::in_schema("ANALYSIS", "SMR01_1E_PI")) %>%
   
-  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+  filter(ADMISSION_DATE >= To_date(smr_start_date, "YYYY-MM-DD") &
          DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
   
   filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
@@ -92,7 +92,7 @@ smr04 <-
   tbl(SMRA_connect, 
       dbplyr::in_schema("ANALYSIS", "SMR04_PI")) %>%
   
-  filter(ADMISSION_DATE >= To_date(start_date, "YYYY-MM-DD") &
+  filter(ADMISSION_DATE >= To_date(smr_start_date, "YYYY-MM-DD") &
          (DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD") |
             is.na(DISCHARGE_DATE))) %>%
   

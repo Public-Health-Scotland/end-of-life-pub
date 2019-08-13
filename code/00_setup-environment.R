@@ -48,14 +48,14 @@ filepath <- dplyr::if_else(platform == "server",
 
 # Define the dates that the data are extracted from and to
 
-# Start date for SMRA extract
-start_date <- lubridate::ymd(20091001)
+# Start date
+start_date <- lubridate::ymd(20100401)
 
-# End date for SMRA extract
+# End date
 end_date   <- lubridate::ymd(20190331)
 
-# Start date for deaths extract
-deaths_start_date <- lubridate::ymd(20100401)
+# Start date for SMR extract (6 months before start date)
+smr_start_date <- lubridate::ymd(20091001)
 
 
 ### 4 - Define list of external causes of death codes ----
