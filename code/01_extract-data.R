@@ -46,10 +46,7 @@ deaths_query <-
        "when sex = '2' then 'Female' ",
        "else 'null' ",
        "end sex, ",
-       
-       "to_char(date_of_death, 'Q') as quarter, ",
-       "extract(year from date_of_death) as year ",
-       
+
        "from analysis.gro_deaths_c ",
        
        "where {{fn left(underlying_cause_of_death, 3)}} not in ",
