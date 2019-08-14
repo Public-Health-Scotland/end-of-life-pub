@@ -34,6 +34,7 @@ deaths_query <-
   
   glue("select link_no, date_of_death, postcode, ",
        
+       # Age groups
        "case when age between 0 and 54 then '0-54' ",
        "when age between 55 and 64 then '55-64' ",
        "when age between 65 and 74 then '65-74' ",
@@ -42,16 +43,21 @@ deaths_query <-
        "else 'null' ",
        "end age_grp, ",
 
+       # Sex
        "case when sex = '1' then 'Male' ",
        "when sex = '2' then 'Female' ",
        "else 'null' ",
        "end sex, ",
        
+       # Financial year of death
        "case when to_char(date_of_death, 'mm') in ('01', '02', '03') ",
-       "then concat(to_char(add_months(date_of_death, -12), 'yyyy'), concat('/', to_char(date_of_death, 'yy'))) ",
-       "else concat(to_char(date_of_death, 'yyyy'), concat('/', to_char(add_months(date_of_death, 12), 'yy'))) ",
+       "then concat(to_char(add_months(date_of_death, -12), 'yyyy'), ",
+       "concat('/', to_char(date_of_death, 'yy'))) ",
+       "else concat(to_char(date_of_death, 'yyyy'), ",
+       "concat('/', to_char(add_months(date_of_death, 12), 'yy'))) ",
        "end fy, ",
        
+       # Quarter of death
        "case when to_char(date_of_death, 'mm') in ('01', '02', '03') then '4' ",
        "when to_char(date_of_death, 'mm') in ('04', '05', '06') then '1' ",
        "when to_char(date_of_death, 'mm') in ('07', '08', '09') then '2' ",
@@ -60,9 +66,11 @@ deaths_query <-
        
        "from analysis.gro_deaths_c ",
        
+       # Exclude external causes of death
        "where {{fn left(underlying_cause_of_death, 3)}} not in ",
        "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
        
+       # Select deaths in reporting period
        "and (date_of_death between ",
        "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
        "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
@@ -82,17 +90,22 @@ smr01_query <-
     
     "from analysis.smr01_pi s, analysis.gro_deaths_c d ",
     
+    # Only extract SMR records with matching death record
     "where s.link_no = d.link_no ",
     
+    # Inpatients only
     "and s.inpatient_daycase_identifier = 'I' ",
     
+    # Select records in reporting period (and six months before)
     "and s.discharge_date between ",
     "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
     
+    # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
     "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
     
+    # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
@@ -113,17 +126,22 @@ smr50_query <-
     
     "from analysis.smr01_1e_pi s, analysis.gro_deaths_c d ",
     
+    # Only extract SMR records with matching death record
     "where s.link_no = d.link_no ",
     
+    # Inpatients only
     "and s.inpatient_daycase_identifier = 'I' ",
     
+    # Select records in reporting period (and six months before)
     "and s.discharge_date between ",
     "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
     
+    # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
     "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
     
+    # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
@@ -144,18 +162,24 @@ smr04_query <-
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
     
+    # Only extract SMR records with matching death record
     "where s.link_no = d.link_no ",
     
+    # Inpatients only
     "and s.management_of_patient in ('1', '3', '5', '7', 'A') ",
     
+    # Select records in reporting period (and six months before and 
+    # missing discharge date)
     "and (s.discharge_date between ",
     "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "or discharge_date is null) ",
     
+    # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
     "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
     
+    # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
