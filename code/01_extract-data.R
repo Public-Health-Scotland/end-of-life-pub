@@ -74,6 +74,7 @@ deaths_query <-
        "and (date_of_death between ",
        "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
        "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+      
   )
 
 deaths <- as_tibble(dbGetQuery(smra_connect, deaths_query)) %>% 
@@ -108,7 +109,11 @@ smr01_query <-
     # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Sort
+    "order by s.link_no, s.admission_date, s.discharge_date, ",
+    "s.admission, s.discharge, s.uri"
     
   )
 
@@ -144,7 +149,11 @@ smr50_query <-
     # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Sort
+    "order by s.link_no, s.admission_date, s.discharge_date, ",
+    "s.admission, s.discharge, s.uri"
     
   )
 
@@ -182,7 +191,11 @@ smr04_query <-
     # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Sort
+    "order by s.link_no, s.admission_date, s.discharge_date, ",
+    "s.admission, s.discharge, s.uri"
     
   )
 
