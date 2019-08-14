@@ -158,12 +158,4 @@ smr04 <- as_tibble(dbGetQuery(smra_connect, smr04_query)) %>%
   clean_names()
 
 
-### 5 - Extract data
-  
-smr01  %<>% collect() %>% clean_names()
-smr50  %<>% collect() %>% clean_names()
-smr04  %<>% collect() %>% clean_names()
-deaths %<>% collect() %>% clean_names()
-
-
 ### END OF SCRIPT ###
