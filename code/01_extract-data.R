@@ -47,6 +47,12 @@ deaths_query <-
        "else 'null' ",
        "end sex, ",
 
+       "case when to_char(date_of_death, 'mm') in ('01', '02', '03') then '4' ",
+       "when to_char(date_of_death, 'mm') in ('04', '05', '06') then '1' ",
+       "when to_char(date_of_death, 'mm') in ('07', '08', '09') then '2' ",
+       "when to_char(date_of_death, 'mm') in ('10', '11', '12') then '3' ",
+       "end quarter ",
+       
        "from analysis.gro_deaths_c ",
        
        "where {{fn left(underlying_cause_of_death, 3)}} not in ",
