@@ -28,19 +28,40 @@ smra_connect <-
                pwd = .rs.askForPassword("SMRA Password:")))
 
 
-### 3 - Deaths query
+### 3 - Deaths extract
 
-deaths <- 
+deaths_query <- 
   
-  tbl(SMRA_connect,
-      dbplyr::in_schema("ANALYSIS", "GRO_DEATHS_C")) %>%
-  
-  filter(DATE_OF_DEATH >= To_date(start_date, "YYYY-MM-DD") &
-         DATE_OF_DEATH <= To_date(end_date, "YYYY-MM-DD")) %>%
-  
-  filter(!(UNDERLYING_CAUSE_OF_DEATH %in% external)) %>%
-  
-  select(LINK_NO, DATE_OF_DEATH, AGE, SEX, POSTCODE)
+  glue("select link_no, date_of_death, postcode, ",
+       
+       "case when age between 0 and 54 then '0-54' ",
+       "when age between 55 and 64 then '55-64' ",
+       "when age between 65 and 74 then '65-74' ",
+       "when age between 75 and 84 then '75-84' ",
+       "when age >= 85 then '85+' ",
+       "else 'null' ",
+       "end age_grp, ",
+       
+       "case when sex = '1' then 'Male' ",
+       "when sex = '2' then 'Female' ",
+       "else 'null' ",
+       "end sex, ",
+       
+       "to_char(date_of_death, 'Q') as quarter, ",
+       "extract(year from date_of_death) as year ",
+       
+       "from analysis.gro_deaths_c ",
+       
+       "where {{fn left(underlying_cause_of_death, 3)}} not in ",
+       "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+       
+       "and (date_of_death between ",
+       "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
+       "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+  )
+
+deaths <- as_tibble(dbGetQuery(smra_connect, deaths_query)) %>% 
+  clean_names()
 
 
 ### 4 - SMR01 query
