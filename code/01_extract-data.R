@@ -64,7 +64,7 @@ deaths <- as_tibble(dbGetQuery(smra_connect, deaths_query)) %>%
   clean_names()
 
 
-### 4 - SMR01 query
+### 4 - SMR01 extract
 
 smr01_query <- 
   
@@ -95,25 +95,35 @@ smr01 <- as_tibble(dbGetQuery(smra_connect, smr01_query)) %>%
   clean_names()
 
 
-### 5 - SMR50 query
+### 5 - SMR50 extract
 
-smr50 <-
+smr50_query <- 
   
-  tbl(SMRA_connect, 
-      dbplyr::in_schema("ANALYSIS", "SMR01_1E_PI")) %>%
-  
-  filter(ADMISSION_DATE >= To_date(smr_start_date, "YYYY-MM-DD") &
-         DISCHARGE_DATE <= To_date(end_date,   "YYYY-MM-DD")) %>%
-  
-  filter(INPATIENT_DAYCASE_IDENTIFIER == "I") %>%
-  
-  arrange(LINK_NO, GLS_CIS_MARKER, ADMISSION_DATE, 
-          DISCHARGE_DATE, ADMISSION, DISCHARGE, URI) %>% 
-  
-  inner_join(deaths, by = "LINK_NO") %>%
-  
-  select(LINK_NO, GLS_CIS_MARKER, ADMISSION_DATE, 
-         DISCHARGE_DATE, DATE_OF_DEATH)
+  glue(
+    "select s.link_no, s.gls_cis_marker, ",
+    "s.admission_date, s.discharge_date, d.date_of_death ",
+    
+    "from analysis.smr01_1e_pi s, analysis.gro_deaths_c d ",
+    
+    "where s.link_no = d.link_no ",
+    
+    "and s.inpatient_daycase_identifier = 'I' ",
+    
+    "and s.discharge_date between ",
+    "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    
+    "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
+    "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+    
+    "and (d.date_of_death between ",
+    "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
+    
+  )
+
+smr50 <- as_tibble(dbGetQuery(smra_connect, smr50_query)) %>% 
+  clean_names()
 
 
 ### 6 - SMR04 query
