@@ -20,7 +20,7 @@ source(here::here("code", "00_setup-environment.R"))
 
 ### 2 - Open SMRA Connection
 
-SMRA_connect <- 
+smra_connect <- 
   suppressWarnings(
      dbConnect(odbc(), 
                dsn = "SMRA",
