@@ -41,12 +41,17 @@ deaths_query <-
        "when age >= 85 then '85+' ",
        "else 'null' ",
        "end age_grp, ",
-       
+
        "case when sex = '1' then 'Male' ",
        "when sex = '2' then 'Female' ",
        "else 'null' ",
        "end sex, ",
-
+       
+       "case when to_char(date_of_death, 'mm') in ('01', '02', '03') ",
+       "then concat(to_char(add_months(date_of_death, -12), 'yyyy'), concat('/', to_char(date_of_death, 'yy'))) ",
+       "else concat(to_char(date_of_death, 'yyyy'), concat('/', to_char(add_months(date_of_death, 12), 'yy'))) ",
+       "end fy, ",
+       
        "case when to_char(date_of_death, 'mm') in ('01', '02', '03') then '4' ",
        "when to_char(date_of_death, 'mm') in ('04', '05', '06') then '1' ",
        "when to_char(date_of_death, 'mm') in ('07', '08', '09') then '2' ",
