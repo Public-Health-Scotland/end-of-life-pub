@@ -50,7 +50,7 @@ deaths_query <-
        "end sex, ",
        
        # Financial year of death
-       "case when to_char(date_of_death, 'mm') in ('01', '02', '03') ",
+       "case when extract(month from date_of_death) between 1 and 3 ",
        "then concat(to_char(add_months(date_of_death, -12), 'yyyy'), ",
        "concat('/', to_char(date_of_death, 'yy'))) ",
        "else concat(to_char(date_of_death, 'yyyy'), ",
@@ -58,10 +58,10 @@ deaths_query <-
        "end fy, ",
        
        # Quarter of death
-       "case when to_char(date_of_death, 'mm') in ('01', '02', '03') then '4' ",
-       "when to_char(date_of_death, 'mm') in ('04', '05', '06') then '1' ",
-       "when to_char(date_of_death, 'mm') in ('07', '08', '09') then '2' ",
-       "when to_char(date_of_death, 'mm') in ('10', '11', '12') then '3' ",
+       "case when extract(month from date_of_death) between 4 and 6 then '1' ",
+       "when extract(month from date_of_death) between 7 and 9 then '2' ",
+       "when extract(month from date_of_death) between 10 and 12 then '3' ",
+       "when extract(month from date_of_death) between 1 and 3 then '4' ",
        "end quarter ",
        
        "from analysis.gro_deaths_c ",
