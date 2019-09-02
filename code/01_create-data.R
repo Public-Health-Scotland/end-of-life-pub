@@ -45,7 +45,7 @@ smr01 <-
   as_tibble(dbGetQuery(smra_connect, 
                        smr01_query(extract_start = start_date,
                                    extract_end = end_date,
-                                   extract_smart_smr = smr_start_date,
+                                   extract_start_smr = smr_start_date,
                                    external_causes = external,
                                    gls = FALSE))) %>% 
   
