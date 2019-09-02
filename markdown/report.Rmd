@@ -200,8 +200,7 @@ Description <- c("Percentage of end of life spent at home or in a community sett
 "",
 "Policy concepts; http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework, Methodology; Appendix 2 – Background Information, Appendix 3 - Methodology",
 "Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
-"SMR01 and SMR04 standard validation processes; 
-Wide stakeholder consultation on technical methodology",
+"SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology",
 "SMR01 hospital completeness for the financial year 2018/19 is estimated to be 87% complete and this could have an impact on the time spent in hospital in the last six months of life. NHS Forth Valley and NHS Greater Glasgow & Clyde are particularly impacted (completeness for full financial year 2018/19 is estimated as 73% and 76% respectively). See Appendix 2 for more information and completeness figures for each quarter. Further updates  will be made available at the following link: http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/",
 "Due to a change in methodology (which is described in Appendix 3) results presented in this publication will not be comparable to figures published prior to August 2016, Trend information from 2010/11 to 2018/19 is available in this publication.",
 "It is the policy of ISD Scotland to make its web sites and products accessible according to published guidelines.",
@@ -285,7 +284,7 @@ The NHS Board with the lowest percentage of time on average spent at home or in 
 
 Note that hospital data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution particularly NHS Greater Glasgow & Clyde and NHS Forth Valley. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#Appendix2) for more information.
 
-##### Map will go here
+##### Map HERE
 
 1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
 2.	The Health Board of Residence is the usual place of residence prior to death.
@@ -293,33 +292,59 @@ Note that hospital data are provisional for 2018/19. This publication will be up
 
 Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past nine years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
 
-##### HB Res Table here
+##### Health Board of Residence Table HERE
 
 1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
 2.	The Health Board of Residence is the usual place of residence prior to death.
 3.	Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 4.	Calculation based on a possible 182.5 days in the last six months of life.
 
-<Div custom-style = "Heading 4_pgbrk">Figure 1: Uptake rate^1^ by NHS Board by three-year rolling period 2013-16^1,2,3,4^</div>
-![Uptake rate by NHS Board by three-year rolling period 2013-16.](charts/Figure1_ggplot.png) \
+### Health and Social Care Partnership
+Table 2 shows the percentage of the last six months of life spent at home or in a community setting for each Health and Social Care Partnership. 
 
-<Div custom-style = "Normal_Notes">
-1. Note one.
-2. Note two.
-3. Note three.
-4. Note four. 
-</div>  
+Note that hospital data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution particularly NHS Greater Glasgow & Clyde and NHS Forth Valley. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#Appendix2) for more information.
 
-### Sub-heading
-Fusce hendrerit nibh sit amet tellus tincidunt vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam non libero eu orci viverra rhoncus eu sed massa.
-Mauris ac neque vel erat varius cursus. Praesent at molestie felis. Nunc eget ipsum non lectus facilisis dictum quis viverra magna. Pellentesque elementum condimentum accumsan. Nunc vel pharetra augue. Pellentesque vitae lectus cursus magna blandit aliquet. In aliquet sapien sit amet viverra aliquam.
-Pellentesque aliquam imperdiet neque et interdum. Nulla sodales tellus magna, id venenatis justo pulvinar ut. Etiam luctus facilisis auctor. Curabitur interdum feugiat convallis. Nullam mi libero, hendrerit vitae condimentum in, iaculis porta purus. Suspendisse potenti. Donec sed molestie nisi, ut blandit ex. Proin tempor, mauris sit amet consectetur placerat, elit lorem placerat dui, sed placerat mi ante a purus.
+Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from 86.4% (Scottish Borders) to 94.2% (Shetland Islands). This could be due to differences in the age profile and rurality of each of the local areas.
+
+##### HSCP Table HERE
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+2.	The Health and Social Care Partnership is the usual place of residence prior to death.
+3.	Calculation based on a possible 182.5 days in the last six months of life.
+
+The trend in the percentage of the last six months of life spent at home or in a community setting over the past nine years for Health and Social Care Partnerships is presented in graphical format in Figure A1.2 (see [List of Tables](#Tables) or [Appendix A1](#Appendix A1)) and the corresponding data can be found in Table 2 in the [data tables](LINK). 
+
+### Age and Gender
+Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 in the [data tables](LINK)). In 2018/19, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (89.3%) and males (89.1%). For individuals aged 85 years and over, females (90.0%) spent a higher percentage of their last six months of life at home or in the community compared to males (87.8%); this equates to females spending, on average, an extra four days in the community. In the youngest age group (0-54 years), males (94.1%) spent a higher percentage of their last six months of life at home or in the community compared to females (91.5%); this equates to, on average, an extra five days at home or in the community.
+
+<!-- Check if should use four or five # here -->
+#### Age and Gender Chart HERE
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+
+### Deprivation
+The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 in the [data tables](LINK)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
+
+#### Deprivation chart HERE
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+2.	Deprivation 2016 quintiles have been used.
+
+Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from 88.5% (deprivation category 2) to 89.6% (deprivation category 1). 
+The trend over time by deprivation category is presented in Figure A1.3 (see [List of Tables](LINK) or [Appendix A1](#AppendixA1)). All deprivation categories show a similar trend over time, with a slight increase in the percentage of last six months spent at home or in the community for individuals in the last two or three years. For each year in the trend (2010/11 to 2018/19) there is little variation across the different deprivation categories.
+
+### Urban Rural Classification
+The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
+
+#### UR Chart HERE
+
+1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+
+The percentage of the last six months of life spent at home or in the community ranged from 89.0% for residents in large urban areas to 90.3% for residents from remote rural areas (Figure 5; Table 5 in [data tables](LINK)). Individuals living in remote rural areas spent, on average, approximately two extra days at home or in a community setting in the last six months of life compared to those living in large urban areas.
+
+Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](LINK) or [Appendix A1](LINK)).
 
 
-#### Figure 2: Trend in invasive cancer detection rate for Scotland
-![Trend in invasive cancer detection rates for Scotland, three-year rolling periods (2007/10 to 2013/16). There is a bar for each three-year rolling period.](charts/Figure2_ggplot.png) \
-
-Fusce hendrerit nibh sit amet tellus tincidunt vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam non libero eu orci viverra rhoncus eu sed massa. Donec viverra scelerisque orci, sit amet dignissim eros ullamcorper rhoncus. Donec et metus sodales, aliquet ligula nec, bibendum leo. 
 
 ####### Glossary
 ```{r kable_glossary, echo = FALSE}
@@ -333,21 +358,29 @@ knitr::kable(ListofTables, col.names = c("**File name**", "**File and size**"), 
 ```
 
 <Div custom-style = "Heading 2_pgbrk">Contact</div>
-**Name, title**  
-Service  
-Phone:  
-Email:  
-**Name, title**  
-Service  
-Phone:  
-Email:  
+**Federico Centoni, Information Analyst**  
+Health and Social Care  
+0131 314 1532  
+federico.centoni@nhs.net  
+
+**Alice Byers, Senior Information Analyst**  
+Health and Social Care  
+0131 314 1725  
+alice.byers@nhs.net
+
+**Aghimien Iyayi-Igbinovia, Principal Information Analyst**  
+Health and Social Care  
+0141 207 1616  
+aghimien.iyayi-igbinovia@nhs.net  
 
 <br>
 
 ## Further Information
 Further Information can be found on the [ISD website](http://www.isdscotland.org/).  
-For more information on XXX see the [XXX section of our website](http://www.isdscotland.org/). For related topics, please see the [XXX](http://www.isdscotland.org/) pages.  
-The next release of this publication will be DD Month YYYY.  
+
+For more information on Palliative and End of Life Care see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+
+The next release of this publication will be October 2019.  
 
 <br>
 
@@ -355,19 +388,70 @@ The next release of this publication will be DD Month YYYY.
 Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/rate-this-publication.asp?ID=2417) on this publication to help us improve our services.
 
 <Div custom-style = "Heading 2_pgbrk">Appendices</div>
-### Appendix 1 - Background information
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. 
-Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. 
-Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna.
+
+### Appendix 1 - Trend Data
+
+** How useful is this section? REVIEW.
+
+<Div custom-style = "Heading 3_pgbrk">Appendix 2 - Background Information</div>
+
+End of life care (palliative care) is an important, integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition. 
+
+The [NHS Healthcare Quality Strategy](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy) (May 2010) was launched with the aim of delivering high quality healthcare services to people in Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
+
+The December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) was published to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
+
+More recently, the December 2016 the ["Health and Social Care Delivery Plan"](http://www.gov.scot/Resource/0051/00511950.pdf) reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities. 
+
+This publication provides information in support of the Quality Measurement Framework to develop Quality Outcome Measure 10: ‘The percentage of last six months of life spent at home or in a community setting’.
+
+The proportion of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.   
+
+It is envisaged that an increase in this measure will reflect both quality and value through more effective, person centred and efficient end of life care with people being better able to be cared for at home or closer to home with a planned approach to end of life care resulting in less time in a hospital setting. 
+
+Over time, an increase in the proportion of time spent at home / in a community setting at the end of life may indicate an improvement in the quality and efficiency of palliative care. This increase would be expected in the medium to long term as a result of an increase in the use of anticipatory care plans and electronic palliative care summaries. 
+
+This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01/SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. 
+<Div custom-style = "Heading 3_pgbrk">Appendix * - Data Quality and Completeness</div>
+
+Hospital data and National Records of Scotland deaths data are provisional for 2018/19. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
+
+Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. Note that there are particular issues with completeness for NHS Forth Valley and NHS Greater Glasgow & Clyde data for the last quarter (Quarter 4) of 2018/19 and so data for these areas in particular should be treated with caution.
+
+#### SMR01 Completeness Table HERE
+
+This publication will be updated in October 2019 with final figures.
+
+<Div custom-style = "Heading 3_pgbrk">Appendix 3 - Methodology</div>
+
+This publication includes data from financial years 2010/11 to 2018/19 at Scotland, Health Board and Health and Social Care Partnership level. 
+
+In the August 2016 release the methodology for how to measure the: ‘percentage of the last six months of life spent at home or in a community setting’ was revised compared to previous publications. Therefore results presented in this publication will not be comparable to figures published prior to August 2016. However, trend data from 2010/11 to 2018/19 is available using the revised methodology in this publication.
+
+**Calculation of Measure**
+Scottish residents who died between 2010/11 and 2018/19 are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
+
+The deaths data are linked to hospital discharge data (SMR01 and SMR04) and the actual number of bed days spent in hospital in Scotland in the six months prior to the death of each individual is calculated and added together for all individuals. This includes bed days from all acute and community hospitals, psychiatric hospitals or geriatric long stay facilities.
+The percentage of time spent in hospital in the last six months of life is therefore arrived at by dividing the actual number of bed days by the possible number of bed days. The percentage of time spent at home or in a community setting is then obtained by subtracting the percentage of time spent in hospital from 100%. 
+
+For each financial year from 2010/11 to 2018/19 this report presents the percentage of the last six months of life that was spent at home or in a community setting for patients who died within each financial year. A summary of how the measure is calculated is shown below.
+
+Calculation of Measure
+Actual bed days 	=	Total bed days in hospital in the 6 months prior to death for those people who died within specific year
+Possible bed days 	=	Total number of deaths in specified period x 182.5
+% of time in a hospital in last 6 months of life 	=	(Actual bed days/ possible bed days) x 100  
+% of time at home or in a community setting in last 6 months of life  	=	 100 – % time in hospital in last 6 months before death
+
+** Comparison to Previous Measure - don't think we need to include this **
 
 
-<Div custom-style = "Heading 3_pgbrk">Appendix 2 - Publication Metadata</div>
+<Div custom-style = "Heading 3_pgbrk">Appendix 4 - Publication Metadata</div>
 <br>
 ```{r kable_MetaData, echo = FALSE}
 knitr::kable(MetaData, col.names = c("**Metadata Indicator**", "**Description**"), align = c('l','l'))
 ```
 
-<Div custom-style = "Heading 3_pgbrk">Appendix 3 - Early access details</div>
+<Div custom-style = "Heading 3_pgbrk">Appendix 5 - Early access details</div>
 
 <br>
 
@@ -381,7 +465,8 @@ Scottish Government Health Department
 NHS Board Chief Executives  
 NHS Board Communication leads  
 
-<br>
+
+<Div custom-style = "Heading 3_pgbrk">Appendix 6 - ISD and Official Statistics</div>
 
 **About ISD**  
 Scotland has some of the best health service data in the world combining high quality, consistency, national coverage and the ability to link data to allow patient based analysis and follow up.
