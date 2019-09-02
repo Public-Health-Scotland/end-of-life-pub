@@ -34,26 +34,26 @@ smra_connect <-
 
 deaths <- 
   as_tibble(dbGetQuery(smra_connect, 
-                       deaths_query(start_date,
-                                    end_date,
-                                    external))) %>% 
+                       deaths_query(extract_start = start_date,
+                                    extract_end = end_date,
+                                    external_causes = external))) %>% 
   clean_names()
 
 
 smr01 <- 
   
   as_tibble(dbGetQuery(smra_connect, 
-                       smr01_query(start_date,
-                                   end_date,
-                                   smr_start_date,
-                                   external,
+                       smr01_query(extract_start = start_date,
+                                   extract_end = end_date,
+                                   extract_smart_smr = smr_start_date,
+                                   external_causes = external,
                                    gls = FALSE))) %>% 
   
   bind_rows(as_tibble(dbGetQuery(smra_connect, 
-                                 smr01_query(start_date,
-                                             end_date,
-                                             smr_start_date,
-                                             external,
+                                 smr01_query(extract_start = start_date,
+                                             extract_end = end_date,
+                                             extract_start_smr = smr_start_date,
+                                             external_causes = external,
                                              gls = TRUE)))) %>%
   
   clean_names()
@@ -61,10 +61,10 @@ smr01 <-
 
 smr04 <- 
   as_tibble(dbGetQuery(smra_connect, 
-                       smr04_query(start_date,
-                                   end_date,
-                                   smr_start_date,
-                                   external))) %>% 
+                       smr04_query(extract_start = start_date,
+                                   extract_end = end_date,
+                                   extract_start_smr = smr_start_date,
+                                   external_causes = external))) %>% 
   clean_names()
 
 
