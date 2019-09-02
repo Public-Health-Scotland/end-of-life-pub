@@ -70,13 +70,16 @@ deaths_query <- function(extract_start, extract_end, external_causes){
 smr01_query <- function(extract_start, 
                         extract_end, 
                         extract_start_smr,
-                        external_causes){
+                        external_causes,
+                        gls){
+  
+  data <- if_else(gls == TRUE, "smr01_1e_pi", "smr01_pi")
   
   glue(
     "select s.link_no, s.gls_cis_marker, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
-    "from analysis.smr01_pi s, analysis.gro_deaths_c d ",
+    "from analysis.{data} s, analysis.gro_deaths_c d ",
     
     # Only extract SMR records with matching death record
     "where s.link_no = d.link_no ",
@@ -107,49 +110,7 @@ smr01_query <- function(extract_start,
 }
 
 
-### 3 - SMR50 query ----
-
-smr50_query <- function(extract_start, 
-                        extract_end, 
-                        extract_start_smr,
-                        external_causes){
-  
-  glue(
-    "select s.link_no, s.gls_cis_marker, ",
-    "s.admission_date, s.discharge_date, d.date_of_death ",
-    
-    "from analysis.smr01_1e_pi s, analysis.gro_deaths_c d ",
-    
-    # Only extract SMR records with matching death record
-    "where s.link_no = d.link_no ",
-    
-    # Inpatients only
-    "and s.inpatient_daycase_identifier = 'I' ",
-    
-    # Select records in reporting period (and six months before)
-    "and s.discharge_date between ",
-    "to_date({shQuote(extract_start_smr, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
-    
-    # Exclude external causes of death
-    "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
-    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
-    
-    # Select deaths in reporting period
-    "and (d.date_of_death between ",
-    "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
-    
-    # Sort
-    "order by s.link_no, s.admission_date, s.discharge_date, ",
-    "s.admission, s.discharge, s.uri"
-    
-  ) 
-  
-}
-
-
-### 4 - SMR04 query ----
+### 3 - SMR04 query ----
 
 smr04_query <- function(extract_start, 
                         extract_end, 
