@@ -73,7 +73,7 @@ smr01_query <- function(extract_start,
                         external_causes){
   
   glue(
-    "select s.link_no, s.gls_cis_marker, s.cis_marker, ",
+    "select s.link_no, s.gls_cis_marker, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
     "from analysis.smr01_pi s, analysis.gro_deaths_c d ",
