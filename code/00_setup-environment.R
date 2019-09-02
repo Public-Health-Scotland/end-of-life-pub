@@ -73,7 +73,7 @@ postcode <-
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/",
                 "Scottish Postcode Directory/",
-                "Scottish_Postcode_Directory_2019_1.5.rds")) %>%
+                "Scottish_Postcode_Directory_2019_2.rds")) %>%
   
   clean_names() %>%
   
