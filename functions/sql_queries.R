@@ -1,8 +1,8 @@
 #########################################################################
-# Name of file - 01_extract-data.R
+# Name of file - sql_queries.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
-# Orginal Date - August 2019
+# Orginal Date - September 2019
 #
 # Written/run on - RStudio Server
 # Version of R - 3.2.3
@@ -13,24 +13,9 @@
 #########################################################################
 
 
-### 1 - Load environment file and functions ----
+### 1 - Deaths query ----
 
-source(here::here("code", "00_setup-environment.R"))
-
-
-### 2 - Open SMRA Connection
-
-smra_connect <- 
-  suppressWarnings(
-     dbConnect(odbc(), 
-               dsn = "SMRA",
-               uid = .rs.askForPassword("SMRA Username:"),
-               pwd = .rs.askForPassword("SMRA Password:")))
-
-
-### 3 - Deaths extract
-
-deaths_query <- 
+deaths_query <- function(extract_start, extract_end, external_causes){
   
   glue("select link_no, date_of_death, postcode, ",
        
@@ -42,7 +27,7 @@ deaths_query <-
        "when age >= 85 then '85+' ",
        "else 'null' ",
        "end age_grp, ",
-
+       
        # Sex
        "case when sex = '1' then 'Male' ",
        "when sex = '2' then 'Female' ",
@@ -68,22 +53,24 @@ deaths_query <-
        
        # Exclude external causes of death
        "where {{fn left(underlying_cause_of_death, 3)}} not in ",
-       "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+       "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
        
        # Select deaths in reporting period
        "and (date_of_death between ",
-       "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-       "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd'))"
-      
+       "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
+       "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd'))"
+       
   )
+  
+}
+  
+  
+### 2 - SMR01 query ----
 
-deaths <- as_tibble(dbGetQuery(smra_connect, deaths_query)) %>% 
-  clean_names()
-
-
-### 4 - SMR01 extract
-
-smr01_query <- 
+smr01_query <- function(extract_start, 
+                        extract_end, 
+                        extract_start_smr,
+                        external_causes){
   
   glue(
     "select s.link_no, s.gls_cis_marker, s.cis_marker, ",
@@ -99,31 +86,33 @@ smr01_query <-
     
     # Select records in reporting period (and six months before)
     "and s.discharge_date between ",
-    "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    "to_date({shQuote(extract_start_smr, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
     
     # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
-    "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
-    "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
     "s.admission, s.discharge, s.uri"
     
   )
+  
+}
 
-smr01 <- as_tibble(dbGetQuery(smra_connect, smr01_query)) %>% 
-  clean_names()
 
+### 3 - SMR50 query ----
 
-### 5 - SMR50 extract
-
-smr50_query <- 
+smr50_query <- function(extract_start, 
+                        extract_end, 
+                        extract_start_smr,
+                        external_causes){
   
   glue(
     "select s.link_no, s.gls_cis_marker, ",
@@ -139,31 +128,33 @@ smr50_query <-
     
     # Select records in reporting period (and six months before)
     "and s.discharge_date between ",
-    "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    "to_date({shQuote(extract_start_smr, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
     
     # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
-    "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
-    "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
     "s.admission, s.discharge, s.uri"
     
-  )
+  ) 
+  
+}
 
-smr50 <- as_tibble(dbGetQuery(smra_connect, smr50_query)) %>% 
-  clean_names()
 
+### 4 - SMR04 query ----
 
-### 6 - SMR04 extract
-
-smr04_query <- 
+smr04_query <- function(extract_start, 
+                        extract_end, 
+                        extract_start_smr,
+                        external_causes){
   
   glue(
     "select s.link_no, s.cis_marker, ",
@@ -180,27 +171,26 @@ smr04_query <-
     # Select records in reporting period (and six months before and 
     # missing discharge date)
     "and (s.discharge_date between ",
-    "to_date({shQuote(smr_start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd') ",
+    "to_date({shQuote(extract_start_smr, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
     "or discharge_date is null) ",
     
     # Exclude external causes of death
     "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
-    "({paste0(shQuote(external, type = 'sh'), collapse = ',')}) ",
+    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
-    "to_date({shQuote(start_date, type = 'sh')}, 'yyyy-mm-dd') ",
-    "and to_date({shQuote(end_date, type = 'sh')}, 'yyyy-mm-dd')) ",
+    "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
+    "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
     "s.admission, s.discharge, s.uri"
     
   )
-
-smr04 <- as_tibble(dbGetQuery(smra_connect, smr04_query)) %>% 
-  clean_names()
-
+  
+}
+  
 
 ### END OF SCRIPT ###
