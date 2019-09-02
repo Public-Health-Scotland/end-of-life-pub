@@ -7,7 +7,7 @@
 # Written/run on - RStudio Server
 # Version of R - 3.2.3
 #
-# Description - Extract data from SMRA.
+# Description - Functions for extracting data.
 #
 # Approximate run time - xx minutes
 #########################################################################
