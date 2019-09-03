@@ -90,9 +90,43 @@ smr04 %<>%
             date_of_death  = max(date_of_death)) %>%
   ungroup() %>%
   select(-cis_marker)
-  
+
+# Join SMR01, SMR50 and SMR04 data
 smr <-
   bind_rows(smr01, smr04)
+
+
+### 5 - Calculate measure ----
+
+smr %<>%
+  
+  # Calculate date six months before death
+  mutate(six_months = date_of_death - days(183)) %>%
+  
+  # For stays spanning this date, fix admission date to six months before death
+  mutate(admission_date = if_else(admission_date < six_months & discharge_date >= six_months,
+                                  six_months,
+                                  admission_date)) %>%
+  
+  # Select only stays within last six months of life
+  filter(admission_date >= six_months) %>%
+  
+  # Remove records where admission date is after date of death
+  filter(admission_date <= date_of_death) %>%
+  
+  # Where dis date is after date of death, fix to date of death
+  mutate(discharge_date = if_else(discharge_date > date_of_death,
+                                  date_of_death,
+                                  discharge_date)) %>%
+  
+  # Calculate length of stay
+  mutate(los = time_length(interval(admission_date,
+                                    discharge_date),
+                           "days")) %>%
+
+  # Aggregate to patient level
+  group_by(link_no) %>%
+  summarise(los = sum(los))
 
 
 ### END OF SCRIPT ###
