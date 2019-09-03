@@ -133,4 +133,13 @@ smr %<>%
   mutate(los = if_else(los > 182.5, 182.5, los))
 
 
+### 6 - Match on lookup files to deaths
+
+deaths %<>%
+  
+  left_join(postcode, by = c("postcode" = "pc7")) %>%
+  left_join(simd, by = c("postcode" = "pc7")) %>%
+  left_join(locality, by = "data_zone2011")
+
+
 ### END OF SCRIPT ###
