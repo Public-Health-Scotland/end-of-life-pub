@@ -150,4 +150,19 @@ deaths %<>%
          urban_rural = ur8_2016)
 
 
+### 7 - Create final file
+
+final <-
+  
+  left_join(deaths, smr, by = "link_no") %>%
+  
+  group_by(fy, quarter, hb, ca, hscp, ca2018, hscp2018, locality,
+           simd, simd_15, sex, age_grp, urban_rural) %>%
+  
+  summarise(los = sum(los, na.rm = TRUE),
+            deaths = n()) %>%
+  
+  mutate(los = replace_na(los, 0))
+  
+
 ### END OF SCRIPT ###
