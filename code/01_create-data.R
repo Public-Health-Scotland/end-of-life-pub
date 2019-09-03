@@ -126,7 +126,11 @@ smr %<>%
 
   # Aggregate to patient level
   group_by(link_no) %>%
-  summarise(los = sum(los))
+  summarise(los = sum(los)) %>%
+  
+  # Cap length of stay at 182.5
+  # TO DO - investigate how this happens
+  mutate(los = if_else(los > 182.5, 182.5, los))
 
 
 ### END OF SCRIPT ###
