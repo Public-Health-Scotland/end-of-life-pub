@@ -164,6 +164,9 @@ final <-
   
   summarise(los = sum(los, na.rm = TRUE),
             deaths = n())
+
+
+saveRDS(final, here("data", glue("{pub_date}_base-file.rds")))
   
 
 ### END OF SCRIPT ###
