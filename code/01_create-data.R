@@ -137,6 +137,9 @@ smr %<>%
 
 deaths %<>%
   
+  # Remove records with missing postcode
+  filter(!is.na(postcode)) %>%
+  
   left_join(postcode, by = c("postcode" = "pc7")) %>%
   left_join(simd, by = c("postcode" = "pc7")) %>%
   left_join(locality, by = "data_zone2011") %>%
