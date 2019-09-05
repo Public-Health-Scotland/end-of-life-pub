@@ -6,33 +6,7 @@ output:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 
-#Create a pseudo chart
-library(ggplot2)
-
-Year <- c(rep("2014", times = 8), rep("2015", times = 8))
-Month <- rep(c(4, 5, 6, 7, 8, 9, 10, 11), times = 2)
-Count <- c(800, 820, 840, 860, 880, 1000, 1100, 1200, 
-           800, 840, 860, 880, 1000, 1100, 1200, 1300)
-
-ChartData <- data.frame(Year, Month, Count)
-
-chart <- ggplot(data = ChartData, aes(x = Month, y = Count, group = Year, color = Year)) +
-  geom_line(size = 1) + 
-  geom_point(size = 3) +
-  theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 11),
-    panel.background = element_blank(),
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    axis.text.x = element_text(angle = 90),
-    axis.title.y = element_text(margin = margin(0,10,0,0)),
-    axis.line = element_line(colour="grey"),
-    axis.ticks = element_line(colour="grey")) +
-  xlab("Month") + ylab("Count") +
-  ggtitle("Percentage of last six months of life spent at home or in a community setting; 2010/11 - 2018/19(1)")
-
-ggsave("charts/chart1.png", plot = chart, width = 8, height = 4, device = "png", dpi = 300)
-
-#Create contact information
+# Create contact information
 contact1 <- c("**Federico Centoni**", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
 contact2 <- c("**Alice Byers**", "Senior Information Analyst", 
@@ -43,7 +17,8 @@ contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst",
 contact <- data.frame(contact1, contact2, contact3)
 ```
 
-# Percentage of End of Life Spent at Home or in a Community Setting (Provisional)
+# Percentage of End of Life Spent at Home or <br> 
+# in a Community Setting (Provisional)
 ## Financial years ending 31 March 2011 to 2019
 #### An Official Statistics publication for Scotland
 
@@ -63,11 +38,9 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 * Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
 
-<div custom-style = "style-centre">
-![Appropriate ALT Text to be added.](charts/chart1.png) \
+**Chart here**
+
 1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.
-</div>
-<br>
 
 * In 2018/19, females aged 85 and older spent a higher percentage of their last six months of life in the community (90.0%) compared to males (87.8%); this equates to females spending, on average an extra four days in the community in their last six months of life.
 
