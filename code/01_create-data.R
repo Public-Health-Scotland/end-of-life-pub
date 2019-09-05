@@ -160,9 +160,7 @@ final <-
            simd, simd_15, sex, age_grp, urban_rural) %>%
   
   summarise(los = sum(los, na.rm = TRUE),
-            deaths = n()) %>%
-  
-  mutate(los = replace_na(los, 0))
+            deaths = n())
   
 
 ### END OF SCRIPT ###
