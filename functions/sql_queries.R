@@ -68,12 +68,13 @@ deaths_query <- function(extract_start, extract_end, external_causes){
 ### 2 - SMR01 query ----
 
 smr01_query <- function(extract_start, 
-                        extract_end, 
-                        extract_start_smr,
+                        extract_end,
                         external_causes,
                         gls){
   
   data <- if_else(gls == TRUE, "smr01_1e_pi", "smr01_pi")
+  
+  extract_start_smr <- extract_start - lubridate::months(6)
   
   glue(
     "select s.link_no, s.gls_cis_marker, ",
@@ -113,9 +114,10 @@ smr01_query <- function(extract_start,
 ### 3 - SMR04 query ----
 
 smr04_query <- function(extract_start, 
-                        extract_end, 
-                        extract_start_smr,
+                        extract_end,
                         external_causes){
+  
+  extract_start_smr <- extract_start - lubridate::months(6)
   
   glue(
     "select s.link_no, s.cis_marker, ",
