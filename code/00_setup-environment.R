@@ -57,6 +57,9 @@ end_date   <- lubridate::ymd(20190331)
 # Start date for SMR extract (6 months before start date)
 smr_start_date <- lubridate::ymd(20091001)
 
+# Date of publication
+pub_date <- lubridate::ymd(20191008)
+
 
 ### 4 - Define list of external causes of death codes ----
 
