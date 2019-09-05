@@ -5,98 +5,6 @@ output:
 ---
 
 
-
-```{r TableData, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-NHSBoard <- c("AA", "BR", "DG", "FF", "FV", "GR", "GGC", "HG", "LN", "LO", "NWTC", "OR", "SH", "TY", "WI", "**Scotland**")
-
-Q2Cases <- as.character(c(22, 2, 9, 9, 10, 16, 52, 9, 22, 44, 0, 1, 0, 24, 1, 221))
-
-Q2BedDaysBase <- c(72081, 21517, 27799, 49932, 47432, 84310, 232889, 43682, 91535, 150550, 6566, 2401, 2590, 72783, 4870, 910937)
-
-Q2BedDays <- format(Q2BedDaysBase, big.mark = ",")
-
-Q2RateBase <- c(30.5, 9.3, 32.4, 18.0, 21.1, 19.0, 22.3, 20.6, 24.0, 29.2, 0.0, 41.6, 0.0, 33.0, 20.5, 24.3)
-
-Q2Rate <- format(Q2RateBase, nsmall = 1)
-
-Q3Cases <- as.character(c(19, 6, 4, 10, 10, 30, 79, 16, 24, 36, 0, 1, 0, 22, 0, 257))
-
-Q3BedDaysBase <- c(69082, 19603, 27097, 47691, 50473, 76321, 206241, 42439, 87927, 148176, 7091, 2194, 2257, 70267, 4632, 861491)
-
-Q3BedDays <- format(Q3BedDaysBase, big.mark = ",")
-
-Q3RateBase <- c(27.5, 30.6, 14.8, 21.0, 19.8, 39.3, 38.3, 37.7, 27.3, 24.3, 0.0, 45.6, 0.0, 31.3, 0.0, 29.8)
-
-Q3Rate <- format(Q3RateBase, nsmall = 1)
-
-TableData <- data.frame(NHSBoard, Q2Cases, Q2BedDays, Q2Rate, Q3Cases, Q3BedDays, Q3Rate, stringsAsFactors = FALSE)
-
-TableData[16, c(2:7)] <- c("**221**", "**910,937**", "**24.3**", "**257**", "**861,491**", "**29.8**")
-```
-
-```{r Figures, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-library(ggplot2)
-library(scales)
-
-#Create Figure 1
-HBR <- c("Ayrshire & Arran", "Borders", "Dumfries & Galloway", "Fife", "Forth Valley",
-         "Grampian", "Greater Glasgow & Clyde", "Highland", "Lanarkshire", "Lothian", 
-         "Orkney", "Shetland", "Tayside", "Western Isles", "Scotland")
-
-UptakeRate <- c(72, 76, 78, 69, 71, 79, 67, 77, 68, 69, 84, 84.5, 76, 80.5, 72)
-
-FigureOneData <- data.frame(HBR, UptakeRate)
-
-FigureOne <- ggplot(data = FigureOneData, aes(x = HBR, y = UptakeRate, fill = HBR)) +
-  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) + 
-  scale_y_continuous(breaks = c(50, 55, 60, 65, 70, 75, 80, 85, 90), 
-                     limits = c(50, 90), oob = rescale_none) +
-  geom_hline(yintercept = 70, size = 1, color = "#092869") +
-  geom_hline(yintercept = 80, size = 1, color = "#092869", linetype = "dashed") +
-  coord_flip() +
-  theme(panel.background = element_blank(),
-    panel.grid.major.x = element_line(size = .1, color = "#C0C0C0"), 
-    panel.grid.major.y = element_blank(),
-    axis.title.x = element_text(size = 12, face = "bold"),
-    axis.title.y = element_text(size = 12, face = "bold"),
-    axis.text = element_text(size = 12)) +
-  scale_x_discrete(limits = c("Scotland", "Western Isles", "Tayside", "Shetland", "Orkney", 
-                              "Lothian", "Lanarkshire", "Highland", "Greater Glasgow & Clyde",
-                              "Grampian", "Forth Valley", "Fife", "Dumfries & Galloway", 
-                              "Borders", "Ayrshire & Arran")) +
-  scale_fill_manual(values = c("#0391BF", "#0391BF", "#0391BF", "#0391BF", "#0391BF", 
-                               "#0391BF", "#0391BF", "#0391BF", "#0391BF", "#0391BF",
-                               "#0391BF", "#092869", "#0391BF", "#0391BF", "#0391BF")) +
-  xlab("NHS Board of Residence") + ylab("Uptake rate (%)")
-
-ggsave("charts/Figure1_ggplot.png", plot = FigureOne, width = 17.79, height = 14.24, units = "cm", 
-       device = "png", dpi = 600)
-
-#Create Figure 2
-RollingYear <- c("2007-10", "2008-11", "2009-12", "2010-13", "2011-14", "2012-15", "2013-16")
-DetectionRate <- c(6.2, 6.5, 7, 7.1, 6.9, 6.4, 6.2)
-
-FigureTwoData <- data.frame(RollingYear, DetectionRate)
-
-FigureTwo <- ggplot(data = FigureTwoData, aes(x = RollingYear, y = DetectionRate)) +
-  geom_bar(position = "dodge", stat = "identity", width = 0.5, 
-            show.legend = F, fill = "#0391BF") + 
-  scale_y_continuous(breaks = c(0:8), 
-                     limits = c(0, 8)) +
-  geom_hline(yintercept = 3.1, size = 1, color = "#092869") +
-  geom_hline(yintercept = 4.1, size = 1, color = "#092869", linetype = "dashed") +
-  theme(panel.background = element_blank(),
-    panel.grid.major.x = element_blank(), 
-    panel.grid.major.y = element_line(size = .1, color = "#C0C0C0"), 
-    axis.title.x = element_text(size = 12, face = "bold"),
-    axis.title.y = element_text(size = 12, face = "bold"),
-    axis.text = element_text(size = 12)) +
-  xlab("Three Year Rolling Period") + ylab("Cancer detection rate \n (per 1000 women screened)")
-
-ggsave("charts/Figure2_ggplot.png", plot = FigureTwo, width = 17.78, height = 14.24, units = "cm", 
-       device = "png", dpi = 600)
-```
-
 ```{r ListofTables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 ## Automated method for adding file names and sizes
 # get list of files for the publication
@@ -267,11 +175,8 @@ For the 53,168 residents of Scotland who died in financial year 2018/19, 89.2% o
 Over the nine years, 2010/11 to 2018/19 the percentage of time spent at home or in a community setting has increased from 85.3% to 89.2%, this equates to, on average an extra seven days within the last six months of life being spent at home or in a community setting in 2018/19 compared to 2010/11 (see Figure 1 below or [Appendix A1](#AppendixA1)).
 
 ##### Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; 2010/11 - 2018/19
-```{r kable_TableData, echo = FALSE}
-knitr::kable(TableData, col.names = c("**NHS Board**", "**Q2 Cases**", "**Q2 Bed Days**", 
-                                      "**Q2 Rate**", "**Q3 Cases**", "**Q3 Bed Days**", "**Q3 Rate**"),
-             align = c('l','r','r','r','r','r','r'))
-```
+
+##### Table here
 
 1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
 
