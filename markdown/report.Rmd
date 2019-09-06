@@ -366,7 +366,7 @@ This publication includes data from financial years 2010/11 to 2018/19 at Scotla
 
 In the August 2016 release the methodology for how to measure the: ‘percentage of the last six months of life spent at home or in a community setting’ was revised compared to previous publications. Therefore results presented in this publication will not be comparable to figures published prior to August 2016. However, trend data from 2010/11 to 2018/19 is available using the revised methodology in this publication.
 
-**Calculation of Measure**
+**Calculation of Measure**  
 Scottish residents who died between 2010/11 and 2018/19 are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
 
 The deaths data are linked to hospital discharge data (SMR01 and SMR04) and the actual number of bed days spent in hospital in Scotland in the six months prior to the death of each individual is calculated and added together for all individuals. This includes bed days from all acute and community hospitals, psychiatric hospitals or geriatric long stay facilities.
@@ -374,18 +374,26 @@ The percentage of time spent in hospital in the last six months of life is there
 
 For each financial year from 2010/11 to 2018/19 this report presents the percentage of the last six months of life that was spent at home or in a community setting for patients who died within each financial year. A summary of how the measure is calculated is shown below.
 
-Calculation of Measure
-Actual bed days 	=	Total bed days in hospital in the 6 months prior to death for those people who died within specific year
-Possible bed days 	=	Total number of deaths in specified period x 182.5
-% of time in a hospital in last 6 months of life 	=	(Actual bed days/ possible bed days) x 100  
-% of time at home or in a community setting in last 6 months of life  	=	 100 – % time in hospital in last 6 months before death
+<br>
 
-** Comparison to Previous Measure - don't think we need to include this **
-
+```{r kable_measure-calculations, echo = FALSE}
+knitr::kable(
+  data.frame(c("Actual bed days", 
+           "Possible bed days",
+           "% of time in a hospital in last 6 months of life",
+           "% of time at home or in a community setting in last 6 months of life"),
+         c("Total bed days in hospital in the 6 months prior to death for those people who died within specific year",
+           "Total number of deaths in specified period x 182.5",
+           "(Actual bed days / possible bed days) x 100",
+           "100 - % of time in hospital in last 6 months before death")),
+  align = c('l', 'l'),
+  col.names = c("**Calculation of Measure**", "")
+)
+```
 
 <Div custom-style = "Heading 3_pgbrk">Appendix 4 - Publication Metadata</div>
 <br>
-```{r kable_MetaData, echo = FALSE}
+```{r kable_metadata, echo = FALSE}
 knitr::kable(MetaData, col.names = c("**Metadata Indicator**", "**Description**"), align = c('l','l'))
 ```
 
