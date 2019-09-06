@@ -42,7 +42,7 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        "concat('/', to_char(add_months(date_of_death, 12), 'yy'))) ",
        "end fy, ",
        
-       # Quarter of death
+       # Financial quarter of death
        "case when extract(month from date_of_death) between 4 and 6 then '1' ",
        "when extract(month from date_of_death) between 7 and 9 then '2' ",
        "when extract(month from date_of_death) between 10 and 12 then '3' ",
@@ -74,7 +74,7 @@ smr01_query <- function(extract_start,
   
   data <- if_else(gls == TRUE, "smr01_1e_pi", "smr01_pi")
   
-  extract_start_smr <- extract_start - lubridate::months(6)
+  extract_start_smr <- extract_start - months(6)
   
   glue(
     "select s.link_no, s.gls_cis_marker, ",
@@ -117,7 +117,7 @@ smr04_query <- function(extract_start,
                         extract_end,
                         external_causes){
   
-  extract_start_smr <- extract_start - lubridate::months(6)
+  extract_start_smr <- extract_start - months(6)
   
   glue(
     "select s.link_no, s.cis_marker, ",
