@@ -166,7 +166,7 @@ More recently in December 2016 the ["Health and Social Care Delivery Plan"](http
 
 ### Provisional Figures 
 
-Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [Appendix 2](#Appendix2) for more information.
+Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [**Appendix 2**](#Appendix2) for more information.
 
 
 <Div custom-style = "Heading 2_pgbrk">Main Points</div>
@@ -183,11 +183,13 @@ For the 53,168 residents of Scotland who died in financial year 2018/19, 89.2% o
 
 Over the nine years, 2010/11 to 2018/19 the percentage of time spent at home or in a community setting has increased from 85.3% to 89.2%, this equates to, on average an extra seven days within the last six months of life being spent at home or in a community setting in 2018/19 compared to 2010/11 (see Figure 1 below or [Appendix A1](#AppendixA1)).
 
-##### Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; 2010/11 - 2018/19
+##### Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; 2010/11 - 2018/19^1^
 
 ##### Table here
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
+</div>
 
 ### Health Board of Residence
 Figure 2 shows the variation in the percentage of time spent at home or in the community in the last six months of life across Scotland by NHS Board. 
@@ -200,18 +202,24 @@ Note that hospital data are provisional for 2018/19. This publication will be up
 
 ##### Map HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
-2.	The Health Board of Residence is the usual place of residence prior to death.
-3.	Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+2. The Health Board of Residence is the usual place of residence prior to death.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+</div>
+
+<br>
 
 Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past nine years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
 
 ##### Health Board of Residence Table HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
-2.	The Health Board of Residence is the usual place of residence prior to death.
-3.	Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
-4.	Calculation based on a possible 182.5 days in the last six months of life.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See Appendix 2 for more information.
+2. The Health Board of Residence is the usual place of residence prior to death.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+4. Calculation based on a possible 182.5 days in the last six months of life.
+</div>
 
 ### Health and Social Care Partnership
 Table 2 shows the percentage of the last six months of life spent at home or in a community setting for each Health and Social Care Partnership. 
@@ -222,9 +230,13 @@ Table 2 shows that there is some variation between Partnerships with the percent
 
 ##### HSCP Table HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
-2.	The Health and Social Care Partnership is the usual place of residence prior to death.
-3.	Calculation based on a possible 182.5 days in the last six months of life.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+2. The Health and Social Care Partnership is the usual place of residence prior to death.
+3. Calculation based on a possible 182.5 days in the last six months of life.
+</div>
+
+<br>
 
 The trend in the percentage of the last six months of life spent at home or in a community setting over the past nine years for Health and Social Care Partnerships is presented in graphical format in Figure A1.2 (see [List of Tables](#Tables) or [Appendix A1](#Appendix A1)) and the corresponding data can be found in Table 2 in the [data tables](LINK). 
 
@@ -232,17 +244,25 @@ The trend in the percentage of the last six months of life spent at home or in a
 Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 in the [data tables](LINK)). In 2018/19, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (89.3%) and males (89.1%). For individuals aged 85 years and over, females (90.0%) spent a higher percentage of their last six months of life at home or in the community compared to males (87.8%); this equates to females spending, on average, an extra four days in the community. In the youngest age group (0-54 years), males (94.1%) spent a higher percentage of their last six months of life at home or in the community compared to females (91.5%); this equates to, on average, an extra five days at home or in the community.
 
 <!-- Check if should use four or five # here -->
-#### Age and Gender Chart HERE
+##### Age and Gender Chart HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+</div>
+
+<br>
 
 ### Deprivation
 The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 in the [data tables](LINK)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
 
-#### Deprivation chart HERE
+##### Deprivation chart HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
-2.	Deprivation 2016 quintiles have been used.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+2. Deprivation 2016 quintiles have been used.
+</div>
+
+<br>
 
 Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from 88.5% (deprivation category 2) to 89.6% (deprivation category 1). 
 The trend over time by deprivation category is presented in Figure A1.3 (see [List of Tables](LINK) or [Appendix A1](#AppendixA1)). All deprivation categories show a similar trend over time, with a slight increase in the percentage of last six months spent at home or in the community for individuals in the last two or three years. For each year in the trend (2010/11 to 2018/19) there is little variation across the different deprivation categories.
@@ -250,9 +270,13 @@ The trend over time by deprivation category is presented in Figure A1.3 (see [Li
 ### Urban Rural Classification
 The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
 
-#### UR Chart HERE
+##### UR Chart HERE
 
-1.	Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+<div custom-style = "Normal_Notes">
+1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+</div>
+
+<br>
 
 The percentage of the last six months of life spent at home or in the community ranged from 89.0% for residents in large urban areas to 90.3% for residents from remote rural areas (Figure 5; Table 5 in [data tables](LINK)). Individuals living in remote rural areas spent, on average, approximately two extra days at home or in a community setting in the last six months of life compared to those living in large urban areas.
 
