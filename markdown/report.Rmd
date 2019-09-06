@@ -433,25 +433,3 @@ ISD's statistical publications are currently classified as one of the following:
 * other (not Official Statistics)  
 
 Further information on ISD's statistics, including compliance with the Code of Practice for Official Statistics, and on the UK Statistics Authority, is available on the [ISD website](http://www.isdscotland.org/About-ISD/About-Our-Statistics/). 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
