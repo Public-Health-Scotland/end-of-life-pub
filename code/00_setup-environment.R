@@ -28,6 +28,7 @@ library(tidyr)         # For data manipulation in the "tidy" way
 library(stringr)       # For string manipulation and matching
 library(here)          # For the here() function
 library(glue)          # For working with strings
+library(fs)            # For creating new file directories
 
 
 ### 2 - Define Whether Running on Server or Locally ----
@@ -42,6 +43,11 @@ platform <- c("server")
 filepath <- dplyr::if_else(platform == "server",
                            "/conf/linkage/output/",
                            "//stats/cl-out/")
+
+
+### 3 - Create data folder ----
+
+if(!("data" %in% fs::dir_ls())){fs::dir_create("data")}
 
 
 ### 3 - Extract dates ----
