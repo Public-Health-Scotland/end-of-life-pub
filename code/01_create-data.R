@@ -64,7 +64,7 @@ smr04 <-
   clean_names()
 
 
-### 4 - Aggregate SMR data to CIS level and join ----
+### 4 - Aggregate SMR data to CIS level ----
 
 smr01 %<>%
   group_by(link_no, gls_cis_marker) %>%
@@ -88,12 +88,27 @@ smr04 %<>%
   ungroup() %>%
   select(-cis_marker)
 
-# Join SMR01, SMR50 and SMR04 data
+
+### 5 - Join SMR01/50 and SMR04 data ----
+
 smr <-
-  bind_rows(smr01, smr04)
+  
+  bind_rows(smr01, smr04) %>%
+  
+  # Aggregate where SMR01 and SMR04 stays overlap
+  group_by(link_no) %>%
+  arrange(admission_date) %>%
+  mutate(index = c(0, cumsum(as.numeric(lead(admission_date)) >
+                               cummax(as.numeric(discharge_date)))[-n()])) %>%
+  group_by(link_no, index) %>%
+  summarise(admission_date = min(admission_date),
+            discharge_date = max(discharge_date),
+            date_of_death  = max(date_of_death)) %>%
+  ungroup() %>%
+  select(-index)
 
 
-### 5 - Calculate measure ----
+### 6 - Calculate measure ----
 
 smr %<>%
   
@@ -101,7 +116,8 @@ smr %<>%
   mutate(six_months = date_of_death - days(183)) %>%
   
   # For stays spanning this date, fix admission date to six months before death
-  mutate(admission_date = if_else(admission_date < six_months & discharge_date >= six_months,
+  mutate(admission_date = if_else(admission_date < six_months & 
+                                    discharge_date >= six_months,
                                   six_months,
                                   admission_date)) %>%
   
@@ -111,26 +127,25 @@ smr %<>%
   # Remove records where admission date is after date of death
   filter(admission_date <= date_of_death) %>%
   
-  # Where dis date is after date of death, fix to date of death
+  # Where discharge date is after date of death, fix to date of death
   mutate(discharge_date = if_else(discharge_date > date_of_death,
                                   date_of_death,
                                   discharge_date)) %>%
   
   # Calculate length of stay
-  mutate(los = time_length(interval(admission_date,
-                                    discharge_date),
-                           "days")) %>%
+  mutate(los = time_length(interval(admission_date, discharge_date),
+               "days")) %>%
 
   # Aggregate to patient level
   group_by(link_no) %>%
   summarise(los = sum(los)) %>%
+  ungroup() %>%
   
-  # Cap length of stay at 182.5
-  # TO DO - investigate how this happens
-  mutate(los = if_else(los > 182.5, 182.5, los))
+  # Recode 183 LOS to 182.5 (exact six months)
+  mutate(los = if_else(los == 183, 182.5, los))
 
 
-### 6 - Match on lookup files to deaths
+### 7 - Match on lookup files to deaths
 
 deaths %<>%
   
@@ -150,7 +165,7 @@ deaths %<>%
          urban_rural = ur8_2016)
 
 
-### 7 - Create final file
+### 8 - Create final file
 
 final <-
   
@@ -160,7 +175,9 @@ final <-
            simd, simd_15, sex, age_grp, urban_rural) %>%
   
   summarise(los = sum(los, na.rm = TRUE),
-            deaths = n())
+            deaths = n()) %>%
+  
+  ungroup()
 
 
 saveRDS(final, here("data", glue("{pub_date}_base-file.rds")))
