@@ -85,7 +85,7 @@ postcode <-
 simd     <- 
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2019_1.5_simd2016.rds")) %>%
+                "postcode_2019_2_simd2016.rds")) %>%
   
   clean_names() %>%
   
