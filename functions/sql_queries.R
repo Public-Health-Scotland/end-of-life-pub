@@ -58,7 +58,10 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        # Select deaths in reporting period
        "and (date_of_death between ",
        "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
-       "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd'))"
+       "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
+       
+       # Exclude deaths with missing postcode
+       "and postcode is not null"
        
   )
   
