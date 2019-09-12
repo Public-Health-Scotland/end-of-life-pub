@@ -47,7 +47,8 @@ filepath <- dplyr::if_else(platform == "server",
 
 ### 3 - Create data folder ----
 
-if(!("data" %in% fs::dir_ls())){fs::dir_create("data")}
+if(!("data" %in% fs::dir_ls())){fs::dir_create(c("data/basefiles",
+                                                 "data/extracts"))}
 
 
 ### 3 - Extract dates ----
