@@ -93,7 +93,8 @@ smr04 %<>%
 
 smr <-
   
-  bind_rows(smr01, smr04) %>%
+  bind_rows(smr01 %>% mutate(recid = "01"), 
+            smr04 %>% mutate(recid = "04")) %>%
   
   # Aggregate where SMR01 and SMR04 stays overlap
   group_by(link_no) %>%
