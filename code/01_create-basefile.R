@@ -64,7 +64,14 @@ smr04 <-
   clean_names()
 
 
-### 4 - Aggregate SMR data to CIS level ----
+### 4 - Save data extracts ----
+
+write_rds(deaths, here("data", "extracts", glue("{pub_date}_deaths.rds")))
+write_rds(smr01,  here("data", "extracts", glue("{pub_date}_smr01.rds")))
+write_rds(smr04,  here("data", "extracts", glue("{pub_date}_smr04.rds")))
+
+
+### 5 - Aggregate SMR data to CIS level ----
 
 smr01 %<>%
   group_by(link_no, gls_cis_marker) %>%
@@ -89,7 +96,7 @@ smr04 %<>%
   select(-cis_marker)
 
 
-### 5 - Join SMR01/50 and SMR04 data ----
+### 6 - Join SMR01/50 and SMR04 data ----
 
 smr <-
   
@@ -109,7 +116,7 @@ smr <-
   select(-index)
 
 
-### 6 - Calculate measure ----
+### 7 - Calculate measure ----
 
 smr %<>%
   
@@ -146,7 +153,7 @@ smr %<>%
   mutate(los = if_else(los == 183, 182.5, los))
 
 
-### 7 - Match on lookup files to deaths
+### 8 - Match on lookup files to deaths
 
 deaths %<>%
   
@@ -163,7 +170,7 @@ deaths %<>%
          urban_rural = ur8_2016)
 
 
-### 8 - Create final file
+### 9 - Create final file
 
 final <-
   
