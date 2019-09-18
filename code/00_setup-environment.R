@@ -85,7 +85,7 @@ postcode <-
   clean_names() %>%
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
-         hscp2019, hscp2019name, hscp2018, ur8_2016, 
+         hscp2019, hscp2019name, hscp2018, ur6_2016, 
          data_zone2011)
   
             

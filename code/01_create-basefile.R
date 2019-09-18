@@ -162,7 +162,7 @@ deaths %<>%
          locality = hscp_locality,
          simd = simd2016_sc_quintile,
          simd_15 = simd2016tp15,
-         urban_rural = ur8_2016)
+         urban_rural = ur6_2016)
 
 
 ### 9 - Create final file
