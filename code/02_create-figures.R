@@ -114,6 +114,11 @@ figa1 <-
   
   summarise_data(basefile, hb, trend = TRUE) %>%
   
+  # Add row for Scotland
+  bind_rows(summarise_data(basefile, trend = TRUE) %>%
+              mutate(hb = "Scotland")) %>%
+  mutate(hb = forcats::fct_relevel(hb, "Scotland")) %>%
+  
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line() +
   facet_wrap( ~ hb, ncol = 3) +
