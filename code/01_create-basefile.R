@@ -162,7 +162,23 @@ deaths %<>%
          locality = hscp_locality,
          simd = simd2016_sc_quintile,
          simd_15 = simd2016tp15,
-         urban_rural = ur6_2016)
+         urban_rural = ur6_2016) %>%
+  
+  mutate(
+    simd = case_when(
+      simd == 1 ~ "1 - Most Deprived",
+      simd == 5 ~ "5 - Least Deprived",
+      TRUE ~ simd
+      ),
+    urban_rural = case_when(
+      urban_rural == 1 ~ "Large Urban Areas",
+      urban_rural == 2 ~ "Other Urban Areas",
+      urban_rural == 3 ~ "Accessible Small Towns",
+      urban_rural == 4 ~ "Remote Small Towns",
+      urban_rural == 5 ~ "Accessible Rural",
+      urban_rural == 6 ~ "Remote Rural"
+    )
+  )
 
 
 ### 9 - Create final file
