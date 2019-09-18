@@ -88,3 +88,40 @@ fig4 <-
         axis.text = element_text(size = 12)) +
   xlab("Deprivation") + 
   ylab("Percentage")
+
+
+### 7 - Figure 5 ----
+
+fig5 <- 
+  
+  summarise_data(basefile, urban_rural, trend = FALSE) %>%
+  
+  ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
+  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Urban / Rural Classification") + 
+  ylab("Percentage")
+
+
+### 8 - Figure A1 - Health Board Trends
+
+figa1 <- 
+  
+  summarise_data(basefile, hb, trend = TRUE) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line() +
+  facet_wrap( ~ hb, ncol = 3) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
