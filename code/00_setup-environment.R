@@ -29,7 +29,7 @@ library(stringr)       # For string manipulation and matching
 library(here)          # For the here() function
 library(glue)          # For working with strings
 library(fs)            # For creating new file directories
-
+library(ggplot2)       # For producing charts/figures
 
 ### 2 - Define Whether Running on Server or Locally ----
 
