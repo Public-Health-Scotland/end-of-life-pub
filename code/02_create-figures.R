@@ -76,7 +76,7 @@ fig3 <-
 
 fig4 <- 
   
-  summarise_data(final, simd, trend = FALSE) %>%
+  summarise_data(basefile, simd, trend = FALSE) %>%
   
   ggplot(aes(x = simd, y = qom, fill = 1)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) +
