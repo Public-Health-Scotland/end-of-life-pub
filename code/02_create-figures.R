@@ -108,9 +108,9 @@ fig5 <-
   ylab("Percentage")
 
 
-### 8 - Figure A1 - Health Board Trends
+### 8 - Figure A1.1 - Health Board Trends ----
 
-figa1 <- 
+figa11 <- 
   
   summarise_data(basefile, hb, trend = TRUE) %>%
   
@@ -122,6 +122,63 @@ figa1 <-
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line() +
   facet_wrap( ~ hb, ncol = 3) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+
+### 9 - Figure A1.2 - HSCP Trends ----
+
+figa12 <- 
+  
+  summarise_data(basefile, hscp, trend = TRUE) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line() +
+  facet_wrap( ~ hscp, ncol = 4) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+
+### 10 - Figure A1.3 - Deprivation Trends ----
+
+figa13 <- 
+  
+  summarise_data(basefile, simd, trend = TRUE) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line() +
+  facet_wrap( ~ simd, ncol = 3) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+
+### 11 - Figure A1.4 - Urban/Rural Trends ----
+
+figa13 <- 
+  
+  summarise_data(basefile, urban_rural, trend = TRUE) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line() +
+  facet_wrap( ~ urban_rural, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
