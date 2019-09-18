@@ -45,20 +45,26 @@ fig1 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 12),
+        axis.text.x = element_text(angle = 45)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-1.png"), 
+       plot = fig1,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 4 - Figure 2 - Health Board Map ----
 
 
-### 5 - Figure 3 ----
+### 5 - Figure 3 - Age/Sex Bar Chart ----
 
 fig3 <- 
   
   summarise_data(basefile, age_grp, sex, trend = FALSE) %>%
-  filter(sex != "null") %>%
+  filter(!is.na(sex)) %>%
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
@@ -70,6 +76,11 @@ fig3 <-
         axis.text = element_text(size = 12)) +
   xlab("Age Group") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-3.png"), 
+       plot = fig3,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 6 - Figure 4 ----
@@ -89,6 +100,11 @@ fig4 <-
   xlab("Deprivation") + 
   ylab("Percentage")
 
+ggsave(here("markdown", "figures", "figure-4.png"), 
+       plot = fig4,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
+
 
 ### 7 - Figure 5 ----
 
@@ -106,6 +122,11 @@ fig5 <-
         axis.text = element_text(size = 12)) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-5.png"), 
+       plot = fig5,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 8 - Figure A1.1 - Health Board Trends ----
@@ -127,9 +148,15 @@ figa11 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a1-1.png"), 
+       plot = figa11,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 9 - Figure A1.2 - HSCP Trends ----
@@ -146,9 +173,15 @@ figa12 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a1-2.png"), 
+       plot = figa12,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 10 - Figure A1.3 - Deprivation Trends ----
@@ -165,14 +198,20 @@ figa13 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a1-3.png"), 
+       plot = figa13,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
 
 
 ### 11 - Figure A1.4 - Urban/Rural Trends ----
 
-figa13 <- 
+figa14 <- 
   
   summarise_data(basefile, urban_rural, trend = TRUE) %>%
   
@@ -184,6 +223,15 @@ figa13 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a1-4.png"), 
+       plot = figa14,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
+
+
+### END OF SCRIPT ###
