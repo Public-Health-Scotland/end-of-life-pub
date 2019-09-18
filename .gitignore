@@ -9,8 +9,8 @@ code/smra_connect.R
 # 'data' folder #
 data/
 
-# 'markdown/charts' folder #
-markdown/charts/
+# 'markdown/figures' folder #
+markdown/figures/
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
