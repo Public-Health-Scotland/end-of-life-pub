@@ -45,10 +45,15 @@ filepath <- dplyr::if_else(platform == "server",
                            "//stats/cl-out/")
 
 
-### 3 - Create data folder ----
+### 3 - Create data and figures folders ----
 
-if(!("data" %in% fs::dir_ls())){fs::dir_create(c("data/basefiles",
-                                                 "data/extracts"))}
+if(!("data" %in% fs::dir_ls())){
+  fs::dir_create(c("data/basefiles", "data/extracts"))
+}
+
+if(!("markdown/figures" %in% fs::dir_ls("markdown"))){
+  fs::dir_create("markdown/figures")
+}
 
 
 ### 3 - Extract dates ----
