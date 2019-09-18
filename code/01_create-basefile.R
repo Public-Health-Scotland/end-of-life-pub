@@ -180,7 +180,7 @@ final <-
   ungroup()
 
 
-saveRDS(final, here("data", glue("{pub_date}_base-file.rds")))
+saveRDS(final, here("data", "basefiles", glue("{pub_date}_base-file.rds")))
   
 
 ### END OF SCRIPT ###
