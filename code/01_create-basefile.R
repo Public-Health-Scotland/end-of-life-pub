@@ -168,7 +168,7 @@ deaths %<>%
     simd = case_when(
       simd == 1 ~ "1 - Most Deprived",
       simd == 5 ~ "5 - Least Deprived",
-      TRUE ~ simd
+      TRUE ~ as.character(simd)
       ),
     urban_rural = case_when(
       urban_rural == 1 ~ "Large Urban Areas",
