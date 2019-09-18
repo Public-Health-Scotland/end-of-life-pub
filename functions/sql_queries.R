@@ -25,13 +25,13 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        "when age between 65 and 74 then '65-74' ",
        "when age between 75 and 84 then '75-84' ",
        "when age >= 85 then '85+' ",
-       "else 'null' ",
+       "else null ",
        "end age_grp, ",
        
        # Sex
        "case when sex = '1' then 'Male' ",
        "when sex = '2' then 'Female' ",
-       "else 'null' ",
+       "else null ",
        "end sex, ",
        
        # Financial year of death
