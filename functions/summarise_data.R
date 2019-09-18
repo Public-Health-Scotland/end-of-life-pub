@@ -31,3 +31,4 @@ summarise_data <- function(data, split_by1, split_by2, trend = FALSE){
 }
 
 
+### END OF SCRIPT ###
