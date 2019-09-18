@@ -25,7 +25,7 @@ basefile <- read_rds(here("data", "basefiles",
                           glue("{pub_date}_base-file.rds")))
 
 
-### 3 - Figure 1 ----
+### 3 - Figure 1 - Trend Bar Chart ----
 
 fig1 <- 
   
@@ -47,4 +47,44 @@ fig1 <-
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 12)) +
   xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+
+### 4 - Figure 2 - Health Board Map ----
+
+
+### 5 - Figure 3 ----
+
+fig3 <- 
+  
+  summarise_data(basefile, age_grp, sex, trend = FALSE) %>%
+  filter(sex != "null") %>%
+  
+  ggplot(aes(x = age_grp, y = qom, fill = sex)) +
+  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Age Group") + 
+  ylab("Percentage")
+
+
+### 6 - Figure 4 ----
+
+fig4 <- 
+  
+  summarise_data(final, simd, trend = FALSE) %>%
+  
+  ggplot(aes(x = simd, y = qom, fill = 1)) +
+  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 12, face = "bold"),
+        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) +
+  xlab("Deprivation") + 
   ylab("Percentage")
