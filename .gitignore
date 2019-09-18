@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 
+# SMRA connection #
+code/smra_connect.R
+
 # 'data' folder #
 data/
 
