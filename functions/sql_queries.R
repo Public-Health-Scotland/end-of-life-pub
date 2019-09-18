@@ -185,6 +185,9 @@ smr01_query <- function(extract_start,
     "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
     
+    # Exclude deaths with missing postcode
+    "and d.postcode is not null ",
+    
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
     "s.admission, s.discharge, s.uri"
@@ -269,6 +272,9 @@ smr04_query <- function(extract_start,
     "and (d.date_of_death between ",
     "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Exclude deaths with missing postcode
+    "and d.postcode is not null ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
