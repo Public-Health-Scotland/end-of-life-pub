@@ -16,6 +16,7 @@ source(here::here("functions", "day_diff.R"))
 basefile <- read_rds(here::here("data", "basefiles", 
                                 glue("{pub_date}_base-file.rds")))
 
+
 # Age 85+ sex difference
 male <-
   basefile %>%
@@ -31,7 +32,6 @@ female <-
 
 diff_dir <- if_else(female > male, "higher", "lower")
 
-report_url <- glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/{pub_date}/{pub_date}-End-of-Life-Report.docx")
 
 # Create contact information
 contact1 <- c("**Federico Centoni**", "Information Analyst", 
