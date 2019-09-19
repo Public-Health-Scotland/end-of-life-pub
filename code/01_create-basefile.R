@@ -152,9 +152,9 @@ smr %<>%
 
 deaths %<>%
   
-  left_join(postcode, by = c("postcode" = "pc7")) %>%
-  left_join(simd, by = c("postcode" = "pc7")) %>%
-  left_join(locality, by = "data_zone2011") %>%
+  left_join(postcode(), by = c("postcode" = "pc7")) %>%
+  left_join(simd(), by = c("postcode" = "pc7")) %>%
+  left_join(locality(), by = "data_zone2011") %>%
   
   rename(hb = hb2019name,
          hscp = hscp2019name,

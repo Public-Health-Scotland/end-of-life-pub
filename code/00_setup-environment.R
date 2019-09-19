@@ -33,10 +33,12 @@ library(ggplot2)       # For producing charts/figures
 
 ### 2 - Define Whether Running on Server or Locally ----
 
-# Comment out as appropriate
-platform <- c("server")
-# platform <- c("local")
-
+if (sessionInfo()$platform %in% c("x86_64-redhat-linux-gnu (64-bit)",
+                                  "x86_64-pc-linux-gnu (64-bit)")) {
+  platform <- "server"
+} else {
+  platform <- "locally"
+}
 
 # Define root directory for stats server based on whether script is running 
 # locally or on server
@@ -79,9 +81,8 @@ external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
 
 
 ### 5 - Read in lookup files ----
-## TO DO - do we need all three lookups?
 
-postcode <- 
+postcode <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/",
                 "Scottish Postcode Directory/",
@@ -92,9 +93,10 @@ postcode <-
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
          hscp2019, hscp2019name, hscp2018, ur6_2016, 
          data_zone2011)
-  
+
+}
             
-simd     <- 
+simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
                 "postcode_2019_2_simd2016.rds")) %>%
@@ -103,8 +105,9 @@ simd     <-
   
   select(pc7, simd2016_sc_quintile, simd2016tp15)
   
+}
 
-locality <- 
+locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
                 "HSCP Localities_DZ11_Lookup_20180903.rds")) %>%
@@ -113,5 +116,6 @@ locality <-
   
   select(data_zone2011, hscp_locality)
 
+}
 
 ### END OF SCRIPT ###
