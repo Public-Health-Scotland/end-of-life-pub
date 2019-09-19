@@ -10,6 +10,10 @@ output:
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
 
+# Load basefile
+basefile <- read_rds(here::here("data", "basefiles", 
+                                glue("{pub_date}_base-file.rds")))
+
 # Create contact information
 contact1 <- c("**Federico Centoni**", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
@@ -31,9 +35,9 @@ contact <- data.frame(contact1, contact2, contact3)
 
 ### About this release
 
-This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. This is one of the measures used to support and determine progress towards the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf). Data are presented by financial year from 2010/11 to 2018/19, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
+This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. This is one of the measures used to support and determine progress towards the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf). Data are presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
 
-Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates.
+Note that hospital data and National Records of Scotland deaths data are provisional for `r max(basefile$fy)`. This publication will be updated in October `r year(end_date)` with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates.
 
 
 ### Main Points
