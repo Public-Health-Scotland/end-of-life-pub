@@ -30,6 +30,8 @@ library(here)          # For the here() function
 library(glue)          # For working with strings
 library(fs)            # For creating new file directories
 library(ggplot2)       # For producing charts/figures
+library(english)       # For converting numbers to words
+
 
 ### 2 - Define Whether Running on Server or Locally ----
 
