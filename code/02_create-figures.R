@@ -46,7 +46,8 @@ fig1 <-
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 12),
-        axis.text.x = element_text(angle = 45)) +
+        axis.text.x = element_text(angle = 45),
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -73,7 +74,8 @@ fig3 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 12),
+        legend.title = element_blank()) +
   xlab("Age Group") + 
   ylab("Percentage")
 
@@ -96,7 +98,8 @@ fig4 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 12),
+        legend.title = element_blank()) +
   xlab("Deprivation") + 
   ylab("Percentage")
 
@@ -119,7 +122,8 @@ fig5 <-
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12)) +
+        axis.text = element_text(size = 12),
+        legend.title = element_blank()) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
 
@@ -149,7 +153,8 @@ figa11 <-
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 8),
-        axis.text.x = element_text(angle = 90)) +
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -174,7 +179,8 @@ figa12 <-
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 8),
-        axis.text.x = element_text(angle = 90)) +
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -199,7 +205,8 @@ figa13 <-
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 8),
-        axis.text.x = element_text(angle = 90)) +
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -224,7 +231,8 @@ figa14 <-
         axis.title.x = element_text(size = 12, face = "bold"),
         axis.title.y = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 8),
-        axis.text.x = element_text(angle = 90)) +
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
