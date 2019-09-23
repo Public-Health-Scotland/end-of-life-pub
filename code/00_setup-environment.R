@@ -31,6 +31,7 @@ library(glue)          # For working with strings
 library(fs)            # For creating new file directories
 library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
+library(forcats)       # For dealing with factors
 
 
 ### 2 - Define Whether Running on Server or Locally ----
