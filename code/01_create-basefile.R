@@ -154,31 +154,7 @@ deaths %<>%
   
   left_join(postcode(), by = c("postcode" = "pc7")) %>%
   left_join(simd(), by = c("postcode" = "pc7")) %>%
-  left_join(locality(), by = "data_zone2011") %>%
-  
-  rename(hb = hb2019name,
-         hscp = hscp2019name,
-         ca = ca2019name,
-         locality = hscp_locality,
-         simd = simd2016_sc_quintile,
-         simd_15 = simd2016tp15,
-         urban_rural = ur6_2016) %>%
-  
-  mutate(
-    simd = case_when(
-      simd == 1 ~ "1 - Most Deprived",
-      simd == 5 ~ "5 - Least Deprived",
-      TRUE ~ as.character(simd)
-      ),
-    urban_rural = case_when(
-      urban_rural == 1 ~ "Large Urban Areas",
-      urban_rural == 2 ~ "Other Urban Areas",
-      urban_rural == 3 ~ "Accessible Small Towns",
-      urban_rural == 4 ~ "Remote Small Towns",
-      urban_rural == 5 ~ "Accessible Rural",
-      urban_rural == 6 ~ "Remote Rural"
-    )
-  )
+  left_join(locality(), by = "data_zone2011")
 
 
 ### 9 - Create final file
