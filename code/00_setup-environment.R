@@ -95,7 +95,12 @@ postcode <- function(){
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
          hscp2019, hscp2019name, hscp2018, ur6_2016_name, 
-         data_zone2011)
+         data_zone2011) %>%
+    
+  rename(hb = hb2019name,
+         hscp = hscp2019name,
+         ca = ca2019name,
+         urban_rural = ur6_2016_name)
 
 }
             
@@ -106,7 +111,17 @@ simd     <- function(){
   
   clean_names() %>%
   
-  select(pc7, simd2016_sc_quintile, simd2016tp15)
+  select(pc7, simd2016_sc_quintile, simd2016tp15) %>%
+    
+  rename(simd = simd2016_sc_quintile,
+         simd_15 = simd2016tp15) %>%
+    
+  mutate(
+    simd = case_when(
+    simd == 1 ~ "1 - Most Deprived",
+    simd == 5 ~ "5 - Least Deprived",
+    TRUE ~ as.character(simd)
+  ))
   
 }
 
@@ -117,7 +132,9 @@ locality <- function(){
   
   clean_names() %>%
   
-  select(data_zone2011, hscp_locality)
+  select(data_zone2011, hscp_locality) %>%
+    
+  rename(locality = hscp_locality)
 
 }
 
