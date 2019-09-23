@@ -17,6 +17,7 @@
 
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
+source(here::here("functions", "calculate_qom.R"))
 
 
 ### 2 - Read in basefile ----
@@ -29,14 +30,22 @@ basefile <- read_rds(here("data", "basefiles",
 
 fig1 <- 
   
-  summarise_data(basefile, trend = TRUE) %>%
-  select(-deaths, -comm) %>%
-  mutate(qom_comm = 100 - qom) %>%
-  pivot_longer(cols = qom:qom_comm,
+  basefile %>%
+  group_by(fy) %>%
+  summarise(qom_hosp = calculate_qom(hosp_los = sum(los),
+                                     deaths   = sum(deaths),
+                                     setting  = "hosp"),
+            qom_comm = calculate_qom(hosp_los = sum(los),
+                                     deaths   = sum(deaths),
+                                     setting  = "comm")) %>%
+  pivot_longer(cols = qom_hosp:qom_comm,
                names_to = "qom") %>%
-  mutate(qom = if_else(qom == "qom",
-                       "Hopsital",
+  mutate(qom = if_else(qom == "qom_hosp",
+                       "Hospital",
                        "Home/Community")) %>%
+  
+  # Control order of stacks in chart
+  mutate(qom = fct_relevel(as.factor(qom), "Hospital")) %>%
   
   ggplot(aes(x = fy, y = value, fill = qom)) +
   geom_bar(position = "stack", stat = "identity", width = 0.5, show.legend = T) +
