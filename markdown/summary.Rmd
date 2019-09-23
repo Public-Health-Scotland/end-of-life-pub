@@ -86,7 +86,7 @@ The percentage of time spent at home or in a community setting towards the end o
 
 ### Further Information
 
-Find out more in the [full report](`r glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/{pub_date}/{pub_date}-End-of-Life-Report.docx")`). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp). For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+Find out more in the [full report](`r glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/{pub_date}/{pub_date}-End-of-Life-Report.pdf")`). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp). For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
 The next release of this publication will be in October `r year(end_date)`.
 
