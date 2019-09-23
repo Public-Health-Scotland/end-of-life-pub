@@ -92,7 +92,7 @@ ggsave(here("markdown", "figures", "figure-3.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 6 - Figure 4 ----
+### 6 - Figure 4 - Deprivation Bar Chart ----
 
 fig4 <- 
   
@@ -119,7 +119,7 @@ ggsave(here("markdown", "figures", "figure-4.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 7 - Figure 5 ----
+### 7 - Figure 5 - Urban/Rural Bar Chart ---
 
 fig5 <- 
   
@@ -174,6 +174,7 @@ figa11 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
+  ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -202,6 +203,7 @@ figa12 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
+  ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -230,6 +232,7 @@ figa13 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
+  ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -258,6 +261,7 @@ figa14 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
+  ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
