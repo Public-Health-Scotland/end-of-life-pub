@@ -13,19 +13,28 @@
 #########################################################################
 
 
-calculate_qom <- function(deaths, hosp_los, setting){
+calculate_qom <- function(data, setting){
   
   if(!(setting %in% c("hosp", "comm"))){
     stop("The setting argument must be either 'hosp' or 'comm'.")
   }
   
-  qom <- ((hosp_los / deaths) / 182.5) * 100
+  if(!("los" %in% names(data))){
+    stop("The given data must include variable named 'los'.")
+  }
   
-  janitor::round_half_up(
-    if_else(setting == "hosp",
-            qom,
-            100 - qom),
-  1)
+  if(!("deaths" %in% names(data))){
+    stop("The given data must include variable named 'deaths'.")
+  }
+  
+  los <- sum(data$los)
+  deaths <- sum(data$deaths)
+  
+  if_else(setting == "hosp",
+          ((los / deaths) / 182.5) * 100,
+          100 - ((los / deaths) / 182.5) * 100) %>%
+    
+  janitor::round_half_up(1)
   
 }
 
