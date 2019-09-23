@@ -101,7 +101,7 @@ fig4 <-
   summarise_data(basefile, simd, trend = FALSE) %>%
   
   ggplot(aes(x = simd, y = qom, fill = 1)) +
-  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -125,7 +125,7 @@ fig5 <-
   summarise_data(basefile, urban_rural, trend = FALSE) %>%
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
-  geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = F) +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
