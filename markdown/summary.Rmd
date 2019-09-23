@@ -8,7 +8,7 @@ output:
 
 # Source setup environment and function scripts
 source(here::here("code", "00_setup-environment.R"))
-source(here::here("functions", "summarise_data.R"))
+source(here::here("functions", "calculate_qom.R"))
 source(here::here("functions", "day_diff.R"))
 
 
@@ -16,21 +16,21 @@ source(here::here("functions", "day_diff.R"))
 basefile <- read_rds(here::here("data", "basefiles", 
                                 glue("{pub_date}_base-file.rds")))
 
+# Basefile for most recent FY
+basefile_fy <-
+  basefile %>%
+  filter(fy == max(.$fy))
 
 # Age 85+ sex difference
-male <-
-  basefile %>%
-  summarise_data(age_grp, sex, trend = FALSE) %>% 
-  filter(age_grp == "85+" & sex == "Male") %>%
-  pull(qom)
+sex <-
+  basefile_fy %>%
+  filter(age_grp == "85+") %>%
+  group_by(sex) %>%
+  summarise(qom_comm = calculate_qom(sum(los), 
+                                     sum(deaths), 
+                                     "comm"))
 
-female <-
-  basefile %>%
-  summarise_data(age_grp, sex, trend = FALSE) %>% 
-  filter(age_grp == "85+" & sex == "Female") %>%
-  pull(qom)
-
-sex_higher <- if_else(female > male, "female", "male")
+max_sex <- sex$sex[which.max(sex$qom_comm)]
 
 
 # Create contact information
@@ -61,14 +61,14 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 ### Main Points
 
-* In `r max(basefile$fy)`, there were `r basefile %>% filter(fy == max(fy)) %>% summarise(sum(deaths)) %>% pull(.)` deaths in Scotland excluding those where an external cause such as unintentional injury was recorded.  For these individuals, `r summarise_data(basefile, trend = FALSE) %>% pull(qom)`% of their last six months of life was spent either at home or in a community setting, with the remaining `r 100 - (summarise_data(basefile, trend = FALSE) %>% pull(qom))`% spent in hospital. This is equivalent to an average of 20 days in hospital in the six months prior to death.
+* In `r max(basefile$fy)`, there were `r sum(basefile_fy$deaths)` deaths in Scotland excluding those where an external cause such as unintentional injury was recorded.  For these individuals, `r calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "comm")`% of their last six months of life was spent either at home or in a community setting, with the remaining `r calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "hosp")`% spent in hospital. This is equivalent to an average of `r day_diff(calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "comm"), calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "hosp"))` days in hospital in the six months prior to death.
 
-* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, trend = TRUE) %>% filter(fy == min(fy)) %>% pull(qom)`% in `r min(basefile$fy)` to `r summarise_data(basefile, trend = FALSE) %>% pull(qom)`% in `r max(basefile$fy)`.
+* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r basefile %>% filter(fy == min(.$fy)) %>% summarise(x = calculate_qom(sum(.$los), sum(.$deaths), "comm")) %>% pull(x)`% in `r min(basefile$fy)` to `r calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "comm")`% in `r max(basefile$fy)`.
 
 **Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`**
 ![This bar charts shows the QoM measure for each financial year.](figures/figure-1.png) \
 
-* In `r max(basefile$fy)`, `r sex_higher`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r if_else(sex_higher == "female", female, male)`%) compared to `r if_else(sex_higher == "female", "male", "female")`s (`r if_else(sex_higher == "female", male, female)`%); this equates to `r sex_higher`s spending, on average an extra `r as.character(day_diff(female, male))` days in the community in their last six months of life.
+* In `r max(basefile$fy)`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom_comm)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom_comm)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom_comm), min(sex$qom_comm)))` days in the community in their last six months of life.
 
 
 ### Background
