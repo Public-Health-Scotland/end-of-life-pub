@@ -95,12 +95,13 @@ postcode <- function(){
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
          hscp2019, hscp2019name, hscp2018, ur6_2016_name, 
-         data_zone2011) %>%
+         ur2_2016_name, data_zone2011) %>%
     
   rename(hb = hb2019name,
          hscp = hscp2019name,
          ca = ca2019name,
-         urban_rural = ur6_2016_name)
+         urban_rural = ur6_2016_name,
+         urban_rural_2 = ur2_2016_name)
 
 }
             
