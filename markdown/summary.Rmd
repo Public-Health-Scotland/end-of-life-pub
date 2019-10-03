@@ -65,7 +65,9 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 * Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r basefile %>% filter(fy == min(.$fy)) %>% summarise(x = calculate_qom(sum(.$los), sum(.$deaths), "comm")) %>% pull(x)`% in `r min(basefile$fy)` to `r calculate_qom(sum(basefile_fy$los), sum(basefile_fy$deaths), "comm")`% in `r max(basefile$fy)`.
 
-**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`**
+
+<Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
+<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`**</div>
 
 ![This bar charts shows the QoM measure for each financial year.](figures/figure-1.png) \
 
