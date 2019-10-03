@@ -13,20 +13,19 @@
 #########################################################################
 
 
-summarise_data <- function(data, split_by1, split_by2, trend = FALSE){
+summarise_data <- function(data, ..., include_years = "all"){
   
-  if(trend == FALSE){data %<>% filter(fy == max(fy))}
+  if(include_years == "first"){data %<>% filter(fy == min(fy))}
+  if(include_years == "last"){data %<>% filter(fy == max(fy))}
   
   data %>%
     
-    group_by(fy, {{split_by1}}, {{split_by2}}) %>%
+    group_by(fy, ..., add = TRUE) %>%
     
-    summarise(deaths = sum(deaths),
-              qom    = 100 - (((sum(los) / deaths) / 182.5) * 100),
-              comm   = 182.5 * (qom / 100)) %>%
-    
-    mutate(qom  = round_half_up(qom, 1),
-           comm = round_half_up(comm, 0))
+    summarise(qom = calculate_qom(sum(los), sum(deaths), setting = "comm"),
+              qom_hosp = calculate_qom(sum(los), sum(deaths), setting = "hosp"),
+              deaths = sum(deaths),
+              comm = round_half_up(182.5 * (qom / 100)))
   
 }
 
