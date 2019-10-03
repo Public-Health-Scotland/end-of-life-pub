@@ -20,7 +20,7 @@ summarise_data <- function(data, ..., include_years = "last"){
   
   data %>%
     
-    group_by(fy, ..., add = TRUE) %>%
+    group_by(fy, ...) %>%
     
     summarise(qom = calculate_qom(sum(los), sum(deaths), setting = "comm"),
               qom_hosp = calculate_qom(sum(los), sum(deaths), setting = "hosp"),
