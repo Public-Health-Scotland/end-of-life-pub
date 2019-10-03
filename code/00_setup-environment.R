@@ -119,10 +119,15 @@ simd     <- function(){
     
   mutate(
     simd = case_when(
-    simd == 1 ~ "1 - Most Deprived",
-    simd == 5 ~ "5 - Least Deprived",
-    TRUE ~ as.character(simd)
-  ))
+      simd == 1 ~ "1 - Most Deprived",
+      simd == 5 ~ "5 - Least Deprived",
+      TRUE ~ as.character(simd)
+    ),
+    simd_15 = case_when(
+      simd_15 == 1 ~ "15% most deprived",
+      simd_15 == 0 ~ "Other 85%"
+    )
+  )
   
 }
 
