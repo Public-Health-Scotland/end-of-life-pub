@@ -38,148 +38,60 @@ excel_data <-
   
     # Scotland 
     basefile %>%
-    group_by(fy, 
-             category = "Scotland", 
-             category_split = "Scotland") %>% 
-    summarise(qom = 
-                calculate_qom(sum(los), sum(deaths), setting = "comm"),
-              qom_hosp = 
-                calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-              deaths = sum(deaths),
-              comm = round_half_up(182.5 * (qom / 100))
-    ),
+      summarise_data(category = "Scotland",
+                     category_split = "Scotland"),
     
     # Health Board
     basefile %>%
-      group_by(fy, 
-               category = "hb", 
-               category_split = hb) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "hb", 
+                     category_split = hb),
     
     # Council Area
     basefile %>%
-      group_by(fy, 
-               category = "ca", 
-               category_split = ca) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "ca", 
+                     category_split = ca),
     
     # HSCP
     basefile %>%
-      group_by(fy, 
-               category = "hscp", 
-               category_split = hscp) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "hscp", 
+                     category_split = hscp),
     
     # Age/Sex
     basefile %>%
       filter(!is.na(sex)) %>% 
-      group_by(fy, 
-               category = "age/sex", 
-               category_split = paste(age_grp, sex)) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, sex)),
     
     # All Ages/Sex
     basefile %>%
       filter(!is.na(sex)) %>%
-      group_by(fy, 
-               category = "age/sex", 
-               category_split = paste("All Ages", sex)) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "age/sex", 
+                     category_split = paste("All Ages", sex)),
     
     # Age/All Sex
     basefile %>%
-      group_by(fy, 
-               category = "age/sex", 
-               category_split = paste(age_grp, "Both")) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, "Both")),
     
     # SIMD 
     basefile %>%
-      group_by(fy, 
-               category = "simd quintile", 
-               category_split = simd) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "simd quintile", 
+                     category_split = simd),
     
     # SIMD Top 15%
     basefile %>%
-      group_by(fy, 
-               category = "simd 15", 
-               category_split = simd_15) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "simd 15", 
+                     category_split = simd_15),
     
     # Urban Rural 6 fold
     basefile %>%
-      group_by(fy, 
-               category = "urban rural 6", 
-               category_split = urban_rural) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      ),
+      summarise_data(category = "urban rural 6", 
+                     category_split = urban_rural),
     
     # Urban Rural 2 fold
     basefile %>%
-      group_by(fy, 
-               category = "urban rural 2", 
-               category_split = urban_rural_2) %>% 
-      summarise(qom = 
-                  calculate_qom(sum(los), sum(deaths), setting = "comm"),
-                qom_hosp = 
-                  calculate_qom(sum(los), sum(deaths), setting = "hosp"),
-                deaths = sum(deaths),
-                comm = round_half_up(182.5 * (qom / 100))
-      )
+      summarise_data(category = "urban rural 2", 
+                     category_split = urban_rural_2)
     
   )
   
