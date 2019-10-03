@@ -13,7 +13,7 @@
 #########################################################################
 
 
-summarise_data <- function(data, ..., include_years = "all"){
+summarise_data <- function(data, ..., include_years = "last"){
   
   if(include_years == "first"){data %<>% filter(fy == min(fy))}
   if(include_years == "last"){data %<>% filter(fy == max(fy))}
