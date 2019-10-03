@@ -4,8 +4,44 @@ output:
     reference_docx: "report-template.docx"
 ---
 
+```{r load-data, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 
-```{r ListofTables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+# Source setup environment and function scripts
+source(here::here("code", "00_setup-environment.R"))
+source(here::here("functions", "summarise_data.R"))
+source(here::here("functions", "calculate_qom.R"))
+source(here::here("functions", "day_diff.R"))
+
+
+# Load basefile
+basefile <- read_rds(here::here("data", "basefiles", 
+                                glue("{pub_date}_base-file.rds")))
+
+# Basefile for most recent FY
+latest <- summarise_data(basefile)
+
+# Age 85+ sex difference
+sex <-
+  basefile %>%
+  filter(age_grp == "85+") %>%
+  summarise_data(sex)
+
+max_sex <- sex %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
+```
+
+```{r contact-table, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
+# Create contact information
+contact1 <- c("**Federico Centoni**", "Information Analyst", 
+              "0131 314 1532", "federico.centoni@nhs.net")
+contact2 <- c("**Alice Byers**", "Senior Information Analyst", 
+              "0131 314 1725", "alice.byers@nhs.net")
+contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst", 
+              "0141 207 1616", "aghimien.iyayi-igbinovia@nhs.net")
+
+contact <- data.frame(contact1, contact2, contact3)
+```
+
+```{r list-of-tables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 ## Automated method for adding file names and sizes
 # get list of files for the publication
 file_list <- list.files() 
@@ -62,7 +98,7 @@ glossary2 <- c("Palliative care is an approach that improves the quality of life
 glossary <- data.frame(glossary1, glossary2)
 ```
 
-```{r MetaData, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r metadata, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 Indicator <- c("**Publication title**",
 "**Description**",
 "**Theme**",
@@ -171,11 +207,11 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 <Div custom-style = "Heading 2_pgbrk">Main Points</div>
 
-*	In 2018/19, there were 53,168 deaths in Scotland excluding those where an external cause such as unintentional injury was recorded. For these individuals, 89.2% of their last six months of life was spent either at home or in a community setting, with the remaining 10.8% spent in hospital. This is equivalent to an average of 20 days in hospital in the six months prior to death.
+* In `r max(basefile$fy)`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r round_half_up(182.5 * (latest$qom_hosp / 100))` days in hospital in the six months prior to death.
 
-*	Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
+* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r max(basefile$fy)`.
 
-*	In 2018/19, females aged 85 years and over spent a higher percentage of their last six months of life at home or in the community (90.0%) compared to males (87.8%); this equates to females spending, on average, an extra four days in the community in their last six months of life.
+* In `r max(basefile$fy)`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
 
 <Div custom-style = "Heading 2_pgbrk">Results and Commentary</div>
 
