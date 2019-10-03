@@ -74,6 +74,10 @@ end_date   <- lubridate::ymd(20190331)
 # Date of publication
 pub_date <- lubridate::ymd(20191008)
 
+# Provisional/Update
+pub_type <- "provisional"
+# pub_type <- "update"
+
 
 ### 4 - Define list of external causes of death codes ----
 
