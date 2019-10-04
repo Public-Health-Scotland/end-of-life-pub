@@ -25,7 +25,9 @@ summarise_data <- function(data, ..., include_years = "last"){
     summarise(qom = calculate_qom(sum(los), sum(deaths), setting = "comm"),
               qom_hosp = calculate_qom(sum(los), sum(deaths), setting = "hosp"),
               deaths = sum(deaths),
-              comm = round_half_up(182.5 * (qom / 100)))
+              comm = round_half_up(182.5 * (qom / 100))) %>%
+    
+    ungroup()
   
 }
 
