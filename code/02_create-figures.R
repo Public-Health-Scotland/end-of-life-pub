@@ -53,9 +53,7 @@ fig1 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45),
-        legend.title = element_blank(),
-        legend.position = "top") +
-  guides(color = guide_legend(nrow = 1)) +
+        legend.title = element_blank()) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -66,7 +64,7 @@ ggsave(here("markdown", "figures", "figure-1.png"),
 
 ggsave(here("markdown", "figures", "figure-1-summary.png"), 
        plot = fig1,
-       width = 17.49, height = 7, 
+       width = 17, height = 7, 
        units = "cm", device = "png", dpi = 600)
 
 
