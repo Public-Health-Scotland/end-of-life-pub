@@ -45,20 +45,28 @@ fig1 <-
   
   ggplot(aes(x = fy, y = value, fill = qom)) +
   geom_bar(position = "stack", stat = "identity", width = 0.5, show.legend = T) +
+  scale_fill_manual(values = c("#00a2e5", "#004785")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        legend.position = "top") +
+  guides(color = guide_legend(nrow = 1)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
 ggsave(here("markdown", "figures", "figure-1.png"), 
        plot = fig1,
        width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
+
+ggsave(here("markdown", "figures", "figure-1-summary.png"), 
+       plot = fig1,
+       width = 17.49, height = 7, 
        units = "cm", device = "png", dpi = 600)
 
 
