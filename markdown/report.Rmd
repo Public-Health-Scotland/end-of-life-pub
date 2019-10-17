@@ -47,6 +47,11 @@ simd <- basefile %>% summarise_data(simd)
 max_simd <- simd %>% filter(qom == max(qom)) %>% pull(simd)
 min_simd <- simd %>% filter(qom == min(qom)) %>% pull(simd)
 
+# Urban Rural data
+ur <- basefile %>% summarise_data(urban_rural)
+max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural) %>% substring(3) %>% tolower()
+min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural) %>% substring(3) %>% tolower()
+
 ```
 
 ```{r links, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -375,17 +380,19 @@ Figure 4 shows that there is little variation across the different categories of
 ### Urban Rural Classification
 The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
 
+##### Figure 5: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`; by Urban Rural Classification
+
 ##### UR Chart HERE
 
 <div custom-style = "Normal_Notes">
-1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication. See [Appendix 2](#Appendix2) for more information.
+1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication. See [Appendix 2](#Appendix2) for more information.
 </div>
 
 <br>
 
-The percentage of the last six months of life spent at home or in the community ranged from 89.0% for residents in large urban areas to 90.3% for residents from remote rural areas (Figure 5; Table 5 in [data tables](LINK)). Individuals living in remote rural areas spent, on average, approximately two extra days at home or in a community setting in the last six months of life compared to those living in large urban areas.
+The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5; Table 5 in [data tables](data_tables)) Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
 
-Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](LINK) or [Appendix A1](LINK)).
+Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](#list-of-tables) or [Appendix A1](#AppendixA1)).
 
 
 
