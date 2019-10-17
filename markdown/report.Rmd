@@ -12,6 +12,9 @@ source(here::here("functions", "summarise_data.R"))
 source(here::here("functions", "calculate_qom.R"))
 source(here::here("functions", "day_diff.R"))
 
+# Remove tidylog
+detach("package:tidylog", unload = TRUE)
+
 # Load basefile
 basefile <- read_rds(here::here("data", "basefiles", 
                                 glue("{pub_date}_base-file.rds")))
