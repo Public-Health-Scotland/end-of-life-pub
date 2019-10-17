@@ -22,6 +22,11 @@ basefile <- read_rds(here::here("data", "basefiles",
 # Basefile for most recent FY
 latest <- summarise_data(basefile)
 
+# Health Board data
+hb <- basefile %>% summarise_data(hb)
+max_hb <- hb %>% filter(qom == max(qom))
+min_hb <- hb %>% filter(qom == min(qom))
+
 # Age 85+ sex difference
 sex <-
   basefile %>%
@@ -212,7 +217,7 @@ More recently in December 2016 the ["Health and Social Care Delivery Plan"](http
 
 ### Provisional Figures 
 
-Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [**Appendix 2**](#Appendix2) for more information.
+Note that hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. This publication will be updated in October `r year(end_date)` with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [**Appendix 2**](#Appendix2) for more information.
 
 
 <Div custom-style = "Heading 2_pgbrk">Main Points</div>
@@ -222,6 +227,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 * Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
 * In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
+
 
 <Div custom-style = "Heading 2_pgbrk">Results and Commentary</div>
 
@@ -237,15 +243,10 @@ Over the `r as.character(as.english(year(end_date) - year(start_date)))` years, 
 1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.  See [Appendix 2](#Appendix2) for more information.
 </div>
 
+<br>
+
 ### Health Board of Residence
 Figure 2 shows the variation in the percentage of time spent at home or in the community in the last six months of life across Scotland by NHS Board. 
-
-```{r hb, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-hb <- basefile %>% summarise_data(hb)
-
-max_hb <- hb %>% filter(qom == max(qom))
-min_hb <- hb %>% filter(qom == min(qom))
-```
 
 The NHS Board where residents spent the highest percentage of time in their last six months of life at home or in the community was `r max_hb$hb` where `r max_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r max_hb$qom_hosp`% in hospital. On average, this equates to approximately `r english(round_half_up(182.5 * (max_hb$qom_hosp / 100)))` days spent in a hospital setting within the last six months of life. 
 
@@ -265,7 +266,7 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 
 <br>
 
-Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past nine years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
+Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past `r as.character(as.english(year(end_date) - year(start_date)))` years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
 
 ##### Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by NHS Board of Residence^2,3^
 
@@ -289,6 +290,8 @@ hb %>%
 3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 4. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
+
+<br>
 
 ### Health and Social Care Partnership
 Table 2 shows the percentage of the last six months of life spent at home or in a community setting for each Health and Social Care Partnership. 
