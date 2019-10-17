@@ -32,6 +32,17 @@ hscp <- basefile %>% summarise_data(hscp)
 max_hscp <- hscp %>% filter(qom == max(qom))
 min_hscp <- hscp %>% filter(qom == min(qom))
 
+# Age Gender data
+allages <- basefile %>% summarise_data(sex)
+old     <- basefile %>% filter(age_grp == "85+" & !is.na(sex)) %>% summarise_data(sex)
+young   <- basefile %>% filter(age_grp == "0-54" & !is.na(sex)) %>% summarise_data(sex)
+
+max_old   <- old %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
+min_old   <- old %>% filter(qom == min(qom)) %>% pull(sex) %>% tolower()
+max_young <- young %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
+min_young <- young %>% filter(qom == min(qom)) %>% pull(sex) %>% tolower()
+
+
 # Age 85+ sex difference
 sex <-
   basefile %>%
@@ -39,6 +50,7 @@ sex <-
   summarise_data(sex)
 
 max_sex <- sex %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
+
 ```
 
 ```{r links, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -231,7 +243,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 * Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
-* In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
+* In `r latest$fy`, `r max_old`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(old$qom)`%) compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community in their last six months of life.
 
 
 <Div custom-style = "Heading 2_pgbrk">Results and Commentary</div>
@@ -334,13 +346,14 @@ The trend in the percentage of the last six months of life spent at home or in a
 <br>
 
 ### Age and Gender
-Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 in the [data tables](LINK)). In 2018/19, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (89.3%) and males (89.1%). For individuals aged 85 years and over, females (90.0%) spent a higher percentage of their last six months of life at home or in the community compared to males (87.8%); this equates to females spending, on average, an extra four days in the community. In the youngest age group (0-54 years), males (94.1%) spent a higher percentage of their last six months of life at home or in the community compared to females (91.5%); this equates to, on average, an extra five days at home or in the community.
+Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 in the [data tables](data_tables)). In `r latest$fy`, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (`r allages %>% filter(sex == "Female") %>% pull(qom)`%) and males (`r allages %>% filter(sex == "Male") %>% pull(qom)`%). For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_sex`s spending, on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community. In the youngest age group (0-54 years), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community.
 
-<!-- Check if should use four or five # here -->
+##### Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by age and gender
+
 ##### Age and Gender Chart HERE
 
 <div custom-style = "Normal_Notes">
-1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#Appendix2) for more information.
 </div>
 
 <br>
