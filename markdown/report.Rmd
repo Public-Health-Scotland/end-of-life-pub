@@ -253,6 +253,8 @@ The NHS Board with the lowest percentage of time on average spent at home or in 
 
 Note that hospital data are provisional for `r latest$fy`. This publication will be updated in October `r year(pub_date)` with final figures. _More detail of completeness here_. See [Appendix 2](#Appendix2) for more information.
 
+##### Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^1^; by NHS Board of Residence^2,3^
+
 ##### Map HERE
 
 <div custom-style = "Normal_Notes">
@@ -265,7 +267,7 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 
 Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The trend in the percentages over the past nine years is presented in graphical format in Figure A1.1 (see [List of Tables](#Tables) or [Appendix A1](#AppendixA1)).
 
-##### Health Board of Residence Table HERE
+##### Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by NHS Board of Residence^2,3^
 
 ```{r hb-table, echo = FALSE}
 hb %>%
@@ -278,6 +280,8 @@ hb %>%
                   "**Number of days spent at home/in the community^4^**"),
     align = c('l', 'r', 'r', 'r'))
 ```
+
+<br>
 
 <div custom-style = "Normal_Notes">
 1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.  See [Appendix 2](#Appendix2) for more information.
