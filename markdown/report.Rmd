@@ -27,6 +27,11 @@ hb <- basefile %>% summarise_data(hb)
 max_hb <- hb %>% filter(qom == max(qom))
 min_hb <- hb %>% filter(qom == min(qom))
 
+# HSCP data
+hscp <- basefile %>% summarise_data(hscp)
+max_hscp <- hscp %>% filter(qom == max(qom))
+min_hscp <- hscp %>% filter(qom == min(qom))
+
 # Age 85+ sex difference
 sex <-
   basefile %>%
@@ -296,21 +301,37 @@ hb %>%
 ### Health and Social Care Partnership
 Table 2 shows the percentage of the last six months of life spent at home or in a community setting for each Health and Social Care Partnership. 
 
-Note that hospital data are provisional for 2018/19. This publication will be updated in October 2019 with final figures.  Figures for the latest year should therefore be treated with caution particularly NHS Greater Glasgow & Clyde and NHS Forth Valley. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#Appendix2) for more information.
+Note that hospital data are provisional for `r latest$fy`. This publication will be updated in October `r year(end_date)` with final figures.  Figures for the latest year should therefore be treated with caution particularly NHS Greater Glasgow & Clyde and NHS Forth Valley. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#Appendix2) for more information.
 
-Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from 86.4% (Scottish Borders) to 94.2% (Shetland Islands). This could be due to differences in the age profile and rurality of each of the local areas.
+Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to differences in the age profile and rurality of each of the local areas.
 
-##### HSCP Table HERE
+##### Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Health and Social Care Partnership^2^
+
+```{r hscp-table, echo = FALSE}
+hscp %>%
+  bind_rows(basefile %>% summarise_data() %>% mutate(hscp = "Scotland")) %>%
+  select(hscp, deaths, qom, comm) %>%
+  knitr::kable(
+    col.names = c("**Health and Social Care Partnership**", 
+                  "**Number of Deaths**",
+                  "**% time spent at home/in the community**",
+                  "**Number of days spent at home/in the community^3^**"),
+    align = c('l', 'r', 'r', 'r'))
+```
+
+<br>
 
 <div custom-style = "Normal_Notes">
-1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.  See [Appendix 2](#Appendix2) for more information.
+1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#Appendix2) for more information.
 2. The Health and Social Care Partnership is the usual place of residence prior to death.
 3. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
 
 <br>
 
-The trend in the percentage of the last six months of life spent at home or in a community setting over the past nine years for Health and Social Care Partnerships is presented in graphical format in Figure A1.2 (see [List of Tables](#Tables) or [Appendix A1](#Appendix A1)) and the corresponding data can be found in Table 2 in the [data tables](LINK). 
+The trend in the percentage of the last six months of life spent at home or in a community setting over the past `r as.character(as.english(year(end_date) - year(start_date)))` years for Health and Social Care Partnerships is presented in graphical format in Figure A1.2 (see [List of Tables](#Tables) or [Appendix A1](#Appendix A1)) and the corresponding data can be found in Table 2 in the [data tables](data_tables). 
+
+<br>
 
 ### Age and Gender
 Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 in the [data tables](LINK)). In 2018/19, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (89.3%) and males (89.1%). For individuals aged 85 years and over, females (90.0%) spent a higher percentage of their last six months of life at home or in the community compared to males (87.8%); this equates to females spending, on average, an extra four days in the community. In the youngest age group (0-54 years), males (94.1%) spent a higher percentage of their last six months of life at home or in the community compared to females (91.5%); this equates to, on average, an extra five days at home or in the community.
