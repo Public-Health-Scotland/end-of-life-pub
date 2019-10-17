@@ -48,9 +48,14 @@ max_simd <- simd %>% filter(qom == max(qom)) %>% pull(simd)
 min_simd <- simd %>% filter(qom == min(qom)) %>% pull(simd)
 
 # Urban Rural data
-ur <- basefile %>% summarise_data(urban_rural)
-max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural) %>% substring(3) %>% tolower()
-min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural) %>% substring(3) %>% tolower()
+ur <- basefile %>% summarise_data(urban_rural) %>%
+  mutate(urban_rural = 
+           case_when(
+             str_detect(urban_rural, "Rural$") ~ paste(tolower(substring(urban_rural, 3)), "areas"),
+             TRUE ~ tolower(substring(urban_rural, 3))
+           ))
+max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural)
+min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
 ```
 
@@ -392,7 +397,7 @@ The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/
 
 The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5; Table 5 in [data tables](data_tables)) Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
 
-Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](#list-of-tables) or [Appendix A1](#AppendixA1)).
+Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](#list-of-tables) or [Appendix A1](#appendix-a1)).
 
 
 
@@ -430,14 +435,14 @@ Further Information can be found on the [ISD website](http://www.isdscotland.org
 
 For more information on Palliative and End of Life Care see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
-The next release of this publication will be October 2019.  
+The next release of this publication will be October `r year(end_date)`.  
 
 <br>
 
 <Div custom-style = "Heading 2_nopgbrk">Rate this publication</div>
 Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/rate-this-publication.asp?ID=2417) on this publication to help us improve our services.
 
-<Div custom-style = "Heading 2_pgbrk">Appendices</div>
+## Appendices
 
 ### Appendix 1 - Trend Data
 
@@ -462,29 +467,29 @@ It is envisaged that an increase in this measure will reflect both quality and v
 Over time, an increase in the proportion of time spent at home / in a community setting at the end of life may indicate an improvement in the quality and efficiency of palliative care. This increase would be expected in the medium to long term as a result of an increase in the use of anticipatory care plans and electronic palliative care summaries. 
 
 This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01/SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. 
+
 <Div custom-style = "Heading 3_pgbrk">Appendix * - Data Quality and Completeness</div>
 
-Hospital data and National Records of Scotland deaths data are provisional for 2018/19. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
+Hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
 
-Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. Note that there are particular issues with completeness for NHS Forth Valley and NHS Greater Glasgow & Clyde data for the last quarter (Quarter 4) of 2018/19 and so data for these areas in particular should be treated with caution.
+Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. Note that there are particular issues with completeness for NHS Forth Valley and NHS Greater Glasgow & Clyde data for the last quarter (Quarter 4) of `r latest$fy` and so data for these areas in particular should be treated with caution.
 
 #### SMR01 Completeness Table HERE
 
-This publication will be updated in October 2019 with final figures.
+This publication will be updated in October `r year(end_date)` with final figures.
 
 <Div custom-style = "Heading 3_pgbrk">Appendix 3 - Methodology</div>
 
-This publication includes data from financial years 2010/11 to 2018/19 at Scotland, Health Board and Health and Social Care Partnership level. 
-
-In the August 2016 release the methodology for how to measure the: ‘percentage of the last six months of life spent at home or in a community setting’ was revised compared to previous publications. Therefore results presented in this publication will not be comparable to figures published prior to August 2016. However, trend data from 2010/11 to 2018/19 is available using the revised methodology in this publication.
+This publication includes data from financial years `r min(basefile$fy)` to `r latest$fy` at Scotland, Health Board and Health and Social Care Partnership level. 
 
 **Calculation of Measure**  
-Scottish residents who died between 2010/11 and 2018/19 are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
+Scottish residents who died between `r min(basefile$fy)` and `r latest$fy` are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
 
 The deaths data are linked to hospital discharge data (SMR01 and SMR04) and the actual number of bed days spent in hospital in Scotland in the six months prior to the death of each individual is calculated and added together for all individuals. This includes bed days from all acute and community hospitals, psychiatric hospitals or geriatric long stay facilities.
+
 The percentage of time spent in hospital in the last six months of life is therefore arrived at by dividing the actual number of bed days by the possible number of bed days. The percentage of time spent at home or in a community setting is then obtained by subtracting the percentage of time spent in hospital from 100%. 
 
-For each financial year from 2010/11 to 2018/19 this report presents the percentage of the last six months of life that was spent at home or in a community setting for patients who died within each financial year. A summary of how the measure is calculated is shown below.
+For each financial year from `r min(basefile$fy)` to `r latest$fy` this report presents the percentage of the last six months of life that was spent at home or in a community setting for patients who died within each financial year. A summary of how the measure is calculated is shown below.
 
 <br>
 
