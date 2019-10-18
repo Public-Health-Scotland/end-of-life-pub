@@ -63,8 +63,14 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 
 <Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
-<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`**</div>
+<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1^**</div>
 ![This bar charts shows the QoM measure for each financial year.](figures/figure-1-summary.png) <br>
+
+<div custom-style = "Normal_Notes">
+1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.
+</div>
+
+<br>
 
 * In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
 
