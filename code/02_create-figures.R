@@ -104,7 +104,7 @@ fig4 <-
   summarise_data(simd) %>%
 
   ggplot(aes(x = simd, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F) +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -129,7 +129,7 @@ fig5 <-
   summarise_data(urban_rural) %>%
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F) +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -163,7 +163,7 @@ figa11 <-
   mutate(hb = forcats::fct_relevel(hb, "Scotland")) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line() +
+  geom_line(color = "#004785") +
   facet_wrap( ~ hb, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -191,7 +191,7 @@ figa12 <-
   summarise_data(hscp, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line() +
+  geom_line(color = "#004785") +
   facet_wrap( ~ hscp, ncol = 4) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -219,7 +219,7 @@ figa13 <-
   summarise_data(simd, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line() +
+  geom_line(color = "#004785") +
   facet_wrap( ~ simd, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -247,7 +247,7 @@ figa14 <-
   summarise_data(urban_rural, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line() +
+  geom_line(color = "#004785") +
   facet_wrap( ~ urban_rural, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
