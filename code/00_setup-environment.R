@@ -53,7 +53,9 @@ filepath <- dplyr::if_else(platform == "server",
 ### 3 - Create data and figures folders ----
 
 if(!("data" %in% fs::dir_ls(here::here()))){
-  fs::dir_create(paste0(here::here("data", c("basefiles", "extracts"))))
+  fs::dir_create(paste0(here::here("data", c("basefiles", 
+                                             "extracts",
+                                             "output"))))
 }
 
 if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
