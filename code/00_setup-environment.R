@@ -74,7 +74,16 @@ start_date <- lubridate::ymd(20100401)
 end_date   <- lubridate::ymd(20190331)
 
 # Date of publication
-pub_date <- lubridate::ymd(20191008)
+pub_date <- lubridate::ymd(20200528)
+
+# Date of last publication
+last_pub_date <- lubridate::ymd(20191008)
+
+# Date of next publication
+next_pub_date <- 
+  if_else(month(pub_date) == 5,
+          paste("October", year(pub_date)),
+          paste("May", year(pub_date) + 1))
 
 # Provisional/Update
 pub_type <- "provisional"
