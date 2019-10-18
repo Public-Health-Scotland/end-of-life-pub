@@ -31,10 +31,8 @@ basefile <- read_rds(here("data", "basefiles",
 fig1 <- 
   
   basefile %>%
-  group_by(fy) %>%
-  summarise(qom_hosp = calculate_qom(sum(los), sum(deaths), "hosp"),
-            qom_comm = calculate_qom(sum(los), sum(deaths), "comm")) %>%
-  pivot_longer(cols = qom_hosp:qom_comm,
+  summarise_data(include_years = "all") %>%
+  pivot_longer(cols = qom:qom_hosp,
                names_to = "qom") %>%
   mutate(qom = if_else(qom == "qom_hosp",
                        "Hospital",
@@ -76,12 +74,12 @@ ggsave(here("markdown", "figures", "figure-1-summary.png"),
 fig3 <- 
   
   basefile %>%
-  filter(fy == max(.$fy) & !is.na(sex)) %>%
-  group_by(age_grp, sex) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  filter(!is.na(sex)) %>%
+  summarise_data(age_grp, sex) %>%
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
+  scale_fill_manual(values = c("#00a2e5", "#004785")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -103,10 +101,8 @@ ggsave(here("markdown", "figures", "figure-3.png"),
 fig4 <- 
   
   basefile %>%
-  filter(fy == max(.$fy)) %>%
-  group_by(simd) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
-  
+  summarise_data(simd) %>%
+
   ggplot(aes(x = simd, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F) +
   theme(panel.background = element_blank(),
@@ -130,9 +126,7 @@ ggsave(here("markdown", "figures", "figure-4.png"),
 fig5 <- 
   
   basefile %>%
-  filter(fy == max(.$fy)) %>%
-  group_by(urban_rural) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  summarise_data(urban_rural) %>%
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F) +
@@ -157,8 +151,7 @@ ggsave(here("markdown", "figures", "figure-5.png"),
 figa11 <- 
   
   basefile %>%
-  group_by(fy, hb) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  summarise_data(hb, include_years = "all") %>%
   
   # Add row for Scotland
   bind_rows(
@@ -195,8 +188,7 @@ ggsave(here("markdown", "figures", "figure-a1-1.png"),
 figa12 <- 
   
   basefile %>%
-  group_by(fy, hscp) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  summarise_data(hscp, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line() +
@@ -224,8 +216,7 @@ ggsave(here("markdown", "figures", "figure-a1-2.png"),
 figa13 <- 
   
   basefile %>%
-  group_by(fy, simd) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  summarise_data(simd, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line() +
@@ -253,8 +244,7 @@ ggsave(here("markdown", "figures", "figure-a1-3.png"),
 figa14 <- 
   
   basefile %>%
-  group_by(fy, urban_rural) %>%
-  summarise(qom = calculate_qom(sum(los), sum(deaths), "comm")) %>%
+  summarise_data(urban_rural, include_years = "all") %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line() +
