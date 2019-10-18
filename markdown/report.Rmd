@@ -11,6 +11,7 @@ source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
 source(here::here("functions", "calculate_qom.R"))
 source(here::here("functions", "day_diff.R"))
+source(here::here("functions", "extract_date.R"))
 
 # Remove tidylog
 detach("package:tidylog", unload = TRUE)
