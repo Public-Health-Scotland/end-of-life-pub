@@ -32,6 +32,7 @@ library(fs)            # For creating new file directories
 library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
+library(purrr)         # For functional programming
 
 
 ### 2 - Define Whether Running on Server or Locally ----
