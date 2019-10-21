@@ -19,13 +19,22 @@ source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
 
 
-### 2 - Read in basefile ----
+### 2 - Create link to main report
+
+link <- c(glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-",
+               "Community-Care/Publications/{pub_date}/{pub_date}-",
+               "End-of-Life-Report.pdf"))
+names(link) <- "See Appendix 2 of the full report for more information."
+class(link) <- "hyperlink"
+
+
+### 3 - Read in basefile ----
 
 basefile <- read_rds(here("data", "basefiles", 
                           glue("{pub_date}_base-file.rds")))
 
 
-### 3 - Restructure for QoM table ----
+### 4 - Restructure for QoM table ----
 
 # columns: fy, category, category_split, qom, qom_hosp, deaths, comm
 # category: hb, Scotland, age/sex, ca, hscp, simd 15, simd quintile, 
@@ -112,7 +121,7 @@ excel_data <-
   )
 
 
-### 4 - Write data to excel workbooks ----
+### 5 - Write data to excel workbooks ----
 
 figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
   
@@ -128,7 +137,13 @@ insertImage(figures,
             units = "cm", dpi = 600,
             startCol = 2,
             startRow = 7)
-  
+
+writeData(figures, 
+          "Notes", 
+          startRow = 18,
+          startCol = 3,
+          x = link)
+
 saveWorkbook(figures,
              here("data", "output", glue("{pub_date}_figures.xlsm")),
              overwrite = TRUE)
@@ -139,6 +154,12 @@ writeData(qom,
           "data",
           excel_data,
           startCol = 2)
+
+writeData(qom,
+          "Notes", 
+          startRow = 16,
+          startCol = 3,
+          x = link)
 
 saveWorkbook(qom,
              here("data", "output", glue("{pub_date}_qom.xlsm")),
