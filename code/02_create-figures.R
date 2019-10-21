@@ -68,6 +68,44 @@ ggsave(here("markdown", "figures", "figure-1-summary.png"),
 
 ### 4 - Figure 2 - Health Board Map ----
 
+fig2 <- shapefile()
+
+fig2@data %<>%
+  left_join(summarise_data(basefile, hb,
+                           format_numbers = FALSE) %>% 
+              mutate(hb = substring(hb, 5)) %>%
+              select(hb, qom),
+            by = c("HBName" = "hb"))
+
+fig2@data$id <- rownames(fig2@data)
+
+fig2 <-
+  full_join(tidy(fig2, region = "id"),
+            fig2@data,
+            by = "id")
+
+fig2 <-
+  
+  ggplot() +
+  geom_polygon(data = fig2,
+               aes(x = long,
+                   y = lat,
+                   group = group,
+                   fill = qom),
+               colour = "white",
+               size = 0.3) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        legend.title = element_blank())
+
+ggsave(here("markdown", "figures", "figure-2.png"), 
+       plot = fig2,
+       width = 10, height = 12, 
+       units = "cm", device = "png", dpi = 600)  
+
 
 ### 5 - Figure 3 - Age/Sex Bar Chart ----
 

@@ -33,6 +33,8 @@ library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
+library(rgdal)         # For reading shapefiles
+library(broom)         # For tidying shapefile
 
 
 ### 2 - Define Whether Running on Server or Locally ----
@@ -159,5 +161,14 @@ locality <- function(){
   rename(locality = hscp_locality)
 
 }
+
+shapefile <- function(){
+  
+ readOGR(glue("{filepath}lookups/Unicode/Geography/Shapefiles/",
+               "Health Board 2019/"),
+         "SG_NHS_HealthBoards_2019")
+  
+}
+
 
 ### END OF SCRIPT ###
