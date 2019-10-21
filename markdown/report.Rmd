@@ -322,6 +322,8 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 
 Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to differences in the age profile and rurality of each of the local areas.
 
+######## Page Break
+
 ##### Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Health and Social Care Partnership^2^
 
 ```{r hscp-table, echo = FALSE}
