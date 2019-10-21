@@ -19,9 +19,15 @@ day_diff <- function(x, y){
   days_x <- 182.5 * (as.double(x) / 100)
   days_y <- 182.5 * (as.double(y) / 100)
   
-  Mod(days_x - days_y) %>%
-    janitor::round_half_up(0) %>%
-    english::as.english()
+  day_diff <-
+    Mod(days_x - days_y) %>%
+    janitor::round_half_up(0)
+  
+  if(day_diff < 10){
+    day_diff <- as.character(english::as.english(day_diff))
+  }
+
+  return(day_diff)
   
 }
 
