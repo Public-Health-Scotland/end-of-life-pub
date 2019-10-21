@@ -17,7 +17,6 @@
 
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
-source(here::here("functions", "calculate_qom.R"))
 
 
 ### 2 - Read in basefile ----
