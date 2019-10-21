@@ -17,7 +17,6 @@
 
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
-source(here::here("functions", "calculate_qom.R"))
 
 
 ### 2 - Read in basefile ----
@@ -31,7 +30,8 @@ basefile <- read_rds(here("data", "basefiles",
 fig1 <- 
   
   basefile %>%
-  summarise_data(include_years = "all") %>%
+  summarise_data(include_years = "all",
+                 format_numbers = FALSE) %>%
   pivot_longer(cols = qom:qom_hosp,
                names_to = "qom") %>%
   mutate(qom = if_else(qom == "qom_hosp",
@@ -75,7 +75,7 @@ fig3 <-
   
   basefile %>%
   filter(!is.na(sex)) %>%
-  summarise_data(age_grp, sex) %>%
+  summarise_data(age_grp, sex, format_numbers = FALSE) %>%
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
@@ -101,7 +101,7 @@ ggsave(here("markdown", "figures", "figure-3.png"),
 fig4 <- 
   
   basefile %>%
-  summarise_data(simd) %>%
+  summarise_data(simd, format_numbers = FALSE) %>%
 
   ggplot(aes(x = simd, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
@@ -126,7 +126,7 @@ ggsave(here("markdown", "figures", "figure-4.png"),
 fig5 <- 
   
   basefile %>%
-  summarise_data(urban_rural) %>%
+  summarise_data(urban_rural, format_numbers = FALSE) %>%
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
@@ -151,7 +151,7 @@ ggsave(here("markdown", "figures", "figure-5.png"),
 figa11 <- 
   
   basefile %>%
-  summarise_data(hb, include_years = "all") %>%
+  summarise_data(hb, include_years = "all", format_numbers = FALSE) %>%
   
   # Add row for Scotland
   bind_rows(
@@ -188,7 +188,7 @@ ggsave(here("markdown", "figures", "figure-a1-1.png"),
 figa12 <- 
   
   basefile %>%
-  summarise_data(hscp, include_years = "all") %>%
+  summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
@@ -216,7 +216,7 @@ ggsave(here("markdown", "figures", "figure-a1-2.png"),
 figa13 <- 
   
   basefile %>%
-  summarise_data(simd, include_years = "all") %>%
+  summarise_data(simd, include_years = "all", format_numbers = FALSE) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
@@ -244,7 +244,7 @@ ggsave(here("markdown", "figures", "figure-a1-3.png"),
 figa14 <- 
   
   basefile %>%
-  summarise_data(urban_rural, include_years = "all") %>%
+  summarise_data(urban_rural, include_years = "all", format_numbers = FALSE) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +

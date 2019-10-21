@@ -14,27 +14,33 @@
 
 
 summarise_data <- function(data, ..., 
-                           include_years = c("last", "first", "all")){
+                           include_years = c("last", "first", "all"),
+                           format_numbers = TRUE){
   
   include_years <- match.arg(include_years)
   
   if(include_years == "first"){data %<>% filter(fy == min(fy))}
   if(include_years == "last"){data %<>% filter(fy == max(fy))}
   
-  data %>%
+  data %<>%
     
     group_by(fy, ...) %>%
     
-    summarise(qom = ((sum(los) / sum(deaths)) / 182.5) * 100,
-              qom_hosp = 100 - ((sum(los) / sum(deaths)) / 182.5) * 100,
+    summarise(qom = 100 - ((sum(los) / sum(deaths)) / 182.5) * 100,
+              qom_hosp = ((sum(los) / sum(deaths)) / 182.5) * 100,
               deaths = sum(deaths),
               comm = round_half_up(182.5 * (qom / 100)),
               hosp = round_half_up(182.5 * (qom_hosp / 100))) %>%
     
-    ungroup() %>%
-    
-    mutate_at(vars(qom, qom_hosp), ~ sprintf("%.1f", round_half_up(., 1))) %>%
-    mutate(deaths = format(deaths, big.mark = ","))
+    ungroup()
+  
+  if(format_numbers == TRUE){
+    data %<>%
+      mutate_at(vars(qom, qom_hosp), ~ sprintf("%.1f", round_half_up(., 1))) %>%
+      mutate(deaths = format(deaths, big.mark = ","))
+  }
+  
+  return(data)
     
 }
 
