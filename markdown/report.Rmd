@@ -280,7 +280,7 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 <div custom-style = "Normal_Notes">
 1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication. See [Appendix 2](#appendix-2---background-information) for more information.
 2. The Health Board of Residence is the usual place of residence prior to death.
-3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2019.
 </div>
 
 <br>
@@ -307,7 +307,7 @@ hb %>%
 <div custom-style = "Normal_Notes">
 1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
 2. The Health Board of Residence is the usual place of residence prior to death.
-3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2019.
 4. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
 
