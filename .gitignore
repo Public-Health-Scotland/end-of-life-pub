@@ -12,16 +12,6 @@ data/
 # 'markdown/figures' folder #
 markdown/figures/
 
-# Common text files that may contain data #
-*.[cC][sS][vV]
-*.[tT][xX][tT]
-
-# Excel files #
-*.[xX][lL][sS]*
-
-# SPSS formats #
-*.[sS][aA][vV]
-
 # R data files #
 *.[rR][dD][aA][tT][aA]
 *.[rR][dD][sS]

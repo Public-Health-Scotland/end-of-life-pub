@@ -79,6 +79,12 @@ excel_data <-
                      category_split = paste(age_grp, "Both"),
                      include_years = "all"),
     
+    # All Ages/All Sex
+    basefile %>%
+      summarise_data(category = "age/sex",
+                     category_split = paste("All Ages", "Both"),
+                     include_years = "all"),
+    
     # SIMD 
     basefile %>%
       summarise_data(category = "simd quintile", 
@@ -104,5 +110,39 @@ excel_data <-
                      include_years = "all")
     
   )
+
+
+### 4 - Write data to excel workbooks ----
+
+figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
   
+writeData(figures,
+          "data",
+          excel_data,
+          startCol = 2)
+
+insertImage(figures,
+            "Figure 2",
+            here("markdown", "figures", "figure-2.png"),
+            width = 10, height = 12, 
+            units = "cm", dpi = 600,
+            startCol = 2,
+            startRow = 7)
+  
+saveWorkbook(figures,
+             here("data", "output", glue("{pub_date}_figures.xlsm")),
+             overwrite = TRUE)
+
+qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
+  
+writeData(qom, 
+          "data",
+          excel_data,
+          startCol = 2)
+
+saveWorkbook(qom,
+             here("data", "output", glue("{pub_date}_qom.xlsm")),
+             overwrite = TRUE)
+  
+
 ### END OF SCRIPT ###

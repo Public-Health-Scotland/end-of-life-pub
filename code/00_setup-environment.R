@@ -35,6 +35,7 @@ library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
 library(rgdal)         # For reading shapefiles
 library(broom)         # For tidying shapefile
+library(openxlsx)      # For writing to excel workbook
 
 
 ### 2 - Define Whether Running on Server or Locally ----
