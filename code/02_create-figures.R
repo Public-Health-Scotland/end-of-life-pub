@@ -179,7 +179,7 @@ figa11 <-
 
 ggsave(here("markdown", "figures", "figure-a1-1.png"), 
        plot = figa11,
-       width = 17.49, height = 9.03, 
+       width = 15.43, height = 17.25, 
        units = "cm", device = "png", dpi = 600)
 
 
@@ -207,7 +207,7 @@ figa12 <-
 
 ggsave(here("markdown", "figures", "figure-a1-2.png"), 
        plot = figa12,
-       width = 17.49, height = 9.03, 
+       width = 15.45, height = 19.9, 
        units = "cm", device = "png", dpi = 600)
 
 
@@ -235,7 +235,7 @@ figa13 <-
 
 ggsave(here("markdown", "figures", "figure-a1-3.png"), 
        plot = figa13,
-       width = 17.49, height = 9.03, 
+       width = 17.48, height = 9.03, 
        units = "cm", device = "png", dpi = 600)
 
 
