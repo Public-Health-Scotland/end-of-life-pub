@@ -25,13 +25,17 @@ summarise_data <- function(data, ...,
     
     group_by(fy, ...) %>%
     
-    summarise(qom = calculate_qom(sum(los), sum(deaths), setting = "comm"),
-              qom_hosp = calculate_qom(sum(los), sum(deaths), setting = "hosp"),
+    summarise(qom = ((sum(los) / sum(deaths)) / 182.5) * 100,
+              qom_hosp = 100 - ((sum(los) / sum(deaths)) / 182.5) * 100,
               deaths = sum(deaths),
-              comm = round_half_up(182.5 * (qom / 100))) %>%
+              comm = round_half_up(182.5 * (qom / 100)),
+              hosp = round_half_up(182.5 * (qom_hosp / 100))) %>%
     
-    ungroup()
-  
+    ungroup() %>%
+    
+    mutate_at(vars(qom, qom_hosp), ~ sprintf("%.1f", round_half_up(., 1))) %>%
+    mutate(deaths = format(deaths, big.mark = ","))
+    
 }
 
 
