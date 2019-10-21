@@ -250,7 +250,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 ## Main Points
 
-* In `r latest$fy`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r latest$hosp` days in hospital in the six months prior to death.
+* In `r latest$fy`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
 
 * Over the past `r trend_length` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
@@ -258,7 +258,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 ## Results and Commentary
 
-For the `r latest$deaths` residents of Scotland who died in financial year `r latest$fy`, `r latest$qom`% of their last six months of life was spent either at home or in the community (Table 1) and `r latest$qom_hosp`% of their last six months of life was spent in hospital. This is equivalent to each individual spending an average of `r latest$hosp` days in hospital in the six months prior to their death (Table 1 in the [data tables](`r data_tables`)).
+For the `r latest$deaths` residents of Scotland who died in financial year `r latest$fy`, `r latest$qom`% of their last six months of life was spent either at home or in the community (Table 1) and `r latest$qom_hosp`% of their last six months of life was spent in hospital. This is equivalent to each individual spending an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to their death (Table 1 in the [data tables](`r data_tables`)).
 
 Over the `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the percentage of time spent at home or in a community setting has increased from `r basefile %>% summarise_data(include_years = "first") %>% pull(qom)`% to `r latest$qom`%, this equates to, on average an extra `r day_diff(basefile %>% summarise_data(include_years = "first") %>% pull(qom), latest$qom)` days within the last six months of life being spent at home or in a community setting in `r latest$fy` compared to `r min(basefile$fy)` (see Figure 1 below or [Appendix 1](#appendix-1---trend-data)).
 
@@ -275,9 +275,9 @@ Over the `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the perc
 ### Health Board of Residence
 Figure 2 shows the variation in the percentage of time spent at home or in the community in the last six months of life across Scotland by NHS Board. 
 
-The NHS Board where residents spent the highest percentage of time in their last six months of life at home or in the community was `r max_hb$hb` where `r max_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r max_hb$qom_hosp`% in hospital. On average, this equates to approximately `r max_hb$hosp` days spent in a hospital setting within the last six months of life. 
+The NHS Board where residents spent the highest percentage of time in their last six months of life at home or in the community was `r max_hb$hb` where `r max_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r max_hb$qom_hosp`% in hospital. On average, this equates to approximately `r if(max_hb$hosp < 10){as.character(as.english(max_hb$hosp))}else{max_hb$hosp}` days spent in a hospital setting within the last six months of life. 
 
-The NHS Board with the lowest percentage of time on average spent at home or in a community setting in their last six months of life was `r min_hb$hb` where `r min_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r min_hb$qom_hosp`% in hospital. This equates to approximately `r min_hb$hosp` days spent in a hospital setting within the last six months of life. The variation in percentages across Scotland could be affected by the age profile and rurality of the different health boards.
+The NHS Board with the lowest percentage of time on average spent at home or in a community setting in their last six months of life was `r min_hb$hb` where `r min_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r min_hb$qom_hosp`% in hospital. This equates to approximately `r if(min_hb$hosp < 10){as.character(as.english(min_hb$hosp))}else{min_hb$hosp}` days spent in a hospital setting within the last six months of life. The variation in percentages across Scotland could be affected by the age profile and rurality of the different health boards.
 
 Note that hospital data are provisional for `r latest$fy`. This publication will be updated in October `r year(pub_date)` with final figures. _More detail of completeness here_. See [Appendix 2](#appendix-2---background-information) for more information.
 
@@ -373,7 +373,7 @@ Figure 3 below presents the percentage of time spent at home or in the community
 <br>
 
 ### Deprivation
-The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 in the [data tables](data_tables). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
+The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 in the [data tables](data_tables)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
 
 ##### Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Deprivation Category^2^
 
