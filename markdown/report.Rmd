@@ -212,8 +212,6 @@ MetaData <- data.frame(Indicator, Description)
 
 The [Official Statistics (Scotland) Order 2008](http://www.legislation.gov.uk/ssi/2008/131/contents/made) authorises NHS National Services Scotland (the legal name being the Common Services Agency for the Scottish Health Service) to produce official statistics. 
 
-<br>
-
 All official statistics should comply with the UK Statistics Authority’s Code of Practice which promotes the production and dissemination of official statistics that inform decision making. They can be formally assessed by the UK Statistics Authority’s regulatory arm for National Statistics status. 
 
 <br>
@@ -230,21 +228,15 @@ https://www.statisticsauthority.gov.uk/national-statistician/producers-of-offici
 
 The [NHS Healthcare Quality Strategy](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy) was launched in May 2010 by the Scottish Government with the aim of delivering high quality healthcare services to the people of Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
-<br>
-
 This release by Information Services Division presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
 
-<br>
-
 Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the national action plan. 
-
-<br>
 
 More recently in December 2016 the ["Health and Social Care Delivery Plan"](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities.
 
 <br>
 
-### Provisional Figures 
+**Provisional Figures**
 
 Note that hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. This publication will be updated in October `r year(end_date)` with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [Appendix 2](#appendix-2---background-information) for more information.
 
@@ -522,7 +514,7 @@ Over time, an increase in the proportion of time spent at home / in a community 
 
 This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01/SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. 
 
-### Data Quality and Completeness
+**Data Quality and Completeness**
 
 Hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
 
@@ -538,7 +530,7 @@ This publication will be updated in October `r next_pub_date` with final figures
 
 This publication includes data from financial years `r min(basefile$fy)` to `r latest$fy` at Scotland, Health Board and Health and Social Care Partnership level. 
 
-### Calculation of Measure
+**Calculation of Measure**
 
 Scottish residents who died between `r min(basefile$fy)` and `r latest$fy` are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
 
