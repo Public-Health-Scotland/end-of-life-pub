@@ -397,7 +397,7 @@ The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/
 
 <br>
 
-The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5; Table 5 in [data tables](data_tables)) Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
+The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5; Table 5 in [data tables](data_tables)). Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
 
 Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in Figure A1.4 (see [List of Tables](#list-of-tables) or [Appendix A1](#appendix-a1)).
 
