@@ -306,7 +306,7 @@ hb %>%
     col.names = c("**NHS Board of Residence**", 
                   "**Number of Deaths**",
                   "**% time spent at home/in the community**",
-                  "**Number of days spent at home/in the community^4^**"),
+                  "**Average number of days spent at home/in the community^4^**"),
     align = c('l', 'r', 'r', 'r'))
 ```
 
@@ -341,7 +341,7 @@ hscp %>%
     col.names = c("**Health and Social Care Partnership**", 
                   "**Number of Deaths**",
                   "**% time spent at home/in the community**",
-                  "**Number of days spent at home/in the community^3^**"),
+                  "**Average number of days spent at home/in the community^3^**"),
     align = c('l', 'r', 'r', 'r'))
 ```
 
