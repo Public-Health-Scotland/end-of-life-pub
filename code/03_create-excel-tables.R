@@ -48,75 +48,87 @@ excel_data <-
     basefile %>%
       summarise_data(category = "Scotland",
                      category_split = "Scotland",
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Health Board
     basefile %>%
       summarise_data(category = "hb", 
                      category_split = hb,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Council Area
     basefile %>%
       summarise_data(category = "ca", 
                      category_split = ca,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # HSCP
     basefile %>%
       summarise_data(category = "hscp", 
                      category_split = hscp,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Age/Sex
     basefile %>%
       filter(!is.na(sex)) %>% 
       summarise_data(category = "age/sex", 
                      category_split = paste(age_grp, sex),
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # All Ages/Sex
     basefile %>%
       filter(!is.na(sex)) %>%
       summarise_data(category = "age/sex", 
                      category_split = paste("All Ages", sex),
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Age/All Sex
     basefile %>%
       summarise_data(category = "age/sex", 
                      category_split = paste(age_grp, "Both"),
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # All Ages/All Sex
     basefile %>%
       summarise_data(category = "age/sex",
                      category_split = paste("All Ages", "Both"),
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # SIMD 
     basefile %>%
       summarise_data(category = "simd quintile", 
                      category_split = simd,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # SIMD Top 15%
     basefile %>%
       summarise_data(category = "simd 15", 
                      category_split = simd_15,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Urban Rural 6 fold
     basefile %>%
       summarise_data(category = "urban rural 6", 
                      category_split = urban_rural,
-                     include_years = "all"),
+                     include_years = "all",
+                     format_numbers = FALSE),
     
     # Urban Rural 2 fold
     basefile %>%
       summarise_data(category = "urban rural 2", 
                      category_split = urban_rural_2,
-                     include_years = "all")
+                     include_years = "all",
+                     format_numbers = FALSE)
     
   )
 
