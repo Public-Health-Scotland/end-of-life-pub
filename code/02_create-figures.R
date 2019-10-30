@@ -195,9 +195,10 @@ figa11 <-
   # Add row for Scotland
   bind_rows(
     basefile %>%
-      group_by(fy) %>%
-      summarise(hb = "Scotland",
-                qom = calculate_qom(sum(los), sum(deaths), "comm"))
+      summarise_data(fy, 
+                     hb = "Scotland", 
+                     include_years = "all", 
+                     format_numbers = FALSE)
   ) %>%
   mutate(hb = forcats::fct_relevel(hb, "Scotland")) %>%
   
