@@ -94,6 +94,7 @@ fig2 <-
                    fill = qom),
                colour = "white",
                size = 0.3) +
+  scale_fill_continuous(trans = "reverse") +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.text = element_blank(),
