@@ -127,6 +127,9 @@ fig3 <-
   basefile %>%
   filter(!is.na(sex)) %>%
   summarise_data(age_grp, sex, format_numbers = FALSE) %>%
+  bind_rows(basefile %>%
+              filter(!is.na(sex)) %>%
+              summarise_data(age_grp = "All Ages", sex, format_numbers = FALSE)) %>%
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
