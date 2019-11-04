@@ -1,8 +1,8 @@
 completeness <- function(end_date, lookup, level = c("board", "scotland")) {
   
   level <- match.arg(level)
-  
-  if (!format(end_date, "%B %Y") != "31 March") {
+
+  if (format(end_date, "%d %B") != "31 March") {
     stop("The end date must be 31 March")
   }
   
