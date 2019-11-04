@@ -221,18 +221,20 @@ figa11 <-
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
-  facet_wrap( ~ hb, ncol = 3) +
+  facet_rep_wrap( ~ hb, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
-        axis.text = element_text(size = 8),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
+        axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
   ylim(75, 100) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -248,22 +250,24 @@ figa12 <-
   
   basefile %>%
   summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
-  mutate(hscp = str_wrap(hscp, width = 15)) %>%
+  mutate(hscp = str_wrap(hscp, width = 20)) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
-  facet_wrap( ~ hscp, ncol = 4) +
+  facet_rep_wrap( ~ hscp, ncol = 4) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
-        axis.text = element_text(size = 8),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
+        axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
   ylim(75, 100) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -282,18 +286,20 @@ figa13 <-
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
-  facet_wrap( ~ simd, ncol = 3) +
+  facet_rep_wrap( ~ simd, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
   ylim(75, 100) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -312,18 +318,20 @@ figa14 <-
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
-  facet_wrap( ~ urban_rural, ncol = 3) +
+  facet_rep_wrap( ~ urban_rural, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
   ylim(75, 100) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 

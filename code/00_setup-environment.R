@@ -36,6 +36,7 @@ library(purrr)         # For functional programming
 library(rgdal)         # For reading shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
+library(lemon)         # To add tick marks to facet plots
 
 
 ### 2 - Define Whether Running on Server or Locally ----
