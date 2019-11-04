@@ -229,7 +229,9 @@ figa11 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        strip.text = element_text(size = 8, hjust = 1),
+        strip.background = element_blank()) +
   ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
@@ -246,6 +248,7 @@ figa12 <-
   
   basefile %>%
   summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
+  mutate(hscp = str_wrap(hscp, width = 15)) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
@@ -257,7 +260,9 @@ figa12 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        strip.text = element_text(size = 8, hjust = 1),
+        strip.background = element_blank()) +
   ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
@@ -285,7 +290,9 @@ figa13 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        strip.text = element_text(size = 8, hjust = 1),
+        strip.background = element_blank()) +
   ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
@@ -313,7 +320,9 @@ figa14 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        strip.text = element_text(size = 8, hjust = 1),
+        strip.background = element_blank()) +
   ylim(75, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
