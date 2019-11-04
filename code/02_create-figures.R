@@ -181,15 +181,17 @@ fig5 <-
   
   basefile %>%
   summarise_data(urban_rural, format_numbers = FALSE) %>%
+  mutate(urban_rural = str_wrap(urban_rural,
+                                width = 15)) %>%
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.text = element_text(size = 10),
         legend.title = element_blank()) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
