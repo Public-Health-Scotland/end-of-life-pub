@@ -31,39 +31,38 @@ hb <-
   
   basefile %>%
   summarise_data(hb = "S29000003",
-                 
+                 hb_qf = "d",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
   bind_rows(
     basefile %>%
       summarise_data(hb = hbcode,
+                     hb_qf = "",
                      include_years = "all",
                      format_numbers = FALSE)
   ) %>%
   
   # Add qualifier code; p = provisional, d = dervied/aggregate
-  mutate(dataset_qf = 
+  mutate(fy_qf = 
            if_else(pub_type == "provisional" & 
                      fy == max(.$fy),
-                   if_else(hb == "S29000003",
-                           "p,d",
-                           "p"),
-                   "")
+                   "p", "")
   ) %>%
   
   # Reorder variables
-  select(fy, hb, dataset_qf, everything()) %>%
+  select(fy, fy_qf, hb, hb_qf, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          HB2014 = hb,
+         HB2014QF = hb_qf,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
 
 
 #### 4 - HSCP file ----
@@ -74,22 +73,23 @@ hscp <-
   summarise_data(hscp = hscpcode,
                  include_years = "all",
                  format_numbers = FALSE) %>%
-  mutate(dataset_qf = if_else(pub_type == "provisional" & 
-                                fy == max(.$fy),
-                              "p", "")) %>%
+  
+  mutate(fy_qf = if_else(pub_type == "provisional" & 
+                           fy == max(.$fy),
+                           "p", "")) %>%
   
   # Reorder variables
-  select(fy, hscp, dataset_qf, everything()) %>%
+  select(fy, fy_qf, hscp, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          HSCP = hscp,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
 
 
 #### 5 - Council Area file ----
@@ -100,22 +100,23 @@ ca <-
   summarise_data(ca = cacode,
                  include_years = "all",
                  format_numbers = FALSE) %>%
-  mutate(dataset_qf = if_else(pub_type == "provisional" & 
+  
+  mutate(fy_qf = if_else(pub_type == "provisional" & 
                                 fy == max(.$fy),
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, ca, dataset_qf, everything()) %>%
+  select(fy, fy_qf, ca, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          CouncilArea = ca,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
 
 
 #### 6 - Age/Sex file ----
@@ -127,23 +128,24 @@ agesex <-
                  sex = sex,
                  include_years = "all",
                  format_numbers = FALSE) %>%
-  mutate(dataset_qf = if_else(pub_type == "provisional" & 
+  
+  mutate(fy_qf = if_else(pub_type == "provisional" & 
                                 fy == max(.$fy),
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, age, sex, dataset_qf, everything()) %>%
+  select(fy, fy_qf, age, sex, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          AgeGroup = age,
          Sex = sex,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
 
 
 #### 7 - Deprivation file ----
@@ -155,22 +157,22 @@ simd <-
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
-  mutate(dataset_qf = if_else(pub_type == "provisional" & 
+  mutate(fy_qf = if_else(pub_type == "provisional" & 
                                 fy == max(.$fy),
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, simd, dataset_qf, everything()) %>%
+  select(fy, fy_qf, simd, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          SIMD = simd,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
   
 # Do we want to include top 15% in this file?
 # How would this be marked as not technically derived?
@@ -185,22 +187,22 @@ rurality <-
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
-  mutate(dataset_qf = if_else(pub_type == "provisional" & 
+  mutate(fy_qf = if_else(pub_type == "provisional" & 
                                 fy == max(.$fy),
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, ur, dataset_qf, everything()) %>%
+  select(fy, fy_qf, ur, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
+         FinancialYearQF = fy_qf,
          UrbanRural6Fold = ur,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
          AverageDaysInCommunity = comm,
-         AverageDaysInHospital = hosp,
-         DatasetQF = dataset_qf)
+         AverageDaysInHospital = hosp)
 
 
 #### 9 - Save files ----
