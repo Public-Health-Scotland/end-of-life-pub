@@ -25,6 +25,12 @@ basefile <- read_rds(here("data", "basefiles",
                           glue("{pub_date}_base-file.rds")))
 
 
+# If provisional publication, add p superscript to latest FY
+if(pub_type == "provisional")
+  basefile %<>%
+  mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
+
+
 ### 3 - Figure 1 - Trend Bar Chart ----
 
 fig1 <- 
@@ -52,6 +58,7 @@ fig1 <-
         axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45),
         legend.title = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -232,6 +239,7 @@ figa11 <-
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
@@ -265,6 +273,7 @@ figa12 <-
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
@@ -304,6 +313,7 @@ figa13 <-
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
@@ -336,6 +346,7 @@ figa14 <-
         legend.title = element_blank(),
         strip.text = element_text(size = 8, hjust = 1),
         strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
