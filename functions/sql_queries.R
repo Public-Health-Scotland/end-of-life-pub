@@ -120,7 +120,7 @@ smr01_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.gls_cis_marker, ",
+    "select s.link_no, s.gls_cis_marker, s.location, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
     "from analysis.{data} s, analysis.gro_deaths_c d ",
@@ -206,7 +206,7 @@ smr04_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.cis_marker, ",
+    "select s.link_no, s.cis_marker, s.location, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
