@@ -137,9 +137,9 @@ fig3 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.text = element_text(size = 10),
         legend.title = element_blank()) +
   xlab("Age Group") + 
   ylab("Percentage")
@@ -162,9 +162,9 @@ fig4 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
-        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.text = element_text(size = 10),
         legend.title = element_blank()) +
   xlab("Deprivation") + 
   ylab("Percentage")
@@ -225,8 +225,8 @@ figa11 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
@@ -253,8 +253,8 @@ figa12 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
@@ -281,8 +281,8 @@ figa13 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
@@ -309,8 +309,8 @@ figa14 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 12, face = "bold"),
-        axis.title.y = element_text(size = 12, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
