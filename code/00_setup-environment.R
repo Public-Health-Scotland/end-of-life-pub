@@ -60,7 +60,8 @@ filepath <- dplyr::if_else(platform == "server",
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
-                                             "output"))))
+                                             "output",
+                                             "open-data"))))
 }
 
 if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
@@ -128,8 +129,11 @@ postcode <- function(){
          ur2_2016_name, data_zone2011) %>%
     
   rename(hb = hb2019name,
+         hbcode = hb2019,
          hscp = hscp2019name,
+         hscpcode = hscp2019,
          ca = ca2019name,
+         cacode = ca2019,
          urban_rural = ur6_2016_name,
          urban_rural_2 = ur2_2016_name)
 
