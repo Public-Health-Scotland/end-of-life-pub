@@ -71,6 +71,10 @@ data_tables <-
   glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/",
        "{pub_date}/{pub_date}_qom.xlsm")
 
+figures <-
+    glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/",
+       "{pub_date}/{pub_date}_figures.xlsm")
+
 ```
 
 ```{r contact-table, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
@@ -113,7 +117,18 @@ for (i in 1:length(file_list)){
   } 
 }
 
-ListofTables <- data.frame(file_name, file_size)
+ListofTables <- data.frame(file_name, file_size) %>%
+  mutate(file_name = case_when(
+    str_detect(file_name, "qom") ~ 
+      glue("[**{file_name}**]({data_tables})", 
+            " - Percentage of last six months of life spent at home or ",
+            "in the community setting by financial year for each Health ",
+            "Board, HSCP, Council Area, Age, Sex, Deprivation and Rurality"),
+    str_detect(file_name, "figure") ~
+      glue("[**{file_name}**]({figures})",
+            " - Figures and Background Data")
+  ))
+
 ```
 
 ```{r glossary, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
