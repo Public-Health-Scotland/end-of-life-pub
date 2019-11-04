@@ -283,6 +283,13 @@ figa13 <-
   
   basefile %>%
   summarise_data(simd, include_years = "all", format_numbers = FALSE) %>%
+  mutate(simd = 
+           case_when(
+             simd == 2 ~ "2nd Quintile",
+             simd == 3 ~ "3rd Quintile",
+             simd == 4 ~ "4th Quintile",
+             TRUE ~ simd
+           )) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
