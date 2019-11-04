@@ -109,7 +109,7 @@ ca <-
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
-         CA = ca,
+         CouncilArea = ca,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
@@ -210,12 +210,24 @@ if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
   fs::dir_create(paste0(here::here("data", "open-data", pub_date)))
 }
 
-write_csv(hb, here("data", "open-data", pub_date, "last-six-months-of-life_health-board.csv"))
-write_csv(hscp, here("data", "open-data", pub_date, "last-six-months-of-life_hscp.csv"))
-write_csv(ca, here("data", "open-data", pub_date, "last-six-months-of-life_council-area.csv"))
-write_csv(agesex, here("data", "open-data", pub_date, "last-six-months-of-life_age-sex.csv"))
-write_csv(simd, here("data", "open-data", pub_date, "last-six-months-of-life_deprivation.csv"))
-write_csv(rurality, here("data", "open-data", pub_date, "last-six-months-of-life_rurality.csv"))
+write_csv(hb, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_health-board.csv"))
+write_csv(hscp, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_hscp.csv"))
+write_csv(ca, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_council-area.csv"))
+write_csv(agesex, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_age-sex.csv"))
+write_csv(simd, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_deprivation.csv"))
+write_csv(rurality, 
+          here("data", "open-data", pub_date, 
+               "last-six-months-of-life_rurality.csv"))
 
 
 ### END OF SCRIPT ###
