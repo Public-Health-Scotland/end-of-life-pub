@@ -115,9 +115,11 @@ care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V",
 
 postcode <- function(){
   
-  read_rds(glue("{filepath}lookups/Unicode/Geography/",
-                "Scottish Postcode Directory/",
-                "Scottish_Postcode_Directory_2019_2.rds")) %>%
+  fs::dir_ls(glue("{filepath}lookups/Unicode/Geography/",
+                  "Scottish Postcode Directory/"),
+             regexp = ".rds$") %>%
+  
+  read_rds() %>%
   
   clean_names() %>%
   
