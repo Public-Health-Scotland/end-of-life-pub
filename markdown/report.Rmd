@@ -69,7 +69,7 @@ min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
 data_tables <-
   glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/",
-       "{pub_date}/QOM_tables_{year(pub_date)}{format(pub_date, '%m')}.xls")
+       "{pub_date}/{pub_date}_qom.xlsm")
 
 ```
 
@@ -88,7 +88,7 @@ contact <- data.frame(contact1, contact2, contact3)
 ```{r list-of-tables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 ## Automated method for adding file names and sizes
 # get list of files for the publication
-file_list <- list.files(here("data", "output")) 
+file_list <- list.files(here("data", "excel-output")) 
 
 # create empty vector for the loop
 nas <- replicate(length(file_list), NA)
@@ -100,7 +100,7 @@ file_size <- nas
 # This loop loops through the files in the publication folder
 for (i in 1:length(file_list)){
  
-  paths[i] <- here("data", "output", file_list[i])  # store filename (with extension included) in vector paths 
+  paths[i] <- here("data", "excel-output", file_list[i])  # store filename (with extension included) in vector paths 
   sizeskb[i] <- round(file.size(paths[i]) / 1024) # get file size and store as Kb in vector sizeskb   
   text <- unlist(strsplit(file_list[i], ".", fixed = TRUE)) # split filename in name and extension 
   file_name[i] <- text[1] # store the name in the vector file_name
