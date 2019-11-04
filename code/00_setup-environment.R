@@ -60,7 +60,7 @@ filepath <- dplyr::if_else(platform == "server",
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
-                                             "output",
+                                             "excel-output",
                                              "open-data"))))
 }
 

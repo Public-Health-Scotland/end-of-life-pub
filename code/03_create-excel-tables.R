@@ -157,7 +157,7 @@ writeData(figures,
           x = link)
 
 saveWorkbook(figures,
-             here("data", "output", glue("{pub_date}_figures.xlsm")),
+             here("data", "excel-output", glue("{pub_date}_figures.xlsm")),
              overwrite = TRUE)
 
 qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
@@ -174,7 +174,7 @@ writeData(qom,
           x = link)
 
 saveWorkbook(qom,
-             here("data", "output", glue("{pub_date}_qom.xlsm")),
+             here("data", "excel-output", glue("{pub_date}_qom.xlsm")),
              overwrite = TRUE)
   
 
