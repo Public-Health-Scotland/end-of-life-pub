@@ -137,7 +137,7 @@ glossary2 <- c("Palliative care is an approach that improves the quality of life
 
                 "The Scottish Government introduced Data Zones in 2004 as their preferred small area geography. ISD has used these as a replacement for postcode sectors. Data Zones have been designed to cover the whole of Scotland, nesting within council area (also known as local authority) boundaries. Data Zones are a composite geography based on aggregates of 2001 Census output areas and originally had a population of between 500 and 1,000 people per Data Zone. Where possible, they have been made to respect physical boundaries and natural communities, have a regular shape and contain households with similar social characteristics.",
 
-                "The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the SG website.")
+                "The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the [SG website](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification).")
 
 glossary <- data.frame(glossary1, glossary2)
 ```
