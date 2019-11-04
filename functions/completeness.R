@@ -1,4 +1,4 @@
-completeness <- function(end_date, lookup, level = c("board", "scotland")) {
+completeness <- function(end_date, level = c("board", "scotland")) {
   
   level <- match.arg(level)
 
@@ -10,6 +10,16 @@ completeness <- function(end_date, lookup, level = c("board", "scotland")) {
     stop("The end date must be provided in date format")
   }
   
+  lookup <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
+                                     "9f942fdb-e59e-44f5-b534-d6e17229cc7b/",
+                                     "resource/",
+                                     "652ff726-e676-4a20-abda-435b98dd7bdc/",
+                                     "download/geography_codes_and_labels_",
+                                     "hb2014_01042019.csv")) %>%
+    janitor::clean_names() %>%
+    dplyr::filter(hb2014qf != "x") %>%
+    dplyr::select(hb2014, hb2014name)
+  
   comp <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
                                    "110c4981-bbcc-4dcb-b558-5230ffd92e81/",
                                    "resource/",
@@ -19,26 +29,12 @@ completeness <- function(end_date, lookup, level = c("board", "scotland")) {
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(financial_year) == 
                     lubridate::year(end_date) - 1) %>%
-    dplyr::left_join(
-      dplyr::select(lookup %>%
-                      
-                      # The regex is to guard against the variable name being 
-                      # changed in the lookup
-                      # The as.character is to strip attributes from the lookup 
-                      # variable so a warning message doesn't appear after the 
-                      # join
-                      dplyr::mutate_at(dplyr::vars(
-                        dplyr::matches("^hb[_a-z0-9]*2014$")), 
-                        as.character) %>%
-                      janitor::clean_names(), 
-                    board = description, 
-                    hb2014 = dplyr::matches("^hb[_a-z0-9]*2014$")),
-      by = "hb2014") %>%
+    dplyr::left_join(lookup, by = "hb2014") %>%
+    dplyr::rename(board = hb2014name) %>%
     dplyr::mutate(board = replace(board,
                                   hb2014 == "S92000003",
                                   "Scotland")) %>%
-    tidyr::drop_na(board) %>%
-    dplyr::mutate(board = trimws(gsub("NHS", "", board)))
+    tidyr::drop_na(board)
   
   if (level == "board") {
     
