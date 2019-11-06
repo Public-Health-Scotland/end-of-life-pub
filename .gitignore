@@ -3,21 +3,14 @@
 .RData
 .Ruserdata
 
+# SMRA connection #
+code/smra_connect.R
+
 # 'data' folder #
 data/
 
-# 'markdown/charts' folder #
-markdown/charts/
-
-# Common text files that may contain data #
-*.[cC][sS][vV]
-*.[tT][xX][tT]
-
-# Excel files #
-*.[xX][lL][sS]*
-
-# SPSS formats #
-*.[sS][aA][vV]
+# 'markdown/figures' folder #
+markdown/figures/
 
 # R data files #
 *.[rR][dD][aA][tT][aA]

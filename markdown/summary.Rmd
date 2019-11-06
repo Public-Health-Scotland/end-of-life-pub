@@ -6,6 +6,29 @@ output:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 
+# Source setup environment and function scripts
+source(here::here("code", "00_setup-environment.R"))
+source(here::here("functions", "summarise_data.R"))
+source(here::here("functions", "calculate_qom.R"))
+source(here::here("functions", "day_diff.R"))
+
+
+# Load basefile
+basefile <- read_rds(here::here("data", "basefiles", 
+                                glue("{pub_date}_base-file.rds")))
+
+# Basefile for most recent FY
+latest <- summarise_data(basefile)
+
+# Age 85+ sex difference
+sex <-
+  basefile %>%
+  filter(age_grp == "85+") %>%
+  summarise_data(sex)
+
+max_sex <- sex %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
+
+
 # Create contact information
 contact1 <- c("**Federico Centoni**", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
@@ -19,30 +42,37 @@ contact <- data.frame(contact1, contact2, contact3)
 
 # Percentage of End of Life Spent at Home or <br> 
 # in a Community Setting (Provisional)
-## Financial years ending 31 March 2011 to 2019
+## Financial years ending 31 March `r year(start_date) + 1` to `r year(end_date)`
 #### An Official Statistics publication for Scotland
 
-#### Publication date: 28 May 2019
-##### RESTRICTED STATISTICS: embargoed to 09:30 29/05/2019
+#### Publication date: `r format(pub_date, "%d %B %Y")`
+##### RESTRICTED STATISTICS: embargoed to 09:30 `r format(pub_date, "%d/%m/%Y")`
 
 ### About this release
 
-This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. This is one of the measures used to support and determine progress towards the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf). Data are presented by financial year from 2010/11 to 2018/19, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
+This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
 
-Note that hospital data and National Records of Scotland deaths data are provisional for 2018/19. This publication will be updated in October 2019 with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates.
+Note that hospital data and National Records of Scotland deaths data are provisional for `r max(basefile$fy)`. This publication will be updated in October `r year(end_date)` with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates.
 
 
 ### Main Points
 
-* In 2018/19, there were 53,168 deaths in Scotland excluding those where an external cause such as unintentional injury was recorded.  For these individuals, 89.2% of their last six months of life was spent either at home or in a community setting, with the remaining 10.8% spent in hospital. This is equivalent to an average of 20 days in hospital in the six months prior to death.
+* In `r latest$fy`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r round_half_up(182.5 * (latest$qom_hosp / 100))` days in hospital in the six months prior to death.
 
-* Over the past nine years, the percentage of time spent at home or in a community setting has gradually increased from 85.3% in 2010/11 to 89.2% in 2018/19.
+* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
-**Chart here**
 
-1. Figures for 2018/19 are incomplete and will be revised in October 2019 publication.
+<Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
+<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1^**</div>
+![This bar charts shows the QoM measure for each financial year.](figures/figure-1-summary.png) <br>
 
-* In 2018/19, females aged 85 and older spent a higher percentage of their last six months of life in the community (90.0%) compared to males (87.8%); this equates to females spending, on average an extra four days in the community in their last six months of life.
+<div custom-style = "Normal_Notes">
+1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.
+</div>
+
+<br>
+
+* In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
 
 
 ### Background
@@ -60,8 +90,10 @@ The percentage of time spent at home or in a community setting towards the end o
 
 ### Further Information
 
-Find out more in the [full report](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/2019-05-28/2019-05-28-End-of-Life-Report.docx). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp). For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+Find out more in the [full report](`r glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/{pub_date}/{pub_date}-End-of-Life-Report.pdf")`). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp). For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
-The next release of this publication will be in October 2019.
+<br>
+
+The next release of this publication will be in October `r year(end_date)`.
 
 

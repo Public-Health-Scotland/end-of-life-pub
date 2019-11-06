@@ -25,13 +25,13 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        "when age between 65 and 74 then '65-74' ",
        "when age between 75 and 84 then '75-84' ",
        "when age >= 85 then '85+' ",
-       "else 'null' ",
+       "else null ",
        "end age_grp, ",
        
        # Sex
        "case when sex = '1' then 'Male' ",
        "when sex = '2' then 'Female' ",
-       "else 'null' ",
+       "else null ",
        "end sex, ",
        
        # Financial year of death
@@ -52,47 +52,47 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        "from analysis.gro_deaths_c ",
        
        # Exclude external causes of death
-       "where {{fn left(underlying_cause_of_death, 3)}} not in ",
+       "where {{fn substr(underlying_cause_of_death, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
        
-       "and ({{fn left(cause_of_death_code_0, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_0, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_0, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_0, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_1, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_1, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_1, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_1, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_2, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_2, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_2, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_2, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_3, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_3, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_3, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_3, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_4, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_4, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_4, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_4, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_5, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_5, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_5, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_5, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_6, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_6, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_6, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_6, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_7, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_7, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_7, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_7, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_8, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_8, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_8, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_8, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
 
-       "and ({{fn left(cause_of_death_code_9, 3)}} is null or ",
-       "{{fn left(cause_of_death_code_9, 3)}} not in ",
+       "and ({{fn substr(cause_of_death_code_9, 1, 3)}} is null or ",
+       "{{fn substr(cause_of_death_code_9, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
        
        # Select deaths in reporting period
@@ -120,7 +120,7 @@ smr01_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.gls_cis_marker, ",
+    "select s.link_no, s.gls_cis_marker, s.location, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
     "from analysis.{data} s, analysis.gro_deaths_c d ",
@@ -137,53 +137,56 @@ smr01_query <- function(extract_start,
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
     
     # Exclude external causes of death
-    "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
+    "and {{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
 
-    "and ({{fn left(d.cause_of_death_code_0, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_0, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_0, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_0, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_1, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_1, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_1, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_1, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_2, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_2, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_2, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_2, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_3, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_3, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_3, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_3, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_4, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_4, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_4, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_4, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_5, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_5, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_5, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_5, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_6, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_6, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_6, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_6, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_7, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_7, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_7, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_7, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_8, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_8, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_8, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_8, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_9, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_9, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_9, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_9, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Exclude deaths with missing postcode
+    "and d.postcode is not null ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",
@@ -203,7 +206,7 @@ smr04_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.cis_marker, ",
+    "select s.link_no, s.cis_marker, s.location, ",
     "s.admission_date, s.discharge_date, d.date_of_death ",
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
@@ -222,53 +225,56 @@ smr04_query <- function(extract_start,
     "or discharge_date is null) ",
     
     # Exclude external causes of death
-    "and {{fn left(d.underlying_cause_of_death, 3)}} not in ",
+    "and {{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
 
-    "and ({{fn left(d.cause_of_death_code_0, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_0, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_0, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_0, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_1, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_1, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_1, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_1, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_2, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_2, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_2, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_2, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_3, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_3, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_3, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_3, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_4, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_4, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_4, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_4, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_5, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_5, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_5, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_5, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_6, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_6, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_6, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_6, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_7, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_7, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_7, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_7, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_8, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_8, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_8, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_8, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
-    "and ({{fn left(d.cause_of_death_code_9, 3)}} is null or ",
-    "{{fn left(d.cause_of_death_code_9, 3)}} not in ",
+    "and ({{fn substr(d.cause_of_death_code_9, 1, 3)}} is null or ",
+    "{{fn substr(d.cause_of_death_code_9, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
     "to_date({shQuote(extract_start, type = 'sh')}, 'yyyy-mm-dd') ",
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd')) ",
+    
+    # Exclude deaths with missing postcode
+    "and d.postcode is not null ",
     
     # Sort
     "order by s.link_no, s.admission_date, s.discharge_date, ",

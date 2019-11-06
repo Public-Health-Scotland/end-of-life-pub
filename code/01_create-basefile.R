@@ -21,12 +21,7 @@ source(here::here("functions", "sql_queries.R"))
 
 ### 2 - Open SMRA Connection ----
 
-smra_connect <- 
-  suppressWarnings(
-    dbConnect(odbc(), 
-              dsn = "SMRA",
-              uid = .rs.askForPassword("SMRA Username:"),
-              pwd = .rs.askForPassword("SMRA Password:")))
+source(here::here("code", "smra_connect.R"))
 
 
 ### 3 - Extract data ----
@@ -157,17 +152,9 @@ smr %<>%
 
 deaths %<>%
   
-  left_join(postcode, by = c("postcode" = "pc7")) %>%
-  left_join(simd, by = c("postcode" = "pc7")) %>%
-  left_join(locality, by = "data_zone2011") %>%
-  
-  rename(hb = hb2019name,
-         hscp = hscp2019name,
-         ca = ca2019name,
-         locality = hscp_locality,
-         simd = simd2016_sc_quintile,
-         simd_15 = simd2016tp15,
-         urban_rural = ur8_2016)
+  left_join(postcode(), by = c("postcode" = "pc7")) %>%
+  left_join(simd(), by = c("postcode" = "pc7")) %>%
+  left_join(locality(), by = "data_zone2011")
 
 
 ### 9 - Create final file
@@ -176,8 +163,9 @@ final <-
   
   left_join(deaths, smr, by = "link_no") %>%
   
-  group_by(fy, quarter, hb, ca, hscp, ca2018, hscp2018, locality,
-           simd, simd_15, sex, age_grp, urban_rural) %>%
+  group_by(fy, quarter, hb, hbcode, ca, cacode, hscp, hscpcode,
+           ca2018, hscp2018, locality, simd, simd_15, sex, age_grp, 
+           urban_rural, urban_rural_2) %>%
   
   summarise(los = sum(los, na.rm = TRUE),
             deaths = n()) %>%
@@ -185,7 +173,7 @@ final <-
   ungroup()
 
 
-saveRDS(final, here("data", glue("{pub_date}_base-file.rds")))
+saveRDS(final, here("data", "basefiles", glue("{pub_date}_base-file.rds")))
   
 
 ### END OF SCRIPT ###
