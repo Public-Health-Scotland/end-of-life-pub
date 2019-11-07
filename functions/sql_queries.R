@@ -213,7 +213,14 @@ smr04_query <- function(extract_start,
   
   glue(
     "select s.link_no, s.cis_marker, ",
-    "s.admission_date, s.discharge_date, d.date_of_death, ",
+    "s.admission_date, ",
+    
+    # Use date of death where discharge date is missing
+    "case when s.discharge_date is null then d.date_of_death ",
+    "else s.discharge_date ",
+    "end discharge_date, ",
+    
+    "d.date_of_death, ",
     
     # Care Home Location flag
     "case when s.location in ",
