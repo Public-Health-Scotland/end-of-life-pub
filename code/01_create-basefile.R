@@ -68,7 +68,9 @@ write_rds(smr04,  here("data", "extracts", glue("{pub_date}_smr04.rds")))
 
 ### 5 - Aggregate SMR data to CIS level ----
 
-smr01 %<>%
+# SMR01 including Care Homes (old methodology)
+smr01_ch <-
+  smr01 %>%
   group_by(link_no, gls_cis_marker) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
@@ -76,19 +78,43 @@ smr01 %<>%
   ungroup() %>%
   select(-gls_cis_marker)
 
-smr04 %<>%
-  
-  # Use date of death as proxy where discharge date is missing
-  mutate(discharge_date = if_else(is.na(discharge_date), 
-                                  date_of_death, 
-                                  discharge_date)) %>%
-  
+# SMR01 excluding Care Homes (new methodology)
+smr01 %<>%
+  group_by(link_no) %>%
+  arrange(admission_date) %>%
+  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
+                               lead(gls_cis_marker) != gls_cis_marker)[-n()])) %>%
+  filter(ch_flag == 0) %>%
+  group_by(link_no, index) %>%
+  summarise(admission_date = min(admission_date),
+            discharge_date = max(discharge_date),
+            date_of_death = max(date_of_death)) %>%
+  ungroup() %>%
+  select(-index)
+
+# SMR04 including Care Homes (old methodology)
+smr04_ch <-
+  smr04 %>%
   group_by(link_no, cis_marker) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
             date_of_death  = max(date_of_death)) %>%
   ungroup() %>%
   select(-cis_marker)
+
+# SMR04 excluding Care Homes (new methodology)
+smr04 %<>%
+  group_by(link_no) %>%
+  arrange(admission_date) %>%
+  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
+                               lead(cis_marker) != cis_marker)[-n()])) %>%
+  filter(ch_flag == 0) %>%
+  group_by(link_no, index) %>%
+  summarise(admission_date = min(admission_date),
+            discharge_date = max(discharge_date),
+            date_of_death = max(date_of_death)) %>%
+  ungroup() %>%
+  select(-index)
 
 
 ### 6 - Join SMR01/50 and SMR04 data ----
