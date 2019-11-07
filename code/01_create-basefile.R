@@ -119,6 +119,23 @@ smr04 %<>%
 
 ### 6 - Join SMR01/50 and SMR04 data ----
 
+smr_ch <-
+  
+  bind_rows(smr01_ch %>% mutate(recid = "01"), 
+            smr04_ch %>% mutate(recid = "04")) %>%
+  
+  # Aggregate where SMR01 and SMR04 stays overlap
+  group_by(link_no) %>%
+  arrange(admission_date) %>%
+  mutate(index = c(0, cumsum(as.numeric(lead(admission_date)) >
+                               cummax(as.numeric(discharge_date)))[-n()])) %>%
+  group_by(link_no, index) %>%
+  summarise(admission_date = min(admission_date),
+            discharge_date = max(discharge_date),
+            date_of_death  = max(date_of_death)) %>%
+  ungroup() %>%
+  select(-index)
+
 smr <-
   
   bind_rows(smr01 %>% mutate(recid = "01"), 
