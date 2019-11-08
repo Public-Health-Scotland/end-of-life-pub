@@ -1,13 +1,14 @@
 #########################################################################
-# Name of file - 01_create-basefile.R
+# Name of file - 02_old-methodology.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
-# Orginal Date - September 2019
+# Orginal Date - November 2019
 #
 # Written/run on - RStudio Server
-# Version of R - 3.2.3
+# Version of R - 3.6.1
 #
-# Description - Create base file.
+# Description - Create base file using old methodology (care homes 
+#               included in hospital los)
 #
 # Approximate run time - xx minutes
 #########################################################################
@@ -16,86 +17,35 @@
 ### 1 - Setup environment and load functions ----
 
 source(here::here("code", "00_setup-environment.R"))
-source(here::here("functions", "sql_queries.R"))
 
 
-### 2 - Open SMRA Connection ----
+### 2 - Read data extracts ----
 
-source(here::here("code", "smra_connect.R"))
-
-
-### 3 - Extract data ----
-
-deaths <- 
-  as_tibble(dbGetQuery(smra_connect, 
-                       deaths_query(extract_start = start_date,
-                                    extract_end = end_date,
-                                    external_causes = external))) %>% 
-  clean_names()
+deaths <- read_rds(here("data", "extracts", glue("{pub_date}_deaths.rds")))
+smr01  <- read_rds(here("data", "extracts", glue("{pub_date}_smr01.rds")))
+smr04  <- read_rds(here("data", "extracts", glue("{pub_date}_smr04.rds")))
 
 
-smr01 <- 
-  
-  as_tibble(dbGetQuery(smra_connect, 
-                       smr01_query(extract_start = start_date,
-                                   extract_end = end_date,
-                                   external_causes = external,
-                                   gls = FALSE))) %>% 
-  
-  bind_rows(as_tibble(dbGetQuery(smra_connect, 
-                                 smr01_query(extract_start = start_date,
-                                             extract_end = end_date,
-                                             external_causes = external,
-                                             gls = TRUE)))) %>%
-  
-  clean_names()
-
-
-smr04 <- 
-  as_tibble(dbGetQuery(smra_connect, 
-                       smr04_query(extract_start = start_date,
-                                   extract_end = end_date,
-                                   external_causes = external))) %>% 
-  clean_names()
-
-
-### 4 - Save data extracts ----
-
-write_rds(deaths, here("data", "extracts", glue("{pub_date}_deaths.rds")))
-write_rds(smr01,  here("data", "extracts", glue("{pub_date}_smr01.rds")))
-write_rds(smr04,  here("data", "extracts", glue("{pub_date}_smr04.rds")))
-
-
-### 5 - Aggregate SMR data to CIS level ----
+### 3 - Aggregate SMR data to CIS level ----
 
 smr01 %<>%
-  group_by(link_no) %>%
-  arrange(admission_date) %>%
-  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
-                               lead(gls_cis_marker) != gls_cis_marker)[-n()])) %>%
-  filter(ch_flag == 0) %>%
-  group_by(link_no, index) %>%
+  group_by(link_no, gls_cis_marker) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
-            date_of_death = max(date_of_death)) %>%
+            date_of_death  = max(date_of_death)) %>%
   ungroup() %>%
-  select(-index)
+  select(-gls_cis_marker)
 
 smr04 %<>%
-  group_by(link_no) %>%
-  arrange(admission_date) %>%
-  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
-                               lead(cis_marker) != cis_marker)[-n()])) %>%
-  filter(ch_flag == 0) %>%
-  group_by(link_no, index) %>%
+  group_by(link_no, cis_marker) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
-            date_of_death = max(date_of_death)) %>%
+            date_of_death  = max(date_of_death)) %>%
   ungroup() %>%
-  select(-index)
+  select(-cis_marker)
 
 
-### 6 - Join SMR01/50 and SMR04 data ----
+### 4 - Join SMR01/50 and SMR04 data ----
 
 smr <-
   
@@ -115,7 +65,7 @@ smr <-
   select(-index)
 
 
-### 7 - Calculate measure ----
+### 5 - Calculate measure ----
 
 smr %<>%
   
@@ -141,8 +91,8 @@ smr %<>%
   
   # Calculate length of stay
   mutate(los = time_length(interval(admission_date, discharge_date),
-               "days")) %>%
-
+                           "days")) %>%
+  
   # Aggregate to patient level
   group_by(link_no) %>%
   summarise(los = sum(los)) %>%
@@ -152,7 +102,7 @@ smr %<>%
   mutate(los = if_else(los == 183, 182.5, los))
 
 
-### 8 - Match on lookup files to deaths
+### 6 - Match on lookup files to deaths
 
 deaths %<>%
   
@@ -161,7 +111,7 @@ deaths %<>%
   left_join(locality(), by = "data_zone2011")
 
 
-### 9 - Create final file
+### 7 - Create final file
 
 final <-
   
@@ -177,7 +127,7 @@ final <-
   ungroup()
 
 
-write_rds(final, here("data", "basefiles", glue("{pub_date}_base-file.rds")))
-  
+write_rds(final, here("data", "basefiles", glue("{pub_date}_old-method.rds")))
+
 
 ### END OF SCRIPT ###
