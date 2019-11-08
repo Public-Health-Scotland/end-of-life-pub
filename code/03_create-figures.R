@@ -24,10 +24,16 @@ source(here::here("functions", "summarise_data.R"))
 basefile <- read_rds(here("data", "basefiles", 
                           glue("{pub_date}_base-file.rds")))
 
+old_method <- read_rds(here("data", "basefiles",
+                            glue("{pub_date}_old-method.rds")))
+
 
 # If provisional publication, add p superscript to latest FY
 if(pub_type == "provisional")
   basefile %<>%
+  mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
+if(pub_type == "provisional")
+  old_method %<>%
   mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
 
 
@@ -357,6 +363,47 @@ ggsave(here("markdown", "figures", "figure-a1-4.png"),
        plot = figa14,
        width = 17.49, height = 9.03, 
        units = "cm", device = "png", dpi = 600)
+
+
+### 12 - Figure A3.1 - Old Methodology Comparison ----
+
+figa31 <-
+  
+  basefile %>%
+  summarise_data(include_years = "all", format_numbers = FALSE) %>%
+  
+  left_join(old_method %>%
+            summarise_data(include_years = "all", format_numbers = FALSE) %>%
+            rename(qom_old = qom) %>%
+            select(fy, qom_old)) %>%
+  
+  rename(qom_new = qom) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line(aes(y = qom_old), color = "#004785", linetype = "dotted") +
+  geom_line(aes(y = qom_new), color = "#004785") +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank(),
+        strip.text = element_text(size = 8, hjust = 1),
+        strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
+  ylim(80, 90) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a3-1.png"), 
+       plot = figa31,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
+
 
 
 ### END OF SCRIPT ###
