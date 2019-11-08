@@ -380,7 +380,7 @@ figa31 <-
   rename(qom_new = qom) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(aes(y = qom_old), color = "#004785", linetype = "dotted") +
+  geom_line(aes(y = qom_old), color = "#004785", linetype = 2) +
   geom_line(aes(y = qom_new), color = "#004785") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
