@@ -23,6 +23,15 @@ completeness <- function(end_date) {
                                   "resource/03cf3cb7-41cc-4984-bff6-",
                                   "bbccd5957679/download/quarters.csv")) %>%
     janitor::clean_names() %>%
+    dplyr::mutate(quarter = str_replace(
+      quarter,
+      c("Q1", "Q2", "Q3", "Q4"),
+      c("Q4", "Q1", "Q2", "Q3")
+    )) %>%
+    dplyr::mutate(quarter = 
+                    if_else(substr(quarter, 5, 6) == "Q4",
+                            paste0(parse_number(quarter) - 1, "Q4"),
+                            quarter)) %>%
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(quarter) == 
                     lubridate::year(end_date) - 1) %>%
