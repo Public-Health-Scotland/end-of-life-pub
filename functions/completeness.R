@@ -1,7 +1,5 @@
-completeness <- function(end_date, level = c("board", "scotland")) {
+completeness <- function(end_date) {
   
-  level <- match.arg(level)
-
   if (format(end_date, "%d %B") != "31 March") {
     stop("The end date must be 31 March")
   }
@@ -20,11 +18,28 @@ completeness <- function(end_date, level = c("board", "scotland")) {
     dplyr::filter(hb2014qf != "x") %>%
     dplyr::select(hb2014, hb2014name)
   
-  comp <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
-                                   "110c4981-bbcc-4dcb-b558-5230ffd92e81/",
-                                   "resource/",
-                                   "daf55fd2-457f-4845-9af1-5d154cc0b19c/",
-                                   "download/financialyr.csv")) %>%
+  qtr <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
+                                  "110c4981-bbcc-4dcb-b558-5230ffd92e81/",
+                                  "resource/03cf3cb7-41cc-4984-bff6-",
+                                  "bbccd5957679/download/quarters.csv")) %>%
+    janitor::clean_names() %>%
+    dplyr::filter(smr_type == "SMR01",
+                  readr::parse_number(quarter) == 
+                    lubridate::year(end_date) - 1) %>%
+    dplyr::left_join(lookup, by = "hb2014") %>%
+    dplyr::rename(board = hb2014name) %>%
+    dplyr::mutate(board = replace(board,
+                                  hb2014 == "S92000003",
+                                  "Scotland")) %>%
+    tidyr::drop_na(board) %>%
+    dplyr::select(board, quarter, completeness) %>%
+    dplyr::mutate(completeness = paste0(completeness * 100, "%")) %>%
+    tidyr::pivot_wider(names_from = quarter, values_from = completeness)
+  
+  fy <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
+                               "110c4981-bbcc-4dcb-b558-5230ffd92e81/",
+                               "resource/daf55fd2-457f-4845-9af1-5d154cc0b19c",
+                               "/download/financialyr.csv")) %>%
     janitor::clean_names() %>%
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(financial_year) == 
@@ -34,50 +49,19 @@ completeness <- function(end_date, level = c("board", "scotland")) {
     dplyr::mutate(board = replace(board,
                                   hb2014 == "S92000003",
                                   "Scotland")) %>%
-    tidyr::drop_na(board)
+    tidyr::drop_na(board) %>%
+    dplyr::select(board, financial_year, completeness) %>%
+    dplyr::mutate(completeness = paste0(completeness * 100, "%")) %>%
+    tidyr::pivot_wider(names_from = financial_year, values_from = completeness)
   
-  if (level == "board") {
-    
-    comp %<>%
-      dplyr::filter(board != "Scotland",
-                    completeness < 0.95) %>%
-      dplyr::mutate(completeness = paste0("(", 
-                                          scales::percent(completeness, 
-                                                          accuracy = 1),
-                                          ")")) %>%
-      tidyr::unite(var, board, completeness, sep = " ") %>%
-      dplyr::pull(var)
-    
-    if (length(comp) == 0) {
-      return(capture.output(
-        cat("All NHS board have SMR01 completeness of 95% and", 
-            "above for",
-            paste0(lubridate::year(end_date) - 1,
-                   "/",
-                   format(end_date, "%y")))))
-    } else {
-      return(capture.output(
-        cat("All NHS board have SMR01 completeness of 95% and",
-            "above for",
-            paste0(lubridate::year(end_date) - 1,
-                   "/",
-                   format(end_date, "%y")),
-            "with the exception of",
-            glue::glue_collapse(sort(comp), 
-                                sep = ", ", 
-                                last = " and "))))
-      
-    }
-    
-  }
+  left_join(qtr, fy) %>%
+    arrange(board) %>%
+    rename("NHS Board" = board) %>%
+    rename_at(vars(contains("Q")),
+              ~ glue("Quarter {substr(., 6, 6)} ",
+                     "{parse_number(.)}/",
+                     "{substr(parse_number(.) + 1, 3, 4)}")) %>%
+    rename_at(vars(starts_with("20")),
+              ~ glue("Full Year {.}"))
   
-  if (level == "scotland") {
-    comp %<>%
-      dplyr::filter(board == "Scotland") %>%
-      dplyr::mutate(completeness = scales::percent(completeness,
-                                                   accuracy = 1)) %>%
-      dplyr::pull(completeness)
-    
-    return(comp)
-  }
 }

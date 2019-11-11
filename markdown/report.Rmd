@@ -63,6 +63,9 @@ ur <- basefile %>% summarise_data(urban_rural) %>%
 max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural)
 min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
+# Completeness table
+comp_table <- completeness(end_date)
+
 ```
 
 ```{r links, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -515,7 +518,14 @@ Hospital data and National Records of Scotland deaths data are provisional for `
 
 Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. Note that there are particular issues with completeness for NHS Forth Valley and NHS Greater Glasgow & Clyde data for the last quarter (Quarter 4) of `r latest$fy` and so data for these areas in particular should be treated with caution.
 
-#### SMR01 Completeness Table HERE
+<br>
+
+```{r completeness-table, echo = FALSE}
+comp_table %>%
+  knitr::kable(align = c("l", rep("r", 5)))
+```
+
+<br>
 
 This publication will be updated in October `r next_pub_date` with final figures.
 
