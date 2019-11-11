@@ -33,7 +33,6 @@ completeness <- function(end_date) {
                                   "Scotland")) %>%
     tidyr::drop_na(board) %>%
     dplyr::select(board, quarter, completeness) %>%
-    dplyr::mutate(completeness = paste0(completeness * 100, "%")) %>%
     tidyr::pivot_wider(names_from = quarter, values_from = completeness)
   
   fy <- ckanr::ckan_fetch(paste0("https://www.opendata.nhs.scot/dataset/",
@@ -51,7 +50,6 @@ completeness <- function(end_date) {
                                   "Scotland")) %>%
     tidyr::drop_na(board) %>%
     dplyr::select(board, financial_year, completeness) %>%
-    dplyr::mutate(completeness = paste0(completeness * 100, "%")) %>%
     tidyr::pivot_wider(names_from = financial_year, values_from = completeness)
   
   left_join(qtr, fy) %>%
