@@ -63,8 +63,27 @@ ur <- basefile %>% summarise_data(urban_rural) %>%
 max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural)
 min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
-# Completeness table
+```
+
+```{r completeness, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
+
 comp_table <- completeness(end_date)
+
+comp_table %<>% mutate_at(vars(starts_with("Full Year")),
+                          ~ c(0.95, 0.93, .95, 0.88, 0.73, 0.90, 0.76,
+                              0.98, 0.97, 0.92, 1, 0.93, 0.89, 0.98, 0.87))
+
+low_comp <- 
+  comp_table %>% 
+  filter_at(vars(starts_with("Full Year")), ~ . < 0.8)
+
+comp_text <- 
+  if(nrow(low_comp) > 0){
+    glue("Note that there are particular issues with completeness for ",
+         "{low_comp$`NHS Board` %>% glue_collapse(sep = ', ', last = ' and ')}",
+         " data for the last quarter (Quarter 4) of {latest$fy} and so data",
+         " for these areas in particular should be treated with caution.")
+  }
 
 ```
 
@@ -516,18 +535,20 @@ This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (S
 
 Hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
 
-Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. Note that there are particular issues with completeness for NHS Forth Valley and NHS Greater Glasgow & Clyde data for the last quarter (Quarter 4) of `r latest$fy` and so data for these areas in particular should be treated with caution.
+Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. `r comp_text`
 
 <br>
 
 ```{r completeness-table, echo = FALSE}
 comp_table %>%
+  mutate_at(vars(-`NHS Board`),
+            ~ paste0(. * 100, "%")) %>%
   knitr::kable(align = c("l", rep("r", 5)))
 ```
 
 <br>
 
-This publication will be updated in October `r next_pub_date` with final figures.
+This publication will be updated in `r next_pub_date` with final figures.
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 3 - Methodology
