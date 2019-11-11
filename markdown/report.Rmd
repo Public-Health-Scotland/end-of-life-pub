@@ -90,44 +90,24 @@ contact <- data.frame(contact1, contact2, contact3)
 ```
 
 ```{r list-of-tables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-## Automated method for adding file names and sizes
-# get list of files for the publication
-file_list <- list.files(here("data", "excel-output")) 
 
-# create empty vector for the loop
-nas <- replicate(length(file_list), NA)
-paths <- nas 
-sizeskb <- nas 
-file_name <- nas 
-file_size <- nas
+file_name <- dir_ls(here("data", "excel-output"), regexp = pub_date)
+file_size <- paste0("Excel ", file_size(file_name), "b")
+file_desc <- c(paste0("Percentage of last six months of life spent at home or ",
+                      "in the community setting by financial year for each ",
+                      "Health Board, HSCP, Council Area, Age, Sex, ",
+                      "Deprivation and Rurality"),
+               "Figures and Background Data")
+file_link <- c(data_tables, figures)
 
-# This loop loops through the files in the publication folder
-for (i in 1:length(file_list)){
- 
-  paths[i] <- here("data", "excel-output", file_list[i])  # store filename (with extension included) in vector paths 
-  sizeskb[i] <- round(file.size(paths[i]) / 1024) # get file size and store as Kb in vector sizeskb   
-  text <- unlist(strsplit(file_list[i], ".", fixed = TRUE)) # split filename in name and extension 
-  file_name[i] <- text[1] # store the name in the vector file_name
-  
-  # if file extension is XLS or XLSX rename to Excel, else keep extension as is 
-  if((!is.na(text[2])) & toupper(substring(text[2], 1, 3)) == "XLS") { # The is.na was added for cases where a folder is present, since it won't have an extension.
-    file_size[i] <- paste0("Excel ", sizeskb[i], " Kb") 
-  } else if (!is.na(text[2])) {
-    file_size[i] <- paste0(toupper(text[2]), " ",sizeskb[i]," Kb")
-  } 
-}
-
-ListofTables <- data.frame(file_name, file_size) %>%
-  mutate(file_name = case_when(
-    str_detect(file_name, "qom") ~ 
-      glue("[**{file_name}**]({data_tables})", 
-            " - Percentage of last six months of life spent at home or ",
-            "in the community setting by financial year for each Health ",
-            "Board, HSCP, Council Area, Age, Sex, Deprivation and Rurality"),
-    str_detect(file_name, "figure") ~
-      glue("[**{file_name}**]({figures})",
-            " - Figures and Background Data")
-  ))
+list_of_tables <-
+  tibble(
+    file_name = 
+      glue("[**{str_remove(file_name, ",
+           "paste0(here('data', 'excel-output'), '/'))}",
+           "**]({file_link}) - {file_desc}"),
+    file_size
+  )
 
 ```
 
@@ -425,8 +405,10 @@ Trend data on the percentage of the last six months of life spent at home or in 
 
 ## List of Tables
 <br>
-```{r kable_ListOfTables, echo = FALSE}
-knitr::kable(ListofTables, col.names = c("**File name**", "**File and size**"), align = c('l','l'))
+```{r kable_list-of-tables, echo = FALSE}
+knitr::kable(list_of_tables, 
+             col.names = c("**File name**", "**File and size**"), 
+             align = c('l','l'))
 ```
 
 ## Contact
