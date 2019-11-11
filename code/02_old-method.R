@@ -111,7 +111,7 @@ deaths %<>%
   left_join(locality(), by = "data_zone2011")
 
 
-### 7 - Create final file
+### 7 - Create final file and join to basefile
 
 final <-
   
@@ -121,13 +121,13 @@ final <-
            ca2018, hscp2018, locality, simd, simd_15, sex, age_grp, 
            urban_rural, urban_rural_2) %>%
   
-  summarise(los = sum(los, na.rm = TRUE),
-            deaths = n()) %>%
+  summarise(los_old = sum(los, na.rm = TRUE)) %>%
   
   ungroup()
 
-
-write_rds(final, here("data", "basefiles", glue("{pub_date}_old-method.rds")))
+read_rds(here("data", "basefiles", glue("{pub_date}_base-file.rds"))) %>%
+  full_join(final) %>%
+  write_rds(here("data", "basefiles", glue("{pub_date}_base-file.rds")))
 
 
 ### END OF SCRIPT ###
