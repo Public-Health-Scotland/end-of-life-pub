@@ -335,9 +335,9 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 
 Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to differences in the age profile and rurality of each of the local areas.
 
-######## Page Break
-
-##### Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Health and Social Care Partnership^2^
+<div custom-style = "Heading 4_pgbrk">
+Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Health and Social Care Partnership^2^
+</div>
 
 ```{r hscp-table, echo = FALSE}
 hscp %>%
@@ -482,8 +482,6 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 2. Please note that the y-axes do not start at zero.
 </div>
 
-<br>
-
 ##### Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^1^
 
 ![Alt text here](figures/figure-a1-3.png)</div>
@@ -494,8 +492,6 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 3. Please note that the y-axes do not start at zero.
 </div>
 
-<br>
-
 ##### Figure A1.4 - Percentage of last six months of life spent at home or in a community setting by financial year for each Urban/Rural classification; `r min(basefile$fy)` - `r latest$fy`^1^
 
 ![Alt text here](figures/figure-a1-4.png)</div>
@@ -505,11 +501,9 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 2. Please note that the y-axes do not start at zero.
 </div>
 
-<br>
-
-######## Page Break
-
-### Appendix 2 - Background Information
+<div custom-style = "Heading 3_pgbrk">
+Appendix 2 - Background Information
+</div>
 
 End of life care (palliative care) is an important, integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition. 
 
@@ -539,9 +533,9 @@ Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) 
 
 This publication will be updated in October `r next_pub_date` with final figures.
 
-######## Page Break
-
-### Appendix 3 - Methodology
+<div custom-style = "Heading 3_pgbrk">
+Appendix 3 - Methodology
+</div>
 
 This publication includes data from financial years `r min(basefile$fy)` to `r latest$fy` at Scotland, Health Board and Health and Social Care Partnership level. 
 
@@ -572,18 +566,18 @@ knitr::kable(
 )
 ```
 
-######## Page Break
-
-### Appendix 4 - Publication Metadata
+<div custom-style = "Heading 3_pgbrk">
+Appendix 4 - Publication Metadata
+</div>
 
 <br>
 ```{r kable_metadata, echo = FALSE}
 knitr::kable(MetaData, col.names = c("**Metadata Indicator**", "**Description**"), align = c('l','l'))
 ```
 
-######## Page Break
-
-### Appendix 5 - Early access details
+<div custom-style = "Heading 3_pgbrk">
+Appendix 5 - Early access details
+</br>
 
 <br>
 
@@ -597,9 +591,9 @@ Scottish Government Health Department
 NHS Board Chief Executives  
 NHS Board Communication leads  
 
-######## Page Break
-
-### Appendix 6 - ISD and Official Statistics
+<div custom-style = "Heading 3_pgbrk">
+Appendix 6 - ISD and Official Statistics
+</div>
 
 **About ISD**  
 Scotland has some of the best health service data in the world combining high quality, consistency, national coverage and the ability to link data to allow patient based analysis and follow up.
