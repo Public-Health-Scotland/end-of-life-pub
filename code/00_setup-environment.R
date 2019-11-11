@@ -56,7 +56,7 @@ filepath <- dplyr::if_else(platform == "server",
                            "//stats/cl-out/")
 
 
-### 3 - Create data and figures folders ----
+### 3 - Create data, figures and open data folders ----
 
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
@@ -67,6 +67,10 @@ if(!("data" %in% fs::dir_ls(here::here()))){
 
 if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
   fs::dir_create(here::here("markdown", "figures"))
+}
+
+if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
+  fs::dir_create(paste0(here::here("data", "open-data", pub_date)))
 }
 
 
