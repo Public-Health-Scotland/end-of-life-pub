@@ -373,9 +373,19 @@ figa31 <-
             rename(qom_old = qom) %>%
             select(fy, qom_old)) %>%
   
-  ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(aes(y = qom_old), color = "#004785", linetype = 2) +
-  geom_line(aes(y = qom_new), color = "#004785") +
+  pivot_longer(cols = c("qom_old", "qom_new"),
+               names_to = "method",
+               values_to = "qom") %>%
+  
+  mutate(method = case_when(
+    method == "qom_old" ~ str_wrap("Old measure", width = 12),
+    method == "qom_new" ~ str_wrap(paste0("New measure (including ",
+                                      "care home activity)"),
+                                   width = 12)
+  )) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = method)) +
+  geom_line(aes(linetype = method), colour = "#004785") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -397,7 +407,6 @@ ggsave(here("markdown", "figures", "figure-a3-1.png"),
        plot = figa31,
        width = 17.49, height = 9.03, 
        units = "cm", device = "png", dpi = 600)
-
 
 
 ### END OF SCRIPT ###
