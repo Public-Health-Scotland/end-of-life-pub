@@ -515,7 +515,7 @@ More recently, the December 2016 the ["Health and Social Care Delivery Plan"](ht
 
 This publication provides information in support of the Quality Measurement Framework to develop Quality Outcome Measure 10: ‘The percentage of last six months of life spent at home or in a community setting’.
 
-The proportion of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.   
+The proportion of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
 
 It is envisaged that an increase in this measure will reflect both quality and value through more effective, person centred and efficient end of life care with people being better able to be cared for at home or closer to home with a planned approach to end of life care resulting in less time in a hospital setting. 
 
@@ -570,16 +570,13 @@ knitr::kable(
 Appendix 4 - Publication Metadata
 </div>
 
-<br>
 ```{r kable_metadata, echo = FALSE}
 knitr::kable(MetaData, col.names = c("**Metadata Indicator**", "**Description**"), align = c('l','l'))
 ```
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 5 - Early access details
-</br>
-
-<br>
+</div>
 
 **Pre-Release Access**  
 Under terms of the "Pre-Release Access to Official Statistics (Scotland) Order 2008", ISD is obliged to publish information on those receiving Pre-Release Access ("Pre-Release Access" refers to statistics in their final form prior to publication). The standard maximum Pre-Release Access is five working days. Shown below are details of those receiving standard Pre-Release Access.
