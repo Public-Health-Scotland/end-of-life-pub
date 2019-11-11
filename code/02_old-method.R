@@ -127,7 +127,8 @@ final <-
 
 read_rds(here("data", "basefiles", glue("{pub_date}_base-file.rds"))) %>%
   full_join(final) %>%
-  write_rds(here("data", "basefiles", glue("{pub_date}_base-file.rds")))
+  write_rds(here("data", "basefiles", glue("{pub_date}_base-file.rds")),
+            compress = "gz")
 
 
 ### END OF SCRIPT ###
