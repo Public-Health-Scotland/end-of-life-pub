@@ -24,16 +24,10 @@ source(here::here("functions", "summarise_data.R"))
 basefile <- read_rds(here("data", "basefiles", 
                           glue("{pub_date}_base-file.rds")))
 
-old_method <- read_rds(here("data", "basefiles",
-                            glue("{pub_date}_old-method.rds")))
-
 
 # If provisional publication, add p superscript to latest FY
 if(pub_type == "provisional")
   basefile %<>%
-  mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
-if(pub_type == "provisional")
-  old_method %<>%
   mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
 
 
@@ -371,13 +365,13 @@ figa31 <-
   
   basefile %>%
   summarise_data(include_years = "all", format_numbers = FALSE) %>%
+  rename(qom_new = qom) %>%
   
-  left_join(old_method %>%
+  left_join(basefile %>%
+            mutate(los = los_old) %>%
             summarise_data(include_years = "all", format_numbers = FALSE) %>%
             rename(qom_old = qom) %>%
             select(fy, qom_old)) %>%
-  
-  rename(qom_new = qom) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(aes(y = qom_old), color = "#004785", linetype = 2) +
