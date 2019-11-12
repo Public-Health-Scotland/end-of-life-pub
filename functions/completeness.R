@@ -23,10 +23,11 @@ completeness <- function(end_date) {
                                   "resource/03cf3cb7-41cc-4984-bff6-",
                                   "bbccd5957679/download/quarters.csv")) %>%
     janitor::clean_names() %>%
-    dplyr::mutate(quarter = str_replace(
-      quarter,
-      c("Q1", "Q2", "Q3", "Q4"),
-      c("Q4", "Q1", "Q2", "Q3")
+    dplyr::mutate(quarter = case_when(
+      str_detect(quarter, "Q1") ~ str_replace(quarter, "Q1", "Q4"),
+      str_detect(quarter, "Q2") ~ str_replace(quarter, "Q2", "Q1"),
+      str_detect(quarter, "Q3") ~ str_replace(quarter, "Q3", "Q2"),
+      str_detect(quarter, "Q4") ~ str_replace(quarter, "Q4", "Q3")
     )) %>%
     dplyr::mutate(quarter = 
                     if_else(substr(quarter, 5, 6) == "Q4",
@@ -59,16 +60,12 @@ completeness <- function(end_date) {
                                   "Scotland")) %>%
     tidyr::drop_na(board) %>%
     dplyr::select(board, financial_year, completeness) %>%
+    dplyr::mutate(financial_year = "All") %>%
     tidyr::pivot_wider(names_from = financial_year, values_from = completeness)
   
   left_join(qtr, fy) %>%
     arrange(board) %>%
-    rename("NHS Board" = board) %>%
     rename_at(vars(contains("Q")),
-              ~ glue("Quarter {substr(., 6, 6)} ",
-                     "{parse_number(.)}/",
-                     "{substr(parse_number(.) + 1, 3, 4)}")) %>%
-    rename_at(vars(starts_with("20")),
-              ~ glue("Full Year {.}"))
-  
+              ~ substr(., 5, 6))
+
 }
