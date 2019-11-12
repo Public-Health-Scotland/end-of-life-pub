@@ -508,9 +508,9 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 2. Please note that the y-axes do not start at zero.
 </div>
 
-<br>
-
-##### Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^1^
+<div custom-style = "Heading 4_pgbrk">
+Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^1^
+</div>
 
 ![Alt text here](figures/figure-a1-2.png)</div>
 
@@ -519,7 +519,9 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 2. Please note that the y-axes do not start at zero.
 </div>
 
-##### Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^1^
+<div custom-style = "Heading 4_pgbrk">
+Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^1^
+</div>
 
 ![Alt text here](figures/figure-a1-3.png)</div>
 
