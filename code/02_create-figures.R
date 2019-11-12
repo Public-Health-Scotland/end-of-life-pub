@@ -241,14 +241,19 @@ figa11 <-
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
-        strip.background = element_blank()) +
+        strip.text = element_blank(),
+        strip.background = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
-  geom_hline(aes(yintercept = -Inf)) + 
-  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
-  ylab("Percentage")
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                hb = c("Scotland", sort(unique(basefile$hb))),
+                xpos  = rep(10, 15), ypos = rep(98, 15)), 
+            aes(x = xpos, y = ypos, label = hb, group = NULL),
+            size = 2.5, hjust = 1)
 
 ggsave(here("markdown", "figures", "figure-a1-1.png"), 
        plot = figa11,
