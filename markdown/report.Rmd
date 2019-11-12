@@ -608,11 +608,13 @@ knitr::kable(
   data.frame(c("Actual bed days", 
            "Possible bed days",
            "% of time in a hospital in last 6 months of life",
-           "% of time at home or in a community setting in last 6 months of life"),
+           "% of time at home or in a community setting in last 6 months of life",
+           "Average number of days spent at home or in a community setting"),
          c("Total bed days in hospital in the 6 months prior to death for those people who died within specific year",
            "Total number of deaths in specified period x 182.5",
            "(Actual bed days / possible bed days) x 100",
-           "100 - % of time in hospital in last 6 months before death")),
+           "100 - % of time in hospital in last 6 months before death",
+           "% of time at home or in a community setting in last 6 months of life x 182.5")),
   align = c('l', 'l'),
   col.names = c("**Calculation of Measure**", "")
 )
