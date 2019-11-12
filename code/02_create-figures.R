@@ -59,6 +59,7 @@ fig1 <-
         axis.text.x = element_text(angle = 45),
         legend.title = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
+  ylim(0, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -148,6 +149,7 @@ fig3 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
         legend.title = element_blank()) +
+  ylim(0, 100) +
   xlab("Age Group") + 
   ylab("Percentage")
 
@@ -173,6 +175,7 @@ fig4 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
         legend.title = element_blank()) +
+  ylim(0, 100) +
   xlab("Deprivation") + 
   ylab("Percentage")
 
@@ -200,6 +203,7 @@ fig5 <-
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
         legend.title = element_blank()) +
+  ylim(0, 100) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
 
