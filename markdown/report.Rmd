@@ -69,20 +69,51 @@ min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
 comp_table <- completeness(end_date)
 
-comp_table %<>% mutate_at(vars(starts_with("Full Year")),
-                          ~ c(0.95, 0.93, .95, 0.88, 0.73, 0.90, 0.76,
-                              0.98, 0.97, 0.92, 1, 0.93, 0.89, 0.98, 0.87))
+# This recodes completeness to figures as at May 2019 publication
+# to allow development of relevant text referring to boards with low
+# completeness. Remove this before running real publication.
+comp_table %<>% 
+  mutate(All = c(0.95, 0.93, .95, 0.88, 0.73, 0.90, 0.76,
+                 0.98, 0.97, 0.92, 1, 0.93, 0.89, 0.98, 0.87),
+         Q4  = c(0.83, 0.71, 0.66, 0.54, 0.03, 0.68, 0.1, 
+                 0.71, 0.87, 0.68, 0.84, 0.74, 0.71, 0.96, 0.51))
 
 low_comp <- 
   comp_table %>% 
-  filter_at(vars(starts_with("Full Year")), ~ . < 0.8)
+  filter(All < 0.8) %>% 
+  mutate(All = glue("{All * 100}%"))
 
-comp_text <- 
+comp_boards <- 
+  low_comp %>% 
+  pull(board) %>% 
+  glue_collapse(sep = ", ", last = " and ")
+
+comp_perc <- 
+  low_comp %>%
+  pull(All) %>%
+  glue_collapse(sep = ", ", last = " and ")
+
+comp_scot <- 
+  comp_table %>% 
+  filter(board == "Scotland") %>% 
+  mutate(All = glue("{All * 100}%")) %>%
+  pull(All)
+
+# Text for metadata table
+comp_metadata <- 
+  if(nrow(low_comp) > 0){
+    glue("{comp_boards} {if_else(nrow(low_comp) > 1, 'are', 'is')} ",
+         "particularly impacted (completeness for full financial year ",
+         "{latest$fy} is estimated as {comp_perc}",
+         "{if_else(nrow(low_comp) > 1, ' respectively', '')}).")
+  }
+
+comp_appendix <- 
   if(nrow(low_comp) > 0){
     glue("Note that there are particular issues with completeness for ",
-         "{low_comp$`NHS Board` %>% glue_collapse(sep = ', ', last = ' and ')}",
-         " data for the last quarter (Quarter 4) of {latest$fy} and so data",
-         " for these areas in particular should be treated with caution.")
+         "{comp_boards} data for the last quarter (Quarter 4) of {latest$fy} ",
+         "and so data for these areas in particular should be treated ",
+         "with caution.")
   }
 
 ```
@@ -206,7 +237,7 @@ paste("All data are revised to ensure the most complete data are presented. Data
 "Policy concepts; [http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework), Methodology; [Appendix 2](#appendix-2---background-information) – Background Information, [Appendix 3](#appendix-3---methodology) - Methodology",
 "Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
 "SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology",
-paste("SMR01 hospital completeness for the financial year", latest$fy, "is estimated to be 87% complete and this could have an impact on the time spent in hospital in the last six months of life. NHS Forth Valley and NHS Greater Glasgow & Clyde are particularly impacted (completeness for full financial year", latest$fy, "is estimated as 73% and 76% respectively). See [Appendix 2](#appendix-2---background-information) for more information and completeness figures for each quarter. Further updates  will be made available at the following link:  [http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/](http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/)"),
+paste("SMR01 hospital completeness for the financial year", latest$fy, "is estimated to be", comp_scot, "complete and this could have an impact on the time spent in hospital in the last six months of life.", comp_metadata, "See [Appendix 2](#appendix-2---background-information) for more information and completeness figures for each quarter. Further updates  will be made available at the following link:  [http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/](http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/)"),
 paste("Due to a change in methodology, results presented in this publication will not be comparable to figures published prior to August 2016, Trend information from 2010/11 to", latest$fy, "is available in this publication."),
 "It is the policy of ISD Scotland to make its web sites and products accessible according to published guidelines.",
 "Publication is made available via the ISD website.",
@@ -541,9 +572,13 @@ Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) 
 
 ```{r completeness-table, echo = FALSE}
 comp_table %>%
-  mutate_at(vars(-`NHS Board`),
+  mutate_at(vars(-board),
             ~ paste0(. * 100, "%")) %>%
-  knitr::kable(align = c("l", rep("r", 5)))
+  knitr::kable(align = c("l", rep("r", 5)),
+               col.names = c("NHS Board",
+                             glue("Quarter {1:4} {latest$fy}"),
+                             glue("Full Year {latest$fy}")))
+
 ```
 
 <br>
