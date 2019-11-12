@@ -50,16 +50,17 @@ fig1 <-
   ggplot(aes(x = fy, y = value, fill = qom)) +
   geom_bar(position = "stack", stat = "identity", width = 0.5, show.legend = T) +
   scale_fill_manual(values = c("#00a2e5", "#004785")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        axis.text.x = element_text(angle = 45),
-        legend.title = element_blank()) +
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(0, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
 
@@ -141,6 +142,7 @@ fig3 <-
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   scale_fill_manual(values = c("#00a2e5", "#004785")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -148,8 +150,8 @@ fig3 <-
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
-  ylim(0, 100) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Age Group") + 
   ylab("Percentage")
 
@@ -168,14 +170,15 @@ fig4 <-
 
   ggplot(aes(x = simd, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
-  ylim(0, 100) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Deprivation") + 
   ylab("Percentage")
 
@@ -196,14 +199,15 @@ fig5 <-
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
-  ylim(0, 100) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
 
@@ -257,7 +261,7 @@ figa11 <-
 
 ggsave(here("markdown", "figures", "figure-a1-1.png"), 
        plot = figa11,
-       width = 15.43, height = 17.25, 
+       width = 17.48, height = 19.9, 
        units = "cm", device = "png", dpi = 600)
 
 
@@ -296,7 +300,7 @@ figa12 <-
 
 ggsave(here("markdown", "figures", "figure-a1-2.png"), 
        plot = figa12,
-       width = 15.45, height = 19.9, 
+       width = 17.48, height = 19.9, 
        units = "cm", device = "png", dpi = 600)
 
 
