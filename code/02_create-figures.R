@@ -111,16 +111,16 @@ fig2 <-
         axis.ticks = element_blank(),
         legend.title = element_blank()) +
   annotate("text", 
-           x = 4e+05, y = 620000, 
+           x = 4e+05, y = 630000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
                           ": ", min(round_half_up(fig2$qom, 1)), "%"), 
-           size = 3,
+           size = 2,
            fontface = 2) +
   annotate("text", 
            x = 4e+05, y = 1100000, 
            label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
                           ": ", max(round_half_up(fig2$qom, 1)), "%"), 
-           size = 3,
+           size = 2,
            fontface = 2)
 
 ggsave(here("markdown", "figures", "figure-2.png"), 
