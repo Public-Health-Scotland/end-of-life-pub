@@ -393,9 +393,7 @@ figa31 <-
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
-        legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
-        strip.background = element_blank()) +
+        legend.title = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(80, 90) +
   geom_hline(aes(yintercept = -Inf)) + 
