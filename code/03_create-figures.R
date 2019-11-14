@@ -359,4 +359,52 @@ ggsave(here("markdown", "figures", "figure-a1-4.png"),
        units = "cm", device = "png", dpi = 600)
 
 
+### 12 - Figure A3.1 - Old Methodology Comparison ----
+
+figa31 <-
+  
+  basefile %>%
+  summarise_data(include_years = "all", format_numbers = FALSE) %>%
+  rename(qom_new = qom) %>%
+  
+  left_join(basefile %>%
+            mutate(los = los_old) %>%
+            summarise_data(include_years = "all", format_numbers = FALSE) %>%
+            rename(qom_old = qom) %>%
+            select(fy, qom_old)) %>%
+  
+  pivot_longer(cols = c("qom_old", "qom_new"),
+               names_to = "method",
+               values_to = "qom") %>%
+  
+  mutate(method = case_when(
+    method == "qom_old" ~ str_wrap("Old measure", width = 12),
+    method == "qom_new" ~ str_wrap(paste0("New measure (including ",
+                                      "care home activity)"),
+                                   width = 12)
+  )) %>%
+  
+  ggplot(aes(x = fy, y = qom, group = method)) +
+  geom_line(aes(linetype = method), colour = "#004785") +
+  theme(panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.y = element_text(size = 8, face = "bold"),
+        axis.text = element_text(size = 8),
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
+  ylim(80, 90) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage")
+
+ggsave(here("markdown", "figures", "figure-a3-1.png"), 
+       plot = figa31,
+       width = 17.49, height = 9.03, 
+       units = "cm", device = "png", dpi = 600)
+
+
 ### END OF SCRIPT ###
