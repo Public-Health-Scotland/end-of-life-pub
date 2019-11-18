@@ -146,12 +146,12 @@ contact <- data.frame(contact1, contact2, contact3)
 
 file_name <- dir_ls(here("data", "excel-output"), regexp = pub_date)
 file_size <- paste0("Excel ", file_size(file_name), "b")
-file_desc <- c(paste0("Percentage of last six months of life spent at home or ",
+file_desc <- c("Figures and Background Data",
+               paste0("Percentage of last six months of life spent at home or ",
                       "in the community setting by financial year for each ",
                       "Health Board, HSCP, Council Area, Age, Sex, ",
-                      "Deprivation and Rurality"),
-               "Figures and Background Data")
-file_link <- c(data_tables, figures)
+                      "Deprivation and Rurality"))
+file_link <- c(figures, data_tables)
 
 list_of_tables <-
   tibble(
