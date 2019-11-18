@@ -78,7 +78,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well](http://www.gov.scot/Resource/Doc/239823/0066155.pdf): A National Action Plan for Palliative and End of Life in Scotland”. 
 
-The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
+The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the strategic framework for action. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
 
 
 ### Contact
