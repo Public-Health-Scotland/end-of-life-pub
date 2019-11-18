@@ -37,7 +37,6 @@ library(rgdal)         # For reading shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
-library(ckanr)         # For extracting open data from CKAN (completeness)
 
 
 ### 2 - Define Whether Running on Server or Locally ----
