@@ -156,6 +156,8 @@ writeData(figures,
           startCol = 3,
           x = link)
 
+sheetVisibility(figures)[13:14] <- "hidden"
+
 saveWorkbook(figures,
              here("data", "excel-output", glue("{pub_date}_figures.xlsm")),
              overwrite = TRUE)
@@ -172,6 +174,8 @@ writeData(qom,
           startRow = 16,
           startCol = 3,
           x = link)
+
+sheetVisibility(qom)[13:14] <- "hidden"
 
 saveWorkbook(qom,
              here("data", "excel-output", glue("{pub_date}_qom.xlsm")),
