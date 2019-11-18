@@ -114,18 +114,18 @@ fig2 <-
            x = 4e+05, y = 630000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
                           ": ", min(round_half_up(fig2$qom, 1)), "%"), 
-           size = 2,
+           size = 2.5,
            fontface = 2) +
   annotate("text", 
            x = 4e+05, y = 1100000, 
            label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
                           ": ", max(round_half_up(fig2$qom, 1)), "%"), 
-           size = 2,
+           size = 2.5,
            fontface = 2)
 
 ggsave(here("markdown", "figures", "figure-2.png"), 
        plot = fig2,
-       width = 10, height = 12, 
+       width = 11.67, height = 14, 
        units = "cm", device = "png", dpi = 600)  
 
 
