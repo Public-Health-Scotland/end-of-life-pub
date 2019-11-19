@@ -129,6 +129,7 @@ agesex <-
   basefile %>% 
   summarise_data(age = age_grp,
                  sex = sex,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -144,11 +145,12 @@ agesex <-
   mutate(sex = replace_na(sex, "Missing")) %>%
   
   # Reorder variables
-  select(fy, fy_qf, age, sex, everything()) %>%
+  select(fy, fy_qf, country, age, sex, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          AgeGroup = age,
          Sex = sex,
          PercentageSpentInHomeCommunity = qom,
@@ -165,6 +167,7 @@ simd <-
   
   basefile %>%
   summarise_data(simd,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -175,11 +178,12 @@ simd <-
   mutate(simd = substr(simd, 1, 1)) %>%
   
   # Reorder variables
-  select(fy, fy_qf, simd, everything()) %>%
+  select(fy, fy_qf, country, simd, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          SIMD = simd,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
@@ -195,6 +199,7 @@ rurality <-
   
   basefile %>%
   summarise_data(ur = urban_rural,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -203,11 +208,12 @@ rurality <-
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, fy_qf, ur, everything()) %>%
+  select(fy, fy_qf, country, ur, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          UrbanRural6Fold = ur,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
