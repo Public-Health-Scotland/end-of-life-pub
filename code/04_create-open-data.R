@@ -61,6 +61,7 @@ hb <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -88,6 +89,7 @@ hscp <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -115,6 +117,7 @@ ca <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -151,6 +154,7 @@ agesex <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -180,6 +184,7 @@ simd <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
   
@@ -207,6 +212,7 @@ rurality <-
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
