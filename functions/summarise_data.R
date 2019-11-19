@@ -29,6 +29,7 @@ summarise_data <- function(data, ...,
     summarise(qom = 100 - ((sum(los) / sum(deaths)) / 182.5) * 100,
               qom_hosp = ((sum(los) / sum(deaths)) / 182.5) * 100,
               deaths = sum(deaths),
+              los = sum(los),
               comm = round_half_up(182.5 * (qom / 100)),
               hosp = round_half_up(182.5 * (qom_hosp / 100))) %>%
     
