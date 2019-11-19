@@ -168,6 +168,8 @@ simd <-
                                 fy == max(.$fy),
                               "p", "")) %>%
   
+  mutate(simd = substr(simd, 1, 1)) %>%
+  
   # Reorder variables
   select(fy, fy_qf, simd, everything()) %>%
   
@@ -181,9 +183,6 @@ simd <-
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
   
-# Do we want to include top 15% in this file?
-# How would this be marked as not technically derived?
-
 
 #### 8 - Urban Rural file ----
 
