@@ -30,7 +30,7 @@ basefile <- read_rds(here("data", "basefiles",
 hb <- 
   
   basefile %>%
-  summarise_data(hb = "S29000003",
+  summarise_data(hb = "S92000003",
                  hb_qf = "d",
                  include_years = "all",
                  format_numbers = FALSE) %>%
@@ -56,8 +56,8 @@ hb <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         HB2014 = hb,
-         HB2014QF = hb_qf,
+         HBR2014 = hb,
+         HBR2014QF = hb_qf,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
@@ -84,7 +84,7 @@ hscp <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         HSCP = hscp,
+         HSCP2016 = hscp,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
@@ -111,7 +111,7 @@ ca <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         CouncilArea = ca,
+         CA2011 = ca,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
