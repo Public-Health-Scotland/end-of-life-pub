@@ -65,6 +65,7 @@ completeness <- function(end_date) {
                                "resource/daf55fd2-457f-4845-9af1-5d154cc0b19c",
                                "/download/financialyr.csv")) %>%
     janitor::clean_names() %>%
+    dplyr::filter(is.na(completeness_qf)) %>%
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(financial_year) == 
                     lubridate::year(end_date) - 1) %>%
