@@ -139,7 +139,7 @@ agesex <-
   
   mutate(age = case_when(
     str_detect(age, "-") ~ paste(age, "years"),
-    str_detect(age, "\\+") ~ paste(age, "years and over")
+    str_detect(age, "85+") ~ "85 years and over"
   )) %>%
   
   mutate(sex = replace_na(sex, "Missing")) %>%
