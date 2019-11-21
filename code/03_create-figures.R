@@ -261,7 +261,7 @@ figa11 <-
 
 ggsave(here("markdown", "figures", "figure-a1-1.png"), 
        plot = figa11,
-       width = 17.48, height = 19.9, =
+       width = 17.48, height = 19.9,
        units = "cm", device = "png", dpi = 600)
 
 
