@@ -61,9 +61,15 @@ smr04 <-
 
 ### 4 - Save data extracts ----
 
-write_rds(deaths, here("data", "extracts", glue("{pub_date}_deaths.rds")))
-write_rds(smr01,  here("data", "extracts", glue("{pub_date}_smr01.rds")))
-write_rds(smr04,  here("data", "extracts", glue("{pub_date}_smr04.rds")))
+write_rds(deaths, 
+          here("data", "extracts", glue("{pub_date}_deaths.rds")),
+          compress = "gz")
+write_rds(smr01,
+          here("data", "extracts", glue("{pub_date}_smr01.rds")),
+          compress = "gz")
+write_rds(smr04,
+          here("data", "extracts", glue("{pub_date}_smr04.rds")),
+          compress = "gz")
 
 
 ### 5 - Aggregate SMR data to CIS level ----
@@ -177,7 +183,9 @@ final <-
   ungroup()
 
 
-write_rds(final, here("data", "basefiles", glue("{pub_date}_base-file.rds")))
+write_rds(final, 
+          here("data", "basefiles", glue("{pub_date}_base-file.rds")),
+          compress = "gz")
   
 
 ### END OF SCRIPT ###

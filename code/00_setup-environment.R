@@ -37,7 +37,6 @@ library(rgdal)         # For reading shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
-library(ckanr)         # For extracting open data from CKAN (completeness)
 
 
 ### 2 - Define Whether Running on Server or Locally ----
@@ -54,20 +53,6 @@ if (sessionInfo()$platform %in% c("x86_64-redhat-linux-gnu (64-bit)",
 filepath <- dplyr::if_else(platform == "server",
                            "/conf/linkage/output/",
                            "//stats/cl-out/")
-
-
-### 3 - Create data and figures folders ----
-
-if(!("data" %in% fs::dir_ls(here::here()))){
-  fs::dir_create(paste0(here::here("data", c("basefiles", 
-                                             "extracts",
-                                             "excel-output",
-                                             "open-data"))))
-}
-
-if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
-  fs::dir_create(here::here("markdown", "figures"))
-}
 
 
 ### 3 - Extract dates ----
@@ -97,7 +82,25 @@ pub_type <- "provisional"
 # pub_type <- "update"
 
 
-### 4 - Define list of external causes of death codes ----
+### 4 - Create data, figures and open data folders ----
+
+if(!("data" %in% fs::dir_ls(here::here()))){
+  fs::dir_create(paste0(here::here("data", c("basefiles", 
+                                             "extracts",
+                                             "excel-output",
+                                             "open-data"))))
+}
+
+if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
+  fs::dir_create(here::here("markdown", "figures"))
+}
+
+if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
+  fs::dir_create(paste0(here::here("data", "open-data", pub_date)))
+}
+
+
+### 5 - Define list of external causes of death codes ----
 
 external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
                paste0("W", 20:99),
@@ -105,7 +108,7 @@ external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
                paste0("Y", 0, 0:9), paste0("Y", 10:84))
 
 
-### 5 - Define list of care homes to class as community ----
+### 6 - Define list of care homes to class as community ----
 
 care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V", 
                 "G424V", "G541V", "G557V", "H239V", "L112V", "L213V", 
@@ -113,7 +116,7 @@ care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V",
                 "S327V", "T315S", "T337V", "Y121V")
 
 
-### 6 - Read in lookup files ----
+### 7 - Read in lookup files ----
 
 postcode <- function(){
   

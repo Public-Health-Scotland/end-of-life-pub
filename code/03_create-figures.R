@@ -1,5 +1,5 @@
 #########################################################################
-# Name of file - 02_create-figures.R
+# Name of file - 03_create-figures.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
 # Orginal Date - September 2019
@@ -50,14 +50,16 @@ fig1 <-
   ggplot(aes(x = fy, y = value, fill = qom)) +
   geom_bar(position = "stack", stat = "identity", width = 0.5, show.legend = T) +
   scale_fill_manual(values = c("#00a2e5", "#004785")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        axis.text.x = element_text(angle = 45),
-        legend.title = element_blank()) +
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   xlab("Financial Year of Death") + 
   ylab("Percentage")
@@ -109,21 +111,21 @@ fig2 <-
         axis.ticks = element_blank(),
         legend.title = element_blank()) +
   annotate("text", 
-           x = 4e+05, y = 620000, 
+           x = 4e+05, y = 630000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
                           ": ", min(round_half_up(fig2$qom, 1)), "%"), 
-           size = 3.5,
+           size = 2.5,
            fontface = 2) +
   annotate("text", 
            x = 4e+05, y = 1100000, 
            label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
                           ": ", max(round_half_up(fig2$qom, 1)), "%"), 
-           size = 3.5,
+           size = 2.5,
            fontface = 2)
 
 ggsave(here("markdown", "figures", "figure-2.png"), 
        plot = fig2,
-       width = 10, height = 12, 
+       width = 11.67, height = 14, 
        units = "cm", device = "png", dpi = 600)  
 
 
@@ -140,6 +142,7 @@ fig3 <-
   
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   scale_fill_manual(values = c("#00a2e5", "#004785")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -147,7 +150,8 @@ fig3 <-
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Age Group") + 
   ylab("Percentage")
 
@@ -166,13 +170,15 @@ fig4 <-
 
   ggplot(aes(x = simd, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Deprivation") + 
   ylab("Percentage")
 
@@ -193,13 +199,15 @@ fig5 <-
   
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   xlab("Urban / Rural Classification") + 
   ylab("Percentage")
 
@@ -237,18 +245,23 @@ figa11 <-
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
-        strip.background = element_blank()) +
+        strip.text = element_blank(),
+        strip.background = element_blank(),
+        axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
-  geom_hline(aes(yintercept = -Inf)) + 
-  geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
-  ylab("Percentage")
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                hb = c("Scotland", sort(unique(basefile$hb))),
+                xpos  = rep(10, 15), ypos = rep(98, 15)), 
+            aes(x = xpos, y = ypos, label = hb, group = NULL),
+            size = 2.5, hjust = 1)
 
 ggsave(here("markdown", "figures", "figure-a1-1.png"), 
        plot = figa11,
-       width = 15.43, height = 17.25, 
+       width = 17.48, height = 19.9, =
        units = "cm", device = "png", dpi = 600)
 
 
@@ -258,7 +271,6 @@ figa12 <-
   
   basefile %>%
   summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
-  mutate(hscp = str_wrap(hscp, width = 20)) %>%
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#004785") +
@@ -271,18 +283,24 @@ figa12 <-
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
+        strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
-  ylab("Percentage")
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                hscp = sort(unique(basefile$hscp)),
+                xpos  = rep(10, 31), ypos = rep(98, 31)), 
+            aes(x = xpos, y = ypos, label = hscp, group = NULL),
+            size = 2.4, hjust = 1)
 
 ggsave(here("markdown", "figures", "figure-a1-2.png"), 
        plot = figa12,
-       width = 15.45, height = 19.9, 
+       width = 17.48, height = 19.9, 
        units = "cm", device = "png", dpi = 600)
 
 
@@ -311,14 +329,21 @@ figa13 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
+        strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
-  ylab("Percentage")
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                simd = c("1 - Most Deprived", "2nd Quintile", "3rd Quintile",
+                         "4th Quintile", "5 - Least Deprived"),
+                xpos  = rep(10, 5), ypos = rep(98, 5)), 
+            aes(x = xpos, y = ypos, label = simd, group = NULL),
+            size = 3, hjust = 1)
 
 ggsave(here("markdown", "figures", "figure-a1-3.png"), 
        plot = figa13,
@@ -344,14 +369,20 @@ figa14 <-
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank(),
-        strip.text = element_text(size = 8, hjust = 1),
+        strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(75, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
-  ylab("Percentage")
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                urban_rural = sort(unique(basefile$urban_rural)),
+                xpos  = rep(10, 6), ypos = rep(98, 6)), 
+            aes(x = xpos, y = ypos, label = urban_rural, group = NULL),
+            size = 3, hjust = 1)
 
 ggsave(here("markdown", "figures", "figure-a1-4.png"), 
        plot = figa14,

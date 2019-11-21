@@ -9,7 +9,6 @@ output:
 # Source setup environment and function scripts
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "summarise_data.R"))
-source(here::here("functions", "calculate_qom.R"))
 source(here::here("functions", "day_diff.R"))
 
 
@@ -57,7 +56,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 ### Main Points
 
-* In `r latest$fy`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r round_half_up(182.5 * (latest$qom_hosp / 100))` days in hospital in the six months prior to death.
+* In `r latest$fy`, there were `r latest$deaths` deaths in Scotland excluding those where an external cause of death was recorded (including falls).  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
 
 * Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
@@ -79,7 +78,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well](http://www.gov.scot/Resource/Doc/239823/0066155.pdf): A National Action Plan for Palliative and End of Life in Scotland”. 
 
-The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the national action plan. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
+The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the strategic framework for action. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
 
 
 ### Contact

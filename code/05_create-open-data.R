@@ -1,5 +1,5 @@
 #########################################################################
-# Name of file - 03_create-open-data.R
+# Name of file - 05_create-open-data.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
 # Orginal Date - October 2019
@@ -30,7 +30,7 @@ basefile <- read_rds(here("data", "basefiles",
 hb <- 
   
   basefile %>%
-  summarise_data(hb = "S29000003",
+  summarise_data(hb = "S92000003",
                  hb_qf = "d",
                  include_years = "all",
                  format_numbers = FALSE) %>%
@@ -56,11 +56,12 @@ hb <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         HB2014 = hb,
-         HB2014QF = hb_qf,
+         HBR2014 = hb,
+         HBR2014QF = hb_qf,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -84,10 +85,11 @@ hscp <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         HSCP = hscp,
+         HSCP2016 = hscp,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -111,10 +113,11 @@ ca <-
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
-         CouncilArea = ca,
+         CA2011 = ca,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -126,6 +129,7 @@ agesex <-
   basefile %>% 
   summarise_data(age = age_grp,
                  sex = sex,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -133,17 +137,26 @@ agesex <-
                                 fy == max(.$fy),
                               "p", "")) %>%
   
+  mutate(age = case_when(
+    str_detect(age, "-") ~ paste(age, "years"),
+    str_detect(age, "85+") ~ "85 years and over"
+  )) %>%
+  
+  mutate(sex = replace_na(sex, "Missing")) %>%
+  
   # Reorder variables
-  select(fy, fy_qf, age, sex, everything()) %>%
+  select(fy, fy_qf, country, age, sex, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          AgeGroup = age,
          Sex = sex,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -154,6 +167,7 @@ simd <-
   
   basefile %>%
   summarise_data(simd,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -161,22 +175,22 @@ simd <-
                                 fy == max(.$fy),
                               "p", "")) %>%
   
+  mutate(simd = substr(simd, 1, 1)) %>%
+  
   # Reorder variables
-  select(fy, fy_qf, simd, everything()) %>%
+  select(fy, fy_qf, country, simd, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          SIMD = simd,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
-  
-# Do we want to include top 15% in this file?
-# How would this be marked as not technically derived?
-
 
 #### 8 - Urban Rural file ----
 
@@ -184,6 +198,7 @@ rurality <-
   
   basefile %>%
   summarise_data(ur = urban_rural,
+                 country = "S92000003",
                  include_years = "all",
                  format_numbers = FALSE) %>%
   
@@ -192,15 +207,17 @@ rurality <-
                               "p", "")) %>%
   
   # Reorder variables
-  select(fy, fy_qf, ur, everything()) %>%
+  select(fy, fy_qf, country, ur, everything()) %>%
   
   # Rename variables in camel case
   rename(FinancialYear = fy,
          FinancialYearQF = fy_qf,
+         Country = country,
          UrbanRural6Fold = ur,
          PercentageSpentInHomeCommunity = qom,
          PercentageSpentInHospital = qom_hosp,
          NumberOfDeaths = deaths,
+         TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
@@ -214,22 +231,22 @@ if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
 
 write_csv(hb, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_health-board.csv"))
+               glue("{today()}_last-six-months-of-life_health-board.csv")))
 write_csv(hscp, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_hscp.csv"))
+               glue("{today()}_last-six-months-of-life_hscp.csv")))
 write_csv(ca, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_council-area.csv"))
+               glue("{today()}_last-six-months-of-life_council-area.csv")))
 write_csv(agesex, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_age-sex.csv"))
+               glue("{today()}_last-six-months-of-life_age-sex.csv")))
 write_csv(simd, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_deprivation.csv"))
+               glue("{today()}_last-six-months-of-life_deprivation.csv")))
 write_csv(rurality, 
           here("data", "open-data", pub_date, 
-               "last-six-months-of-life_rurality.csv"))
+               glue("{today()}_last-six-months-of-life_rurality.csv")))
 
 
 ### END OF SCRIPT ###
