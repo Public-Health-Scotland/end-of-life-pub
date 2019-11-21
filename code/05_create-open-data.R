@@ -191,7 +191,6 @@ simd <-
          TotalLengthOfStay = los,
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
-  
 
 #### 8 - Urban Rural file ----
 
@@ -224,6 +223,11 @@ rurality <-
 
 
 #### 9 - Save files ----
+
+# Create new folder for publication date
+if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
+  fs::dir_create(paste0(here::here("data", "open-data", pub_date)))
+}
 
 write_csv(hb, 
           here("data", "open-data", pub_date, 

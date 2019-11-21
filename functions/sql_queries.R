@@ -120,8 +120,14 @@ smr01_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.gls_cis_marker, s.location, ",
-    "s.admission_date, s.discharge_date, d.date_of_death ",
+    "select s.link_no, s.gls_cis_marker, ",
+    "s.admission_date, s.discharge_date, d.date_of_death, ",
+    
+    # Care Home Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(care_homes, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end ch_flag ",
     
     "from analysis.{data} s, analysis.gro_deaths_c d ",
     
@@ -206,8 +212,21 @@ smr04_query <- function(extract_start,
   extract_start_smr <- extract_start - months(6)
   
   glue(
-    "select s.link_no, s.cis_marker, s.location, ",
-    "s.admission_date, s.discharge_date, d.date_of_death ",
+    "select s.link_no, s.cis_marker, ",
+    "s.admission_date, ",
+    
+    # Use date of death where discharge date is missing
+    "case when s.discharge_date is null then d.date_of_death ",
+    "else s.discharge_date ",
+    "end discharge_date, ",
+    
+    "d.date_of_death, ",
+    
+    # Care Home Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(care_homes, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end ch_flag ",
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
     
