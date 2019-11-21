@@ -1,5 +1,5 @@
 #########################################################################
-# Name of file - 02_create-figures.R
+# Name of file - 03_create-figures.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
 # Orginal Date - September 2019

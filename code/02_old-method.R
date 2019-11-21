@@ -1,5 +1,5 @@
 #########################################################################
-# Name of file - 02_old-methodology.R
+# Name of file - 02_old-method.R
 # Data release - End of Life Publication
 # Original Authors - Alice Byers
 # Orginal Date - November 2019
