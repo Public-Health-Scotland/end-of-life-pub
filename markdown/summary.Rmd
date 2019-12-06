@@ -28,6 +28,27 @@ sex <-
 max_sex <- sex %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
 
 
+# Alt text for chart
+trend <- summarise_data(basefile, include_years = "all")
+dir_comm <- if_else(as.double(trend$qom[nrow(trend)]) - 
+                       as.double(trend$qom[1]) > 0,
+                     "increase",
+                     "decrease")
+dir_hosp <- if_else(dir_comm == "increase", "decrease", "increase")
+alt_text <-
+  glue("This is a bar chart showing the percentage of end of life spent at ",
+       "home or in a community setting from {min(trend$fy)} to {max(trend$fy)}",
+       ". The percentage of time spent at home or in a community setting has ",
+       "{dir_comm}d gradually from {trend$qom[1]}% in {min(trend$fy)} to ",
+       "{trend$qom[nrow(trend)]}% in {max(trend$fy)}. The percentage of time ",
+       "spent in the hospital setting continues to show a gradual {dir_hosp} ",
+       "from {trend$qom_hosp[1]}% in {min(trend$fy)} to ",
+       "{trend$qom_hosp[nrow(trend)]}% in {max(trend$fy)}. ",
+       "In {latest$fy}, {latest$qom}% of the last six months of life was ",
+       "spent either at home or in a community setting, with the remaining ",
+       "{latest$qom_hosp}% spent in hospital.")
+
+
 # Create contact information
 contact1 <- c("**Federico Centoni**", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
@@ -63,7 +84,7 @@ Note that hospital data and National Records of Scotland deaths data are provisi
 
 <Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
 <Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1^**</div>
-![This bar charts shows the QoM measure for each financial year.](figures/figure-1-summary.png) <br>
+![`r alt_text`](figures/figure-1-summary.png) <br>
 
 <div custom-style = "Normal_Notes">
 1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.
