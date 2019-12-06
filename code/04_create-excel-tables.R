@@ -139,7 +139,7 @@ figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
   
 writeData(figures,
           "data",
-          excel_data,
+          excel_data %>% select(-(deaths:hosp)),
           startCol = 2)
 
 insertImage(figures,
@@ -166,7 +166,7 @@ qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
   
 writeData(qom, 
           "data",
-          excel_data,
+          excel_data %>% select(-(qom_hosp:hosp)),
           startCol = 2)
 
 writeData(qom,
