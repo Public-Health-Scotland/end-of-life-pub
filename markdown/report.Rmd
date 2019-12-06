@@ -487,6 +487,8 @@ Further Information can be found on the [ISD website](http://www.isdscotland.org
 
 For more information on Palliative and End of Life Care see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
+Data from this publication is available to download from the [NHSScotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+
 The next release of this publication will be October `r year(end_date)`.  
 
 <br>
