@@ -128,8 +128,16 @@ excel_data <-
       summarise_data(category = "urban rural 2", 
                      category_split = urban_rural_2,
                      include_years = "all",
-                     format_numbers = FALSE)
+                     format_numbers = FALSE),
     
+    # Methodology Comparison
+    basefile %>%
+      mutate(los = los_old) %>%
+      summarise_data(category = "comparison",
+                     category_split = "old",
+                     include_years = "all",
+                     format_numbers = FALSE)
+      
   )
 
 
