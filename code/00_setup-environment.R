@@ -83,13 +83,17 @@ pub_type <- "provisional"
 # pub_type <- "update"
 
 
-### 4 - Create data, figures and open data folders ----
+### 4 - Create folders ----
 
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
                                              "excel-output",
                                              "open-data"))))
+}
+
+if(!("output" %in% fs::dir_ls(here::here()))){
+  fs::dir_create(here::here("output"))
 }
 
 if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
