@@ -21,7 +21,10 @@ source(here::here("functions", "sql_queries.R"))
 
 ### 2 - Open SMRA Connection ----
 
-source(here::here("code", "smra_connect.R"))
+smra_connect <- dbConnect(odbc(), 
+                          dsn  = "SMRA",
+                          uid  = .rs.askForPassword("SMRA Username:"), 
+                          pwd  = .rs.askForPassword("SMRA Password:"))
 
 
 ### 3 - Extract data ----
