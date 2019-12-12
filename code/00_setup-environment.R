@@ -88,7 +88,6 @@ pub_type <- "provisional"
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
-                                             "excel-output",
                                              "open-data"))))
 }
 

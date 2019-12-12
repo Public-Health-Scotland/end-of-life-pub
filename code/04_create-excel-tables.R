@@ -167,7 +167,7 @@ writeData(figures,
 sheetVisibility(figures)[13:14] <- "hidden"
 
 saveWorkbook(figures,
-             here("data", "excel-output", glue("{pub_date}_figures.xlsm")),
+             here("output", glue("{pub_date}_figures.xlsm")),
              overwrite = TRUE)
 
 qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
@@ -186,7 +186,7 @@ writeData(qom,
 sheetVisibility(qom)[13:14] <- "hidden"
 
 saveWorkbook(qom,
-             here("data", "excel-output", glue("{pub_date}_qom.xlsm")),
+             here("output", glue("{pub_date}_qom.xlsm")),
              overwrite = TRUE)
   
 
