@@ -4,7 +4,7 @@ The following provides a description of each folder and file in the publication 
 
 ### code/
 
-* **00_setup-environment.R** - This script loads all packages required by the scripts in the repo, 
+* **00_setup-environment.R** - This script loads all packages required by the scripts in the repo and defines all parameters required to produce the basefile; e.g. dates, external cause of death codes, etc. This script is automatically run at the beginning of every other R script that is run.
 * **01_create-basefile.R** - 
 * **02_old-method.R** -
 * **03_create-figures.R** -
@@ -14,26 +14,27 @@ The following provides a description of each folder and file in the publication 
 ### functions/
 The scripts in this folder define functions that are sourced and used by the scripts in the `code/` and `markdown/` folders.
 
-* **completeness.R** -
-* **day_diff.R** -
-* **extract_date.R** -
-* **sql_queries.R** -
-* **summarise_data.R** -
+* **completeness.R** - Given the end date of the publication reporting period, this function sources SMR01 completeness information from the NHS Scotland Open Data platform and formats this as a table for use in the report appendix.
+* **day_diff.R** - Given two QoM figures representing the percentage of the last six months, this function calculates the difference in days between these two figures.
+* **extract_date.R** - Given the publication date, this function finds the date the relevant basefile was created. This is used in the metadata table in the report.
+* **sql_queries.R** - This script defines three functions, defining a SQL query for each of the following; NRS Deaths, SMR01 and SMR04. Each function takes the extract start date, end date and list of external cause of death codes. The SMR01 function also takes an argument to define whether a GLS extract is required or not. Each function returns a SQL query as a string. 
+* **summarise_data.R** - This function takes the basefile and named variables to breakdown by, returning a tibble with commonly used figures required for outputs; e.g. QoM, number of deaths, average days spent in hospital, etc. The function also takes arguments to control which financial years are returned and whether figures are formatted.
 
 ### markdown/
+The templates in this folder are adapted from the [National Stats Templates](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template) produced by the TPP team.
 
-* **cover-page.docx** -
-* **report-template.docx** -
-* **report.Rmd** -
-* **summary-template.docx** -
-* **summary.Rmd** -
-* **figures/** - This folder is not tracked by git as it contains unreleased data.
+* **cover-page.docx** - The template cover page added to the publication report.
+* **report-template.docx** - The template used for styles and formatting of the publication report.
+* **report.Rmd** - The R Markdown script used to produce the publication report.
+* **summary-template.docx** - The template used for styles and formatting of the publication summary.
+* **summary.Rmd** - The R Markdown script used to produce the publication summary.
+* **figures/** - The .png files produced by the `code/03_create-figures.R` script are saved here. This folder is not tracked by git.
 
 ### reference-files/
 The files in this folder are used by the `code/04_create-excel-tables.R` script to produce the final publication excel tables.
 
-* **figures-template.xlsm** - 
-* **qom-template.xlsm** -
+* **figures-template.xlsm** - Contains a tab for each figure in the publication report and a tab containing the data used to produce each.
+* **qom-template.xlsm** - Contains trend data tables and charts for various breakdowns of the data.
 
 ### data/
 This folder is not tracked by git, however it can be found in the master copy of this repository on the network containing an archive of all data outputs as follows:
