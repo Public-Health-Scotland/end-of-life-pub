@@ -6,8 +6,9 @@
 # SMRA connection #
 code/smra_connect.R
 
-# 'data' folder #
+# 'data' and 'output' folder #
 data/
+output/
 
 # 'markdown/figures' folder #
 markdown/figures/
