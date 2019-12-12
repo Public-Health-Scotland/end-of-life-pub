@@ -5,11 +5,11 @@ The following provides a description of each folder and file in the publication 
 ### code/
 
 * **00_setup-environment.R** - This script loads all packages required by the scripts in the repo and defines all parameters required to produce the basefile; e.g. dates, external cause of death codes, etc. This script is automatically run at the beginning of every other R script that is run.
-* **01_create-basefile.R** - 
-* **02_old-method.R** -
-* **03_create-figures.R** -
-* **04_create-excel-tables.R** -
-* **05_create-open-data.R** -
+* **01_create-basefile.R** - This script extracts data from SMRA, calculates length of stay in the last 6 months for each death, and aggregates to the required level for the basefile.
+* **02_old-method.R** - This script uses the SMRA extracts created in the previous script and applies the old methodology (to count Care Home episodes as hospital activity). The script then appends an extra column, `los_old` to the basefile. This is then used to provide a methodology comparison in an appendix of the report.
+* **03_create-figures.R** - This script uses the basefile to create a .png file of every figure to be included in the report and summary.
+* **04_create-excel-tables.R** - This script uses the basefile to populate the excel templates (see below [reference-files/](#reference-files). 
+* **05_create-open-data.R** - This script uses the basefile to produce six .csv files to be uploaded to the NHS Scotland Open Data platform.
 
 ### functions/
 The scripts in this folder define functions that are sourced and used by the scripts in the `code/` and `markdown/` folders.
