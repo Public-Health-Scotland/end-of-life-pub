@@ -563,7 +563,7 @@ Over time, an increase in the proportion of time spent at home / in a community 
 
 This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01/SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. 
 
-<div custom-style = "Heading 3_pgbrk">
+<div custom-style = "Heading 5_pgbrk">
 Data Quality and Completeness
 </div>
 
@@ -622,6 +622,14 @@ knitr::kable(
   col.names = c("**Calculation of Measure**", "")
 )
 ```
+
+<div custom-style = "Heading 5_pgbrk">
+Comparison to previous measure
+</div>
+
+Text here about the change in methodology to count Care Home activity as community.
+
+![Alt text here](figures/figure-a3-1.png)</div>
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 4 - Publication Metadata
