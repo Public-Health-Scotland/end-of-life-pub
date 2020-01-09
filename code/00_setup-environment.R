@@ -104,12 +104,14 @@ if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
 }
 
 
-### 5 - Define list of external causes of death codes ----
+### 5 - Define list of external and fall causes of death codes ----
 
-external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
-               paste0("W", 20:99),
-               paste0("X", 0, 0:9), paste0("X", 10:99),
-               paste0("Y", 0, 0:9), paste0("Y", 10:84))
+external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
+              paste0("W", 20:99),
+              paste0("X", 0, 0:9), paste0("X", 10:99),
+              paste0("Y", 0, 0:9), paste0("Y", 10:84))
+
+falls    <- c(paste0("W", 0, 0:9), paste0("W", 10:19))
 
 
 ### 6 - Define list of care homes to class as community ----
