@@ -157,7 +157,7 @@ list_of_tables <-
   tibble(
     file_name = 
       glue("[**{str_remove(file_name, ",
-           "paste0(here('data', 'excel-output'), '/'))}",
+           "paste0(here('output'), '/'))}",
            "**]({file_link}) - {file_desc}"),
     file_size
   )
