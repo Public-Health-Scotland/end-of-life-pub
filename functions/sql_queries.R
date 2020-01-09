@@ -15,7 +15,8 @@
 
 ### 1 - Deaths query ----
 
-deaths_query <- function(extract_start, extract_end, external_causes){
+deaths_query <- function(extract_start, extract_end, 
+                         external_causes, falls){
   
   glue("select link_no, date_of_death, postcode, ",
        
@@ -49,10 +50,10 @@ deaths_query <- function(extract_start, extract_end, external_causes){
        "when extract(month from date_of_death) between 1 and 3 then '4' ",
        "end quarter ",
        
-       "from analysis.gro_deaths_c ",
+       "from analysis.gro_deaths_c where ",
        
        # Exclude external causes of death
-       "where {{fn substr(underlying_cause_of_death, 1, 3)}} not in ",
+       "(({{fn substr(underlying_cause_of_death, 1, 3)}} not in ",
        "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
        
        "and ({{fn substr(cause_of_death_code_0, 1, 3)}} is null or ",
@@ -93,7 +94,52 @@ deaths_query <- function(extract_start, extract_end, external_causes){
 
        "and ({{fn substr(cause_of_death_code_9, 1, 3)}} is null or ",
        "{{fn substr(cause_of_death_code_9, 1, 3)}} not in ",
-       "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
+       "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}))) ",
+       
+       # Include falls
+       "or (",
+       "{{fn substr(underlying_cause_of_death, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_0, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_1, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_2, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_3, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_4, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_5, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_6, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_7, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_8, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+       
+       "or ",
+       "{{fn substr(cause_of_death_code_9, 1, 3)}} in ",
+       "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}))) ",
        
        # Select deaths in reporting period
        "and (date_of_death between ",
@@ -110,9 +156,8 @@ deaths_query <- function(extract_start, extract_end, external_causes){
   
 ### 2 - SMR01 query ----
 
-smr01_query <- function(extract_start, 
-                        extract_end,
-                        external_causes,
+smr01_query <- function(extract_start, extract_end,
+                        external_causes, falls,
                         gls){
   
   data <- if_else(gls == TRUE, "smr01_1e_pi", "smr01_pi")
@@ -143,7 +188,7 @@ smr01_query <- function(extract_start,
     "and to_date({shQuote(extract_end, type = 'sh')}, 'yyyy-mm-dd') ",
     
     # Exclude external causes of death
-    "and {{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
+    "and (({{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
 
     "and ({{fn substr(d.cause_of_death_code_0, 1, 3)}} is null or ",
@@ -184,7 +229,52 @@ smr01_query <- function(extract_start,
     
     "and ({{fn substr(d.cause_of_death_code_9, 1, 3)}} is null or ",
     "{{fn substr(d.cause_of_death_code_9, 1, 3)}} not in ",
-    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
+    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}))) ",
+    
+    # Include falls
+    "or (",
+    "{{fn substr(d.underlying_cause_of_death, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_0, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_1, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_2, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_3, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_4, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_5, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_6, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_7, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_8, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_9, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}))) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
@@ -205,9 +295,8 @@ smr01_query <- function(extract_start,
 
 ### 3 - SMR04 query ----
 
-smr04_query <- function(extract_start, 
-                        extract_end,
-                        external_causes){
+smr04_query <- function(extract_start, extract_end,
+                        external_causes, falls){
   
   extract_start_smr <- extract_start - months(6)
   
@@ -244,7 +333,7 @@ smr04_query <- function(extract_start,
     "or discharge_date is null) ",
     
     # Exclude external causes of death
-    "and {{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
+    "and (({{fn substr(d.underlying_cause_of_death, 1, 3)}} not in ",
     "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}) ",
 
     "and ({{fn substr(d.cause_of_death_code_0, 1, 3)}} is null or ",
@@ -285,7 +374,52 @@ smr04_query <- function(extract_start,
     
     "and ({{fn substr(d.cause_of_death_code_9, 1, 3)}} is null or ",
     "{{fn substr(d.cause_of_death_code_9, 1, 3)}} not in ",
-    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')})) ",
+    "({paste0(shQuote(external_causes, type = 'sh'), collapse = ',')}))) ",
+    
+    # Include falls
+    "or (",
+    "{{fn substr(d.underlying_cause_of_death, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_0, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_1, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_2, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_3, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_4, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_5, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_6, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_7, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_8, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}) ",
+    
+    "or ",
+    "{{fn substr(d.cause_of_death_code_9, 1, 3)}} in ",
+    "({paste0(shQuote(falls, type = 'sh'), collapse = ',')}))) ",
     
     # Select deaths in reporting period
     "and (d.date_of_death between ",
