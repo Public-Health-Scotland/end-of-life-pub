@@ -144,7 +144,7 @@ contact <- data.frame(contact1, contact2, contact3)
 
 ```{r list-of-tables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 
-file_name <- dir_ls(here("data", "excel-output"), regexp = pub_date)
+file_name <- dir_ls(here("output"), regexp = glue("{pub_date}+.*\\.xlsm$"))
 file_size <- paste0("Excel ", file_size(file_name), "b")
 file_desc <- c("Figures and Background Data",
                paste0("Percentage of last six months of life spent at home or ",
