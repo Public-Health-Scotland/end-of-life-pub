@@ -33,7 +33,8 @@ deaths <-
   as_tibble(dbGetQuery(smra_connect, 
                        deaths_query(extract_start = start_date,
                                     extract_end = end_date,
-                                    external_causes = external))) %>% 
+                                    external_causes = external,
+                                    falls = falls))) %>% 
   clean_names()
 
 
@@ -43,12 +44,14 @@ smr01 <-
                        smr01_query(extract_start = start_date,
                                    extract_end = end_date,
                                    external_causes = external,
+                                   falls = falls,
                                    gls = FALSE))) %>% 
   
   bind_rows(as_tibble(dbGetQuery(smra_connect, 
                                  smr01_query(extract_start = start_date,
                                              extract_end = end_date,
                                              external_causes = external,
+                                             falls = falls,
                                              gls = TRUE)))) %>%
   
   clean_names()
@@ -58,7 +61,8 @@ smr04 <-
   as_tibble(dbGetQuery(smra_connect, 
                        smr04_query(extract_start = start_date,
                                    extract_end = end_date,
-                                   external_causes = external))) %>% 
+                                   external_causes = external,
+                                   falls = falls))) %>% 
   clean_names()
 
 
