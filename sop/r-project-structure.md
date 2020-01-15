@@ -10,6 +10,7 @@ The following provides a description of each folder and file in the publication 
 * **03_create-figures.R** - This script uses the basefile to create a .png file of every figure to be included in the report and summary.
 * **04_create-excel-tables.R** - This script uses the basefile to populate the excel templates (see below [reference-files/](#reference-files). 
 * **05_create-open-data.R** - This script uses the basefile to produce six .csv files to be uploaded to the NHS Scotland Open Data platform.
+* **06_knit-markdown.R** - This script runs the two markdown files; `markdown/summary.Rmd` and `markdown/report.Rmd`, and saves their output to the `output/` folder.
 
 ### functions/
 The scripts in this folder define functions that are sourced and used by the scripts in the `code/` and `markdown/` folders.
@@ -40,9 +41,11 @@ The files in this folder are used by the `code/04_create-excel-tables.R` script 
 This folder is not tracked by git, however it can be found in the master copy of this repository on the network containing an archive of all data outputs as follows:
 
 * **basefiles/** - The files in this folder are produced by scripts `01` and `02` in the `code/` folder. They contain all the data required to produce the publication. This folder acts as an archive by date stamping each file with the publication date; e.g. `2019-10-08_base-file.rds`.
-* **excel-output/** - This folder contains the two excel files that are released as part of the publication. These are created and saved here by the `code/04_create-excel-tables.R` script.
 * **extracts/** - This folder contains the original data extracts from SMRA including NRS Deaths, SMR01 and SMR04. These are also date stamped with the publication date to enable a historic publication to be reproduced if required.
 * **open-data/** - The `code/05_create-open-data.R` script produces the six files that are uploaded to NHS Scotland Open Data platform. These .csv files are saved in this folder.
+
+### output/
+This folder is where the final files for publication are saved. For each publication release, this folder will contain two excel files produced by the `code/04_create-excel-tables.R` script, as well as the summary and report word documents, produced by the `code/06_knit-markdown.R` script.
 
 ### Other folders/files in the repo
 
