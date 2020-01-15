@@ -41,6 +41,8 @@ The project is designed to require as little human intervention as possible. To 
     * Highlight the entire script and run
     * Check for any errors and investigate as necessary
     * Check the output of the script looks as it should
+    
+* When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated and may need to be tweaked if the max/min boards change.
 
 ### Manual Steps
 
