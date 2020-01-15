@@ -29,6 +29,7 @@ The project is designed to require as little human intervention as possible. To 
 * Make updates in the `code/00_setup-environment.R` file
     * Update dates
     * Check filepaths for lookups are still correct
+    * Define whether publication is provisional or update version
 * Push new branch to GitHub.
 * Create pull request for another analyst to review changes.
 * Once changes have been approved, merge the branch into the master and delete.
