@@ -167,7 +167,7 @@ writeData(figures,
           startCol = 3,
           x = link)
 
-sheetVisibility(figures)[13:14] <- "hidden"
+sheetVisibility(figures)[15:16] <- "hidden"
 
 saveWorkbook(figures,
              here("output", glue("{pub_date}_figures.xlsx")),
