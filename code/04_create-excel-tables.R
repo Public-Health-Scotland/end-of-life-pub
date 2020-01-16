@@ -143,7 +143,8 @@ excel_data <-
 
 ### 5 - Write data to excel workbooks ----
 
-figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
+figures <- loadWorkbook(here("reference-files", 
+                             glue("figures-template-{pub_type}.xlsx")))
   
 writeData(figures,
           "data",
@@ -167,10 +168,11 @@ writeData(figures,
 sheetVisibility(figures)[13:14] <- "hidden"
 
 saveWorkbook(figures,
-             here("output", glue("{pub_date}_figures.xlsm")),
+             here("output", glue("{pub_date}_figures.xlsx")),
              overwrite = TRUE)
 
-qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
+qom <- loadWorkbook(here("reference-files", 
+                         glue("qom-template-{pub_type}.xlsx")))
   
 writeData(qom, 
           "data",
@@ -186,7 +188,7 @@ writeData(qom,
 sheetVisibility(qom)[13:14] <- "hidden"
 
 saveWorkbook(qom,
-             here("output", glue("{pub_date}_qom.xlsm")),
+             here("output", glue("{pub_date}_qom.xlsx")),
              overwrite = TRUE)
   
 
