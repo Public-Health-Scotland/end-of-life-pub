@@ -84,6 +84,9 @@ next_pub_date <-
           paste("October", year(pub_date)),
           paste("May", year(pub_date) + 1))
 
+# Publication date in format for beta website link
+pub_date_link <- glue("{day(pub_date)}-{format(pub_date, '%b-%Y')}")
+
 
 ### 4 - Create folders ----
 
