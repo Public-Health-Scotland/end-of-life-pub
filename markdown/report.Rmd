@@ -240,7 +240,7 @@ format(pub_date, "%d %B %Y"),
 "Annual",
 paste("Financial years ending 31st March 2011 -", year(pub_date)),
 paste("Reports include annual data up to", latest$fy),
-paste("All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional and will be updated in the", next_pub_date, "publication. Revisions of this nature are due to incomplete data returns at the time of publication."),
+paste0("All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional", if_else(pub_type == "provisional", glue(" and will be updated in the {next_pub_date} publication. "), ". "), "Revisions of this nature are due to incomplete data returns at the time of publication."),
 "",
 "Policy concepts; [http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework), Methodology; [Appendix 2](#appendix-2---background-information) – Background Information, [Appendix 3](#appendix-3---methodology) - Methodology",
 "Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
@@ -327,8 +327,10 @@ The NHS Board where residents spent the highest percentage of time in their last
 
 The NHS Board with the lowest percentage of time on average spent at home or in a community setting in their last six months of life was `r min_hb$hb` where `r min_hb$qom`% of an individual’s last six months of life was spent at home or in a community setting and `r min_hb$qom_hosp`% in hospital. This equates to approximately `r if(min_hb$hosp < 10){as.character(as.english(min_hb$hosp))}else{min_hb$hosp}` days spent in a hospital setting within the last six months of life. The variation in percentages across Scotland could be affected by the age profile and rurality of the different health boards.
 
-Note that hospital data are provisional for `r latest$fy`. This publication will be updated in October `r year(pub_date)` with final figures. Figures for the latest year should therefore be treated with caution`r if_else(nrow(low_comp) > 0, glue(" particularly for {comp_boards}"), "")`. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#appendix-2---background-information) for more information.
-
+```{r comp-text-1, echo = FALSE, results = 'asis', eval = pub_type == "provisional"}
+glue("Note that hospital data are provisional for {latest$fy}. This publication will be updated in {next_pub_date} with final figures. Figures for the latest year should therefore be treated with caution{if_else(nrow(low_comp) > 0, glue(' particularly for {comp_boards}'), '')}. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#appendix-2---background-information) for more information.")
+```
+  
 ##### Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^1^; by NHS Board of Residence^2,3^
 
 ![Alt text here](figures/figure-2.png)</div>
@@ -374,7 +376,9 @@ hb %>%
 ### Health and Social Care Partnership
 Table 2 shows the percentage of the last six months of life spent at home or in a community setting for each Health and Social Care Partnership. 
 
-Note that hospital data are provisional for `r latest$fy`. This publication will be updated in October `r year(pub_date)` with final figures. Figures for the latest year should therefore be treated with caution`r if_else(nrow(low_comp) > 0, glue(" particularly for {comp_boards}"), "")`. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#appendix-2---background-information) for more information.
+```{r comp-text-2, echo = FALSE, results = 'asis', eval = pub_type == "provisional"}
+glue("Note that hospital data are provisional for {latest$fy}. This publication will be updated in {next_pub_date} with final figures. Figures for the latest year should therefore be treated with caution{if_else(nrow(low_comp) > 0, glue(' particularly for {comp_boards}'), '')}. There could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. See [Appendix 2](#appendix-2---background-information) for more information.")
+```
 
 Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to differences in the age profile and rurality of each of the local areas.
 
@@ -575,7 +579,7 @@ This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (S
 Data Quality and Completeness
 </div>
 
-Hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year. 
+`r if_else(pub_type == "provisional", "Hospital data and ", "")`National Records of Scotland deaths data are provisional for `r latest$fy`. `r if_else(pub_type == "provisional", "Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.", "")`
 
 Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. `r comp_appendix`
 
@@ -594,7 +598,9 @@ comp_table %>%
 
 <br>
 
-This publication will be updated in `r next_pub_date` with final figures.
+```{r comp-text-3, echo = FALSE, results = 'asis', eval = pub_type == "provisional"}
+glue("This publication will be updated in {next_pub_date} with final figures.")
+```
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 3 - Methodology
