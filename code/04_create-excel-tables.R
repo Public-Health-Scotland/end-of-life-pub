@@ -145,13 +145,26 @@ excel_data <-
 
 ### 5 - Write data to excel workbooks ----
 
-figures <- loadWorkbook(here("reference-files", 
-                             glue("figures-template-{pub_type}.xlsx")))
+figures <- loadWorkbook(here("reference-files", "figures-template.xlsx"))
   
 writeData(figures,
           "data",
           excel_data %>% select(-(deaths:hosp)),
           startCol = 2)
+
+writeData(figures,
+          "calculation",
+          pub_type,
+          startRow = 13,
+          startCol = "B")
+
+setRowHeights(figures,
+              "Notes",
+              rows = 18,
+              heights = case_when(
+                pub_type == "provisional" ~ 40,
+                pub_type == "update" ~ 15
+              ))
 
 insertImage(figures,
             "Figure 2",
@@ -163,7 +176,7 @@ insertImage(figures,
 
 writeData(figures, 
           "Notes", 
-          startRow = 18,
+          startRow = 19,
           startCol = 3,
           x = link)
 
@@ -173,13 +186,26 @@ saveWorkbook(figures,
              here("output", glue("{pub_date}_figures.xlsx")),
              overwrite = TRUE)
 
-qom <- loadWorkbook(here("reference-files", 
-                         glue("qom-template-{pub_type}.xlsx")))
+qom <- loadWorkbook(here("reference-files", "qom-template.xlsx"))
   
 writeData(qom, 
           "data",
           excel_data %>% select(-(qom_hosp:hosp)),
           startCol = 2)
+
+writeData(qom,
+          "calculation",
+          pub_type,
+          startRow = 13,
+          startCol = "E")
+
+setRowHeights(qom,
+              "Notes",
+              rows = 15,
+              heights = case_when(
+                pub_type == "provisional" ~ 40,
+                pub_type == "update" ~ 15 
+              ))
 
 writeData(qom,
           "Notes", 
