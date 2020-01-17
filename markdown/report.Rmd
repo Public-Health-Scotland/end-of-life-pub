@@ -150,28 +150,6 @@ contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst",
 contact <- data.frame(contact1, contact2, contact3)
 ```
 
-```{r list-of-tables, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-
-file_name <- dir_ls(here("output"), regexp = glue("{pub_date}+.*\\.xlsm$"))
-file_size <- paste0("Excel ", file_size(file_name), "b")
-file_desc <- c("Figures and Background Data",
-               paste0("Percentage of last six months of life spent at home or ",
-                      "in the community setting by financial year for each ",
-                      "Health Board, HSCP, Council Area, Age, Sex, ",
-                      "Deprivation and Rurality"))
-file_link <- c(figures, data_tables)
-
-list_of_tables <-
-  tibble(
-    file_name = 
-      glue("[**{str_remove(file_name, ",
-           "paste0(here('output'), '/'))}",
-           "**]({file_link}) - {file_desc}"),
-    file_size
-  )
-
-```
-
 ```{r glossary, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 glossary1 <- c("Palliative Care", 
                "End of Life",
@@ -465,14 +443,6 @@ Trend data on the percentage of the last six months of life spent at home or in 
 ## Glossary
 ```{r kable_glossary, echo = FALSE}
     knitr::kable(glossary, col.names = NULL, align = c('l','l'))
-```
-
-## List of Tables
-<br>
-```{r kable_list-of-tables, echo = FALSE}
-knitr::kable(list_of_tables, 
-             col.names = c("**File name**", "**File and size**"), 
-             align = c('l','l'))
 ```
 
 ## Contact
