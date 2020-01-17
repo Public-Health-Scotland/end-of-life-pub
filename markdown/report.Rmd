@@ -268,11 +268,24 @@ Ideally, the measure would relate directly to an individual’s preferred place 
 
 More recently in December 2016 the ["Health and Social Care Delivery Plan"](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities.
 
+`r if_else(pub_type == "update", "<br>", "")`
+
+`r if_else(pub_type == "update", "**Revised Figures**", "")`
+
+```{r revised-figures, echo = FALSE, results = 'asis', eval = pub_type == "update"}
+glue("This publication is an update to the May {year(pub_date)} publication. ",
+"Figures for {latest$fy} have been updated due to improved levels of ",
+"completeness in hospital data for the latter part of {latest$fy}. ",
+"Additionally, minor updates to the National Records of Scotland (NRS) ",
+"death data for {substr(latest$fy, 1, 4)} and 20{substr(latest$fy, 6, 7)} ",
+"have been made to reflect the latest available data.")
+```
+
 <br>
 
 **Provisional Figures**
 
-Note that hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`. This publication will be updated in October `r year(end_date)` with final figures.  Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates. See [Appendix 2](#appendix-2---background-information) for more information.
+Please note that`r if_else(pub_type == "provisional", " hospital data and", "")` National Records of Scotland deaths data are provisional for `r latest$fy`. `r if_else(pub_type == "provisional", glue("This publication will be updated in {next_pub_date} with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates."), "")`  See [Appendix 2](#appendix-2---background-information) for more information.
 
 ## Main Points
 
