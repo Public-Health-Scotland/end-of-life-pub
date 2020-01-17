@@ -128,8 +128,16 @@ excel_data <-
       summarise_data(category = "urban rural 2", 
                      category_split = urban_rural_2,
                      include_years = "all",
-                     format_numbers = FALSE)
+                     format_numbers = FALSE),
     
+    # Methodology Comparison
+    basefile %>%
+      mutate(los = los_old) %>%
+      summarise_data(category = "comparison",
+                     category_split = "old",
+                     include_years = "all",
+                     format_numbers = FALSE)
+      
   )
 
 
@@ -139,7 +147,7 @@ figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
   
 writeData(figures,
           "data",
-          excel_data,
+          excel_data %>% select(-(deaths:hosp)),
           startCol = 2)
 
 insertImage(figures,
@@ -159,14 +167,14 @@ writeData(figures,
 sheetVisibility(figures)[13:14] <- "hidden"
 
 saveWorkbook(figures,
-             here("data", "excel-output", glue("{pub_date}_figures.xlsm")),
+             here("output", glue("{pub_date}_figures.xlsm")),
              overwrite = TRUE)
 
 qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
   
 writeData(qom, 
           "data",
-          excel_data,
+          excel_data %>% select(-(qom_hosp:hosp)),
           startCol = 2)
 
 writeData(qom,
@@ -178,7 +186,7 @@ writeData(qom,
 sheetVisibility(qom)[13:14] <- "hidden"
 
 saveWorkbook(qom,
-             here("data", "excel-output", glue("{pub_date}_qom.xlsm")),
+             here("output", glue("{pub_date}_qom.xlsm")),
              overwrite = TRUE)
   
 

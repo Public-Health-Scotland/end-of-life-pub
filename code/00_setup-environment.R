@@ -37,6 +37,7 @@ library(rgdal)         # For reading shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
+library(rmarkdown)     # To render/knit Rmd files
 
 
 ### 2 - Define Whether Running on Server or Locally ----
@@ -82,13 +83,16 @@ pub_type <- "provisional"
 # pub_type <- "update"
 
 
-### 4 - Create data, figures and open data folders ----
+### 4 - Create folders ----
 
 if(!("data" %in% fs::dir_ls(here::here()))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
-                                             "excel-output",
                                              "open-data"))))
+}
+
+if(!("output" %in% fs::dir_ls(here::here()))){
+  fs::dir_create(here::here("output"))
 }
 
 if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
@@ -100,12 +104,14 @@ if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
 }
 
 
-### 5 - Define list of external causes of death codes ----
+### 5 - Define list of external and fall causes of death codes ----
 
-external <-  c(paste0("V", 0, 1:9), paste0("V", 10:99),
-               paste0("W", 20:99),
-               paste0("X", 0, 0:9), paste0("X", 10:99),
-               paste0("Y", 0, 0:9), paste0("Y", 10:84))
+external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
+              paste0("W", 20:99),
+              paste0("X", 0, 0:9), paste0("X", 10:99),
+              paste0("Y", 0, 0:9), paste0("Y", 10:84))
+
+falls    <- c(paste0("W", 0, 0:9), paste0("W", 10:19))
 
 
 ### 6 - Define list of care homes to class as community ----
@@ -172,7 +178,7 @@ simd     <- function(){
 locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
-                "HSCP Localities_DZ11_Lookup_20180903.rds")) %>%
+                "HSCP Localities_DZ11_Lookup_20191216.rds")) %>%
   
   clean_names() %>%
   

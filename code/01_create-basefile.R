@@ -21,7 +21,10 @@ source(here::here("functions", "sql_queries.R"))
 
 ### 2 - Open SMRA Connection ----
 
-source(here::here("code", "smra_connect.R"))
+smra_connect <- dbConnect(odbc(), 
+                          dsn  = "SMRA",
+                          uid  = .rs.askForPassword("SMRA Username:"), 
+                          pwd  = .rs.askForPassword("SMRA Password:"))
 
 
 ### 3 - Extract data ----
@@ -30,7 +33,8 @@ deaths <-
   as_tibble(dbGetQuery(smra_connect, 
                        deaths_query(extract_start = start_date,
                                     extract_end = end_date,
-                                    external_causes = external))) %>% 
+                                    external_causes = external,
+                                    falls = falls))) %>% 
   clean_names()
 
 
@@ -40,12 +44,14 @@ smr01 <-
                        smr01_query(extract_start = start_date,
                                    extract_end = end_date,
                                    external_causes = external,
+                                   falls = falls,
                                    gls = FALSE))) %>% 
   
   bind_rows(as_tibble(dbGetQuery(smra_connect, 
                                  smr01_query(extract_start = start_date,
                                              extract_end = end_date,
                                              external_causes = external,
+                                             falls = falls,
                                              gls = TRUE)))) %>%
   
   clean_names()
@@ -55,7 +61,8 @@ smr04 <-
   as_tibble(dbGetQuery(smra_connect, 
                        smr04_query(extract_start = start_date,
                                    extract_end = end_date,
-                                   external_causes = external))) %>% 
+                                   external_causes = external,
+                                   falls = falls))) %>% 
   clean_names()
 
 
