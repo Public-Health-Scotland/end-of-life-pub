@@ -63,6 +63,14 @@ ur <- basefile %>% summarise_data(urban_rural) %>%
 max_ur <- ur %>% filter(qom == max(qom)) %>% pull(urban_rural)
 min_ur <- ur %>% filter(qom == min(qom)) %>% pull(urban_rural)
 
+prov_footnote <- 
+  if_else(pub_type == "provisional",
+          glue("Figures for {latest$fy} are provisional and will be updated ",
+               "in {next_pub_date} publication. See [Appendix 2](#",
+               "appendix-2---background-information) for more information."),
+          glue("Figures for {latest$fy} are provisional. See [Appendix 2](#",
+               "appendix-2---background-information) for more information."))
+
 ```
 
 ```{r completeness, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -307,7 +315,7 @@ Over the `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the perc
 ![Alt text here](figures/figure-1.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 </div>
 
 <br>
@@ -326,9 +334,9 @@ Note that hospital data are provisional for `r latest$fy`. This publication will
 ![Alt text here](figures/figure-2.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication. See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote``r prov_footnote`
 2. The Health Board of Residence is the usual place of residence prior to death.
-3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2019.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 </div>
 
 <br>
@@ -355,9 +363,9 @@ hb %>%
 <br>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(pub_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. The Health Board of Residence is the usual place of residence prior to death.
-3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2019.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 4. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
 
@@ -390,7 +398,7 @@ hscp %>%
 <br>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. The Health and Social Care Partnership is the usual place of residence prior to death.
 3. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
@@ -409,7 +417,7 @@ Figure 3 below presents the percentage of time spent at home or in the community
 ![Alt text here](figures/figure-3.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 </div>
 
 <br>
@@ -422,7 +430,7 @@ The percentage of time spent at home or in a community setting in the last six m
 ![Alt text here](figures/figure-4.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. Deprivation 2016 quintiles have been used.
 </div>
 
@@ -440,7 +448,7 @@ The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/
 ![Alt text here](figures/figure-5.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication. See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 </div>
 
 <br>
@@ -505,7 +513,7 @@ Please [provide feedback](http://www.isdscotland.org/Health-Topics/Health-and-So
 ![Alt text here](figures/figure-a1-1.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. Please note that the y-axes do not start at zero.
 </div>
 
@@ -516,7 +524,7 @@ Figure A1.2 - Percentage of last six months of life spent at home or in a commun
 ![Alt text here](figures/figure-a1-2.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. Please note that the y-axes do not start at zero.
 </div>
 
@@ -527,7 +535,7 @@ Figure A1.3 - Percentage of last six months of life spent at home or in a commun
 ![Alt text here](figures/figure-a1-3.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. SIMD 2016 quintiles have been used to categorise deprivation.
 3. Please note that the y-axes do not start at zero.
 </div>
@@ -537,7 +545,7 @@ Figure A1.3 - Percentage of last six months of life spent at home or in a commun
 ![Alt text here](figures/figure-a1-4.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are incomplete and will be revised in October `r year(end_date)` publication.  See [Appendix 2](#appendix-2---background-information) for more information.
+1. `r prov_footnote`
 2. Please note that the y-axes do not start at zero.
 </div>
 
