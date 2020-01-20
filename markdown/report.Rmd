@@ -566,6 +566,10 @@ Data Quality and Completeness
 
 Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. `r comp_appendix`
 
+More information regarding completeness of hospital activity data can be found on the [ISD website](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/).
+
+#### Table 3: SMR01 completeness estimates by quarter; `r latest$fy`
+
 <br>
 
 ```{r completeness-table, echo = FALSE}
