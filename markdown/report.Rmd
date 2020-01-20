@@ -224,7 +224,7 @@ paste0("All data are revised to ensure the most complete data are presented. Dat
 "Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
 "SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology",
 paste("SMR01 hospital completeness for the financial year", latest$fy, "is estimated to be", comp_scot, "complete and this could have an impact on the time spent in hospital in the last six months of life.", comp_metadata, "See [Appendix 2](#appendix-2---background-information) for more information and completeness figures for each quarter. Further updates  will be made available at the following link:  [http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/](http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/)"),
-paste("Due to a change in methodology, results presented in this publication will not be comparable to figures published prior to August 2016, Trend information from 2010/11 to", latest$fy, "is available in this publication."),
+paste("Due to a change in methodology, figures presented in this publication are not comparable to figures published prior to 2020. Trend information from", min(basefile$fy), "to", latest$fy, "is available in this publication. See [Appendix 3](#appendix-3---methodology) for more information."),
 "It is the policy of ISD Scotland to make its web sites and products accessible according to published guidelines.",
 "Publication is made available via the ISD website.",
 "Proportion expressed as a percentage.",
@@ -624,9 +624,17 @@ knitr::kable(
 Comparison to previous measure
 </div>
 
-Text here about the change in methodology to count Care Home activity as community.
+In publications released prior to 2020, Care Home activities in NHS Hospital locations were counted as time spent in the Hospital setting. For publications released in 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. These changes only affect a small proportion of Care Homes in some NHS Boards.
+
+Figure A3.1 below gives a comparison of these two measures over the ten years reported. In `r latest$fy`, the percentage of time spent at home or in a community setting was `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and `r latest$qom`% using the new methodology. 
+
+##### Figure A3.1 - Percentage of last six months of life spent at home or in a community setting - Comparison to previous measure; `r min(basefile$fy)` - `r latest$fy`^1^
 
 ![Alt text here](figures/figure-a3-1.png)</div>
+
+<div custom-style = "Normal_Notes">
+1. `r prov_footnote`
+</div>
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 4 - Publication Metadata
