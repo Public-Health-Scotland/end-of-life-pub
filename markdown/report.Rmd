@@ -405,7 +405,7 @@ The trend in the percentage of the last six months of life spent at home or in a
 <br>
 
 ### Age and Gender
-Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 4 of the [data tables](`r data_tables`)). In `r latest$fy`, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (`r allages %>% filter(sex == "Female") %>% pull(qom)`%) and males (`r allages %>% filter(sex == "Male") %>% pull(qom)`%). For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending, on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community. In the youngest age group (0-54 years), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community.
+Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and gender (Table 3 of the [data tables](`r data_tables`)). In `r latest$fy`, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (`r allages %>% filter(sex == "Female") %>% pull(qom)`%) and males (`r allages %>% filter(sex == "Male") %>% pull(qom)`%). For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending, on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community. In the youngest age group (0-54 years), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community.
 
 ##### Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by age and gender
 
@@ -418,7 +418,7 @@ Figure 3 below presents the percentage of time spent at home or in the community
 <br>
 
 ### Deprivation
-The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 5 of the [data tables](`r data_tables`)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
+The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 of the [data tables](`r data_tables`)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
 
 ##### Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Deprivation Category^2^
 
@@ -431,7 +431,7 @@ The percentage of time spent at home or in a community setting in the last six m
 
 <br>
 
-Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from `r min(simd$qom)`% (deprivation category `r min_simd`) to `r max(simd$qom)`% (deprivation category `r max_simd`). The trend over time by deprivation category is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix-1---trend-data)) and the corresponding data can be found in Table 5 of the [data tables](`r data_tables`). All deprivation categories show a similar trend over time, with a slight increase in the percentage of time in the last six months spent at home or in the community.
+Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from `r min(simd$qom)`% (deprivation category `r min_simd`) to `r max(simd$qom)`% (deprivation category `r max_simd`). The trend over time by deprivation category is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix-1---trend-data)) and the corresponding data can be found in Table 4 of the [data tables](`r data_tables`). All deprivation categories show a similar trend over time, with a slight increase in the percentage of time in the last six months spent at home or in the community.
 
 <br>
 
@@ -448,9 +448,9 @@ The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/
 
 <br>
 
-The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5). Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
+The percentage of the last six months of life spent at home or in the community ranged from `r min(ur$qom)`% for residents in `r min_ur` to `r max(ur$qom)`% for residents from `r max_ur` (Figure 5; Table 5 of the [data tables](`r data_tables`). Individuals living in `r max_ur` spent, on average, approximately `r as.character(day_diff(max(ur$qom), min(ur$qom)))` extra days at home or in a community setting in the last six months of life compared to those living in `r min_ur`.
 
-Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in graphical format in Figure A1.4 (see [Appendix 1](#appendix-1---trend-data)). The corresponding data can be found in Table 6 of the [data tables](`r data_tables`).
+Trend data on the percentage of the last six months of life spent at home or in a community setting by Urban/Rural classification are presented in graphical format in Figure A1.4 (see [Appendix 1](#appendix-1---trend-data)).
 
 
 ## Glossary
