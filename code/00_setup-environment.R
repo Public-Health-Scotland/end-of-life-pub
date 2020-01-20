@@ -23,7 +23,6 @@ library(readr)         # For reading in csv files
 library(janitor)       # For 'cleaning' variable names
 library(magrittr)      # For %<>% operator
 library(lubridate)     # For dates
-library(tidylog)       # For printing results of some dplyr functions
 library(tidyr)         # For data manipulation in the "tidy" way
 library(stringr)       # For string manipulation and matching
 library(here)          # For the here() function
@@ -38,6 +37,7 @@ library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
 library(rmarkdown)     # To render/knit Rmd files
+library(tidylog)       # For printing results of some dplyr functions
 
 
 ### 2 - Define Whether Running on Server or Locally ----
