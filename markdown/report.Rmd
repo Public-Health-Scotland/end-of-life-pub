@@ -431,7 +431,7 @@ The percentage of time spent at home or in a community setting in the last six m
 
 <br>
 
-Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from `r min(simd$qom)`% (deprivation category `r max_simd`) to `r max(simd$qom)`% (deprivation category `r min_simd`). The trend over time by deprivation category is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix-1---trend-data)) and the corresponding data can be found in Table 5 of the [data tables](`r data_tables`). All deprivation categories show a similar trend over time, with a slight increase in the percentage of last six months spent at home or in the community for individuals in the last two or three years. For each year in the trend (`r min(basefile$fy)` to `r latest$fy`) there is little variation across the different deprivation categories.
+Figure 4 shows that there is little variation across the different categories of deprivation. Deprivation ranges from `r min(simd$qom)`% (deprivation category `r min_simd`) to `r max(simd$qom)`% (deprivation category `r max_simd`). The trend over time by deprivation category is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix-1---trend-data)) and the corresponding data can be found in Table 5 of the [data tables](`r data_tables`). All deprivation categories show a similar trend over time, with a slight increase in the percentage of time in the last six months spent at home or in the community.
 
 <br>
 
