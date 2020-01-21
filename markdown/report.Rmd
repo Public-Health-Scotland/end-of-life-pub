@@ -1,6 +1,6 @@
 ---
 output: 
-  word_document:
+  officedown::rdocx_document:
     reference_docx: "report-template.docx"
 ---
 
@@ -687,6 +687,83 @@ metadata %>%
     indicator = "Metadata Indicator",
     description = "Description"
   )) %>%
+  
+  # Add hyperlinks
+  compose(i = 17, j = 2,
+          value = as_paragraph(
+            "SMR01 hospital completeness for the financial year ", latest$fy,
+            "is estimated to be ", comp_scot, " complete and this could have ",
+            "an impact on the time spent in hospital in the last six months ",
+            "of life. ", comp_metadata, "See ",
+            hyperlink_text(x = "Appendix 2",
+                           url = "#appendix-2---background-information",
+                           props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11)),
+            " for more information and completeness figures for each quarter. ",
+            "Further updates will be made available at the following link: ",
+            hyperlink_text(
+              x   = paste0("http://www.isdscotland.org/Products-and-Services/",
+                           "Data-Support-and-Monitoring/SMR-Completeness/"),
+              url = paste0("http://www.isdscotland.org/Products-and-Services/",
+                           "Data-Support-and-Monitoring/SMR-Completeness/"),
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+          )) %>%
+  
+  compose(i = 14, j = 2,
+          value = as_paragraph(
+            "Policy concepts: ",
+            hyperlink_text(
+              x   = paste0("http://www.gov.scot/Topics/Health/Policy/Quality-",
+                           "Strategy/Quality-Measurement-Framework"),
+              url = paste0("http://www.gov.scot/Topics/Health/Policy/Quality-",
+                           "Strategy/Quality-Measurement-Framework"),
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11)),
+            "\n \n",
+            hyperlink_text(
+              x = "Appendix 2 - Background Information",
+              url = "#appendix-2---background-information",
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11)),
+            "\n \n",
+            hyperlink_text(
+              x = "Appendix 3 - Methodology",
+              url = "#appendix-3---methodology",
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+            )) %>%
+  
+  compose(i = 28, j = 2,
+          value = as_paragraph(
+            hyperlink_text(
+              x = "nss.peolc@nhs.net",
+              url = "mailto:nss.peolc@nhs.net",
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+            )) %>%
+  
+  compose(i = 18, j = 2,
+          value = as_paragraph(
+            "Due to a change in methodology, figures presented in this ",
+            "publication are not comparable to figures published prior to ",
+            "2020. Trend information from ", min(basefile$fy), " to ", 
+            latest$fy, " is available in this publication. See ",
+            hyperlink_text(
+              x = "Appendix 3",
+              url = "#appendix-3---methodology",
+              props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11)),
+            " for more information."
+          )) %>%
+  
   flextable_style(type = "metadata")
 ```
 
