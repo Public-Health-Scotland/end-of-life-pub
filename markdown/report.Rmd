@@ -325,7 +325,22 @@ glue("Note that hospital data are provisional for {latest$fy}. This publication 
   
 ##### Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^1^; by NHS Board of Residence^2,3^
 
-![Alt text here](figures/figure-2.png)</div>
+```{r hb-map, echo = FALSE}
+# A bit of a hack to centre align the map image as couldn't find another way
+tibble(x = NA) %>%
+  flextable() %>%
+  compose(i = 1, j = 1,
+          value = as_paragraph(
+            as_image("figures/figure-2.png",
+                     width = 4.6, height = 5.5)
+          )) %>%
+  align(i = 1, j = 1, align = "center") %>%
+  valign(valign = "top", part = "all") %>%
+  delete_part(part = "header") %>%
+  border_remove() %>%
+  width(j = 1, 7) %>%
+  height(i = 1, 5.6)
+```
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
