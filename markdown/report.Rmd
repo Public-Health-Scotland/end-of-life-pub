@@ -328,7 +328,7 @@ glue("Note that hospital data are provisional for {latest$fy}. This publication 
 ![Alt text here](figures/figure-2.png)</div>
 
 <div custom-style = "Normal_Notes">
-1. `r prov_footnote``r prov_footnote`
+1. `r prov_footnote`
 2. The Health Board of Residence is the usual place of residence prior to death.
 3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 </div>
