@@ -75,7 +75,8 @@ prov_footnote <-
 
 ```{r completeness, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
 
-comp_table <- completeness(end_date)
+# comp_table <- completeness(end_date)
+comp_table <- read_rds(here("data", "extracts", glue("{pub_date}_completeness.rds")))
 
 # This recodes completeness to figures as at May 2019 publication
 # to allow development of relevant text referring to boards with low
