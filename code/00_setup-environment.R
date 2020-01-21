@@ -38,6 +38,8 @@ library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
 library(rmarkdown)     # To render/knit Rmd files
 library(tidylog)       # For printing results of some dplyr functions
+library(flextable)     # For formatting markdown tables for word
+library(officer)       # For formatting markdown tables for word
 
 
 ### 2 - Define Whether Running on Server or Locally ----
