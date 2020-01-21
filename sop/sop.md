@@ -20,6 +20,10 @@ Before starting to run the publication, there are a few things that should be ch
 * **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management.
 * **Markdown Templates** - Check if there have been any changes made to the [master versions](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template) of these. If so, update these in the `markdown/` folder. If you have not run the publication before, there are a [few steps](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template) you must follow to ensure correct formatting in Microsoft Word.
 
+If you have not run the publication before, please also note/action the following:
+* Both RStudio Server and RStudio Desktop are required to run the publication in full. Ideally, RStudio Server would be used to run all scripts, however the package `flextable` is used by the markdown scripts, which requires a version of pandoc only available when using RStudio v1.2. Neither RStudio Server nor RStudio Desktop versions currently used by ISD have been upgraded to v1.2, however RStudio Desktop can be upgraded to v1.2 on request to IT. **This version of RStudio is a requirement to run this publication.**
+* You will need to ensure you have installed all packages that are used in the code - a list of required packages can be found in the `code/00_setup-environment.R` script. This must be done in both RStudio Server and RStudio Desktop. Any that have not been installed can be done so by running `install.packages("<PACKAGE NAME>")`. One exception to this is for the `officedown` package, which is not on CRAN - instead this must be installed from its [GitHub repository](https://github.com/davidgohel/officedown). This is only required by the markdown scripts and so this only needs to be installed on your desktop version of R. To do this, download the repo as a ZIP file, and install by running the following code: `remotes::remotes::install_local("<FILEPATH OF ZIPPED FILE>/officedown-master.zip", upgrade = "never")`.
+
 ### Updating the code
 
 The project is designed to require as little human intervention as possible. To update the publication, the analyst responsible for updating the scripts/running the publication should complete the following steps. **Note that at no point is there a need to run code in this section.**
@@ -42,6 +46,8 @@ The project is designed to require as little human intervention as possible. To 
     * Check for any errors and investigate as necessary
     * Check the output of the script looks as it should
     
+* The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully. The other scripts can be run using either Server or Desktop, it doesn't matter.
+
 * When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated and may need to be tweaked if the max/min boards change.
 
 ### Manual Steps
