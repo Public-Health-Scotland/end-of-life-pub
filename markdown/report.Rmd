@@ -344,14 +344,19 @@ Table 1: Percentage of last six months of life spent at home or in a community s
 ```{r hb-table, echo = FALSE}
 hb %>%
   bind_rows(basefile %>% summarise_data() %>% mutate(hb = "Scotland")) %>%
-  select(hb, deaths, qom, comm) %>%
-  mutate_if(is.integer, ~ format(., big.mark = ",")) %>%
-  knitr::kable(
-    col.names = c("**NHS Board of Residence**", 
-                  "**Number of Deaths**",
-                  "**% time spent at home/in the community**",
-                  "**Average number of days spent at home/in the community^4^**"),
-    align = c('l', 'r', 'r', 'r'))
+  select(geog = hb, deaths, qom, comm) %>%
+  flextable() %>%
+    set_header_labels(
+    values = c(
+      geog = "NHS Board of Residence",
+      deaths = "Number of Deaths",
+      qom = "% time spent at home/in the community"
+    )) %>%
+  compose(j = 4, 
+          value = as_paragraph("Average number of days spent at home/in the community",
+                              as_sup("4")),
+          part = "header") %>%
+  flextable_style()
 ```
 
 <br>
@@ -381,14 +386,19 @@ Table 2: Percentage of last six months of life spent at home or in a community s
 ```{r hscp-table, echo = FALSE}
 hscp %>%
   bind_rows(basefile %>% summarise_data() %>% mutate(hscp = "Scotland")) %>%
-  select(hscp, deaths, qom, comm) %>%
-  mutate_if(is.integer, ~ format(., big.mark = ",")) %>%
-  knitr::kable(
-    col.names = c("**Health and Social Care Partnership**", 
-                  "**Number of Deaths**",
-                  "**% time spent at home/in the community**",
-                  "**Average number of days spent at home/in the community^3^**"),
-    align = c('l', 'r', 'r', 'r'))
+  select(geog = hscp, deaths, qom, comm) %>%
+  flextable() %>%
+  set_header_labels(
+    values = c(
+      geog = "Health and Social Care Partnership",
+      deaths = "Number of Deaths",
+      qom = "% time spent at home/in the community"
+    )) %>%
+  compose(j = 4, 
+          value = as_paragraph("Average number of days spent at home/in the community",
+                               as_sup("3")),
+          part = "header") %>%
+  flextable_style()
 ```
 
 <br>
