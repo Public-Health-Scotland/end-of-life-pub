@@ -97,7 +97,7 @@ flextable_style <- function(flextable,
              height = 0.5,
              part = "body") %>%
       # 3 rows
-      height(i = c(6, 13),
+      height(i = c(6),
              height = 0.7,
              part = "body") %>%
       # 4 rows

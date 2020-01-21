@@ -221,11 +221,11 @@ paste("Financial years ending 31st March 2011 -", year(pub_date)),
 paste("Reports include annual data up to", latest$fy),
 paste0("All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional", if_else(pub_type == "provisional", glue(" and will be updated in the {next_pub_date} publication. "), ". "), "Revisions of this nature are due to incomplete data returns at the time of publication."),
 "",
-"Policy concepts; [http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework), Methodology; [Appendix 2](#appendix-2---background-information) – Background Information, [Appendix 3](#appendix-3---methodology) - Methodology",
+"",
 "Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
 "SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology",
-paste("SMR01 hospital completeness for the financial year", latest$fy, "is estimated to be", comp_scot, "complete and this could have an impact on the time spent in hospital in the last six months of life.", comp_metadata, "See [Appendix 2](#appendix-2---background-information) for more information and completeness figures for each quarter. Further updates  will be made available at the following link:  [http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/](http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/)"),
-paste("Due to a change in methodology, figures presented in this publication are not comparable to figures published prior to 2020. Trend information from", min(basefile$fy), "to", latest$fy, "is available in this publication. See [Appendix 3](#appendix-3---methodology) for more information."),
+"",
+"",
 "It is the policy of ISD Scotland to make its web sites and products accessible according to published guidelines.",
 "Publication is made available via the ISD website.",
 "Proportion expressed as a percentage.",
@@ -235,7 +235,7 @@ paste("Due to a change in methodology, figures presented in this publication are
 format(last_pub_date, "%d %B %Y"),
 next_pub_date,
 format(dmy("30/08/2011"), "%d %B %Y"),
-"nss.peolc@nhs.net",
+"",
 format(Sys.time(), "%d %B %Y"))
 
 metadata <- tibble(indicator, description)
@@ -547,9 +547,7 @@ Figure A1.3 - Percentage of last six months of life spent at home or in a commun
 2. Please note that the y-axes do not start at zero.
 </div>
 
-<div custom-style = "Heading 3_pgbrk">
-Appendix 2 - Background Information
-</div>
+### Appendix 2 - Background Information
 
 End of life care (palliative care) is an important, integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition. 
 
