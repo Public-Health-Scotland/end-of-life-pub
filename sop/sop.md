@@ -52,7 +52,9 @@ The project is designed to require as little human intervention as possible. To 
 
 ### Manual Steps
 
-* A couple of manual steps are required to finish off the markdown documents (adding cover page, table of contents and formatting tables correctly). They are outlined in the readme in the [National Statistics Publication Templates repository](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template).
+* A couple of manual steps are required to finish off the markdown documents:
+   * Add cover page:
+   * Add table of contents:
 
 * The open data files saved in `data/open-data/` should be copied to the appropriate folder in the Open Data team's network area. Make any necessary changes to the metadata document also in this folder; e.g. update revisions statement. Then email the Open Data mailbox to let them know the files are there and request that these are uploaded to the Open Data platform on the publication date.
 
