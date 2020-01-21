@@ -178,37 +178,37 @@ glossary <- data.frame(glossary1, glossary2)
 ```
 
 ```{r metadata, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-Indicator <- c("**Publication title**",
-"**Description**",
-"**Theme**",
-"**Topic**",
-"**Format**",
-"**Data source(s)**",
-"**Date that data are acquired**",
-"**Release date**",
-"**Frequency**",
-"**Timeframe of data and timeliness**",
-"**Continuity of data**",
-"**Revisions statement**",
-"**Revisions relevant to this publication**",
-"**Concepts and definitions**",
-"**Relevance and key uses of the statistics**",
-"**Accuracy**",
-"**Completeness**",
-"**Comparability**",
-"**Accessibility**",
-"**Coherence and clarity**",
-"**Value type and unit of measurement**",
-"**Disclosure**",
-"**Official Statistics designation**",
-"**UK Statistics Authority Assessment**",
-"**Last published**",
-"**Next published**",
-"**Date of first publication**",
-"**Help email**",
-"**Date form completed**")
+indicator <- c("Publication title",
+"Description",
+"Theme",
+"Topic",
+"Format",
+"Data source(s)",
+"Date that data are acquired",
+"Release date",
+"Frequency",
+"Timeframe of data and timeliness",
+"Continuity of data",
+"Revisions statement",
+"Revisions relevant to this publication",
+"Concepts and definitions",
+"Relevance and key uses of the statistics",
+"Accuracy",
+"Completeness",
+"Comparability",
+"Accessibility",
+"Coherence and clarity",
+"Value type and unit of measurement",
+"Disclosure",
+"Official Statistics designation",
+"UK Statistics Authority Assessment",
+"Last published",
+"Next published",
+"Date of first publication",
+"Help email",
+"Date form completed")
 
-Description <- c("Percentage of end of life spent at home or in a community setting",
+description <- c("Percentage of end of life spent at home or in a community setting",
 "Percentage of time in the last six months of life that is spent outside of a hospital setting. Figures are presented at health board and health and social care partnership levels with further demographic breakdowns on gender, age, deprivation and rurality.",
 "Health and Social Care",
 "Health and Social Care",
@@ -238,7 +238,7 @@ format(dmy("30/08/2011"), "%d %B %Y"),
 "nss.peolc@nhs.net",
 format(Sys.time(), "%d %B %Y"))
 
-MetaData <- data.frame(Indicator, Description)
+metadata <- tibble(indicator, description)
 ```
 
 ###### This is an Official Statistics Publication
@@ -356,7 +356,7 @@ hb %>%
           value = as_paragraph("Average number of days spent at home/in the community",
                               as_sup("4")),
           part = "header") %>%
-  flextable_style()
+  flextable_style(type = "qom")
 ```
 
 <br>
@@ -398,7 +398,7 @@ hscp %>%
           value = as_paragraph("Average number of days spent at home/in the community",
                                as_sup("3")),
           part = "header") %>%
-  flextable_style()
+  flextable_style(type = "qom")
 ```
 
 <br>
@@ -587,11 +587,17 @@ More information regarding completeness of hospital activity data can be found o
 comp_table %>%
   mutate_at(vars(-board),
             ~ paste0(. * 100, "%")) %>%
-  knitr::kable(align = c("l", rep("r", 5)),
-               col.names = c("NHS Board",
-                             glue("Quarter {1:4} {latest$fy}"),
-                             glue("Full Year {latest$fy}")))
-
+  rename(geog = board) %>%
+  flextable() %>%
+  set_header_labels(values = c(
+    geog = "NHS Board",
+    Q1 = glue("Quarter 1 {latest$fy}"),
+    Q2 = glue("Quarter 2 {latest$fy}"),
+    Q3 = glue("Quarter 3 {latest$fy}"),
+    Q4 = glue("Quarter 4 {latest$fy}"),
+    All = glue("Full Year {latest$fy}")
+  )) %>%
+  flextable_style(type = "completeness")
 ```
 
 <br>
@@ -619,20 +625,39 @@ For each financial year from `r min(basefile$fy)` to `r latest$fy` this report p
 <br>
 
 ```{r kable_measure-calculations, echo = FALSE}
-knitr::kable(
-  data.frame(c("Actual bed days", 
-           "Possible bed days",
-           "% of time in a hospital in last 6 months of life",
-           "% of time at home or in a community setting in last 6 months of life",
-           "Average number of days spent at home or in a community setting"),
-         c("Total bed days in hospital in the 6 months prior to death for those people who died within specific year",
-           "Total number of deaths in specified period x 182.5",
-           "(Actual bed days / possible bed days) x 100",
-           "100 - % of time in hospital in last 6 months before death",
-           "% of time at home or in a community setting in last 6 months of life x 182.5")),
-  align = c('l', 'l'),
-  col.names = c("**Calculation of Measure**", "")
-)
+tibble(
+  x = c("Actual bed days", 
+        "Possible bed days",
+        "% of time in a hospital in last 6 months of life",
+        "% of time at home or in a community setting in last 6 months of life",
+        "Average number of days spent at home or in a community setting"),
+  y = rep("=", 5),
+  z = c(paste("Total bed days in hospital in the 6 months prior to death for",
+              "those people who died within specific year"),
+        "Total number of deaths in specified period x 182.5",
+        "(Actual bed days / possible bed days) x 100",
+        "100 - % of time in hospital in last 6 months before death",
+        paste("% of time at home or in a community setting in last 6 months",
+              "of life x 182.5"))
+) %>%
+  flextable() %>%
+  set_header_labels(values = c(
+    x = "Calculation of Measure",
+    y = "",
+    z = ""
+  )) %>%
+  valign(valign = "top", part = "all") %>%
+  align(align = "left", part = "all") %>%
+  align(j = 2, align = "center", part = "all") %>%
+  bold(part = "header") %>%
+  border_remove() %>%
+  border_outer(border = fp_border("black"), part = "all") %>%
+  width(j = 1, width = 2.5) %>%
+  width(j = 2, width = 0.2) %>%
+  width(j = 3, width = 4) %>%
+  height(i = 2, height = 0.25, part = "body") %>%
+  height(i = c(1, 3, 5), height = 0.45, part = "body") %>%
+  height(i = 4, height = 0.6, part = "body")
 ```
 
 <div custom-style = "Heading 5_pgbrk">
@@ -656,7 +681,13 @@ Appendix 4 - Publication Metadata
 </div>
 
 ```{r kable_metadata, echo = FALSE}
-knitr::kable(MetaData, col.names = c("**Metadata Indicator**", "**Description**"), align = c('l','l'))
+metadata %>%
+  flextable() %>%
+  set_header_labels(values = c(
+    indicator = "Metadata Indicator",
+    description = "Description"
+  )) %>%
+  flextable_style(type = "metadata")
 ```
 
 <div custom-style = "Heading 3_pgbrk">
