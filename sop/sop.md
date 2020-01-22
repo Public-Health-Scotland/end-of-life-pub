@@ -52,9 +52,16 @@ The project is designed to require as little human intervention as possible. To 
 
 ### Manual Steps
 
-* A couple of manual steps are required to finish off the markdown documents:
-   * Add cover page:
-   * Add table of contents:
+Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be.
+* Summary
+   * Highlight the first three lines of the header; from "Percentage" to "31 March *year* to *year*". Change line spacing to 1.15 and select Remove Space Before Paragraph. This will alter the spacing so that the chart and footnote also fits on the first page of the document.
+   * Centre the chart.   
+
+* Report
+   * Edit date in header: Double click the header and update the embargo date to the publication date.
+   * Add cover page: Ensure the cursor is at the very beginning of the document, then select Insert -> Cover Page and select the relevant (provisional/update) template. Update the date in the purple circle and the embargo date to the publication date.
+   * Add footer: With the cursor still on the cover page, select Insert -> Footer and select the custom footer.
+   * Add table of contents: Click on the end of last text line on the page “This is a National Publication” (page number 1). Select Insert –> Blank Page, so that a new blank page will be inserted. Next, select References –> Table of Contents. Choose Built-in template Automatic Table 1. Use the Format Painter to format the Contents title text to the same as the header for Introduction on the next page.
 
 * The open data files saved in `data/open-data/` should be copied to the appropriate folder in the Open Data team's network area. Make any necessary changes to the metadata document also in this folder; e.g. update revisions statement. Then email the Open Data mailbox to let them know the files are there and request that these are uploaded to the Open Data platform on the publication date.
 
