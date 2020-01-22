@@ -66,14 +66,14 @@ filepath <- dplyr::if_else(platform == "server",
 end_date   <- ymd(20190331)
 
 # Date of publication
-pub_date <- ymd(20200528)
+pub_date <- ymd(20201028)
 
 # Date of last publication
-last_pub_date <- ymd(20191008)
+last_pub_date <- ymd(20200528)
 
 # Provisional/Update
-pub_type <- "provisional"
-# pub_type <- "update"
+# pub_type <- "provisional"
+pub_type <- "update"
 
 #############################
 
