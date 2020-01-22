@@ -621,7 +621,7 @@ glue("This publication will be updated in {next_pub_date} with final figures.")
 
 <div custom-style = "pgbrk">pgbrk</div>
 
-### Appendix 3 - Methodology
+### Appendix 3 - Methodology 
 
 This publication includes data from financial years `r min(basefile$fy)` to `r latest$fy` at Scotland, Health Board and Health and Social Care Partnership level. 
 
