@@ -1,6 +1,6 @@
 ---
 output: 
-  word_document:
+  officedown::rdocx_document:
     reference_docx: "summary-template.docx"
 ---
 
@@ -50,14 +50,14 @@ alt_text <-
 
 
 # Create contact information
-contact1 <- c("**Federico Centoni**", "Information Analyst", 
+contact1 <- c("Federico Centoni", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
-contact2 <- c("**Alice Byers**", "Senior Information Analyst", 
+contact2 <- c("Alice Byers", "Senior Information Analyst", 
               "0131 314 1725", "alice.byers@nhs.net")
-contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst", 
+contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst", 
               "0141 207 1616", "aghimien.iyayi-igbinovia@nhs.net")
 
-contact <- data.frame(contact1, contact2, contact3)
+contact <- tibble(contact1, contact2, contact3)
 ```
 
 # Percentage of End of Life Spent at Home or <br> 
@@ -104,8 +104,41 @@ The percentage of time spent at home or in a community setting towards the end o
 ### Contact
 
 ```{r, echo = FALSE}
-    knitr::kable(contact, col.names=NULL)
+contact %>%
+  flextable() %>%
+  compose(i = 4, j = 1,
+          value = as_paragraph(
+            hyperlink_text(x = contact$contact1[4],
+                           url = paste0("mailto:", contact$contact1[4]),
+                           props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+          )) %>%
+  compose(i = 4, j = 2,
+        value = as_paragraph(
+          hyperlink_text(x = contact$contact2[4],
+                         url = paste0("mailto:", contact$contact2[4]),
+                         props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+        )) %>%
+  compose(i = 4, j = 3,
+        value = as_paragraph(
+          hyperlink_text(x = contact$contact3[4],
+                         url = paste0("mailto:", contact$contact3[4]),
+                         props = fp_text(color = "#6c2c91",
+                                           underlined = TRUE,
+                                           font.size = 11))
+        )) %>%
+  delete_part(part = "header") %>%
+  bold(i = 1) %>%
+  align(align = "left") %>%
+  border_remove() %>%
+  height_all(height = 0.2) %>%
+  width(j = 1:2, width = 2.2) %>%
+  width(j = 3, width = 2.9)
 ```
+
 
 ### Further Information
 
