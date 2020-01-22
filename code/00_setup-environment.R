@@ -87,7 +87,11 @@ next_pub_date <-
           paste("May", year(pub_date) + 1))
 
 # Publication date in format for beta website link
-pub_date_link <- glue("{day(pub_date)}-{format(pub_date, '%b-%Y')}")
+pub_date_link <- 
+  glue("https://beta.isdscotland.org/find-publications-and-data/",
+       "health-and-social-care/social-and-community-care/percentage-",
+       "of-end-of-life-spent-at-home-or-in-a-community-setting/",
+       "{day(pub_date)}-{format(pub_date, '%b-%Y')}")
 
 
 ### 4 - Create folders ----

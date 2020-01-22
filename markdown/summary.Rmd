@@ -72,7 +72,7 @@ contact <- tibble(contact1, contact2, contact3)
 
 This release by the Information Services Division provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. 
 
-Note that `r if_else(pub_type == "provisional", "hospital data and", "")` National Records of Scotland deaths data are provisional for `r max(basefile$fy)`. `r if_else(pub_type == "provisional", glue("This publication will be updated in October {year(end_date)} with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates."), "")`
+`r if_else(pub_type == "update", glue("This publication is an update to the {format(last_pub_date, '%B %Y')} publication. Figures for {latest$fy} have been updated to reflect improved levels of completeness of hospital data and finalised deaths data for {substr(latest$fy, 1, 4)}. "), "")`Note that `r if_else(pub_type == "provisional", "hospital data and", "")` National Records of Scotland deaths data are provisional for `r max(basefile$fy)`. `r if_else(pub_type == "provisional", glue("This publication will be updated in {next_pub_date} with final figures. Figures for the latest year should therefore be treated with caution as there could be an undercount of hospital admissions, particularly for people who died in the last three months of the year.  This is not expected to have a large impact on these published figures when they are revised in subsequent updates."), "")`
 
 ### Main Points
 
@@ -86,17 +86,17 @@ Note that `r if_else(pub_type == "provisional", "hospital data and", "")` Nation
 ![`r alt_text`](figures/figure-1-summary.png) <br>
 
 <div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are provisional`r if_else(pub_type == "provisional", glue(" and will be revised in October {year(pub_date)} publication."), ".")`
+1. Figures for `r latest$fy` are provisional`r if_else(pub_type == "provisional", glue(" and will be revised in {next_pub_date} publication."), ".")`
 </div>
 
-<br>
+<div custom-style = "pgbrk">pgbrk</div>
 
 * In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
 
 
 ### Background
 
-This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well](http://www.gov.scot/Resource/Doc/239823/0066155.pdf): A National Action Plan for Palliative and End of Life in Scotland”. 
+This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland”](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
 
 The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the strategic framework for action. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
 
@@ -142,12 +142,12 @@ contact %>%
 
 ### Further Information
 
-Find out more in the [full report](`r glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/{pub_date}/{pub_date}-End-of-Life-Report.pdf")`). The data from this publication is available to download [from our webpage](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/Publications/data-tables2017.asp) and the [NHSScotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+Find out more in the [full report](`r pub_date_link`). The data from this publication is available to download [from our webpage](`r pub_date_link`) and the [NHSScotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
 For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
 <br>
 
-The next release of this publication will be in October `r year(end_date)`.
+The next release of this publication will be in `r next_pub_date`.
 
 
