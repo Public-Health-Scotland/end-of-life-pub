@@ -75,3 +75,5 @@ Some manual steps are required to finish off the markdown documents. Once these 
 * Following on from the above, if a reviewer wishes to made tracked changes to the report and/or summary from Microsoft Word, they should take a copy of the file and feedback via email. Ideally, reviewers should request changes via the pull request process on GitHub.
 
 * All output files are date stamped with the publication date, so there is no need to manually archive any files. When each publication is run, new files labelled with the new publication date will be created and added to the relevant folder.
+
+* This SOP can be printed by highlighting all text, right clicking and selecting Print.
