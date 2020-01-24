@@ -1,7 +1,8 @@
 flextable_style <- function(flextable,
                             type = c("qom", 
                                      "completeness",
-                                     "metadata")){
+                                     "metadata",
+                                     "calculations")){
   
   # Formatting for all tables
   
@@ -34,6 +35,22 @@ flextable_style <- function(flextable,
       valign(valign = "top", part = "body") %>%
       bold(j = 1, part = "body") %>%
       border(border = fp_border("black"), part = "all")
+    
+  }
+  
+  # Formatting for calculations
+  
+  if(type == "calculations"){
+    
+    flextable %<>%
+      
+      valign(valign = "top", part = "all") %>%
+      align(align = "left", part = "all") %>%
+      align(j = 2, align = "center", part = "all") %>%
+      bold(part = "header") %>%
+      border_remove() %>%
+      border_outer(border = fp_border("black"), part = "all") %>%
+      border_inner_h(border = fp_border("black"), part = "all")
     
   }
   
@@ -112,6 +129,19 @@ flextable_style <- function(flextable,
       height(i = 17,
              height = 1.75,
              part = "body")
+    
+  }
+  
+  if(type == "calculations"){
+    
+    flextable %<>%
+      
+      width(j = 1, width = 2.5) %>%
+      width(j = 2, width = 0.2) %>%
+      width(j = 3, width = 4) %>%
+      height(i = 2, height = 0.25, part = "body") %>%
+      height(i = c(1, 3, 5), height = 0.45, part = "body") %>%
+      height(i = 4, height = 0.6, part = "body")
     
   }
 
