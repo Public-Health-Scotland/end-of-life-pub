@@ -142,7 +142,7 @@ contact %>%
 
 ### Further Information
 
-Find out more in the [full report](`r pub_date_link`). The data from this publication is available to download [from our webpage](`r pub_date_link`) and the [NHSScotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+Find out more in the [full report](`r pub_date_link`). The data from this publication is available to download [from our webpage](`r pub_date_link`) and the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
 For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
