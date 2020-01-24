@@ -509,7 +509,7 @@ The next release of this publication will be `r next_pub_date`.
 <br>
 
 <Div custom-style = "Heading 2_nopgbrk">Open Data</div>
-Data from this publication is available to download from the [NHSScotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+Data from this publication is available to download from the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
 <br>
 
@@ -612,12 +612,6 @@ comp_table %>%
   flextable_style(type = "completeness")
 ```
 
-<br>
-
-```{r comp-text-3, echo = FALSE, results = 'asis', eval = pub_type == "provisional"}
-glue("This publication will be updated in {next_pub_date} with final figures.")
-```
-
 <div custom-style = "pgbrk">pgbrk</div>
 
 ### Appendix 3 - Methodology 
@@ -676,7 +670,7 @@ tibble(
 Comparison to previous measure
 </div>
 
-In publications released prior to 2020, Care Home activities in NHS Hospital locations were counted as time spent in the Hospital setting. For publications released in 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. These changes only affect a small proportion of Care Homes in some NHS Boards.
+In publications released prior to 2020, a small amount of inpatient activity located in care homes were captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. For publications released from 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. These changes only affect a small proportion of Care Homes in some NHS Boards.
 
 Figure A3.1 below gives a comparison of these two measures over the ten years reported. In `r latest$fy`, the percentage of time spent at home or in a community setting was `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and `r latest$qom`% using the new methodology. 
 
