@@ -71,6 +71,26 @@ prov_footnote <-
           glue("Figures for {latest$fy} are provisional. See [Appendix 2](#",
                "appendix-2---background-information) for more information."))
 
+# Alt text for Figure 1
+trend <- summarise_data(basefile, include_years = "all")
+dir_comm <- if_else(as.double(trend$qom[nrow(trend)]) - 
+                       as.double(trend$qom[1]) > 0,
+                     "increase",
+                     "decrease")
+dir_hosp <- if_else(dir_comm == "increase", "decrease", "increase")
+alt_text <-
+  glue("This is a bar chart showing the percentage of end of life spent at ",
+       "home or in a community setting from {min(trend$fy)} to {max(trend$fy)}",
+       ". The percentage of time spent at home or in a community setting has ",
+       "{dir_comm}d gradually from {trend$qom[1]}% in {min(trend$fy)} to ",
+       "{trend$qom[nrow(trend)]}% in {max(trend$fy)}. The percentage of time ",
+       "spent in the hospital setting continues to show a gradual {dir_hosp} ",
+       "from {trend$qom_hosp[1]}% in {min(trend$fy)} to ",
+       "{trend$qom_hosp[nrow(trend)]}% in {max(trend$fy)}. ",
+       "In {latest$fy}, {latest$qom}% of the last six months of life was ",
+       "spent either at home or in a community setting, with the remaining ",
+       "{latest$qom_hosp}% spent in hospital.")
+
 ```
 
 ```{r completeness, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -290,7 +310,7 @@ Over the `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the perc
 
 ##### Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; `r min(basefile$fy)` - `r latest$fy`^1^
 
-![Alt text here](figures/figure-1.png)</div>
+![`r alt_text`](figures/figure-1.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -311,22 +331,7 @@ glue("Note that hospital data are provisional for {latest$fy}. This publication 
   
 ##### Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^1^; by NHS Board of Residence^2,3^
 
-```{r hb-map, echo = FALSE}
-# A bit of a hack to centre align the map image as couldn't find another way
-tibble(x = NA) %>%
-  flextable() %>%
-  compose(i = 1, j = 1,
-          value = as_paragraph(
-            as_image("figures/figure-2.png",
-                     width = 4.6, height = 5.5)
-          )) %>%
-  align(i = 1, j = 1, align = "center") %>%
-  valign(valign = "top", part = "all") %>%
-  delete_part(part = "header") %>%
-  border_remove() %>%
-  width(j = 1, 7) %>%
-  height(i = 1, 5.6)
-```
+![Map of Scotland split by NHS Board of Residence showing variation in percentage of last six months of life spent at home or in the community for `r latest$fy`. `r max_hb$hb` has the highest percentage of `r max_hb$qom`% and `r min_hb$hb` has the lowest of `r min_hb$qom`%.](figures/figure-2.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -421,7 +426,7 @@ Figure 3 below presents the percentage of time spent at home or in the community
 
 ##### Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by age and gender
 
-![Alt text here](figures/figure-3.png)</div>
+![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by age group and gender. There are differences seen between the age groups and genders which are described in the text above.](figures/figure-3.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -434,7 +439,7 @@ The percentage of time spent at home or in a community setting in the last six m
 
 ##### Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Deprivation Category^2^
 
-![Alt text here](figures/figure-4.png)</div>
+![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by Deprivation Quintile. There is very little variation between the deprivation categories.](figures/figure-4.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -452,7 +457,7 @@ The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/
 
 ##### Figure 5: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`; by Urban Rural Classification
 
-![Alt text here](figures/figure-5.png)</div>
+![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by Urban Rural Classification. Those living in `r max_ur` spent more time on average at home or in a community setting in the last six months of life compared to those living in `r min_ur`.](figures/figure-5.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -512,7 +517,7 @@ Please [provide feedback](mailto:nss.peolc@nhs.net) on this publication to help 
 
 ##### Figure A1.1 - Percentage of last six months of life spent at home or in a community setting by financial year for each NHS Health Board of residence; `r min(basefile$fy)` - `r latest$fy`^1^
 
-![Alt text here](figures/figure-a1-1.png)</div>
+![Series of line charts showing the percentage of end of life spent at home or in a community setting for each of the Health Boards over the financial years `r min(basefile$fy)` to `r latest$fy`. Many of the boards show a broadly consistent pattern over this ten year period.](figures/figure-a1-1.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -523,7 +528,7 @@ Please [provide feedback](mailto:nss.peolc@nhs.net) on this publication to help 
 Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^1^
 </div>
 
-![Alt text here](figures/figure-a1-2.png)</div>
+![Series of line charts showing the percentage of end of life spent at home or in a community setting for each of the Health and Social Care Partnerships over the financial years `r min(basefile$fy)` to `r latest$fy`. Many of the partnerships show a broadly consistent pattern over this ten year period.](figures/figure-a1-2.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -534,7 +539,7 @@ Figure A1.2 - Percentage of last six months of life spent at home or in a commun
 Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^1^
 </div>
 
-![Alt text here](figures/figure-a1-3.png)</div>
+![Series of line charts showing the percentage of end of life spent at home or in a community setting by SIMD Quintiles over the financial years `r min(basefile$fy)` to `r latest$fy`. Each deprivation category shows a broadly consistent pattern over this ten year period..](figures/figure-a1-3.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -544,7 +549,7 @@ Figure A1.3 - Percentage of last six months of life spent at home or in a commun
 
 ##### Figure A1.4 - Percentage of last six months of life spent at home or in a community setting by financial year for each Urban/Rural classification; `r min(basefile$fy)` - `r latest$fy`^1^
 
-![Alt text here](figures/figure-a1-4.png)</div>
+![Series of line charts showing the percentage of end of life spent at home or in a community setting by Urban Rural classification over the financial years `r min(basefile$fy)` to `r latest$fy`. Each classification shows a broadly consistent pattern over this ten year period.](figures/figure-a1-4.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
@@ -655,7 +660,7 @@ Figure A3.1 below gives a comparison of these two measures over the ten years re
 
 ##### Figure A3.1 - Percentage of last six months of life spent at home or in a community setting - Comparison to previous measure; `r min(basefile$fy)` - `r latest$fy`^1^
 
-![Alt text here](figures/figure-a3-1.png)</div>
+![Line chart comparing the percentage of end of life spent at home or in a community setting using the previous measure (which counted care home activity as hospital setting) compared to the revised measure (which includes care home activity as time spent in the community). The percentage of time spent at home or in a community setting was around `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and around `r latest$qom`% using the new methodology in `r latest$fy`.](figures/figure-a3-1.png)</div>
 
 <div custom-style = "Normal_Notes">
 1. `r prov_footnote`
