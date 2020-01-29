@@ -66,6 +66,7 @@ Some manual steps are required to finish off the markdown documents. Once these 
    * Add cover page: Ensure the cursor is at the very beginning of the document, then select Insert -> Cover Page and select the relevant (provisional/update) template. Update the date in the purple circle and the embargo date to the publication date.
    * Add footer: With the cursor still on the cover page, select Insert -> Footer and select the custom footer.
    * Add table of contents: Click on the end of last text line on the page “This is a National Publication” (page number 1). Select Insert –> Blank Page, so that a new blank page will be inserted. Next, select References –> Table of Contents. Choose Built-in template Automatic Table 1. Use the Format Painter to format the Contents title text to the same as the header for Introduction on the next page.
+   * Centre the map (Figure 2).
 
 * The open data files saved in `data/open-data/` should be copied to the appropriate folder in the Open Data team's network area (there is a shortcut to this in the End of Life publication folder). Make any necessary changes to the metadata document also in this folder; e.g. update revisions statement. Then email the Open Data mailbox to let them know the files are there and request that these are uploaded to the Open Data platform on the publication date.
 
