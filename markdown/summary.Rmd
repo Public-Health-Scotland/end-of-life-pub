@@ -4,7 +4,7 @@ output:
     reference_docx: "summary-template.docx"
 ---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 
 # Source setup environment and function scripts
 source(here::here("code", "00_setup-environment.R"))
@@ -103,7 +103,7 @@ The percentage of time spent at home or in a community setting towards the end o
 
 ### Contact
 
-```{r, echo = FALSE}
+```{r contact-table, echo = FALSE}
 contact %>%
   flextable() %>%
   compose(i = 4, j = 1,
