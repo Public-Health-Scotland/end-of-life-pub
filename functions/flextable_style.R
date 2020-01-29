@@ -79,8 +79,6 @@ flextable_style <- function(flextable,
   if(type == "qom"){
     
     flextable %<>%
-      height_all(height = 0.225, part = "body") %>%
-      height(height = 0.75, part = "header") %>%
       width(j = 1, width = 2.5) %>%
       width(j = -1, width = 1.4)
     
@@ -89,8 +87,6 @@ flextable_style <- function(flextable,
   if(type == "completeness"){
     
     flextable %<>%
-      height_all(height = 0.225, part = "body") %>%
-      height(height = 0.75, part = "header") %>%
       width(j = 1, width = 2.5) %>%
       width(j = -1, width = 0.9)
     
@@ -99,36 +95,8 @@ flextable_style <- function(flextable,
   if(type == "metadata"){
     
     flextable %<>%
-      height(height = 0.75, part = "header") %>%
       width(j = 1, width = 2.1) %>%
-      width(j = -1, width = 4.9) %>%
-      
-      # Due to a bug in flextable::autofit() function, the following code
-      # is required to manually set the heights of each row depending on how
-      # many rows of text are contained in each
-      
-      # 1 row
-      height(i = c(1, 3:5, 8, 9, 11, 20, 22, 25, 26:29), height = 0.25, part = "body") %>%
-      # 2 rows
-      height(i = c(7, 10, 13, 15, 16, 19, 21, 23:24),
-             height = 0.5,
-             part = "body") %>%
-      # 3 rows
-      height(i = c(6),
-             height = 0.7,
-             part = "body") %>%
-      # 4 rows
-      height(i = c(2, 12, 18),
-             height = 0.9,
-             part = "body") %>%
-      # 6 rows
-      height(i = 14,
-             height = 1.2,
-             part = "body") %>%
-      # 9 rows
-      height(i = 17,
-             height = 1.75,
-             part = "body")
+      width(j = -1, width = 4.9)
     
   }
   
@@ -138,13 +106,10 @@ flextable_style <- function(flextable,
       
       width(j = 1, width = 2.5) %>%
       width(j = 2, width = 0.2) %>%
-      width(j = 3, width = 4) %>%
-      height(i = 2, height = 0.25, part = "body") %>%
-      height(i = c(1, 3, 5), height = 0.45, part = "body") %>%
-      height(i = 4, height = 0.6, part = "body")
+      width(j = 3, width = 4)
     
   }
 
-   flextable 
+   flextable %>% hrule(rule = "auto", part = "all")
   
 }
