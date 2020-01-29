@@ -18,13 +18,15 @@ The scripts in this folder define functions that are sourced and used by the scr
 * **completeness.R** - Given the end date of the publication reporting period, this function sources SMR01 completeness information from the NHS Scotland Open Data platform and formats this as a table for use in the report appendix.
 * **day_diff.R** - Given two QoM figures representing the percentage of the last six months, this function calculates the difference in days between these two figures.
 * **extract_date.R** - Given the publication date, this function finds the date the relevant basefile was created. This is used in the metadata table in the report.
+* **flextable_style.R** - Given a flextable object, this function applies required formatting for tables in publication report; e.g. purple background in header, bold Scotland row, etc.
 * **sql_queries.R** - This script defines three functions, defining a SQL query for each of the following; NRS Deaths, SMR01 and SMR04. Each function takes the extract start date, end date and list of external cause of death codes. The SMR01 function also takes an argument to define whether a GLS extract is required or not. Each function returns a SQL query as a string. 
 * **summarise_data.R** - This function takes the basefile and named variables to breakdown by, returning a tibble with commonly used figures required for outputs; e.g. QoM, number of deaths, average days spent in hospital, etc. The function also takes arguments to control which financial years are returned and whether figures are formatted.
 
 ### markdown/
 The templates in this folder are adapted from the [National Stats Templates](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template) produced by the TPP team.
 
-* **cover-page.docx** - The template cover page added to the publication report.
+* **cover-page-provisional.docx** - The template cover page added to the provisional publication report.
+* **cover-page-update.docx** - Same as above but for the update version.
 * **report-template.docx** - The template used for styles and formatting of the publication report.
 * **report.Rmd** - The R Markdown script used to produce the publication report.
 * **summary-template.docx** - The template used for styles and formatting of the publication summary.
@@ -34,8 +36,8 @@ The templates in this folder are adapted from the [National Stats Templates](htt
 ### reference-files/
 The files in this folder are used by the `code/04_create-excel-tables.R` script to produce the final publication excel tables.
 
-* **figures-template.xlsm** - Contains a tab for each figure in the publication report and a tab containing the data used to produce each.
-* **qom-template.xlsm** - Contains trend data tables and charts for various breakdowns of the data.
+* **figures-template.xlsx** - Contains a tab for each figure in the publication report and a tab containing the data used to produce each.
+* **qom-template.xlsx** - Contains trend data tables and charts for various breakdowns of the data.
 
 ### data/
 This folder is not tracked by git, however it can be found in the master copy of this repository on the network containing an archive of all data outputs as follows:
@@ -45,7 +47,7 @@ This folder is not tracked by git, however it can be found in the master copy of
 * **open-data/** - The `code/05_create-open-data.R` script produces the six files that are uploaded to NHS Scotland Open Data platform. These .csv files are saved in this folder.
 
 ### output/
-This folder is where the final files for publication are saved. For each publication release, this folder will contain two excel files produced by the `code/04_create-excel-tables.R` script, as well as the summary and report word documents, produced by the `code/06_knit-markdown.R` script.
+As with the `data/` folder, this folder isn't tracked by git, but can be found in the master copy of this repository on the network. For each publication release, this folder will contain two excel files produced by the `code/04_create-excel-tables.R` script, as well as the summary and report word documents, produced by the `code/06_knit-markdown.R` script.
 
 ### Other folders/files in the repo
 
