@@ -52,8 +52,8 @@ alt_text <-
 # Create contact information
 contact1 <- c("Federico Centoni", "Information Analyst", 
               "0131 314 1532", "federico.centoni@nhs.net")
-contact2 <- c("Alice Byers", "Senior Information Analyst", 
-              "0131 314 1725", "alice.byers@nhs.net")
+contact2 <- c("Ryan Harris", "Senior Information Analyst", 
+              "0131 314 1000", "ryanharris@nhs.net")
 contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst", 
               "0141 207 1616", "aghimien.iyayi-igbinovia@nhs.net")
 

@@ -145,18 +145,6 @@ if(nrow(low_comp) == 0){
 
 ```
 
-```{r contact-table, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
-# Create contact information
-contact1 <- c("**Federico Centoni**", "Information Analyst", 
-              "0131 314 1532", "federico.centoni@nhs.net")
-contact2 <- c("**Alice Byers**", "Senior Information Analyst", 
-              "0131 314 1725", "alice.byers@nhs.net")
-contact3 <- c("**Aghimien Iyayi-Igbinovia**", "Principal Information Analyst", 
-              "0141 207 1616", "aghimien.iyayi-igbinovia@nhs.net")
-
-contact <- data.frame(contact1, contact2, contact3)
-```
-
 ```{r glossary, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
 glossary1 <- c("Palliative Care", 
                "End of Life",
@@ -482,10 +470,10 @@ Health and Social Care
 0131 314 1532  
 federico.centoni@nhs.net  
 
-**Alice Byers, Senior Information Analyst**  
+**Ryan Harris, Senior Information Analyst**  
 Health and Social Care  
-0131 314 1725  
-alice.byers@nhs.net
+0131 314 1000
+ryanharris@nhs.net
 
 **Aghimien Iyayi-Igbinovia, Principal Information Analyst**  
 Health and Social Care  
