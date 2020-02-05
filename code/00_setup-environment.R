@@ -23,7 +23,6 @@ library(readr)         # For reading in csv files
 library(janitor)       # For 'cleaning' variable names
 library(magrittr)      # For %<>% operator
 library(lubridate)     # For dates
-library(tidylog)       # For printing results of some dplyr functions
 library(tidyr)         # For data manipulation in the "tidy" way
 library(stringr)       # For string manipulation and matching
 library(here)          # For the here() function
@@ -38,6 +37,9 @@ library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
 library(rmarkdown)     # To render/knit Rmd files
+library(tidylog)       # For printing results of some dplyr functions
+library(flextable)     # For formatting markdown tables for word
+library(officer)       # For formatting markdown tables for word
 
 
 ### 2 - Define Whether Running on Server or Locally ----
@@ -64,14 +66,14 @@ filepath <- dplyr::if_else(platform == "server",
 end_date   <- ymd(20190331)
 
 # Date of publication
-pub_date <- ymd(20200528)
+pub_date <- ymd(20201028)
 
 # Date of last publication
-last_pub_date <- ymd(20191008)
+last_pub_date <- ymd(20200528)
 
 # Provisional/Update
-pub_type <- "provisional"
-# pub_type <- "update"
+# pub_type <- "provisional"
+pub_type <- "update"
 
 #############################
 
@@ -85,7 +87,11 @@ next_pub_date <-
           paste("May", year(pub_date) + 1))
 
 # Publication date in format for beta website link
-pub_date_link <- glue("{day(pub_date)}-{format(pub_date, '%b-%Y')}")
+pub_date_link <- 
+  glue("https://beta.isdscotland.org/find-publications-and-data/",
+       "health-and-social-care/social-and-community-care/percentage-",
+       "of-end-of-life-spent-at-home-or-in-a-community-setting/",
+       "{day(pub_date)}-{format(pub_date, '%b-%Y')}")
 
 
 ### 4 - Create folders ----

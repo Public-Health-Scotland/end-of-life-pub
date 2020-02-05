@@ -103,7 +103,9 @@ fig2 <-
                    fill = qom),
                colour = "white",
                size = 0.3) +
-  scale_fill_continuous(low = "#56B1F7", high = "#132B43") +
+  scale_fill_continuous(low = "#56B1F7", high = "#132B43",
+                        limits=c(floor(min(fig2$qom)),
+                                   ceiling(max(fig2$qom)))) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.text = element_blank(),
@@ -113,13 +115,17 @@ fig2 <-
   annotate("text", 
            x = 4e+05, y = 630000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
-                          ": ", min(round_half_up(fig2$qom, 1)), "%"), 
+                          ": ", 
+                          sprintf("%.1f", round_half_up(min(fig2$qom), 1)), 
+                          "%"), 
            size = 2.5,
            fontface = 2) +
   annotate("text", 
            x = 4e+05, y = 1100000, 
            label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
-                          ": ", max(round_half_up(fig2$qom, 1)), "%"), 
+                          ": ", 
+                          sprintf("%.1f", round_half_up(max(fig2$qom), 1)), 
+                          "%"), 
            size = 2.5,
            fontface = 2)
 

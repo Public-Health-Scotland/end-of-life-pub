@@ -17,6 +17,7 @@
 
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "sql_queries.R"))
+source(here::here("functions", "completeness.R"))
 
 
 ### 2 - Open SMRA Connection ----
@@ -193,6 +194,12 @@ final <-
 write_rds(final, 
           here("data", "basefiles", glue("{pub_date}_base-file.rds")),
           compress = "gz")
-  
+
+
+### 10 - Save completeness table
+
+completeness(end_date) %>%
+  write_rds(here("data", "extracts", glue("{pub_date}_completeness.rds")))
+
 
 ### END OF SCRIPT ###

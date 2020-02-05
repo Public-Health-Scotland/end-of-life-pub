@@ -21,10 +21,7 @@ source(here::here("functions", "summarise_data.R"))
 
 ### 2 - Create link to main report
 
-link <- c(glue("https://beta.isdscotland.org/find-publications-and-data/",
-               "health-and-social-care/social-and-community-care/",
-               "percentage-of-end-of-life-spent-at-home-or-in-a-community-",
-               "setting/{pub_date_link}"))
+link <- pub_date_link
 
 names(link) <- "See Appendix 2 of the full report for more information."
 class(link) <- "hyperlink"
