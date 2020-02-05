@@ -1,6 +1,6 @@
 ## R Project Structure
 
-The following provides a description of each folder and file in the publication repository. For more information on what specific files need to be run, please see the [SOP](sop/sop.md).
+The following provides a description of each folder and file in the publication repository. For more information on what specific files need to be run, please see the [SOP](/.../.../sop/sop.md).
 
 ### code/
 
