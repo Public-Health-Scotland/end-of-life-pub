@@ -56,7 +56,7 @@ The project is designed to require as little human intervention as possible. To 
     
 * The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully (see [preparation section](#preparation)). The other scripts can be run using either Server or Desktop, it doesn't matter.
 
-* When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated (see [Issue 12](#12)) and may need to be tweaked if the max/min boards change.
+* When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated (see [Issue #12](/../../issues/12)) and may need to be tweaked if the max/min boards change.
 
 ### Manual Steps
 
