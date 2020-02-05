@@ -56,7 +56,8 @@ The project is designed to require as little human intervention as possible. To 
 
 ### Manual Steps
 
-Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be.
+Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be. Also note that if you are using Word 2016, you may get an error message when opening the report document. If you click through these errors, indicating that yes you want to recover the document, all content should display correctly. It's unclear what is causing this, however the final output is unafffected.
+
 * Summary
    * Highlight the first three lines of the header; from "Percentage" to "31 March *year* to *year*". Change line spacing to 1.15 and select Remove Space Before Paragraph. This will alter the spacing so that the chart and footnote also fits on the first page of the document.
    * Centre the chart.   
