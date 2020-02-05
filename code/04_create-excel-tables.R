@@ -21,9 +21,11 @@ source(here::here("functions", "summarise_data.R"))
 
 ### 2 - Create link to main report
 
-link <- c(glue("http://www.isdscotland.org/Health-Topics/Health-and-Social-",
-               "Community-Care/Publications/{pub_date}/{pub_date}-",
-               "End-of-Life-Report.pdf"))
+link <- c(glue("https://beta.isdscotland.org/find-publications-and-data/",
+               "health-and-social-care/social-and-community-care/",
+               "percentage-of-end-of-life-spent-at-home-or-in-a-community-",
+               "setting/{pub_date_link}"))
+
 names(link) <- "See Appendix 2 of the full report for more information."
 class(link) <- "hyperlink"
 
@@ -143,12 +145,26 @@ excel_data <-
 
 ### 5 - Write data to excel workbooks ----
 
-figures <- loadWorkbook(here("reference-files", "figures-template.xlsm"))
+figures <- loadWorkbook(here("reference-files", "figures-template.xlsx"))
   
 writeData(figures,
           "data",
           excel_data %>% select(-(deaths:hosp)),
           startCol = 2)
+
+writeData(figures,
+          "calculation",
+          pub_type,
+          startRow = 13,
+          startCol = "B")
+
+setRowHeights(figures,
+              "Notes",
+              rows = 18,
+              heights = case_when(
+                pub_type == "provisional" ~ 40,
+                pub_type == "update" ~ 15
+              ))
 
 insertImage(figures,
             "Figure 2",
@@ -160,22 +176,36 @@ insertImage(figures,
 
 writeData(figures, 
           "Notes", 
-          startRow = 18,
+          startRow = 19,
           startCol = 3,
           x = link)
 
-sheetVisibility(figures)[13:14] <- "hidden"
+sheetVisibility(figures)[15:16] <- "hidden"
 
 saveWorkbook(figures,
-             here("output", glue("{pub_date}_figures.xlsm")),
+             here("output", glue("{pub_date}_figures.xlsx")),
              overwrite = TRUE)
 
-qom <- loadWorkbook(here("reference-files", "qom-template.xlsm"))
+qom <- loadWorkbook(here("reference-files", "qom-template.xlsx"))
   
 writeData(qom, 
           "data",
           excel_data %>% select(-(qom_hosp:hosp)),
           startCol = 2)
+
+writeData(qom,
+          "calculation",
+          pub_type,
+          startRow = 13,
+          startCol = "E")
+
+setRowHeights(qom,
+              "Notes",
+              rows = 15,
+              heights = case_when(
+                pub_type == "provisional" ~ 40,
+                pub_type == "update" ~ 15 
+              ))
 
 writeData(qom,
           "Notes", 
@@ -186,7 +216,7 @@ writeData(qom,
 sheetVisibility(qom)[13:14] <- "hidden"
 
 saveWorkbook(qom,
-             here("output", glue("{pub_date}_qom.xlsm")),
+             here("output", glue("{pub_date}_qom.xlsx")),
              overwrite = TRUE)
   
 

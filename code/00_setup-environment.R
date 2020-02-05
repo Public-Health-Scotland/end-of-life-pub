@@ -56,21 +56,27 @@ filepath <- dplyr::if_else(platform == "server",
                            "//stats/cl-out/")
 
 
-### 3 - Extract dates ----
+### 3 - Define dates ----
 
-# Define the dates that the data are extracted from and to
-
-# Start date
-start_date <- lubridate::ymd(20100401)
+#### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- lubridate::ymd(20190331)
+end_date   <- ymd(20190331)
 
 # Date of publication
-pub_date <- lubridate::ymd(20200528)
+pub_date <- ymd(20200528)
 
 # Date of last publication
-last_pub_date <- lubridate::ymd(20191008)
+last_pub_date <- ymd(20191008)
+
+# Provisional/Update
+pub_type <- "provisional"
+# pub_type <- "update"
+
+#############################
+
+# Start date
+start_date <- ymd(glue("{year(end_date) - 10}0401"))
 
 # Date of next publication
 next_pub_date <- 
@@ -78,9 +84,8 @@ next_pub_date <-
           paste("October", year(pub_date)),
           paste("May", year(pub_date) + 1))
 
-# Provisional/Update
-pub_type <- "provisional"
-# pub_type <- "update"
+# Publication date in format for beta website link
+pub_date_link <- glue("{day(pub_date)}-{format(pub_date, '%b-%Y')}")
 
 
 ### 4 - Create folders ----
