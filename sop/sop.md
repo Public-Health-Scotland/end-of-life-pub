@@ -75,7 +75,7 @@ Some manual steps are required to finish off the markdown documents. Once these 
 
 * The open data files saved in `data/open-data/` should be copied to the appropriate folder in the Open Data team's network area (there is a shortcut to this in the End of Life publication folder). Make any necessary changes to the metadata document also in this folder; e.g. update revisions statement. Then email the Open Data mailbox to let them know the files are there and request that these are uploaded to the Open Data platform on the publication date.
 
-### Notes
+## Notes
 
 * It is **very important** that the files in the **master folder** are not manually edited. For example, please do not make manual changes to excel tables, report or summary - any changes required should be made to the code in analyst folders and a pull request opened on GitHub for review.
 
