@@ -27,7 +27,7 @@ See the following example:
 | A | 1 | 2018-02-03 | 2018-04-01 | 1 | **1** | ch_flag is now 1, so increase index by 1 |
 | A | 1 | 2018-04-01 | 2018-04-04 | 0 | 2 | ch_flag is now 0, so increase index by 1 |
 
-The data is then aggregated to CIS level in the usual way using `index` rather than `cis_marker`. It may be worth running this section of code on a subset of the data to fully understand what it is doing.
+Rows with `ch_flag` equal to 1 can now be removed from the data and the `index` variable (instead of `gls_cis_marker`) used to aggregate the data to CIS level in the usual way. It may be worth running this section of code on a subset of the data to fully understand what it is doing.
 
 
 ### Joining SMR01 and SMR04 data, accounting for overlapping stays
