@@ -4,7 +4,7 @@
 
 All the publication files and folders are stored in the Publication folder of the End of Life network area. This folder should contain:
 * A "master" folder
-* A folder named after each analyst who has worked on the publication e.g. a folder called "Alice"
+* A folder named after each analyst who has worked on the publication e.g. a folder called "federico"
 
 ### The "master" folder
 
@@ -18,7 +18,7 @@ These folders also contain up-to-date copies of the repository and these are the
 
 Before starting to run the publication, there are a few things that should be checked:
 * **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management.
-* **Markdown Templates** - Check whether there have been any updates to the publication templates on GeNSS and if so, update the files in the `markdown/` folder to reflect these changes.
+* **Markdown Templates** - Check whether there have been any updates to the publication templates on GeNSS and if so, make sure these changes are included when [updating the code](#updating-the-code).
 
 If you have not run the publication before, please also follow these one time preparation steps:
 * Save custom cover page and footer to Microsoft Word.
@@ -26,7 +26,7 @@ If you have not run the publication before, please also follow these one time pr
    * Double click on the footer in one of the cover page templates (doesn't matter which one), and select the whole footer by pressing Ctrl + A. Select Insert –> Footer –> Save Selection to Footer Gallery. Give it a name (e.g. official-stats-footer) and click OK.
 * Both RStudio Server and RStudio Desktop are required to run the publication in full. Ideally, RStudio Server would be used to run all scripts, however the package `flextable` is used by the markdown scripts, which requires a version of pandoc only available when using RStudio v1.2. Neither RStudio Server nor RStudio Desktop versions currently used by ISD have been upgraded to v1.2, however RStudio Desktop can be upgraded to v1.2 on request to IT. **This version of RStudio is a requirement to run this publication.**
 * You will need to ensure you have installed all packages that are used in the code - a list of required packages can be found in the `code/00_setup-environment.R` script. This must be done in both RStudio Server and RStudio Desktop. Any that have not been installed can be done so by running `install.packages("<PACKAGE NAME>")`. 
-* Two exceptions to this are for the `officedown` package, which is not on CRAN, and the `flextable` package, which has a function not yet on the CRAN version that is used in the code. Instead, these must be installed from their GitHub repositories - [officedown](https://github.com/davidgohel/officedown) and [flextable](https://github.com/davidgohel/flextable). These are only required by the markdown scripts and so only need to be installed on your desktop version of R. To do this, download each repo as a ZIP file, and install by running the following code for each: `remotes::remotes::install_local("<FILEPATH OF ZIPPED FILE>/<officedown-master.zip", upgrade = "never")`.
+* Two exceptions to this are for the `officedown` package, which is not on CRAN, and the `flextable` package, which has a function not yet on the CRAN version that is used in the code. Instead, these must be installed from their GitHub repositories - [officedown](https://github.com/davidgohel/officedown) and [flextable](https://github.com/davidgohel/flextable). These are only required by the markdown scripts and so only need to be installed on your desktop version of R. To do this, download each repo as a ZIP file, and install by running the following code for each: `remotes::install_local("<FILEPATH OF ZIPPED FILE>/<officedown-master.zip", upgrade = "never")`.
 
 ### Updating the code
 
