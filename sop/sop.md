@@ -16,6 +16,8 @@ These folders also contain up-to-date copies of the repository and these are the
 
 ## Running the Publication
 
+### Preparation
+
 Before starting to run the publication, there are a few things that should be checked:
 * **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management.
 * **Markdown Templates** - Check whether there have been any updates to the publication templates on GeNSS and if so, make sure these changes are included when [updating the code](#updating-the-code).
@@ -32,9 +34,9 @@ If you have not run the publication before, please also follow these one time pr
 
 The project is designed to require as little human intervention as possible. To update the publication, the analyst responsible for updating the scripts/running the publication should complete the following steps. **Note that at no point is there a need to run code in this section.**
 
-* Pull the most recent version of the master branch into their own folder.
+* Pull the most recent version of the master branch into their own folder; e.g. 'federico'
 * Create a fresh branch to make necessary changes.
-* Make updates in the `code/00_setup-environment.R` file
+* Make updates to the `code/00_setup-environment.R` file
     * Update dates
     * Check filepaths for lookups are still correct
     * Define whether publication is provisional or update version
@@ -45,18 +47,20 @@ The project is designed to require as little human intervention as possible. To 
 
 ### Running the code
 
+* Ensure you have pulled the updated master branch into the **master folder** before continuing.
+
 * In the **master folder**, open each script in the `code/` folder from `01_create-basefile.R` to `06_knit-markdown.R` in turn and do the following:
     * Highlight the entire script and run
     * Check for any errors and investigate as necessary
     * Check the output of the script looks as it should
     
-* The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully. The other scripts can be run using either Server or Desktop, it doesn't matter.
+* The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully (see [preparation section](#preparation)). The other scripts can be run using either Server or Desktop, it doesn't matter.
 
-* When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated and may need to be tweaked if the max/min boards change.
+* When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated (see [Issue 12](#12)) and may need to be tweaked if the max/min boards change.
 
 ### Manual Steps
 
-Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be. Also note that if you are using Word 2016, you may get an error message when opening the report document. If you click through these errors, indicating that yes you want to recover the document, all content should display correctly. It's unclear what is causing this, however the final output is unafffected.
+Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be. Also note that if you are using Word 2016, you may get an error message when opening the report document (see [Issue 9](#9)). If you click through these errors, indicating that yes you want to recover the document, all content should display correctly. It's unclear what is causing this, however the final output is unafffected.
 
 * Summary
    * Highlight the first three lines of the header; from "Percentage" to "31 March *year* to *year*". Change line spacing to 1.15 and select Remove Space Before Paragraph. This will alter the spacing so that the chart and footnote also fits on the first page of the document.
@@ -73,7 +77,7 @@ Some manual steps are required to finish off the markdown documents. Once these 
 
 ### Notes
 
-* It is **very important** that the master branch is not edited. For example, please do not make manual changes to excel tables, report or summary - any changes required should be made to the code in analyst folders and a pull request opened on GitHub for review.
+* It is **very important** that the files in the **master folder** are not manually edited. For example, please do not make manual changes to excel tables, report or summary - any changes required should be made to the code in analyst folders and a pull request opened on GitHub for review.
 
 * Following on from the above, if a reviewer wishes to made tracked changes to the report and/or summary from Microsoft Word, they should take a copy of the file and feedback via email. Ideally, reviewers should request changes via the pull request process on GitHub.
 
