@@ -33,6 +33,7 @@ library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
 library(rgdal)         # For reading shapefiles
+library(maptools)      # For working with shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
