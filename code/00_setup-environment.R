@@ -112,7 +112,7 @@ if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
 }
 
 if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
-  fs::dir_create(paste0(here::here("data", "open-data", pub_date)))
+  fs::dir_create(here::here("data", "open-data", pub_date))
 }
 
 
