@@ -97,21 +97,21 @@ pub_date_link <-
 
 ### 4 - Create folders ----
 
-if(!("data" %in% fs::dir_ls(here::here()))){
+if(!fs::is_dir(here::here("data"))){
   fs::dir_create(paste0(here::here("data", c("basefiles", 
                                              "extracts",
                                              "open-data"))))
 }
 
-if(!("output" %in% fs::dir_ls(here::here()))){
+if(!fs::is_dir(here::here("output"))){
   fs::dir_create(here::here("output"))
 }
 
-if(!("markdown/figures" %in% fs::dir_ls(here::here("markdown")))){
+if(!fs::is_dir(here::here("markdown", "figures"))){
   fs::dir_create(here::here("markdown", "figures"))
 }
 
-if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){
+if(!fs::is_dir(here::here("data", "open-data", pub_date))){
   fs::dir_create(here::here("data", "open-data", pub_date))
 }
 
