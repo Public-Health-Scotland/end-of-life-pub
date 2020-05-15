@@ -78,6 +78,14 @@ completeness <- function(end_date) {
     dplyr::mutate(financial_year = "All") %>%
     tidyr::pivot_wider(names_from = financial_year, values_from = completeness)
   
+  # Produce error if no completeness info for financial year
+  if(nrow(fy) == 0) {
+    stop(
+      paste0("No completeness date for latest financial year. Check open data ",
+             "platform to ensure sufficient completeness data available.")
+    )
+  }
+  
   left_join(qtr, fy) %>%
     arrange(match(board, c(filter(., str_detect(board, "NHS")) %>% 
                              pull(board) %>% 
