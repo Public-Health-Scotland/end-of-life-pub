@@ -15,8 +15,7 @@ completeness <- function(end_date) {
                                      "download/geography_codes_and_labels_",
                                      "hb2014_01042019.csv")) %>%
     janitor::clean_names() %>%
-    dplyr::filter(is.na(hb2014qf)) %>%
-    dplyr::select(hb2014, hb2014name) %>%
+    dplyr::select(hb, hb_name) %>%
     
     bind_rows(
       readr::read_csv(paste0("https://www.opendata.nhs.scot/dataset/",
@@ -24,13 +23,13 @@ completeness <- function(end_date) {
                              "0450a5a2-f600-4569-a9ae-5d6317141899/download/",
                              "special-health-boards.csv")) %>%
       janitor::clean_names() %>%
-      dplyr::rename(hb2014 = shb2014, hb2014name = shb2014name) %>%
+      dplyr::rename(hb = shb, hb_name = shb_name) %>%
       dplyr::select(-country)) %>%
     
-    dplyr::mutate(hb2014name = 
-                    if_else(str_detect(hb2014name, "Golden Jubilee"), 
+    dplyr::mutate(hb_name = 
+                    if_else(str_detect(hb_name, "Golden Jubilee"), 
                             "Golden Jubilee",
-                            hb2014name))
+                            hb_name))
   
   qtr <- readr::read_csv(paste0("https://www.opendata.nhs.scot/dataset/",
                                   "110c4981-bbcc-4dcb-b558-5230ffd92e81/",
@@ -51,10 +50,10 @@ completeness <- function(end_date) {
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(quarter) == 
                     lubridate::year(end_date) - 1) %>%
-    dplyr::left_join(lookup, by = "hb2014") %>%
-    dplyr::rename(board = hb2014name) %>%
+    dplyr::left_join(lookup, by = "hb") %>%
+    dplyr::rename(board = hb_name) %>%
     dplyr::mutate(board = replace(board,
-                                  hb2014 == "S92000003",
+                                  hb == "S92000003",
                                   "Scotland")) %>%
     tidyr::drop_na(board) %>%
     dplyr::select(board, quarter, completeness) %>%
@@ -69,10 +68,10 @@ completeness <- function(end_date) {
     dplyr::filter(smr_type == "SMR01",
                   readr::parse_number(financial_year) == 
                     lubridate::year(end_date) - 1) %>%
-    dplyr::left_join(lookup, by = "hb2014") %>%
-    dplyr::rename(board = hb2014name) %>%
+    dplyr::left_join(lookup, by = "hb") %>%
+    dplyr::rename(board = hb_name) %>%
     dplyr::mutate(board = replace(board,
-                                  hb2014 == "S92000003",
+                                  hb == "S92000003",
                                   "Scotland")) %>%
     tidyr::drop_na(board) %>%
     dplyr::select(board, financial_year, completeness) %>%
