@@ -9,4 +9,5 @@ There are a number of guidance documents contained within the [SOP](sop/) folder
 
 The guidance documents listed above do not include any information on using R, RStudio, Git or GitHub. For more guidance on using these tools, please see the following resources produced by the Transforming Publications Team:
 * **[R Resources](https://github.com/NHS-NSS-transforming-publications/resources/blob/master/R.md)**
+* **[Git Guide](https://nhs-nss-transforming-publications.github.io/git-guide/)**
 * **[GitHub Guidance & Git Bash Cheat Sheet](https://github.com/NHS-NSS-transforming-publications/GitHub-guidance)**
