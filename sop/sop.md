@@ -16,6 +16,12 @@ These folders also contain up-to-date copies of the repository and these are the
 
 ## Running the Publication
 
+### Required Software and Accesses
+
+* RStudio Server - this can be requested from DaS via the Service Portal.
+* RStudio Desktop v1.2 or later - RStudio Desktop is available to download via the software centre. The current version used in PHS is v1.1, however v1.2 or later is required for this publication. This can be installed by special request to DaS via the Service Portal. 
+* The following SMRA Analysis Views; GRO_DEATHS_C, SMR01_PI, SMR01_PE_1E, SMR04 - these can be requested via the Service Portal.
+
 ### Preparation
 
 Before starting to run the publication, there are a few things that should be checked:
