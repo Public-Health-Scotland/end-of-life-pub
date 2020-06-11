@@ -20,7 +20,7 @@ These folders also contain up-to-date copies of the repository and these are the
 
 Before starting to run the publication, there are a few things that should be checked:
 * **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management.
-* **Markdown Templates** - Check whether there have been any updates to the publication templates on GeNSS and if so, make sure these changes are included when [updating the code](#updating-the-code).
+* **Markdown Templates** - Check whether there have been any updates to the [publication templates](http://spark.publichealthscotland.org/corporate-guidance/statistical-governance/statistical-publication-templates/) and if so, make sure these changes are included when [updating the code](#updating-the-code).
 
 If you have not run the publication before, please also follow these one time preparation steps:
 * Save custom cover page and footer to Microsoft Word.
@@ -79,7 +79,7 @@ Some manual steps are required to finish off the markdown documents. Once these 
 
 * It is **very important** that the files in the **master folder** are not manually edited. For example, please do not make manual changes to excel tables, report or summary - any changes required should be made to the code in analyst folders and a pull request opened on GitHub for review.
 
-* Following on from the above, if a reviewer wishes to made tracked changes to the report and/or summary from Microsoft Word, they should take a copy of the file and feedback via email. Ideally, reviewers should request changes via the pull request process on GitHub.
+* Following on from the above, if a reviewer wishes to make tracked changes to the report and/or summary from Microsoft Word, they should take a copy of the file and feedback via email. Ideally, reviewers should request changes via the pull request process on GitHub.
 
 * All output files are date stamped with the publication date, so there is no need to manually archive any files. When each publication is run, new files labelled with the new publication date will be created and added to the relevant folder.
 
