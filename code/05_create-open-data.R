@@ -26,6 +26,8 @@ basefile <- read_rds(here("data", "basefiles",
 
 
 ### 3 - Scotland/Health Board file ----
+# Compute Scotland total for health board file by creating Scotland health board code
+# Include all years then aggregate the data, then add these rows to the basefile
 
 hb <- 
   
@@ -67,6 +69,7 @@ hb <-
 
 
 #### 4 - HSCP file ----
+# Compute HSCP file by summarising the basefile, mark 2018/19 data with the provisional marker
 
 hscp <-
   
@@ -95,6 +98,7 @@ hscp <-
 
 
 #### 5 - Council Area file ----
+# Compute Council Area file by summarising the basefile, then mark the 2018/19 data with the provisional marker
 
 ca <-
   
@@ -123,6 +127,8 @@ ca <-
 
 
 #### 6 - Age/Sex file ----
+# Compute Age/Sex file by summarising the basefile, create Scotland health board code and mark 2018/19 data with provisional marker
+# Modify ages and also where missing sex to help tidy excel file
 
 agesex <-
   
@@ -162,6 +168,8 @@ agesex <-
 
 
 #### 7 - Deprivation file ----
+# Compute deprivation file summarising the basefile, create Scotland health board code and mark 2018/19 data as provisional
+# Tidy up deprivation quintiles for excel file to just show numbers 1-5
 
 simd <-
   
@@ -193,6 +201,7 @@ simd <-
          AverageDaysInHospital = hosp)
 
 #### 8 - Urban Rural file ----
+# Compute urban/rural file by summarising the basefile, create Scotland and mark 2018/19 data as provisional
 
 rurality <-
   
@@ -223,6 +232,7 @@ rurality <-
 
 
 #### 9 - Save files ----
+# Create open data folder and save each of the outfiles as a csv document into the folder using required file name with the publication date
 
 # Create new folder for publication date
 if(!(pub_date %in% fs::dir_ls(here::here("data", "open-data")))){

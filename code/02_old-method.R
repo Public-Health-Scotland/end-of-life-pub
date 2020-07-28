@@ -20,6 +20,7 @@ source(here::here("code", "00_setup-environment.R"))
 
 
 ### 2 - Read data extracts ----
+# Read in SMR01, SMR04 and deaths data files
 
 deaths <- read_rds(here("data", "extracts", glue("{pub_date}_deaths.rds")))
 smr01  <- read_rds(here("data", "extracts", glue("{pub_date}_smr01.rds")))
@@ -27,6 +28,8 @@ smr04  <- read_rds(here("data", "extracts", glue("{pub_date}_smr04.rds")))
 
 
 ### 3 - Aggregate SMR data to CIS level ----
+# Aggregate SMR01 and SMR04 data to CIS level
+# Again, community care home episodes are initially included, flagged then excluded to match previous script
 
 smr01 %<>%
   group_by(link_no, gls_cis_marker) %>%
@@ -46,6 +49,7 @@ smr04 %<>%
 
 
 ### 4 - Join SMR01/50 and SMR04 data ----
+# Combine SMR01 and SMR04 data and remove records where stays overlap
 
 smr <-
   
@@ -103,15 +107,17 @@ smr %<>%
 
 
 ### 6 - Match on lookup files to deaths
+# Match on postcode, SIMD and locality information to the deaths data set
 
 deaths %<>%
   
   left_join(postcode(), by = c("postcode" = "pc7")) %>%
   left_join(simd(), by = c("postcode" = "pc7")) %>%
-  left_join(locality(), by = "data_zone2011")
+  left_join(locality(), by = "datazone2011")
 
 
 ### 7 - Create final file and join to basefile
+# Create final file with 'los_old' variable and attach to end of basefile
 
 final <-
   
