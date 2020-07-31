@@ -29,6 +29,8 @@ smra_connect <- dbConnect(odbc(),
 
 
 ### 3 - Extract data ----
+# Read in GRO deaths, SMR01 (including GLS) and SMR04 using dates defined in previous syntax
+# Access to these data sets are required via data authoriser in order to be able to run
 
 deaths <- 
   as_tibble(dbGetQuery(smra_connect, 
@@ -81,6 +83,7 @@ write_rds(smr04,
 
 
 ### 5 - Aggregate SMR data to CIS level ----
+# Aggregate SMR01 and SMR04 data by CIS which includes community care home episodes, these are flagged and removed
 
 smr01 %<>%
   group_by(link_no) %>%
@@ -110,6 +113,7 @@ smr04 %<>%
 
 
 ### 6 - Join SMR01/50 and SMR04 data ----
+# Combine SMR01 and SMR04 files, aggregate and remove records where stays overlap
 
 smr <-
   
@@ -167,15 +171,17 @@ smr %<>%
 
 
 ### 8 - Match on lookup files to deaths
+# Match on postcode, SIMD and locality information to the deaths data set
 
 deaths %<>%
   
   left_join(postcode(), by = c("postcode" = "pc7")) %>%
   left_join(simd(), by = c("postcode" = "pc7")) %>%
-  left_join(locality(), by = "data_zone2011")
+  left_join(locality(), by = "datazone2011")
 
 
 ### 9 - Create final file
+# Match on deaths data set to SMR by link number, keep required variables and save
 
 final <-
   

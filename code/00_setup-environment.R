@@ -16,6 +16,7 @@
 
 
 ### 1 - Load packages ----
+# If any of the below packages don't run, install will be required using install.packages("")
 
 library(odbc)          # For accessing SMRA
 library(dplyr)         # For data manipulation in the "tidy" way
@@ -135,20 +136,26 @@ care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V",
 
 
 ### 7 - Read in lookup files ----
+# Read in postcode, SIMD and locality lookup files, keep only relevant variables
+# Rename specific varibales for future matching
+# Latest postcode file taken from folder using max()
 
-postcode <- function(){
+postcode <- function(version =""){
   
   fs::dir_ls(glue("{filepath}lookups/Unicode/Geography/",
                   "Scottish Postcode Directory/"),
-             regexp = ".rds$") %>%
-  
+             regexp = glue("{version}.rds$")) %>%
+    
+  #Read in the most up to date lookup version
+  max() %>%
+    
   read_rds() %>%
   
   clean_names() %>%
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
          hscp2019, hscp2019name, hscp2018, ur6_2016_name, 
-         ur2_2016_name, data_zone2011) %>%
+         ur2_2016_name, datazone2011) %>%
     
   rename(hb = hb2019name,
          hbcode = hb2019,
@@ -164,7 +171,7 @@ postcode <- function(){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2019_2_simd2016.rds")) %>%
+                "postcode_2020_1_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
@@ -194,7 +201,7 @@ locality <- function(){
   
   clean_names() %>%
   
-  select(data_zone2011, hscp_locality) %>%
+  select(datazone2011, hscp_locality) %>%
     
   rename(locality = hscp_locality)
 
