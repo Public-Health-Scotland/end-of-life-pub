@@ -175,10 +175,10 @@ simd     <- function(){
   
   clean_names() %>%
   
-  select(pc7, simd2016_sc_quintile, simd2016tp15) %>%
+  select(pc7, simd2020_sc_quintile, simd2020tp15) %>%
     
-  rename(simd = simd2016_sc_quintile,
-         simd_15 = simd2016tp15) %>%
+  rename(simd = simd2020_sc_quintile,
+         simd_15 = simd2020tp15) %>%
     
   mutate(
     simd = case_when(
