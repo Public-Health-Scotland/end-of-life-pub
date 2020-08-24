@@ -239,7 +239,7 @@ metadata <- tibble(indicator, description)
 
 <br>
 
-The [Official Statistics (Scotland) Order 2008](http://www.legislation.gov.uk/ssi/2008/131/contents/made) authorises NHS National Services Scotland (the legal name being the Common Services Agency for the Scottish Health Service) to produce official statistics. 
+Public Health Scotland has authority to produce official statistics on any matter in accordance with [The Official Statistics (Scotland) Order 2008](http://www.legislation.gov.uk/ssi/2008/131/contents/made), [The Official Statistics (Scotland) Amendment Order 2019](https://www.legislation.gov.uk/ssi/2019/416/made) and the [Statistics and Registration Service Act 2007](https://www.legislation.gov.uk/ukpga/2007/18/contents). 
 
 All official statistics should comply with the UK Statistics Authority’s Code of Practice which promotes the production and dissemination of official statistics that inform decision making. They can be formally assessed by the UK Statistics Authority’s regulatory arm for National Statistics status. 
 
@@ -257,7 +257,7 @@ https://www.statisticsauthority.gov.uk/national-statistician/producers-of-offici
 
 The [NHS Healthcare Quality Strategy](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy) was launched in May 2010 by the Scottish Government with the aim of delivering high quality healthcare services to the people of Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
-This release by Information Services Division presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
+This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
 
 Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the strategic framework for action. 
 
@@ -483,7 +483,7 @@ aghimien.iyayi-igbinovia@nhs.net
 <br>
 
 <Div custom-style = "Heading 2_nopgbrk">Further Information</div>
-Further Information can be found on the [ISD website](http://www.isdscotland.org/).  
+Further information and data for this publication are available from the [publication page](https://publichealthscotland.scot/) on our website.  
 
 For more information on Palliative and End of Life Care see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
@@ -572,7 +572,7 @@ Data Quality and Completeness
 
 Estimated completeness figures for Acute Inpatient and Day Case records (SMR01) are presented in the following table. `r comp_appendix`
 
-More information regarding completeness of hospital activity data can be found on the [ISD website](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/).
+More information regarding completeness of hospital activity data can be found on the [PHS website](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/).
 
 #### Table 3: SMR01 completeness estimates by quarter; `r latest$fy`
 
@@ -754,7 +754,7 @@ Appendix 5 - Early access details
 <br>
 
 **Pre-Release Access**  
-Under terms of the "Pre-Release Access to Official Statistics (Scotland) Order 2008", ISD is obliged to publish information on those receiving Pre-Release Access ("Pre-Release Access" refers to statistics in their final form prior to publication). The standard maximum Pre-Release Access is five working days. Shown below are details of those receiving standard Pre-Release Access.
+Under terms of the "Pre-Release Access to Official Statistics (Scotland) Order 2008", PHS is obliged to publish information on those receiving Pre-Release Access ("Pre-Release Access" refers to statistics in their final form prior to publication). The standard maximum Pre-Release Access is five working days. Shown below are details of those receiving standard Pre-Release Access.
 
 <br>
 
@@ -764,27 +764,10 @@ NHS Board Chief Executives
 NHS Board Communication leads  
 
 <div custom-style = "Heading 3_pgbrk">
-Appendix 6 - ISD and Official Statistics
+Appendix 6 - PHS and Official Statistics
 </div>
 
 <br>
 
-**About ISD**  
-Scotland has some of the best health service data in the world combining high quality, consistency, national coverage and the ability to link data to allow patient based analysis and follow up.
-Information Services Division (ISD) is a business operating unit of NHS National Services Scotland and has been in existence for over 40 years. We are an essential support service to NHSScotland and the Scottish Government and others, responsive to the needs of NHSScotland as the delivery of health and social care evolves.  
-**Purpose**: To deliver effective national and specialist intelligence services to improve the health and wellbeing of people in Scotland.  
-**Mission**: Better Information, Better Decisions, Better Health  
-**Vision**: To be a valued partner in improving health and wellbeing in Scotland by providing a world class intelligence service.  
-
-<br>
-
-**Official Statistics**  
-Information Services Division (ISD) is the principal and authoritative source of statistics on health and care services in Scotland. ISD is designated by legislation as a producer of 'Official Statistics'. Our official statistics publications are produced to a high professional standard and comply with the Code of Practice for Official Statistics. The Code of Practice is produced and monitored by the UK Statistics Authority which is independent of Government. Under the Code of Practice, the format, content and timing of statistics publications are the responsibility of professional staff working within ISD. 
-ISD's statistical publications are currently classified as one of the following:  
-
-* National Statistics (ie assessed by the UK Statistics Authority as complying with the Code of Practice)
-* National Statistics (ie legacy, still to be assessed by the UK Statistics Authority)
-* Official Statistics (ie still to be assessed by the UK Statistics Authority)
-* other (not Official Statistics)  
-
-Further information on ISD's statistics, including compliance with the Code of Practice for Official Statistics, and on the UK Statistics Authority, is available on the [ISD website](http://www.isdscotland.org/About-ISD/About-Our-Statistics/). 
+**About Public Health Scotland (PHS)**  
+PHS is a knowledge-based and intelligence driven organisation with a critical reliance on data and information to enable it to be an independent voice for the public's health, leading collaboratively and effectively across the Scottish public health system, accountable at local and national levels, and providing leadership and focus for achieving better health and wellbeing outcomes for the population. Our statistics comply with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) in terms of trustworthiness, high quality and public value. This also means that we keep data secure at all stages, through collection, processing, analysis and output production, and adhere to the ['five safes'](https://blog.ons.gov.uk/2017/01/27/the-five-safes-data-privacy-at-ons/)
