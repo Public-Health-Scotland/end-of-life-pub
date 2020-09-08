@@ -65,7 +65,7 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20190331)
+end_date   <- ymd(20200331)
 
 # Date of publication
 pub_date <- ymd(20201006)
@@ -171,14 +171,14 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2020_1_simd2020v2.rds")) %>%
+                "postcode_2020_2_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
-  select(pc7, simd2020_sc_quintile, simd2020tp15) %>%
+  select(pc7, simd2020v2_sc_quintile, simd2020v2tp15) %>%
     
-  rename(simd = simd2020_sc_quintile,
-         simd_15 = simd2020tp15) %>%
+  rename(simd = simd2020v2_sc_quintile,
+         simd_15 = simd2020v2tp15) %>%
     
   mutate(
     simd = case_when(
