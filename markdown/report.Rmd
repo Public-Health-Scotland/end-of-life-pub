@@ -1,6 +1,6 @@
 ---
 output: 
-  officedown::rdocx_document:
+  word_document:
     reference_docx: "report-template.docx"
 ---
 
@@ -145,95 +145,6 @@ if(nrow(low_comp) == 0){
 
 ```
 
-```{r glossary, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
-glossary <-
-  tibble(
-    name = c("Palliative Care", 
-               "End of Life",
-               "Bed day",
-               "Time spent in a hospital setting",
-               "Deprivation (SIMD)",
-               "Data Zone",
-               "Urban/Rural Classification"),
-    desc = c("Palliative care is an approach that improves the quality of life of patients and their families facing the problems associated with life-threatening illness. This is achieved through the prevention and relief of suffering by means of early identification and impeccable assessment and treatment of pain and other physical, psychosocial and spiritual problems.",
-               
-               "End of Life Care is that part of palliative care which should follow from the diagnosis of a person entering the process of dying, whether or not he or she is already in receipt of palliative care. This phase could vary between weeks, days or hours in the context of different disease trajectories. There can be uncertainty involved in identifying when someone might be expected to die – illness can be unpredictable, and changes can occur suddenly and unexpectedly.",
-               
-               "Unit of measurement relating to an overnight stay in an inpatient hospital bed.", 
-               
-               "Time spent in acute, community or psychiatric hospitals. Refers to all hospital bed days calculated from SMR01 records (acute and geriatric long stay specialties) and SMR04 records (mental health specialties).",
-               
-               "SIMD- Scottish Index of Multiple Deprivation. Deprivation for individuals is estimated from aggregate data derived from the census and other routine sources. These are used to estimate the deprivation of small geographical areas. Data in this report are analysed by the ‘Scotland level’ Scottish Index of Multiple Deprivation population weighted quintiles. Each quintile consists of approximately 20% of the population living in Scotland, with deprivation quintile 1 indicating the 20% of the population living in the most deprived areas and deprivation quintile 5 the 20% of the population living in the least deprived areas.", 
-
-                "The Scottish Government introduced Data Zones in 2004 as their preferred small area geography. PHS has used these as a replacement for postcode sectors. Data Zones have been designed to cover the whole of Scotland, nesting within council area (also known as local authority) boundaries. Data Zones are a composite geography based on aggregates of 2001 Census output areas and originally had a population of between 500 and 1,000 people per Data Zone. Where possible, they have been made to respect physical boundaries and natural communities, have a regular shape and contain households with similar social characteristics.",
-
-                "The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the [SG website](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification).")
-  )
-```
-
-```{r metadata, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-indicator <- c("Publication title",
-"Description",
-"Theme",
-"Topic",
-"Format",
-"Data source(s)",
-"Date that data are acquired",
-"Release date",
-"Frequency",
-"Timeframe of data and timeliness",
-"Continuity of data",
-"Revisions statement",
-"Revisions relevant to this publication",
-"Concepts and definitions",
-"Relevance and key uses of the statistics",
-"Accuracy",
-"Completeness",
-"Comparability",
-"Accessibility",
-"Coherence and clarity",
-"Value type and unit of measurement",
-"Disclosure",
-"Official Statistics designation",
-"UK Statistics Authority Assessment",
-"Last published",
-"Next published",
-"Date of first publication",
-"Help email",
-"Date form completed")
-
-description <- c("Percentage of end of life spent at home or in a community setting",
-"Percentage of time in the last six months of life that is spent outside of a hospital setting. Figures are presented at NHS Board and Health and Social Care Partnership levels with further demographic breakdowns on sex, age, deprivation and rurality.",
-"Health and Social Care",
-"Health and Social Care",
-"PDF publication report and excel tables",
-"SMR01 - Acute Inpatient and Day Case / SMR01 Geriatric Long Stay, SMR04 - Mental Health Inpatient and Day Case, National Records of Scotland (NRS) deaths data",
-extract_date(pub_date),
-format(pub_date, "%d %B %Y"),
-"Annual",
-paste("Financial years ending 31st March 2011 -", year(pub_date)),
-paste("Reports include annual data up to", latest$fy),
-paste0("All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional", if_else(pub_type == "provisional", glue(" and will be updated in the {next_pub_date} publication. "), ". "), "Revisions of this nature are due to incomplete data returns at the time of publication."),
-"",
-"",
-"Making information publicly available; Allowing assessment of implementation/impact of policies or targets ",
-"SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology",
-"",
-"",
-"It is the policy of PHS to make its web sites and products accessible according to published guidelines.",
-"Publication is made available via the PHS website.",
-"Proportion expressed as a percentage.",
-"The PHS protocol on Statistical Disclosure Protocol is followed.",
-"Official Statistics",
-"Not currently put forward for assessment",
-format(last_pub_date, "%d %B %Y"),
-next_pub_date,
-format(dmy("30/08/2011"), "%d %B %Y"),
-"",
-format(Sys.time(), "%d %B %Y"))
-
-metadata <- tibble(indicator, description)
-```
 
 ###### This is an Official Statistics Publication
 
@@ -459,9 +370,28 @@ Trend data on the percentage of the last six months of life spent at home or in 
 
 
 ## Glossary
-```{r glossary-table, echo = FALSE}
-knitr::kable(glossary, col.names = NULL, align = c('l','l'))
-```
+
+**Palliative Care**
+Palliative care is an approach that improves the quality of life of patients and their families facing the problems associated with life-threatening illness. This is achieved through the prevention and relief of suffering by means of early identification and impeccable assessment and treatment of pain and other physical, psychosocial and spiritual problems.
+
+**End of Life**
+End of Life Care is that part of palliative care which should follow from the diagnosis of a person entering the process of dying, whether or not he or she is already in receipt of palliative care. This phase could vary between weeks, days or hours in the context of different disease trajectories. There can be uncertainty involved in identifying when someone might be expected to die – illness can be unpredictable, and changes can occur suddenly and unexpectedly.
+
+**Bed Day**
+Unit of measurement relating to an overnight stay in an inpatient hospital bed.
+
+**Time spent in a hospital setting**
+Time spent in acute, community or psychiatric hospitals. Refers to all hospital bed days calculated from SMR01 records (acute and geriatric long stay specialties) and SMR04 records (mental health specialties).
+
+**Deprivation (SIMD)**
+SIMD- Scottish Index of Multiple Deprivation. Deprivation for individuals is estimated from aggregate data derived from the census and other routine sources. These are used to estimate the deprivation of small geographical areas. Data in this report are analysed by the ‘Scotland level’ Scottish Index of Multiple Deprivation population weighted quintiles. Each quintile consists of approximately 20% of the population living in Scotland, with deprivation quintile 1 indicating the 20% of the population living in the most deprived areas and deprivation quintile 5 the 20% of the population living in the least deprived areas.
+
+**Data Zone**
+The Scottish Government introduced Data Zones in 2004 as their preferred small area geography. PHS has used these as a replacement for postcode sectors. Data Zones have been designed to cover the whole of Scotland, nesting within council area (also known as local authority) boundaries. Data Zones are a composite geography based on aggregates of 2001 Census output areas and originally had a population of between 500 and 1,000 people per Data Zone. Where possible, they have been made to respect physical boundaries and natural communities, have a regular shape and contain households with similar social characteristics.
+
+**Urban/Rural Classification**
+The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the [Scottish Government website](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification).
+
 
 ## Contact
 
@@ -482,17 +412,19 @@ Aghimien.Iyayi-Igbinovia@phs.scot
 
 <br>
 
-<Div custom-style = "Heading 2_nopgbrk">Further Information</div>
-Further information and data for this publication are available from the [publication page](https://beta.isdscotland.org/find-publications-and-data/health-and-social-care/social-and-community-care/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/20-October-2020) on our website.  
+<Div custom-style = "Heading 2_nopgbrk">Find out more</div>
+The data from this publication is available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2011-to-2020/). 
 
-For more information on Palliative and End of Life Care see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+The next release of this publication will be `r next_pub_date`.
 
-The next release of this publication will be `r next_pub_date`.  
+Other formats of this publication are available on request at:
+0131 314 5300
+phs.otherformats@phs.scot
 
 <br>
 
 <Div custom-style = "Heading 2_nopgbrk">Open Data</div>
-Data from this publication is available to download from the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+Data from this publication is available to download from the [Scottish Health and Social Care Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
 <br>
 
@@ -659,94 +591,99 @@ Figure A3.1 below gives a comparison of these two measures over the ten years re
 Appendix 4 - Publication Metadata
 </div>
 
-```{r metadata-table, echo = FALSE}
-metadata %>%
-  flextable() %>%
-  set_header_labels(values = c(
-    indicator = "Metadata Indicator",
-    description = "Description"
-  )) %>%
-  
-  # Add hyperlinks
-  compose(i = 17, j = 2,
-          value = as_paragraph(
-            "SMR01 hospital completeness for the financial year ", latest$fy,
-            " is estimated to be ", comp_scot, " complete",
-            if_else(pub_type == "provisional", glue("and this could have ",
-            "an impact on the time spent in hospital in the last six months ",
-            "of life. "), ". "), comp_metadata, "See ",
-            hyperlink_text(x = "Appendix 2",
-                           url = "#appendix-2---background-information",
-                           props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11)),
-            " for more information and completeness figures for each quarter. ",
-            "Further updates will be made available at the following link: ",
-            hyperlink_text(
-              x   = paste0("http://www.isdscotland.org/Products-and-Services/",
-                           "Data-Support-and-Monitoring/SMR-Completeness/"),
-              url = paste0("http://www.isdscotland.org/Products-and-Services/",
-                           "Data-Support-and-Monitoring/SMR-Completeness/"),
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11)),
-            "."
-          )) %>%
-  
-  compose(i = 14, j = 2,
-          value = as_paragraph(
-            "Policy concepts: ",
-            hyperlink_text(
-              x   = paste0("https://www.gov.scot/publications/healthcare-",
-                           "quality-strategy-nhsscotland/"),
-              url = paste0("https://www.gov.scot/publications/healthcare-",
-                           "quality-strategy-nhsscotland/"),
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11)),
-            "\n \n",
-            hyperlink_text(
-              x = "Appendix 2 - Background Information",
-              url = "#appendix-2---background-information",
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11)),
-            "\n \n",
-            hyperlink_text(
-              x = "Appendix 3 - Methodology",
-              url = "#appendix-3---methodology",
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11))
-            )) %>%
-  
-  compose(i = 28, j = 2,
-          value = as_paragraph(
-            hyperlink_text(
-              x = "phs.peolc@phs.scot",
-              url = "mailto:phs.peolc@phs.scot",
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11))
-            )) %>%
-  
-  compose(i = 18, j = 2,
-          value = as_paragraph(
-            "Due to a change in methodology, figures presented in this ",
-            "publication are not comparable to figures published previously. ",
-            "Trend information from ", min(basefile$fy), " to ", 
-            latest$fy, " is available in this publication. See ",
-            hyperlink_text(
-              x = "Appendix 3",
-              url = "#appendix-3---methodology",
-              props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11)),
-            " for more information on the revision and its impact."
-          )) %>%
-  
-  flextable_style(type = "metadata")
-```
+**Publication title**
+Percentage of end of life spent at home or in a community setting.
+
+**Description**
+Percentage of time in the last six months of life that is spent outside of a hospital setting. Figures are presented at NHS Board and Health and Social Care Partnership levels with further demographic breakdowns on sex, age, deprivation and rurality.
+
+**Theme**
+Health and Social Care
+
+**Topic**
+Health and Social Care
+
+**Format**
+PDF publication report and excel tables
+
+**Data source(s)**
+SMR01 - Acute Inpatient and Day Case / SMR01 Geriatric Long Stay
+SMR04 - Mental Health Inpatient and Day Case
+National Records of Scotland (NRS) deaths data
+
+**Date that data are acquired**
+extract_date(pub_date)
+
+**Release date**
+format(pub_date, "%d %B %Y")
+
+**Frequency**
+Annual
+
+**Timeframe of data and timeliness**
+Financial years ending 31st March 2011 - year(pub_date)
+
+**Continuity of data**
+Reports include annual data up to latest$fy
+
+**Revisions statement**
+All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional if_else(pub_type == "provisional", glue("and will be updated in the {next_pub_date} publication. "), ". "), "Revisions of this nature are due to incomplete data returns at the time of publication."
+
+**Revisions relevant to this publication**
+In previous publications, a small amount of inpatient activity in care homes was captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. See [Appendix 1](#appendix-1---trend-data) for more information.
+
+**Concepts and definitions**
+Policy concepts: https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/
+
+[Appendix 2 - Background Information](#appendix-2---background-information)
+
+[Appendix 3 - Methodology](#appendix-3---methodology)
+
+**Relevance and key uses of the statistics**
+Making information publicly available; Allowing assessment of implementation/impact of policies or targets
+
+**Accuracy**
+SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology
+
+**Completeness**
+SMR01 hospital completeness for the financial year latest$fy is estimated to be comp_scot complete for Scotland. if_else(pub_type == "provisional", glue("and this could have an impact on the time spent in hospital in the last six months of life. "), ". "), comp_metadata, See [Appendix 2](#appendix-2---background-information) for more information and completeness figures for each quarter. Additional information on hospital data completeness  will be made available at the following link: http://www.isdscotland.org/Products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/.
+
+**Comparability**
+Due to a small revision in the methodology, figures presented in this publication are not comparable to figures published previously. Trend information from min(basefile$fy) to latest$fy is available in this publication. See [Appendix 3](#appendix-3---methodology) for more information on the revision and its impact.
+
+**Accessibility**
+It is the policy of PHS to make its web sites and products accessible according to [published guidelines](https://www.isdscotland.org/About-ISD/Accessibility/).
+
+**Coherence and clarity**
+Publication is made available via the PHS website.
+
+**Value type and unit of measurement**
+Proportions expressed as a percentage
+
+**Disclosure**
+The [PHS protocol on Statistical Disclosure Protocol](https://www.isdscotland.org/About-ISD/Confidentiality/) is followed.
+
+**Official Statistics designation**
+Official Statistics
+
+**UK Statistics Authority Assessment**
+Not currently put forward for assessment
+
+**Last published**
+format(last_pub_date, "%d %B %Y")
+
+**Next published**
+next_pub_date
+
+**Date of first publication**
+format(dmy("30/08/2011"), "%d %B %Y")
+
+**Help email**
+phs.peolc@phs.scot
+
+**Date form completed**
+format(Sys.time(), "%d %B %Y"))
+
 
 <div custom-style = "Heading 3_pgbrk">
 Appendix 5 - Early access details

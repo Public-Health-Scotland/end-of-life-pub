@@ -1,6 +1,6 @@
 ---
 output: 
-  officedown::rdocx_document:
+  word_document:
     reference_docx: "summary-template.docx"
 ---
 
@@ -136,16 +136,20 @@ contact %>%
   width(j = 1:2, width = 2.2) %>%
   width(j = 3, width = 2.9)
 ```
+For all media enquiries please email phs.comms@phs.scot or call 0131 275 6105
 
+### Find out more
 
-### Further Information
+The data from this publication is available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2011-to-2020/). Open data from this publication is available from the [Scottish Health and Social Care Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
-Find out more in the [full report](`r pub_date_link`). The data from this publication is available to download [from our webpage](`r pub_date_link`) and the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+The next release of this publication will be in `r next_pub_date`.
 
-For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](http://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+Other formats of this publication are available on request at:
+0131 314 5300
+phs.otherformats@phs.scot
 
 <br>
 
-The next release of this publication will be in `r next_pub_date`.
+
 
 
