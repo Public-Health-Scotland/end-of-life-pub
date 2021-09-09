@@ -14,7 +14,6 @@
 # Approximate run time - xx minutes
 #########################################################################
 
-
 ### 1 - Load packages ----
 # If any of the below packages don't run, install will be required using install.packages("")
 
@@ -33,6 +32,7 @@ library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
+library(rgeos)         # For reading shapefiles
 library(rgdal)         # For reading shapefiles
 library(maptools)      # For working with shapefiles
 library(broom)         # For tidying shapefile
@@ -42,7 +42,7 @@ library(rmarkdown)     # To render/knit Rmd files
 library(tidylog)       # For printing results of some dplyr functions
 library(flextable)     # For formatting markdown tables for word
 library(officer)       # For formatting markdown tables for word
-
+library(caTools)       # For runnung knit markdown
 
 ### 2 - Define Whether Running on Server or Locally ----
 
@@ -65,13 +65,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20200331)
+end_date   <- ymd(20210331)
 
 # Date of publication
-pub_date <- ymd(20201006)
+pub_date <- ymd(20211005)
 
 # Date of last publication
-last_pub_date <- ymd(20191008)
+last_pub_date <- ymd(20201020)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -171,7 +171,7 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2020_2_simd2020v2.rds")) %>%
+                "postcode_2021_1_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
@@ -197,7 +197,7 @@ simd     <- function(){
 locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
-                "HSCP Localities_DZ11_Lookup_20191216.rds")) %>%
+                "HSCP Localities_DZ11_Lookup_20200825.rds")) %>%
   
   clean_names() %>%
   
