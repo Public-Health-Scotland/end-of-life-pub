@@ -26,7 +26,7 @@ basefile <- read_rds(here("data", "basefiles",
 
 
 # If provisional publication, add p superscript to latest FY
-if(pub_type == "provisional")
+if(pub_type == "update")
   basefile %<>%
   mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
 
@@ -124,7 +124,7 @@ fig2 <-
         axis.ticks = element_blank(),
         legend.title = element_blank()) +
   annotate("text", 
-           x = 4e+05, y = 630000, 
+           x = 4.25e+05, y = 685000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
                           ": ", 
                           sprintf("%.1f", round_half_up(min(fig2$qom), 1)), 
@@ -138,8 +138,78 @@ fig2 <-
                           sprintf("%.1f", round_half_up(max(fig2$qom), 1)), 
                           "%"), 
            size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.45e+05, y = 627000,
+           label = "A",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3.5e+05, y = 630000,
+           label = "B",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3.4e+05, y = 715000,
+           label = "F",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.45e+05, y = 670000,
+           label = "G",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.4e+05, y = 820000,
+           label = "H",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.85e+05, y = 645000,
+           label = "L",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3.5e+05, y = 825000,
+           label = "N",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3.7e+05, y = 1000000,
+           label = "R",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3.3e+05, y = 665000,
+           label = "S",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 3e+05, y = 745000,
+           label = "T",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.6e+05, y = 700000,
+           label = "V",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 0.8e+05, y = 920000,
+           label = "W",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 2.75e+05, y = 575000,
+           label = "Y",
+           size = 2.5,
+           fontface = 2) +
+  annotate("text",
+           x = 4.2e+05, y = 1125000,
+           label = "Z",
+           size = 2.5,
            fontface = 2)
-
+  
 # Map is saved in the required folder
 
 ggsave(here("markdown", "figures", "figure-2.png"), 
@@ -497,7 +567,7 @@ figa31 <-
         axis.text.x = element_text(angle = 90),
         legend.title = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(80, 90) +
+  ylim(82.5, 92.5) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
