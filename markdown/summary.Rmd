@@ -78,13 +78,13 @@ RESTRICTED STATISTICS: embargoed to 09:30 `r format(pub_date, "%d/%m/%Y")`
 
 # About this release
 
-This release by Public Health Scotland provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. Note that the figures presented for financial year `r max(basefile$fy)` are provisional. Please see [Background](#Background) for more information. 
+This release by Public Health Scotland provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` through to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. Note that the figures presented for financial year `r max(basefile$fy)` are provisional. Please see [Background](#Background) for more information. 
 
 # Main Points
 
 * In financial year `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including falls, but excluding other external causes of death.  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
 
-* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
+* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in financial year `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
 
 
 <Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>

@@ -168,7 +168,7 @@ https://uksa.statisticsauthority.gov.uk/about-the-authority/uk-statistical-syste
 
 The [NHS Healthcare Quality Strategy](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/) was launched in May 2010 by the Scottish Government with the aim of delivering high quality healthcare services to the people of Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/pages/4/) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
-This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
+This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](https://lx.iriss.org.uk/sites/default/files/resources/living%20and%20dying.pdf). 
 
 Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the strategic framework for action. 
 
@@ -241,8 +241,7 @@ Figure 2: Map showing the percentage of last six months of life spent at home or
 </div>
 
 ![Map of Scotland split by NHS Board of Residence showing variation in percentage of last six months of life spent at home or in the community for `r latest$fy`. `r max_hb$hb` has the highest percentage of `r max_hb$qom`% and `r min_hb$hb` has the lowest of `r min_hb$qom`%.](figures/figure-2.png)
-
-![](figures/figure-2-legend.png)
+![](figure-2-legend.png)
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
@@ -459,7 +458,7 @@ Data from this publication is available to download from the [Scottish Health an
 
 # Rate this publication
 
-Let us know what you think about this publication via the link at the bottom of this [publication page](https://beta.isdscotland.org/find-publications-and-data/health-and-social-care/social-and-community-care/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/20-October-2020) on the PHS website.
+Let us know what you think about this publication via the link at the bottom of this [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2012-to-2021/) on the PHS website.
 
 \newpage
 
