@@ -9,6 +9,7 @@ output/
 
 # 'markdown/figures' folder #
 markdown/figures/
+!markdown/figures/figure-2-legend.PNG
 
 # Markdown output files #
 markdown/report.docx

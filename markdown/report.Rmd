@@ -241,7 +241,8 @@ Figure 2: Map showing the percentage of last six months of life spent at home or
 </div>
 
 ![Map of Scotland split by NHS Board of Residence showing variation in percentage of last six months of life spent at home or in the community for `r latest$fy`. `r max_hb$hb` has the highest percentage of `r max_hb$qom`% and `r min_hb$hb` has the lowest of `r min_hb$qom`%.](figures/figure-2.png)
-![](reference-files/figure-2-legend.png)</div>
+
+![](figures/figure-2-legend.png)
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
