@@ -323,6 +323,8 @@ hscp %>%
 3. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
 
+<br>
+
 Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to a number of factors including differences in the age profile and rurality of each of the local areas.
 
 <br>
@@ -568,6 +570,8 @@ comp_table %>%
 
 This publication includes data from financial years `r min(basefile$fy)` to `r latest$fy` at Scotland, NHS Board and Health and Social Care Partnership level. 
 
+<br>
+
 **Calculation of Measure**
 
 Scottish residents who died between `r min(basefile$fy)` and `r latest$fy` are identified using date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. Patients who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. Patients with missing postcodes have also been excluded. 
@@ -605,6 +609,7 @@ tibble(
   flextable_style("calculations")
 ```
 
+<br>
 
 **Revision of methodology**
 </div>
@@ -667,7 +672,7 @@ Annual
 
 **Timeframe of data and timeliness**
 
-Financial years ending 31st March 2011 - `r year(pub_date)`
+Financial years ending 31st March 2012 - `r year(pub_date)`
 
 **Continuity of data**
 
@@ -675,7 +680,7 @@ Reports include annual data up to `r latest$fy`
 
 **Revisions statement**
 
-All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional and will be updated in the {next_pub_date} publication. Revisions of this nature are due to incomplete data returns at the time of publication.
+All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional and will be updated in the `r next_pub_date` publication. Revisions of this nature are due to incomplete data returns at the time of publication.
 
 **Revisions relevant to this publication**
 
