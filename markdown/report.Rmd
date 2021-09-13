@@ -168,11 +168,15 @@ https://uksa.statisticsauthority.gov.uk/about-the-authority/uk-statistical-syste
 
 The [NHS Healthcare Quality Strategy](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/) was launched in May 2010 by the Scottish Government with the aim of delivering high quality healthcare services to the people of Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/pages/4/) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
-This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
+This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](https://lx.iriss.org.uk/sites/default/files/resources/living%20and%20dying.pdf). 
 
 Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the strategic framework for action. 
 
 More recently in December 2016 the ["Health and Social Care Delivery Plan"](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities.
+
+### Revised Figures
+
+Figures for 2019/20 have been updated due to improved levels of completeness in hospital data for all NHS boards and for NHS Forth Valley and the Health and Social Care Partnerships within this area, where previously, estimated figures were calculated and used. These updates will also impact the Scotland figure for 2019/20.
 
 `r if_else(pub_type == "update", "<br>", "")`
 
@@ -191,7 +195,7 @@ glue("This publication is an update to the May {year(pub_date)} publication. ",
 
 # Provisional Figures
 
-Please note that`r if_else(pub_type == "provisional", " hospital data and", "")` National Records of Scotland deaths data are provisional for `r latest$fy`.  See [Appendix 2](#appendix-2---background-information) for more information.
+Please note that hospital data and National Records of Scotland deaths data are provisional for `r latest$fy`.  See [Appendix 2](#appendix-2---background-information) for more information.
 
 # Main Points
 
@@ -201,11 +205,13 @@ Please note that`r if_else(pub_type == "provisional", " hospital data and", "")`
 
 * In `r latest$fy`, `r max_old`s aged 85 and over spent a higher percentage of their last six months of life in the community (`r max(old$qom)`%) compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending, on average an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community in their last six months of life.
 
+\newpage
+
 # Results and Commentary
 
 In financial year `r latest$fy`, the estimated `r latest$deaths` residents of Scotland who died spent on average `r latest$qom`% of their last six months of life either at home or in the community (Table 1 of the [data tables](`r pub_date_link`)) and `r latest$qom_hosp`% of their last six months of life was spent in hospital (Figure 1). This is equivalent to each individual spending an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to their death.
 
-Over the `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the percentage of time spent at home or in a community setting has increased from `r basefile %>% summarise_data(include_years = "first") %>% pull(qom)`% to `r latest$qom`%. This equates to, on average, an extra `r day_diff(basefile %>% summarise_data(include_years = "first") %>% pull(qom), latest$qom)` days within the last six months of life being spent at home or in a community setting in `r latest$fy` compared to `r min(basefile$fy)` (see Figure 1 below or [Appendix 1](#appendix-1---trend-data)).
+Over the last `r trend_length` years, `r min(basefile$fy)` to `r latest$fy`, the percentage of time spent at home or in a community setting has increased from `r basefile %>% summarise_data(include_years = "first") %>% pull(qom)`% to `r latest$qom`%. This equates to, on average, an extra `r day_diff(basefile %>% summarise_data(include_years = "first") %>% pull(qom), latest$qom)` days within the last six months of life being spent at home or in a community setting in `r latest$fy` compared to `r min(basefile$fy)` (see Figure 1 below or [Appendix 1](#appendix-1---trend-data)).
 
 <div custom-style = "Chart Title">
 Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; `r min(basefile$fy)` - `r latest$fy`^1^
@@ -235,7 +241,7 @@ Figure 2: Map showing the percentage of last six months of life spent at home or
 </div>
 
 ![Map of Scotland split by NHS Board of Residence showing variation in percentage of last six months of life spent at home or in the community for `r latest$fy`. `r max_hb$hb` has the highest percentage of `r max_hb$qom`% and `r min_hb$hb` has the lowest of `r min_hb$qom`%.](figures/figure-2.png)
-![](reference-files/figure-2-legend.png)</div>
+![](figure-2-legend.png)
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
@@ -287,8 +293,6 @@ Table 2 shows the percentage of the last six months of life spent at home or in 
 glue("Note that Data completeness should be taken into account when making comparisons between areas. See [Appendix 2](#appendix-2---background-information) for more information.")
 ```
 
-Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to a number of factors including differences in the age profile and rurality of each of the local areas.
-
 <div custom-style = "Chart Title">
 Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1^; by Health and Social Care Partnership^2^
 </div>
@@ -318,6 +322,8 @@ hscp %>%
 2. The Health and Social Care Partnership is the usual place of residence prior to death.
 3. Calculation based on a possible 182.5 days in the last six months of life.
 </div>
+
+Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). This could be due to a number of factors including differences in the age profile and rurality of each of the local areas.
 
 <br>
 
@@ -361,7 +367,7 @@ Figure 4 shows that there is little variation in the percentage of time spent at
 <br>
 
 ## Urban Rural Classification
-The Scottish Government 6-fold [urban rural classification](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
+The Scottish Government 6-fold [urban rural classification](https://www.gov.scot/publications/scottish-government-urban-rural-classification-2016/pages/1/) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
 
 <div custom-style = "Chart Title">
 Figure 5: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`; by Urban Rural Classification
@@ -408,7 +414,7 @@ The Scottish Government introduced Data Zones in 2004 as their preferred small a
 
 **Urban/Rural Classification**
 
-The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the [Scottish Government website](http://www.gov.scot/Topics/Statistics/About/Methodology/UrbanRuralClassification).
+The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. Further information can be found on the [Scottish Government website](https://www.gov.scot/publications/scottish-government-urban-rural-classification-2016/pages/1/).
 
 
 # Contact
@@ -430,9 +436,11 @@ Aghimien.Iyayi-Igbinovia@phs.scot
 
 <br>
 
-# Find out more
+# Further information
 
-The data from this publication is available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2011-to-2020/). 
+Further information and data for this publication are available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2012-to-2021/) on our website.
+
+For more information on Palliative and End of Life Care see the [End of Life Care section of our website](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
 
 The next release of this publication will be `r next_pub_date`.
 
@@ -450,7 +458,9 @@ Data from this publication is available to download from the [Scottish Health an
 
 # Rate this publication
 
-Let us know what you think about this publication via the link at the bottom of this [publication page](https://beta.isdscotland.org/find-publications-and-data/health-and-social-care/social-and-community-care/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/20-October-2020) on the PHS website.
+Let us know what you think about this publication via the link at the bottom of this [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2012-to-2021/) on the PHS website.
+
+\newpage
 
 # Appendices
 
@@ -505,7 +515,7 @@ Figure A1.4 - Percentage of last six months of life spent at home or in a commun
 
 End of life care (palliative care) is an important, integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition. 
 
-The [NHS Healthcare Quality Strategy](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy) (May 2010) was launched with the aim of delivering high quality healthcare services to people in Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
+The [NHS Healthcare Quality Strategy](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/) (May 2010) was launched with the aim of delivering high quality healthcare services to people in Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](http://www.gov.scot/Topics/Health/Policy/Quality-Strategy/Quality-Measurement-Framework) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
 The December 2015 ["Strategic Framework for Action on Palliative and End of Life Care"](http://www.gov.scot/Resource/0049/00491388.pdf) was published to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded ["Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland"](http://www.gov.scot/Resource/Doc/239823/0066155.pdf). 
 
@@ -596,10 +606,10 @@ tibble(
 ```
 
 
-**Comparison to previous measure**
+**Revision of methodology**
 </div>
 
-In publications released prior to 2020, a small amount of inpatient activity located in care homes were captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. For publications released from 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. These changes only affect a small proportion of Care Homes in some NHS Boards.
+In publications released prior to 2020, a small amount of inpatient activity located in care homes were captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. For publications released from 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. The change in methodology has been implemented across all years and for all analyses presented. The impact of this chnage varies but, compared to previous publications, the proportion of time spent at home or in a community setting has largely remained the same or increased only slightly.
 
 Figure A3.1 below gives a comparison of these two measures over the ten years reported. In `r latest$fy`, the percentage of time spent at home or in a community setting was `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and `r latest$qom`% using the new methodology. 
 
@@ -665,11 +675,11 @@ Reports include annual data up to `r latest$fy`
 
 **Revisions statement**
 
-All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional `r if_else(pub_type == "provisional", glue("and will be updated in the {next_pub_date} publication. "), ". ")`Revisions of this nature are due to incomplete data returns at the time of publication.
+All data are revised to ensure the most complete data are presented. Data for most recent financial year are provisional and will be updated in the {next_pub_date} publication. Revisions of this nature are due to incomplete data returns at the time of publication.
 
 **Revisions relevant to this publication**
 
-In previous publications, a small amount of inpatient activity in care homes was captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. See [Appendix 1](#appendix-1---trend-data) for more information.
+In publications prior to 2020, a small amount of inpatient activity in care homes was captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. See [Appendix 3](#appendix-3---methodology) for more information.
 
 **Concepts and definitions**
 
@@ -681,11 +691,11 @@ Policy concepts: https://www.gov.scot/publications/healthcare-quality-strategy-n
 
 **Relevance and key uses of the statistics**
 
-Making information publicly available; Allowing assessment of implementation/impact of policies or targets
+Making information publicly available; allowing assessment of implementation/impact of policies or targets
 
 **Accuracy**
 
-SMR01 and SMR04 standard validation processes; Wide stakeholder consultation on technical methodology
+SMR01 and SMR04 standard validation processes; wide stakeholder consultation on technical methodology
 
 **Completeness**
 
@@ -693,7 +703,7 @@ SMR01 hospital completeness for the financial year `r latest$fy` is estimated to
 
 **Comparability**
 
-Due to a small revision in the methodology, figures presented in this publication are not comparable to figures published previously. Trend information from `r min(basefile$fy)` to `r latest$fy` is available in this publication. See [Appendix 3](#appendix-3---methodology) for more information on the revision and its impact.
+Due to a small revision in the methodology in 2020, figures presented in this publication are not comparable to figures published previously. Trend information from `r min(basefile$fy)` to `r latest$fy` is available in this publication. See [Appendix 3](#appendix-3---methodology) for more information on the revision and its impact.
 
 **Accessibility**
 
@@ -762,4 +772,4 @@ NHS Board Communication leads
 <br>
 
 **About Public Health Scotland (PHS)**  
-PHS is a knowledge-based and intelligence driven organisation with a critical reliance on data and information to enable it to be an independent voice for the public's health, leading collaboratively and effectively across the Scottish public health system, accountable at local and national levels, and providing leadership and focus for achieving better health and wellbeing outcomes for the population. Our statistics comply with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) in terms of trustworthiness, high quality and public value. This also means that we keep data secure at all stages, through collection, processing, analysis and output production, and adhere to the ['five safes'](https://blog.ons.gov.uk/2017/01/27/the-five-safes-data-privacy-at-ons/)
+PHS is a knowledge-based and intelligence driven organisation with a critical reliance on data and information to enable it to be an independent voice for the public's health, leading collaboratively and effectively across the Scottish public health system, accountable at local and national levels, and providing leadership and focus for achieving better health and wellbeing outcomes for the population. Our statistics comply with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) in terms of trustworthiness, high quality and public value. This also means that we keep data secure at all stages, through collection, processing, analysis and output production, and adhere to the ['five safes'](https://blog.ons.gov.uk/2017/01/27/the-five-safes-data-privacy-at-ons/).
