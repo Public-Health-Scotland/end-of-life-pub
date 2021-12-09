@@ -78,7 +78,7 @@ RESTRICTED STATISTICS: embargoed to 09:30 `r format(pub_date, "%d/%m/%Y")`
 
 # About this release
 
-This release by Public Health Scotland provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` through to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. Note that the figures presented for financial year `r max(basefile$fy)` are provisional. Please see [Background](#Background) for more information. 
+This release by Public Health Scotland provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` through to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. The figures presented for financial year `r max(basefile$fy)` are provisional. Please see [Background](#Background) for more information. 
 
 # Main Points
 
@@ -88,15 +88,16 @@ This release by Public Health Scotland provides information on the percentage of
 
 
 <Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
-<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1^**</div>
+<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1,2^**</div>
 ![`r alt_text`](figures/figure-1-summary.png) <br>
 
 <div custom-style = "Normal_Notes">
 1. Figures for `r latest$fy` are provisional.
+2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays.
 </div>
 
 
-* In financial year `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
+* In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
 
 
 # Background
@@ -150,9 +151,9 @@ For all media enquiries please email phs.comms@phs.scot or call 0131 275 6105
 
 # Further information
 
-Find out more in the [full report](https://publichealthscotland.scot/media/4284/2021-10-05_end-of-life-report.pdf). The data from this publication is available to download from the data files section at the top of this page and the [Scottish Health and Social Care Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
+Find out more in the [full report](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2012-to-2021/). The data from this publication is available to download from the data files section at the top of this page and the [Scottish Health and Social Care Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
-For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](https://www.isdscotland.org/Health-Topics/Health-and-Social-Community-Care/End-of-Life-Care/).
+For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](https://beta.isdscotland.org/topics/end-of-life-care/).
 
 The next release of this publication will be in `r next_pub_date`.
 
