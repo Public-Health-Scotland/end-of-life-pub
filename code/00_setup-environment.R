@@ -11,7 +11,7 @@
 # This is the only file which should require updating everytime 
 # the process is run.
 #
-# Approximate run time - xx minutes
+# Approximate run time - 60 minutes
 #########################################################################
 
 ### 1 - Load packages ----
