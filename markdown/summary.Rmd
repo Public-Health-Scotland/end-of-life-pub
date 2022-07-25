@@ -1,7 +1,7 @@
 ---
 output: 
   officedown::rdocx_document:
-    reference_docx: "summary-template.docx"
+    reference_docx: "summary-template.dotx"
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
@@ -49,15 +49,6 @@ alt_text <-
        "{latest$qom_hosp}% spent in hospital.")
 
 
-# Create contact information
-contact1 <- c("Federico Centoni", "Information Analyst", 
-              "0131 314 1532", "Federico.Centoni@phs.scot")
-contact2 <- c("Ryan Harris", "Senior Information Analyst", 
-              "0131 314 1000", "Ryan.Harris@phs.scot")
-contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst", 
-              "0141 207 1616", "Aghimien.Iyayi-Igbinovia@phs.scot")
-
-contact <- tibble(contact1, contact2, contact3)
 ```
 
 <Div custom-style = "Publication Title">
@@ -146,8 +137,14 @@ contact %>%
 ```
 
 
+## Contact
 
-For all media enquiries please email phs.comms@phs.scot or call 0131 275 6105
+Martin McKenna | Principal Information Analyst | phs.peolc@phs.scot
+Ryan Harris | Senior Information Analyst
+Gabriela Carrillo Balam | Information Analyst
+
+
+For all media enquiries please email <phs.comms@phs.scot> or call 0131 275 6105.
 
 # Further information
 
