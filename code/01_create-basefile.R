@@ -18,7 +18,7 @@
 source(here::here("code", "00_setup-environment.R"))
 source(here::here("functions", "sql_queries.R"))
 source(here::here("functions", "completeness.R"))
-
+source(here::here("functions", "completeness_workaround.R"))
 
 ### 2 - Open SMRA Connection ----
 
@@ -204,8 +204,11 @@ write_rds(final,
 
 ### 10 - Save completeness table
 
-completeness(end_date) %>%
+completeness() %>%
   write_rds(here("data", "extracts", glue("{pub_date}_completeness.rds")))
 
+# If the above doesn't work, try the alternative function (it search directly on beta.isdscotland.org instead of open data)
+
+completeness_workaround()
 
 ### END OF SCRIPT ###
