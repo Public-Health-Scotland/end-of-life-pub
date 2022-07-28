@@ -9,7 +9,7 @@ flextable_style <- function(flextable,
   flextable %<>%
     
     # Add purple backgroud to header
-    bg(bg = "#6c2c91", part = "header") %>%
+    bg(bg = "#3F3685", part = "header") %>%
     
     # Make header text white
     color(color = "white", part = "header") %>%
