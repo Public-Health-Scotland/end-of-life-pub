@@ -52,9 +52,9 @@ alt_text <-
        "{latest$qom_hosp}% spent in hospital.")
 
 # Create contact information
-contact1 <- "**Martin McKenna** | Principal Information Analyst | phs.peolc@phs.scot"
+contact1 <- "**Gabriela Carrillo Balam** | Information Analyst | phs.peolc@phs.scot"
 contact2 <- "**Ryan Harris** | Senior Information Analyst"
-contact3 <- "**Gabriela Carrillo Balam** | Information Analyst"
+contact3 <- "**Martin McKenna** | Principal Information Analyst"
 
 ```
 
