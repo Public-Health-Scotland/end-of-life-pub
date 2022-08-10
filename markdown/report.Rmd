@@ -194,12 +194,6 @@ Ideally, the measure would relate directly to an individual’s preferred place 
 
 More recently in December 2016 the ["Health and Social Care Delivery Plan"](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities.
 
-<Div custom-style = "Heading 2">Revised Figures</div>
-
-Figures for 2020/21 have been updated due to improved levels of completeness in hospital data for all NHS boards and for NHS Forth Valley and the Health and Social Care Partnerships within this area, where previously, estimated figures were calculated and used. These updates will also impact the Scotland figure for 2020/21.
-
-`r if_else(pub_type == "update", "<br>", "")`
-
 `r if_else(pub_type == "update", "**Revised Figures**", "")`
 
 ```{r intro-revised, echo = FALSE, results = 'asis', eval = pub_type == "update"}
