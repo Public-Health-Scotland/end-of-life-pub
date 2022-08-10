@@ -1,7 +1,7 @@
 ---
 output: 
-  officedown::rdocx_document:
-    reference_docx: "summary-template.docx"
+   word_document:
+    reference_docx: "summary-template.dotx"
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}
@@ -24,6 +24,9 @@ sex <-
   basefile %>%
   filter(age_grp == "85+") %>%
   summarise_data(sex)
+
+sex[sex=="Female"] <- "Women"
+sex[sex=="Male"] <- "Men"
 
 max_sex <- sex %>% filter(qom == max(qom)) %>% pull(sex) %>% tolower()
 
@@ -48,16 +51,11 @@ alt_text <-
        "spent either at home or in a community setting, with the remaining ",
        "{latest$qom_hosp}% spent in hospital.")
 
-
 # Create contact information
-contact1 <- c("Federico Centoni", "Information Analyst", 
-              "0131 314 1532", "Federico.Centoni@phs.scot")
-contact2 <- c("Ryan Harris", "Senior Information Analyst", 
-              "0131 314 1000", "Ryan.Harris@phs.scot")
-contact3 <- c("Aghimien Iyayi-Igbinovia", "Principal Information Analyst", 
-              "0141 207 1616", "Aghimien.Iyayi-Igbinovia@phs.scot")
+contact1 <- "**Gabriela Carrillo Balam** | Information Analyst | phs.peolc@phs.scot"
+contact2 <- "**Ryan Harris** | Senior Information Analyst"
+contact3 <- "**Martin McKenna** | Principal Information Analyst"
 
-contact <- tibble(contact1, contact2, contact3)
 ```
 
 <Div custom-style = "Publication Title">
@@ -67,101 +65,84 @@ in a Community Setting `r if_else(pub_type == "provisional", "(Provisional)", ""
 <Div custom-style = "Publication subtitle">
 Financial years ending 31 March `r year(start_date) + 1` to `r year(end_date)`
 </div>
-<Div custom-style = "Official stats">
-An Official Statistics publication for Scotland
+<Div custom-style = "Stats designation"> 
+An Official Statistics publication for Scotland 
 </div>
-
-**Publication date: `r format(pub_date, "%d %B %Y")`**
-<Div custom-style = "RestrictedStats">
-RESTRICTED STATISTICS: embargoed to 09:30 `r format(pub_date, "%d/%m/%Y")`
+<Div custom-style = "Publication date"> 
+Publication date: `r format(pub_date, "%d %B %Y")`
+</div>
+<Div custom-style = "Restricted Stats"> 
+##### RESTRICTED STATISTICS: embargoed to 09:30 `r format(pub_date, "%d %B %Y")`
 </div>
 
 # About this release
 
 This release by Public Health Scotland provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data are presented by financial year from `r min(basefile$fy)` through to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. The figures presented for financial year `r max(basefile$fy)` are provisional. Please see [Background](#Background) for more information. 
 
-# Main Points
+</div>
+<Div custom-style = "Heading 1">
+# Main points
+</div>
 
-* In financial year `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including falls, but excluding other external causes of death.  For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
+<Div custom-style = "Bullet 1">
+In `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including falls (but excluding people who 
+died from other external causes). For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
+</div>
 
-* Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in financial year `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.
+<Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^1^** </div>
+![`r alt_text`](figures/figure-1-summary.png) \
+<Div custom-style = "Chart Notes">
+^1^Figures for `r latest$fy` are provisional. 
+<Div custom-style = "Chart Notes"></div>
+</div>
 
+<Div custom-style = "Bullet 1">
+Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in financial year `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`. However, the COVID-19 pandemic and measures put in place to respond to the pandemic are likely to have contributed to the length of hospital stays which shows a marked increase in the 
+percentage of time spent at home or in a community setting from 2020/21 .
+</div>
 
-<Div custom-style = "Chart Title">**Percentage of last six months of life spent at home or in a community setting;**</div>
-<Div custom-style = "Chart Title">**`r min(basefile$fy)` - `r max(basefile$fy)`^1,2^**</div>
-![`r alt_text`](figures/figure-1-summary.png) <br>
-
-<div custom-style = "Normal_Notes">
-1. Figures for `r latest$fy` are provisional.
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays.
+<Div custom-style = "Bullet 1">
+For people aged 85 and over in `r latest$fy`,  a slightly higher proportion of their last six months of 
+life was spent in the community by `r max_sex` than by `r if_else(max_sex == "women", "men", "women")` (`r max(sex$qom)`% and `r min(sex$qom)`%, respectively) – an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
 </div>
 
 
-* In `r latest$fy`, `r max_sex`s aged 85 and older spent a higher percentage of their last six months of life in the community (`r max(sex$qom)`%) compared to `r if_else(max_sex == "female", "male", "female")`s (`r min(sex$qom)`%); this equates to `r max_sex`s spending, on average an extra `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days in the community in their last six months of life.
+<Div custom-style = "Heading 1">
+### Background
+</div>
 
+This Quality Outcome is a measure of the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf).
 
-# Background
-
-This Quality Outcome Measure focuses on measuring the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [“Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland”](https://lx.iriss.org.uk/sites/default/files/resources/living%20and%20dying.pdf). 
-
-The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress in implementation of the strategic framework for action. This is inferred by measuring the amount of time spent in a hospital setting during the last months of life (using hospital admissions data) and from this estimating the time spent at home or in a community setting.
-
-
-# Contact
-
-```{r contact-table, echo = FALSE}
-contact %>%
-  flextable() %>%
-  compose(i = 4, j = 1,
-          value = as_paragraph(
-            hyperlink_text(x = contact$contact1[4],
-                           url = paste0("mailto:", contact$contact1[4]),
-                           props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11))
-          )) %>%
-  compose(i = 4, j = 2,
-        value = as_paragraph(
-          hyperlink_text(x = contact$contact2[4],
-                         url = paste0("mailto:", contact$contact2[4]),
-                         props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11))
-        )) %>%
-  compose(i = 4, j = 3,
-        value = as_paragraph(
-          hyperlink_text(x = contact$contact3[4],
-                         url = paste0("mailto:", contact$contact3[4]),
-                         props = fp_text(color = "#6c2c91",
-                                           underlined = TRUE,
-                                           font.size = 11))
-        )) %>%
-  delete_part(part = "header") %>%
-  bold(i = 1) %>%
-  align(align = "left") %>%
-  border_remove() %>%
-  height_all(height = 0.2) %>%
-  width(j = 1:2, width = 2.2) %>%
-  width(j = 3, width = 2.9)
+The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress made on the strategic framework for action. This is inferred by measuring the amount of time spent in a hospital during the last six months of life and thus using this information to estimate the time spent at home or in a community setting.
+</div>
+<Div custom-style = "Heading 1">
+### Contact
+</div>
+```{r, echo = FALSE, results='asis'}
+    writeLines(contact1)
+```
+</div>
+```{r, echo = FALSE, results='asis'}
+    writeLines(contact2)
+```
+</div>
+```{r, echo = FALSE, results='asis'}
+    writeLines(contact3)
 ```
 
+For all media enquiries please email <phs.comms@phs.scot> or call 0131 275 6105.
 
-
-For all media enquiries please email phs.comms@phs.scot or call 0131 275 6105
-
-# Further information
-
+</div>
+<Div custom-style = "Heading 1">
+###Further information
+</div>
 Find out more in the [full report](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2012-to-2021/). The data from this publication is available to download from the data files section at the top of this page and the [Scottish Health and Social Care Open Data platform](https://www.opendata.nhs.scot/dataset/palliative-and-end-of-life-care).
 
 For more information on Palliative and End of Life Care, see the [End of Life Care section of our website](https://beta.isdscotland.org/topics/end-of-life-care/).
 
 The next release of this publication will be in `r next_pub_date`.
 
-Other formats of this publication are available on request at:
-0131 314 5300
-phs.otherformats@phs.scot
-
-<br>
+Other formats of this publication are available on request at: 0131 314 5300 <phs.otherformats@phs.scot>
 
 
 

@@ -53,7 +53,7 @@ fig1 <-
   
   ggplot(aes(x = fy, y = value, fill = qom)) +
   geom_bar(position = "stack", stat = "identity", width = 0.5, show.legend = T) +
-  scale_fill_manual(values = c("#00a2e5", "#004785")) +
+  scale_fill_manual(values = c("#9B4393", "#3F3685")) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -61,7 +61,8 @@ fig1 <-
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.x = element_text(size = 8, hjust = 0.5),
+        legend.position = "bottom",
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
@@ -78,7 +79,7 @@ ggsave(here("markdown", "figures", "figure-1.png"),
 
 ggsave(here("markdown", "figures", "figure-1-summary.png"), 
        plot = fig1,
-       width = 17, height = 7, 
+       width = 17.5, height = 7, 
        units = "cm", device = "png", dpi = 600)
 
 
@@ -114,7 +115,7 @@ fig2 <-
                    fill = qom),
                colour = "white",
                size = 0.3) +
-  scale_fill_continuous(low = "#56B1F7", high = "#132B43",
+  scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
                         limits=c(floor(min(fig2$qom)),
                                    ceiling(max(fig2$qom)))) +
   theme(panel.background = element_blank(),
@@ -236,7 +237,7 @@ fig3 <-
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
-  scale_fill_manual(values = c("#00a2e5", "#004785")) +
+  scale_fill_manual(values = c("#B3D7F2", "#0078D4")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
@@ -267,7 +268,7 @@ fig4 <-
   #This creates the bar chart, SIMD as x axis, percentge as y axis, specific font design for axis titles
   
   ggplot(aes(x = simd, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#0078D4") +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -301,7 +302,7 @@ fig5 <-
   # Creates the bar chart, urban/rural on the x axis and percentage on the y axis
     
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#004785") +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#0078D4") +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -346,7 +347,7 @@ figa11 <-
   # Each graph is given a heading from Scotland to start, then each hb in alphabetical order and placed on each chart
     
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(color = "#004785") +
+  geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ hb, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -391,7 +392,7 @@ figa12 <-
   # Header given for each HSCP in alphabetical order and placed in specific position in each chart
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(color = "#004785") +
+  geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ hscp, ncol = 4) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -445,7 +446,7 @@ figa13 <-
   # Each graph given a heading for each deprivation quintile from 1-Most deprived to 5-Least deprived
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(color = "#004785") +
+  geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ simd, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -492,7 +493,7 @@ figa14 <-
   # Each graph given a heading for each urban/rural classification from 1-Large urban areas to 6-Remote rural
   
   ggplot(aes(x = fy, y = qom, group = 1)) +
-  geom_line(color = "#004785") +
+  geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ urban_rural, ncol = 3) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
@@ -557,14 +558,14 @@ figa31 <-
   # Dotted line on chart is the old measure and filled line is the new measure
   
   ggplot(aes(x = fy, y = qom, group = method)) +
-  geom_line(aes(linetype = method), colour = "#004785") +
+  geom_line(aes(linetype = method), colour = "#0078D4") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
-        axis.text.x = element_text(angle = 90),
+        axis.text.x = element_text(size = 7),
         legend.title = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(82.5, 92.5) +
