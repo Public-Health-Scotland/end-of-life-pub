@@ -1,7 +1,7 @@
 ---
 output: 
    word_document:
-    reference_docx: "report-template.dotx"
+    reference_docx: "report-template.docx"
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE,error=FALSE}

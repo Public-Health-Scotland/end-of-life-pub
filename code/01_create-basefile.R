@@ -204,7 +204,7 @@ write_rds(final,
 
 ### 10 - Save completeness table
 
-completeness() %>%
+completeness(end_date) %>%
   write_rds(here("data", "extracts", glue("{pub_date}_completeness.rds")))
 
 # If the above doesn't work, try the alternative function (it search directly on beta.isdscotland.org instead of open data)

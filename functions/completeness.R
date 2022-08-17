@@ -12,8 +12,7 @@ completeness <- function(end_date) {
                                      "9f942fdb-e59e-44f5-b534-d6e17229cc7b/",
                                      "resource/",
                                      "652ff726-e676-4a20-abda-435b98dd7bdc/",
-                                     "download/geography_codes_and_labels_",
-                                     "hb2014_01042019.csv")) %>%
+                                     "download/hb14_hb19.csv")) %>%
     janitor::clean_names() %>%
     dplyr::select(hb, hb_name) %>%
     
@@ -21,7 +20,7 @@ completeness <- function(end_date) {
       readr::read_csv(paste0("https://www.opendata.nhs.scot/dataset/",
                              "65402d20-f0f1-4cee-a4f9-a960ca560444/resource/",
                              "0450a5a2-f600-4569-a9ae-5d6317141899/download/",
-                             "special-health-boards.csv")) %>%
+                             "special-health-boards_19022021.csv")) %>%
       janitor::clean_names() %>%
       dplyr::rename(hb = shb, hb_name = shb_name) %>%
       dplyr::select(-country)) %>%
