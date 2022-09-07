@@ -86,14 +86,14 @@ start_date <- ymd(glue("{year(end_date) - 10}0401"))
 next_pub_date <- 
   if_else(month(pub_date) == 5,
           paste("October", year(pub_date)),
-          paste("May", year(pub_date) + 1))
+          paste("October", year(pub_date) + 1))
 
 # Publication date in format for beta website link
 pub_date_link <- 
-  glue("https://beta.isdscotland.org/find-publications-and-data/",
-       "health-and-social-care/social-and-community-care/percentage-",
-       "of-end-of-life-spent-at-home-or-in-a-community-setting/",
-       "{day(pub_date)}-{format(pub_date, '%b-%Y')}")
+  glue("https://www.publichealthscotland.scot/publications/",
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/",
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-",
+       "{format(start_date, '%Y')}-to-{format(end_date, '%Y')}/")
 
 
 ### 4 - Create folders ----
