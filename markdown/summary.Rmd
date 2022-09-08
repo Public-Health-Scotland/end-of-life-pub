@@ -144,6 +144,3 @@ The next release of this publication will be in `r next_pub_date`.
 
 Other formats of this publication are available on request at: 0131 314 5300 <phs.otherformats@phs.scot>
 
-
-
-

@@ -803,3 +803,6 @@ NHS Board Communication leads
 
 **About Public Health Scotland (PHS)**  
 PHS is a knowledge-based and intelligence driven organisation with a critical reliance on data and information to enable it to be an independent voice for the public's health, leading collaboratively and effectively across the Scottish public health system, accountable at local and national levels, and providing leadership and focus for achieving better health and wellbeing outcomes for the population. Our statistics comply with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/) in terms of trustworthiness, high quality and public value. This also means that we keep data secure at all stages, through collection, processing, analysis and output production, and adhere to the ['five safes'](https://blog.ons.gov.uk/2017/01/27/the-five-safes-data-privacy-at-ons/).
+
+
+
