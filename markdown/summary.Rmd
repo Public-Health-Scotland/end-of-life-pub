@@ -93,12 +93,12 @@ died from other external causes). For these individuals, `r latest$qom`% of thei
 ![`r alt_text`](figures/figure-1-summary.png) \
 <Div custom-style = "Chart Notes">
 ^1^Figures for `r latest$fy` are provisional. 
-^1^Figures in 2020/21 and `r latest$fy` are likely to have been affected by the impact of COVID-19 on hospital stays.
+^2^Figures in 2020/21 and `r latest$fy` are likely to have been affected by the impact of COVID-19 on hospital stays.
 <Div custom-style = "Chart Notes"></div>
 </div>
 
 <Div custom-style = "Bullet 1">
-The lenght of hospital stays in 2020/21 and `r latest$fy`are likely to have been impacted by measures in place at different staged of the COVID-19 pandemic. This may be an underlying reason for the larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to previous years, (increasing from `r trend$qom[trend$fy=="2019/20"]`% in 2019/20 to `r trend$qom[trend$fy=="2020/21"]`% in 2020/21). Since then there has been a reduction to `r latest$qom`% in `r latest$fy`.
+The length of hospital stays in 2020/21 and `r latest$fy` are likely to have been impacted by measures in place at different stages of the COVID-19 pandemic. This may be an underlying reason for the larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to previous years, (increasing from `r trend$qom[trend$fy=="2019/20"]`% in 2019/20 to `r trend$qom[trend$fy=="2020/21"]`% in 2020/21). Since then there has been a reduction to `r latest$qom`% in `r latest$fy`.
 </div>
 
 <Div custom-style = "Bullet 1">

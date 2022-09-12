@@ -220,9 +220,19 @@ Please note that hospital data and National Records of Scotland deaths data are 
 
 <Div custom-style = "Heading 1">Main Points</div>
 
-<Div custom-style = "Bullet 1">In `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including falls, but excluding other external causes of death. For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.</div>
-<Div custom-style = "Bullet 1">Over the past `r trend_length` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`.</div>
-<Div custom-style = "Bullet 1">In `r latest$fy`, `r max_old`s aged 85 and over spent a higher percentage of their last six months of life in the community (`r max(old$qom)`%) compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending, on average an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community in their last six months of life.</div>
+<Div custom-style = "Bullet 1">
+In `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including falls (but excluding people who 
+died from other external causes). For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
+</div>
+
+<Div custom-style = "Bullet 1">
+The length of hospital stays in 2020/21 and `r latest$fy` are likely to have been impacted by measures in place at different stages of the COVID-19 pandemic. This may be an underlying reason for the larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to previous years, (increasing from `r trend$qom[trend$fy=="2019/20"]`% in 2019/20 to `r trend$qom[trend$fy=="2020/21"]`% in 2020/21). Since then there has been a reduction to `r latest$qom`% in `r latest$fy`.
+</div>
+
+<Div custom-style = "Bullet 1">
+For people aged 85 and over in `r latest$fy`,  a slightly higher proportion of their last six months of 
+life was spent in the community by `r max_sex` than by `r if_else(max_sex == "women", "men", "women")` (`r max(sex$qom)`% and `r min(sex$qom)`%, respectively) – an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
+</div>
 
 \newpage
 
