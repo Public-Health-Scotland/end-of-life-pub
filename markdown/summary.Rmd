@@ -89,16 +89,16 @@ In `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including fal
 died from other external causes). For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death.
 </div>
 
-<Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^1^** </div>
+<Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^1,2^** </div>
 ![`r alt_text`](figures/figure-1-summary.png) \
 <Div custom-style = "Chart Notes">
 ^1^Figures for `r latest$fy` are provisional. 
+^1^Figures in 2020/21 and `r latest$fy` are likely to have been affected by the impact of COVID-19 on hospital stays.
 <Div custom-style = "Chart Notes"></div>
 </div>
 
 <Div custom-style = "Bullet 1">
-Over the past `r as.character(as.english(year(end_date) - year(start_date)))` years, the percentage of time spent at home or in a community setting in the last six months of life has gradually increased from `r summarise_data(basefile, include_years = "first") %>% pull(qom)`% in financial year `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`. However, the COVID-19 pandemic and measures put in place to respond to the pandemic are likely to have contributed to the length of hospital stays which shows a marked increase in the 
-percentage of time spent at home or in a community setting from 2020/21 .
+The lenght of hospital stays in 2020/21 and `r latest$fy`are likely to have been impacted by measures in place at different staged of the COVID-19 pandemic. This may be an underlying reason for the larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to previous years, (increasing from `r trend$qom[trend$fy=="2019/20"]`% in 2019/20 to `r trend$qom[trend$fy=="2020/21"]`% in 2020/21). Since then there has been a reduction to `r latest$qom`% in `r latest$fy`.
 </div>
 
 <Div custom-style = "Bullet 1">

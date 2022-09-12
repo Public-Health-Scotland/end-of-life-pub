@@ -44,7 +44,7 @@ fig1 <-
                names_to = "qom") %>%
   mutate(qom = if_else(qom == "qom_hosp",
                        "Hospital",
-                       "Home/Community")) %>%
+                       "Home/ \nCommunity")) %>%
   
   # Control order of stacks in chart
   # Formats the design of the graph, such as font size of axis titles, legend and axis labels are also defined
@@ -61,8 +61,8 @@ fig1 <-
         axis.title.x = element_text(size = 10, face = "bold"),
         axis.title.y = element_text(size = 10, face = "bold"),
         axis.text = element_text(size = 10),
-        axis.text.x = element_text(size = 8, hjust = 0.5),
-        legend.position = "bottom",
+        axis.text.x = element_text(size = 7, hjust = 0.5),
+        legend.position = "right",
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
