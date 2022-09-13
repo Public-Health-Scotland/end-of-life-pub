@@ -117,7 +117,7 @@ fig2 <-
                size = 0.3) +
   scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
                         limits=c(floor(min(fig2$qom)),
-                                   ceiling(max(fig2$qom)))) +
+                                 ceiling(max(fig2$qom)))) +
   theme(panel.background = element_blank(),
         panel.grid = element_blank(),
         axis.text = element_blank(),
@@ -125,12 +125,12 @@ fig2 <-
         axis.ticks = element_blank(),
         legend.title = element_blank()) +
   annotate("text", 
-           x = 4.25e+05, y = 685000, 
+           x = 4.30e+05, y = 628000, 
            label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
                           ": ", 
                           sprintf("%.1f", round_half_up(min(fig2$qom), 1)), 
                           "%"), 
-           size = 2.5,
+           size = 2,
            fontface = 2) +
   annotate("text", 
            x = 4e+05, y = 1100000, 
@@ -138,7 +138,7 @@ fig2 <-
                           ": ", 
                           sprintf("%.1f", round_half_up(max(fig2$qom), 1)), 
                           "%"), 
-           size = 2.5,
+           size = 2,
            fontface = 2) +
   annotate("text",
            x = 2.45e+05, y = 627000,
@@ -210,13 +210,14 @@ fig2 <-
            label = "Z",
            size = 2.5,
            fontface = 2)
-  
+
 # Map is saved in the required folder
 
 ggsave(here("markdown", "figures", "figure-2.png"), 
        plot = fig2,
        width = 11.67, height = 14, 
        units = "cm", device = "png", dpi = 600)  
+
 
 
 ### 5 - Figure 3 - Age/Sex Bar Chart ----
