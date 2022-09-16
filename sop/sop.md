@@ -26,7 +26,7 @@ These folders also contain up-to-date copies of the repository and these are the
 ### Preparation
 
 Before starting to run the publication, there are a few things that should be checked:
-* **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management.
+* **SMR Completeness** - In the run up to publication time, keep an eye on [SMR Completeness](https://www.isdscotland.org/products-and-Services/Data-Support-and-Monitoring/SMR-Completeness/) to ensure this is sufficient for publication. If there are any concerns, these should be raised as early as possible with Data Management. 
 * **Markdown Templates** - Check whether there have been any updates to the [publication templates](http://spark.publichealthscotland.org/corporate-guidance/statistical-governance/statistical-publication-templates/) and if so, make sure these changes are included when [updating the code](#updating-the-code).
 
 If you have not run the publication before, please also follow these one time preparation steps:
@@ -62,6 +62,8 @@ The project is designed to require as little human intervention as possible. To 
     
 * The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully (see [preparation section](#preparation)). The other scripts can be run using either Server or Desktop, it doesn't matter.
 
+* Depending on when the scripts are run, completeness data may not be available for the most recent quarter. Therefore, a completeness workaround was created (this can be seen in line 212 in the `01_create-basefile.R` script - this line should be run **ONLY** if lines 207-208 do not work. 
+
 * When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated (see [Issue #12](/../../issues/12)) and may need to be tweaked if the max/min boards change.
 
 ### Manual Steps
@@ -69,13 +71,13 @@ The project is designed to require as little human intervention as possible. To 
 Some manual steps are required to finish off the markdown documents. Once these changes have been made, it is fine to save over the file produced by the markdown script, as these can be reproduced if need be. Also note that if you are using Word 2016, you may get an error message when opening the report document (see [Issue #9](/../../issues/9)). If you click through these errors, indicating that yes you want to recover the document, all content should display correctly. It's unclear what is causing this, however the final output is unafffected.
 
 * Summary
-   * Highlight the first three lines of the header; from "Percentage" to "31 March *year* to *year*". Change line spacing to 1.15 and select Remove Space Before Paragraph. This will alter the spacing so that the chart and footnote also fits on the first page of the document.
+   * It is not automatically formatted, highlight the first three lines of the header; from "Percentage" to "31 March *year* to *year*". Change line spacing to 1.15 and select Remove Space Before Paragraph. This will alter the spacing so that the chart and footnote also fits on the first page of the document.
    * Centre the chart.   
 
 * Report
-   * Edit date in header: Double click the header and update the embargo date to the publication date.
-   * Add cover page: Ensure the cursor is at the very beginning of the document, then select Insert -> Cover Page and select the relevant (provisional/update) template. Update the date in the purple circle and the embargo date to the publication date.
-   * Add footer: With the cursor still on the cover page, select Insert -> Footer and select the custom footer.
+   * Ensure that the spacing in the cover page matches the template.
+   * Add page 2: Copy page 2 from the template and paste it in the document produced by rmarkdown. Some margins may need to be adjusted to display properly.
+   * Add footer: If this does not appear automatically, With the cursor still on the cover page, select Insert -> Footer and select the custom footer.
    * Add table of contents: Click on the end of last text line on the page “This is a National Publication” (page number 1). Select Insert –> Blank Page, so that a new blank page will be inserted. Next, select References –> Table of Contents. Choose Built-in template Automatic Table 1. Use the Format Painter to format the Contents title text to the same as the header for Introduction on the next page.
    * Centre the map (Figure 2).
 
