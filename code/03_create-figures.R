@@ -59,10 +59,10 @@ fig1 <-
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
         axis.text = element_text(size = 10),
-        axis.text.x = element_text(size = 7, hjust = 0.5),
-        legend.position = "right",
+        axis.text.x = element_text(size = 8, hjust = 0.5, colour="black"),
+        legend.position = "bottom",
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
@@ -79,7 +79,7 @@ ggsave(here("markdown", "figures", "figure-1.png"),
 
 ggsave(here("markdown", "figures", "figure-1-summary.png"), 
        plot = fig1,
-       width = 17.5, height = 7, 
+       width = 18, height = 8, 
        units = "cm", device = "png", dpi = 600)
 
 
