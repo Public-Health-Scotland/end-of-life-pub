@@ -101,7 +101,7 @@ The length of hospital stays in 2020/21 and `r latest$fy` are likely to have bee
 </div>
 
 <Div custom-style = "Bullet 1">
-For people aged 85 and over in `r latest$fy`,  a slightly higher proportion of `r max_sex` spent their last six months of life in the community compared with `r if_else(max_sex == "women", "men", "women")` (`r max(sex$qom)`% and `r min(sex$qom)`%, respectively). This is an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
+For people aged 85 and over in `r latest$fy`,  a slightly higher proportion of their last six months of life was spent in the community by `r max_sex` than by `r if_else(max_sex == "women", "men", "women")` (`r max(sex$qom)`% and `r min(sex$qom)`%, respectively). This is an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
 </div>
 
 

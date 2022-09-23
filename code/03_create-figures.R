@@ -238,13 +238,14 @@ fig3 <-
   ggplot(aes(x = age_grp, y = qom, fill = sex)) +
   geom_bar(position = "dodge", stat = "identity", width = 0.5, show.legend = T) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
-  scale_fill_manual(values = c("#B3D7F2", "#0078D4")) +
+  scale_fill_manual(values = c("#9B4393", "#3F3685")) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
-        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
+        axis.text = element_text(size = 10, colour = "gray4"),
+        legend.position = "bottom",
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   xlab("Age Group") + 
@@ -269,14 +270,14 @@ fig4 <-
   #This creates the bar chart, SIMD as x axis, percentge as y axis, specific font design for axis titles
   
   ggplot(aes(x = simd, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#0078D4") +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#3F3685") +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
-        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
+        axis.text = element_text(size = 9, colour = "gray4"),
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   xlab("Deprivation") + 
@@ -303,14 +304,14 @@ fig5 <-
   # Creates the bar chart, urban/rural on the x axis and percentage on the y axis
     
   ggplot(aes(x = urban_rural, y = qom, fill = 1)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#0078D4") +
+  geom_bar(stat = "identity", width = 0.5, show.legend = F, fill = "#3F3685") +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 100)) +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 10, face = "bold"),
-        axis.title.y = element_text(size = 10, face = "bold"),
-        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
+        axis.text = element_text(size = 8.5, colour = "gray4"),
         legend.title = element_blank(),
         axis.line = element_line(size = 0.1)) +
   xlab("Urban / Rural Classification") + 
@@ -559,14 +560,15 @@ figa31 <-
   # Dotted line on chart is the old measure and filled line is the new measure
   
   ggplot(aes(x = fy, y = qom, group = method)) +
-  geom_line(aes(linetype = method), colour = "#0078D4") +
+  geom_line(aes(linetype = method), colour = "#3F3685") +
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
-        axis.title.y = element_text(size = 8, face = "bold"),
-        axis.text = element_text(size = 8),
-        axis.text.x = element_text(size = 7),
+        axis.title.y = element_text(size = 8, face = "bold", angle = 0, vjust = 0.5),
+        axis.text = element_text(size = 8, colour = "gray4"),
+        axis.text.x = element_text(size = 8),
+        legend.position = "bottom",
         legend.title = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
   ylim(82.5, 92.5) +
