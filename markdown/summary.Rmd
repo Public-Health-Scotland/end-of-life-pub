@@ -88,11 +88,11 @@ In `r latest$fy`, there were `r latest$deaths` deaths in Scotland, including fal
 died from other external causes). For these individuals, `r latest$qom`% of their last six months of life was spent either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death, an `r if (trend[10,7] < trend[9,7]){"decrease"}else{"increase"}` of `r if(trend[10,7] < trend[9,7]){trend[9,7] - trend[10,7]}else{trend[10,7] - trend[9,7]}` days from 2020/21.
 </div>
 
-<Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^p,2^** </div>
+<Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^p,1^** </div>
 ![`r alt_text`](figures/figure-1-summary.png) \
 <Div custom-style = "Chart Notes">
 ^p^Figures for `r latest$fy` are provisional. 
-^2^Figures in 2020/21 and `r latest$fy` are likely to have been affected by the impact of COVID-19 on hospital stays.
+^1^Figures in 2020/21 and `r latest$fy` are likely to have been affected by the impact of COVID-19 on hospital stays.
 <Div custom-style = "Chart Notes"></div>
 </div>
 
