@@ -244,14 +244,14 @@ The length of hospital stays in 2020/21 and 2021/22 are likely to have been impa
 Generally, the percentage of time spent at home or in a community setting in the last six months of life has increased gradually over the last decade – `r basefile %>% summarise_data(include_years = "first") %>% pull(qom)`% in `r min(basefile$fy)` to `r latest$qom`% in `r latest$fy`. This equates to, on average, an extra `r day_diff(basefile %>% summarise_data(include_years = "first") %>% pull(qom), latest$qom)` days within the last six months of life being spent at home or in a community setting in `r latest$fy` compared to `r min(basefile$fy)` (see Figure 1 below or [Appendix 1](#appendix-1---trend-data)).
 
 <div custom-style = "Table or chart caption">
-Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; `r min(basefile$fy)` - `r latest$fy`^p,1^
 </div>
 
 ![`r alt_text`](figures/figure-1.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
 </div>
 
 <br>
@@ -268,17 +268,17 @@ glue("Note that hospital data are provisional for {latest$fy}. This publication 
 ```
 
 <div custom-style = "Table or chart caption">
-Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^1,2^; by NHS Board of Residence^3,4^
+Figure 2: Map showing the percentage of last six months of life spent at home or in the community in `r latest$fy`^p,1^; by NHS Board of Residence^2,3^
 </div>
 
 ![Map of Scotland split by NHS Board of Residence showing variation in percentage of last six months of life spent at home or in the community for `r latest$fy`. `r max_hb$hb` has the highest percentage of `r max_hb$qom`% and `r min_hb$hb` has the lowest of `r min_hb$qom`%.](figures/figure-2.png)
 ![](figure-2-legend.png)
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. The Health Board of Residence is the usual place of residence prior to death.
-4. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. The Health Board of Residence is the usual place of residence prior to death.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
 </div>
 
 <br>
@@ -286,7 +286,7 @@ Figure 2: Map showing the percentage of last six months of life spent at home or
 Information on the percentage of the last six months of life spent at home or in a community setting is provided for each of the NHS Boards in Table 1. The percentage of time spent at home or in the community ranges from 88.2% to 95.3%. The trend in the percentages over the past `r trend_length` years is presented in graphical format in Figure A1.1 (see [Appendix 1](#appendix-1---trend-data)) and the corresponding data can be found in Table 1 of the [data tables](`r pub_date_link`).
 
 <div custom-style = "Table or chart caption">
-Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1,2^; by NHS Board of Residence^3,4^
+Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by NHS Board of Residence^2,3^
 </div>
 
 ```{r hb-table, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -310,11 +310,11 @@ hb %>%
 <br>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. The Health Board of Residence is the usual place of residence prior to death.
-4. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
-5. Calculation based on a possible 182.5 days in the last six months of life.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. The Health Board of Residence is the usual place of residence prior to death.
+3. Health Boards are based on the NHS Board boundaries which came into effect 1st April 2014.
+4. Calculation of the average number of days spent at home or in the community is based on a possible 182.5 days in the last six months of life.
 </div>
 
 <br>
@@ -327,7 +327,7 @@ glue("Note that Data completeness should be taken into account when making compa
 ```
 
 <div custom-style = "Table or chart caption">
-Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1,2^; by Health and Social Care Partnership^3^
+Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by Health and Social Care Partnership^2^
 </div>
 
 ```{r hscp-table, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -351,10 +351,10 @@ hscp %>%
 <br>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. The Health and Social Care Partnership is the usual place of residence prior to death.
-4. Calculation based on a possible 182.5 days in the last six months of life.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. The Health and Social Care Partnership is the usual place of residence prior to death.
+3. Calculation of the average number of days spent at home or in the community is based on a possible 182.5 days in the last six months of life.
 </div>
 
 <br>
@@ -371,14 +371,14 @@ The trend in the percentage of the last six months of life spent at home or in a
 Figure 3 below presents the percentage of time spent at home or in the community in the last six months by age group and sex (Table 3 of the [data tables](`r pub_date_link`)). In `r latest$fy`, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (`r allages %>% filter(sex == "Female") %>% pull(qom)`%) and males (`r allages %>% filter(sex == "Male") %>% pull(qom)`%). For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending, on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community. In the youngest age group (0-54 years), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community.
 
 <div custom-style = "Table or chart caption">
-Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1,2^; by age and sex
+Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by age and sex
 </div>
 
 ![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by age group and sex. There are differences seen between the age groups and genders which are described in the text above.](figures/figure-3.png)</div>
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
+2. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
 </div>
 
 <br>
@@ -387,14 +387,14 @@ Figure 3: Percentage of last six months of life spent at home or in a community 
 The percentage of time spent at home or in a community setting in the last six months of life by deprivation is shown in Figure 4 (Table 4 of the [data tables](`r pub_date_link`)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. At a Scotland level approximately 20% of the population are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#Glossary) for further information on Deprivation. 
 
 <div custom-style = "Table or chart caption">
-Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^1,2^; by Deprivation Category^3^
+Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by Deprivation Category^2^
 </div>
 
 ![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by Deprivation Quintile. There is very little variation between the deprivation categories.](figures/figure-4.png)</div>
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
+2. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
 3. SIMD 2020 quintiles have been used to categorise deprivation.
 </div>
 
@@ -408,14 +408,14 @@ Figure 4 shows that there is little variation in the percentage of time spent at
 The Scottish Government 6-fold [urban rural classification](https://www.gov.scot/publications/scottish-government-urban-rural-classification-2016/pages/1/) has been used to present information on whether people live in Urban or Rural areas and if there is any difference in the amount of time spent at home or in a community setting in the six months prior to death (Figure 5).
 
 <div custom-style = "Table or chart caption">
-Figure 5: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`; by Urban Rural Classification
+Figure 5: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by Urban Rural Classification
 </div>
 
 ![Bar chart showing the percentage of end of life spent at home or in a community setting in `r latest$fy` by Urban Rural Classification. Those living in `r max_ur` spent more time on average at home or in a community setting in the last six months of life compared to those living in `r min_ur`.](figures/figure-5.png)</div>
 
 <div custom-style = "Footnote numbered">
 1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
+2. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
 </div>
 
 <br>
@@ -501,52 +501,52 @@ Let us know what you think about this publication via the link at the bottom of 
 <Div custom-style = "Heading 2">Appendix 1 - Trend Data</div> 
 
 <div custom-style = "Table or chart caption">
-Figure A1.1 - Percentage of last six months of life spent at home or in a community setting by financial year for each NHS Board of residence; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure A1.1 - Percentage of last six months of life spent at home or in a community setting by financial year for each NHS Board of residence; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting for each of the NHS Boards over the financial years `r min(basefile$fy)` to `r latest$fy`. Many of the boards show a broadly consistent pattern over this ten year period.](figures/figure-a1-1.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. Please note that the y-axes do not start at zero.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. Please note that the y-axes do not start at zero.
 </div>
 
 <div custom-style = "Table or chart caption">
-Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting for each of the Health and Social Care Partnerships over the financial years `r min(basefile$fy)` to `r latest$fy`. Many of the partnerships show a broadly consistent pattern over this ten year period.](figures/figure-a1-2.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. Please note that the y-axes do not start at zero.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. Please note that the y-axes do not start at zero.
 </div>
 
 <div custom-style = "Table or chart caption">
-Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^3^; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^p,1,3^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting by SIMD Quintiles over the financial years `r min(basefile$fy)` to `r latest$fy`. Each deprivation category shows a broadly consistent pattern over this ten year period..](figures/figure-a1-3.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. SIMD 2020 quintiles have been used to categorise deprivation.
-4. Please note that the y-axes do not start at zero.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. SIMD 2020 quintiles have been used to categorise deprivation.
+3. Please note that the y-axes do not start at zero.
 </div>
 
 <div custom-style = "Table or chart caption">
-Figure A1.4 - Percentage of last six months of life spent at home or in a community setting by financial year for each Urban/Rural classification; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure A1.4 - Percentage of last six months of life spent at home or in a community setting by financial year for each Urban/Rural classification; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting by Urban Rural classification over the financial years `r min(basefile$fy)` to `r latest$fy`. Each classification shows a broadly consistent pattern over this ten year period.](figures/figure-a1-4.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. Please note that the y-axes do not start at zero.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. Please note that the y-axes do not start at zero.
 </div>
 
 <Div custom-style = "Heading 2">Appendix 2 - Background Information</div>
@@ -653,15 +653,15 @@ In publications released prior to 2020, a small amount of inpatient activity loc
 Figure A3.1 below gives a comparison of these two measures over the ten years reported. In `r latest$fy`, the percentage of time spent at home or in a community setting was `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and `r latest$qom`% using the new methodology. 
 
 <div custom-style = "Chart Title">
-Figure A3.1 - Percentage of last six months of life spent at home or in a community setting - Comparison to previous measure; `r min(basefile$fy)` - `r latest$fy`^1,2^
+Figure A3.1 - Percentage of last six months of life spent at home or in a community setting - Comparison to previous measure; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
 </div>
 
 ![Line chart comparing the percentage of end of life spent at home or in a community setting using the previous measure (which counted care home activity as hospital setting) compared to the revised measure (which includes care home activity as time spent in the community). The percentage of time spent at home or in a community setting was around `r basefile %>% mutate(los = los_old) %>% summarise_data() %>% pull(qom)`% using the previous methodology and around `r latest$qom`% using the new methodology in `r latest$fy`.](figures/figure-a3-1.png)</div>
 
 <div custom-style = "Footnote numbered">
-1. `r prov_footnote`
-2. The increase in 2020/21 is likely due to the impact of COVID-19 on hospital stays. See [Results and Commentary](#Results and Commentary) for more information.
-3. Please note that the y-axis does not start at zero.
+p. `r prov_footnote`
+1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic. See [Results and Commentary](#Results and Commentary) for more information.
+2. Please note that the y-axis does not start at zero.
 </div>
 
 <Div custom-style = "Heading 1">Appendix 4 - Publication Metadata</div>
