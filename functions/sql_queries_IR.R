@@ -18,7 +18,7 @@
 deaths_query <- function(extract_start, extract_end, 
                          external_causes, falls){
   
-  glue("select link_no, date_of_death, postcode ",
+  glue("select link_no, date_of_death, postcode, ",
        
        # Age groups
        "case when age between 0 and 54 then '0-54' ",
@@ -160,7 +160,7 @@ deaths_query_full <- function(extract_start, extract_end,
   glue("select link_no, date_of_death, postcode, underlying_cause_of_death,
        cause_of_death_code_1, cause_of_death_code_2, cause_of_death_code_3,
        cause_of_death_code_4, cause_of_death_code_5, cause_of_death_code_6, 
-       cause_of_death_code_7, cause_of_death_code_8, cause_of_death_code_9 ",
+       cause_of_death_code_7, cause_of_death_code_8, cause_of_death_code_9, ",
        
        # Age groups
        "case when age between 0 and 54 then '0-54' ",

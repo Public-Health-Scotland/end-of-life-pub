@@ -65,7 +65,7 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20230331)
+end_date   <- ymd(20220331)
 
 # Date of publication
 pub_date <- ymd(20231003)
@@ -80,7 +80,7 @@ pub_type <- "update"
 #############################
 
 # Start date
-start_date <- ymd(glue("{year(end_date) - 10}0401"))
+start_date <- ymd(glue("{year(end_date) - 11}0401"))
 
 # Date of next publication
 next_pub_date <- 
@@ -124,7 +124,9 @@ external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
               paste0("X", 0, 0:9), paste0("X", 10:99),
               paste0("Y", 0, 0:9), paste0("Y", 10:84))
 
-falls    <- c("W00", "W02", "W09", paste0("W1", 1:6))
+
+
+falls <- c("W00", "W02", "W09", paste0("W1", 1:6))
 
 
 ### 6 - Define list of care homes to class as community ----

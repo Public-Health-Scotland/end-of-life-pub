@@ -19,6 +19,7 @@ source(here::here("code", "00_setup-environment_sam_IR.R"))
 source(here::here("functions", "sql_queries_IR.R"))
 source(here::here("functions", "completeness.R"))
 source(here::here("functions", "completeness_workaround.R"))
+source(here::here("functions", "summarise_data.R"))
 
 ### 2 - Open SMRA Connection ----
 
@@ -82,6 +83,15 @@ write_rds(smr01,
 write_rds(smr04,
           here("data", "extracts", glue("{pub_date}_smr04.rds")),
           compress = "gz")
+
+# Read in previous extracts to prevent having run queries during script updates/changes
+# deaths <- read_rds( 
+#           here("data", "extracts", glue("{pub_date}_deaths.rds")))
+# smr01 <- read_rds(
+#           here("data", "extracts", glue("{pub_date}_smr01.rds")))
+# smr04 <- read_rds(
+#           here("data", "extracts", glue("{pub_date}_smr04.rds")))
+# 
 
 
 ### 5 - Aggregate SMR data to CIS level ----
@@ -172,7 +182,8 @@ smr %<>%
   mutate(los = if_else(los == 183, 182.5, los))
 
 
-### 8 - Match on lookup files to deaths
+### 8 - Match on lookup files to deaths ----
+
 # Match on postcode, SIMD and locality information to the deaths data set
 
 deaths %<>%
@@ -182,7 +193,7 @@ deaths %<>%
   left_join(locality(), by = "datazone2011")
 
 
-### 9 - Create flags for specific Causes of Death groupings 
+### 9 - Create flags for specific Causes of Death groupings ----
 
 deaths_flags <- deaths %>%
   mutate(
@@ -214,28 +225,30 @@ deaths_flags <- deaths %>%
                                    ~any(grepl("^F0[1-3]|^G30", c(...)),
                                         na.rm = TRUE) * 1),
     
-    #accidental = purrr::pmap_dbl(select(., contains("cause_of_")),
-    #                               ~any(grepl("", c(...)),
-    #                                    na.rm = TRUE) * 1),
+    #Accidental/Falls label when creating output files
+    accidental = purrr::pmap_dbl(select(., contains("cause_of_")),
+                                   ~any(grepl("^W01|^W0[3-8]|^W10|^W1[7-9]", c(...)),
+                                        na.rm = TRUE) * 1),
     
     covid = purrr::pmap_dbl(select(., contains("cause_of_")),
-                                   ~any(grepl("^U07|^U09|^U10", c(...)),
+                                   ~any(grepl("^U071|^U072|^U099|^U109", c(...)),
                                         na.rm = TRUE) * 1),
     
   )
-  
 
 
-### 10 - Create final file
+### 10 - Create final basefile ----
 # Match on deaths data set to SMR by link number, keep required variables and save
 
-final <-
+final_ir <-
   
-  left_join(deaths, smr, by = "link_no") %>%
+  left_join(deaths_flags, smr, by = "link_no") %>%
   
   group_by(fy, quarter, hb, hbcode, ca, cacode, hscp, hscpcode,
            ca2018, hscp2018, locality, simd, simd_15, sex, age_grp, 
-           urban_rural, urban_rural_2) %>%
+           urban_rural, urban_rural_2, cancer,  circ_sys_dis, 
+           ischaemic, stroke, respiratory, copd, dementia,
+           accidental, covid) %>%
   
   summarise(los = sum(los, na.rm = TRUE),
             deaths = n()) %>%
@@ -243,18 +256,180 @@ final <-
   ungroup()
 
 
-write_rds(final, 
-          here("data", "basefiles", glue("{pub_date}_base-file.rds")),
+write_rds(final_ir, 
+          here("data", "basefiles", glue("{pub_date}_base-file_IR.rds")),
           compress = "gz")
 
 
-### 11 - Save completeness table
+### 11 - Create excel summaries ----
+basefile_IR <- final_ir %>%
+  mutate(cancer = as.character(cancer),
+         circ_sys_dis = as.character(circ_sys_dis),
+         ischaemic = as.character(ischaemic),
+         stroke = as.character(stroke),
+         respiratory = as.character(respiratory),
+         copd = as.character(copd),
+         dementia = as.character(dementia),
+         accidental = as.character(accidental),
+         covid = as.character(covid)
+         )
 
-completeness(end_date) %>%
-  write_rds(here("data", "extracts", glue("{pub_date}_completeness.rds")))
 
-# If the above doesn't work, try the alternative function (it search directly on beta.isdscotland.org instead of open data)
+# Add on extra ICD-10 groupings flags 
+excel_data_IR <-
+  
+  bind_rows(
+    
+    # Scotland level outputs for all financial years
+    basefile_IR %>%
+      summarise_data(category = "Scotland",
+                     category_split = "Scotland",
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Health Board output for all financial years, health board name the category split
+    basefile_IR %>%
+      summarise_data(category = "hb", 
+                     category_split = hb,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Council Area output for all financial years, council area name the category split
+    basefile_IR %>%
+      summarise_data(category = "ca", 
+                     category_split = ca,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # HSCP output with the HSCP names the category split, for all financial years
+    basefile_IR %>%
+      summarise_data(category = "hscp", 
+                     category_split = hscp,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Age/Sex output with a combination of the age group and sex as the category split, for all financial years
+    basefile_IR %>%
+      filter(!is.na(sex)) %>% 
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, sex),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # All Ages/Sex output with age groups combined to 'All ages' and sex defined as the category split for all financial years
+    basefile_IR %>%
+      filter(!is.na(sex)) %>%
+      summarise_data(category = "age/sex", 
+                     category_split = paste("All Ages", sex),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Age/All Sex output with the patient sex combined to 'Both' to have age group and both as category split, for all financial years
+    basefile_IR %>%
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, "Both"),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # All Ages/All Sex output with age groups combined to 'All ages' and gendr combined to 'Both' with All ages/Both as the category split
+    basefile_IR %>%
+      summarise_data(category = "age/sex",
+                     category_split = paste("All Ages", "Both"),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # SIMD quintile as the category, with SIMD 1-5 as the category split for all financial years
+    basefile_IR %>%
+      summarise_data(category = "simd quintile", 
+                     category_split = simd,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # SIMD Top 15% as the category with the top 15% most deprived and other 85% as the category split for all financial years
+    basefile_IR %>%
+      summarise_data(category = "simd 15", 
+                     category_split = simd_15,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Urban Rural 6 fold as the category and the 6 options being the category split, for all financial years
+    basefile_IR %>%
+      summarise_data(category = "urban rural 6", 
+                     category_split = urban_rural,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Urban Rural 2 fold as the category and the urban/rural option being the category split, for all financial years
+    basefile_IR %>%
+      summarise_data(category = "urban rural 2", 
+                     category_split = urban_rural_2,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Each of the specified ICD-10 groupings split, for all financial years 
+    basefile_IR %>%
+      summarise_data(category = "Cancer", 
+                     category_split = cancer,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Circulatory system diseases", 
+                     category_split = circ_sys_dis,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Ischaemic (coronary) heart disease", 
+                     category_split = ischaemic,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Cerebrovascular disease (stroke)",  
+                     category_split = stroke,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Respiratory Diseases", 
+                     category_split = respiratory,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Chronic Obstructive Pulmonary Disease", 
+                     category_split = copd,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Dementia and Alzheimer's disease", 
+                     category_split = dementia,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "Accidental deaths that occur within the home", 
+                     category_split = accidental,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR %>%
+      summarise_data(category = "COVID-19", 
+                     category_split = covid,
+                     include_years = "all",
+                     format_numbers = FALSE)
+    
+    
+    
 
-completeness_workaround()
+  )
 
-### END OF SCRIPT ###
+
+write_rds(excel_data_IR, 
+          here("data", "output", glue("{pub_date}_raw_excel_data_ir1.rds")),
+          compress = "gz")
+
+
+# ### END OF SCRIPT ###
