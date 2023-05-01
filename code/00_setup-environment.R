@@ -65,13 +65,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20220331)
+end_date   <- ymd(20230331)
 
 # Date of publication
-pub_date <- ymd(20221004)
+pub_date <- ymd(20231003)
 
 # Date of last publication
-last_pub_date <- ymd(20211005)
+last_pub_date <- ymd(20221004)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -154,8 +154,8 @@ postcode <- function(version =""){
   clean_names() %>%
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
-         hscp2019, hscp2019name, hscp2018, ur6_2016_name, 
-         ur2_2016_name, datazone2011) %>%
+         hscp2019, hscp2019name, hscp2018, ur6_2020_name, 
+         ur2_2020_name, datazone2011) %>%
     
   rename(hb = hb2019name,
          hbcode = hb2019,
@@ -163,15 +163,15 @@ postcode <- function(version =""){
          hscpcode = hscp2019,
          ca = ca2019name,
          cacode = ca2019,
-         urban_rural = ur6_2016_name,
-         urban_rural_2 = ur2_2016_name)
+         urban_rural = ur6_2020_name,
+         urban_rural_2 = ur2_2020_name)
 
 }
             
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2022_1_simd2020v2.rds")) %>%
+                "postcode_2023_1_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
