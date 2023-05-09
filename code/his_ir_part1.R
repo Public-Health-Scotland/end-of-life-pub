@@ -263,17 +263,9 @@ write_rds(final_ir,
 
 ### 11 - Create excel summaries ----
 basefile_IR <- final_ir %>%
-  mutate(cancer = as.character(cancer),
-         circ_sys_dis = as.character(circ_sys_dis),
-         ischaemic = as.character(ischaemic),
-         stroke = as.character(stroke),
-         respiratory = as.character(respiratory),
-         copd = as.character(copd),
-         dementia = as.character(dementia),
-         accidental = as.character(accidental),
-         covid = as.character(covid)
-         )
+  mutate_at(vars(cancer:covid), as.character) 
 
+rm(final_ir)
 
 # Add on extra ICD-10 groupings flags 
 excel_data_IR <-
@@ -424,12 +416,100 @@ excel_data_IR <-
     
     
 
-  )
+  ) %>%
+  
+  mutate(qom = round(qom, digits = 1))
 
 
 write_rds(excel_data_IR, 
-          here("data", "output", glue("{pub_date}_raw_excel_data_ir1.rds")),
+          here("output", glue("{pub_date}_raw_excel_data_ir1.rds")),
           compress = "gz")
 
+#### Create excel output
 
+hb_split <- excel_data_IR %>%
+  filter(category %in% c("Scotland", "hb")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(Healthboard = category_split)
+
+ca_split <- excel_data_IR %>%
+  filter(category %in% c("Scotland", "ca")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(`Council Area` = category_split)
+
+hscp_split <- excel_data_IR %>%
+  filter(category %in% c("Scotland", "hscp")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(HSCP = category_split)
+
+age_sex_split <- hscp_split <- excel_data_IR %>%
+  filter(category %in% c("age/sex")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(Age_Sex = category_split)
+
+simd_split <- excel_data_IR %>%
+  filter(category %in% c("simd quintile")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(SIMD = category_split)
+
+ur_split <- excel_data_IR %>%
+  filter(category %in% c("urban rural 6")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(`Urban Rural` = category_split)
+
+icd10_split <- excel_data_IR %>% 
+  filter(category %in% c("Cancer", "Circulatory system diseases",
+                         "Ischaemic (coronary) heart disease",
+                         "Cerebrovascular disease (stroke)", "Respiratory Diseases",
+                         "Chronic Obstructive Pulmonary Disease", 
+                         "Dementia and Alzheimer's disease", 
+                         "Accidental deaths that occur within the home",
+                         "COVID-19"
+                         )) %>%
+  filter(category_split == 1) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category) %>%
+  rename(`ICD-10 Grouping` = category)
+
+# Create empty workbook and worksheets
+
+output_ir <- createWorkbook()
+
+addWorksheet(output_ir, "Healthboard")
+addWorksheet(output_ir, "Council Area")
+addWorksheet(output_ir, "Age & Gender")
+addWorksheet(output_ir, "HSCP")
+addWorksheet(output_ir, "SIMD")
+addWorksheet(output_ir, "Urban Rural")
+addWorksheet(output_ir, "ICD-10 Groupings")
+
+# Add each split data in to tabs in the workbook 
+
+writeData(output_ir, "Healthboard", x = hb_split)
+writeData(output_ir, "Council Area", x = ca_split)
+writeData(output_ir, "Age & Gender", x = age_sex_split)
+writeData(output_ir, "HSCP", x = hscp_split)
+writeData(output_ir, "SIMD", x = simd_split)
+writeData(output_ir, "Urban Rural", x = ur_split)
+writeData(output_ir, "ICD-10 Groupings", x = icd10_split)
+
+
+#Save out excel workbook 
+
+saveWorkbook(output_ir,
+             here("output", glue("{pub_date}_his_ir_qom.xlsx")),
+             overwrite = TRUE)
 # ### END OF SCRIPT ###

@@ -34,7 +34,6 @@ class(link) <- "hyperlink"
 basefile <- read_rds(here("data", "basefiles", 
                           glue("{pub_date}_base-file.rds")))
 
-
 ### 4 - Restructure for QoM table ----
 
 # Restructure basefile into multiple different excel outputs to populate the qom table
