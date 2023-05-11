@@ -121,12 +121,11 @@ if(!fs::is_dir(here::here("data", "open-data", pub_date))){
 
 external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
               paste0("W", 20:99),
+              "W00", "W02", "W09", paste0("W1", 1:6),
               paste0("X", 0, 0:9), paste0("X", 10:99),
               paste0("Y", 0, 0:9), paste0("Y", 10:84))
 
-
-
-falls <- c("W00", "W02", "W09", paste0("W1", 1:6))
+falls <- c("W01", paste0("W0", 3:8), "W10", paste0("W1", 7:9))
 
 
 ### 6 - Define list of care homes to class as community ----

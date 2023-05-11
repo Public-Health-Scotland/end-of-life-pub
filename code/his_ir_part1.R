@@ -17,9 +17,9 @@
 
 source(here::here("code", "00_setup-environment_sam_IR.R"))
 source(here::here("functions", "sql_queries_IR.R"))
-source(here::here("functions", "completeness.R"))
-source(here::here("functions", "completeness_workaround.R"))
-source(here::here("functions", "summarise_data.R"))
+#source(here::here("functions", "completeness.R"))
+#source(here::here("functions", "completeness_workaround.R"))
+source(here::here("functions", "summarise_data_IR.R"))
 
 ### 2 - Open SMRA Connection ----
 
