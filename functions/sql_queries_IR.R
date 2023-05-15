@@ -158,7 +158,7 @@ deaths_query_full <- function(extract_start, extract_end,
                          external_causes, falls){
   
   glue("select link_no, date_of_death, postcode, underlying_cause_of_death,
-       cause_of_death_code_1, cause_of_death_code_2, cause_of_death_code_3,
+       cause_of_death_code_0, cause_of_death_code_1, cause_of_death_code_2, cause_of_death_code_3,
        cause_of_death_code_4, cause_of_death_code_5, cause_of_death_code_6, 
        cause_of_death_code_7, cause_of_death_code_8, cause_of_death_code_9, ",
        
@@ -432,6 +432,8 @@ smr01_query <- function(extract_start, extract_end,
   )
   
 }
+
+
 
 
 ### 3 - SMR04 query ----
