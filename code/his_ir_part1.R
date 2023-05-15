@@ -506,7 +506,7 @@ writeData(output_ir, "SIMD", x = simd_split)
 writeData(output_ir, "Urban Rural", x = ur_split)
 writeData(output_ir, "ICD-10 Groupings", x = icd10_split)
 
-
+ 
 #Save out excel workbook 
 
 saveWorkbook(output_ir,
