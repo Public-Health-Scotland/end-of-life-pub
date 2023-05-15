@@ -448,7 +448,7 @@ hscp_split <- excel_data_IR %>%
               id_cols = category_split) %>%
   rename(HSCP = category_split)
 
-age_sex_split <- hscp_split <- excel_data_IR %>%
+age_sex_split <- excel_data_IR %>%
   filter(category %in% c("age/sex")) %>%
   pivot_wider(values_from = qom,
               names_from = fy,
