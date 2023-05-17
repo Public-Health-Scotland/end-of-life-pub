@@ -1,11 +1,11 @@
 #########################################################################
-# Name of file - 01_create-basefile.R
-# Data release - End of Life Publication
-# Original Authors - Alice Byers
-# Orginal Date - September 2019 Sissi
+# Name of file - 01_create-basefile.R / his_ir_part2.R
+# Data release - End of Life Publication / HIS IR2023-00329 part1 / HIS IR2023-00364 part2
+# Original Authors - Alice Byers / Sam Colville part1 / Sissi Pizzo part2
+# Orginal Date - September 2019 / May 2023 part1 and part2
 #
-# Written/run on - RStudio Server
-# Version of R - 3.2.3
+# Written/run on - RStudio Server / Posit
+# Version of R - 3.2.3 / 4.1.2
 #
 # Description - Create base file.
 #
@@ -17,8 +17,8 @@
 
 source(here::here("code", "00_setup-environment_sam_IR.R"))
 source(here::here("functions", "sql_queries_IR.R"))
-#source(here::here("functions", "completeness.R"))
-#source(here::here("functions", "completeness_workaround.R"))
+#source(here::here("functions", "completeness.R"))            # No need of this for this request
+#source(here::here("functions", "completeness_workaround.R")) # No need of this for this request
 source(here::here("functions", "summarise_data_IR.R"))
 
 ### 2 - Open SMRA Connection ----
