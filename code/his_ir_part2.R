@@ -12,11 +12,10 @@
 # Approximate run time - xx minutes
 #########################################################################
 
-
 ### 1 - Setup environment and load functions ----
 
-source(here::here("code", "00_setup-environment_sam_IR.R"))
-source(here::here("functions", "sql_queries_IR.R"))
+source(here::here("code", "00_setup-environment_ir_part2.R"))
+source(here::here("functions", "sql_queries_ir_part2.R"))
 #source(here::here("functions", "completeness.R"))            # No need of this for this request
 #source(here::here("functions", "completeness_workaround.R")) # No need of this for this request
 source(here::here("functions", "summarise_data_IR.R"))
@@ -149,16 +148,16 @@ smr <-
 
 smr %<>%
   
-  # Calculate date six months before death
+  # Calculate date twelve months before death
   mutate(twelve_months = date_of_death - days(365)) %>%
   
-  # For stays spanning this date, fix admission date to six months before death
+  # For stays spanning this date, fix admission date to twelve months before death
   mutate(admission_date = if_else(admission_date < twelve_months & 
                                     discharge_date >= twelve_months,
                                   twelve_months,
                                   admission_date)) %>%
   
-  # Select only stays within last six months of life
+  # Select only stays within last twelve months of life
   filter(admission_date >= twelve_months) %>%
   
   # Remove records where admission date is after date of death
