@@ -191,6 +191,38 @@ deaths %<>%
   left_join(simd(), by = c("postcode" = "pc7")) %>%
   left_join(locality(), by = "datazone2011")
 
+private  <- c("G412V", "G502V", "L330V", "S124V")
+
+other  <- c("G585C", "N693C", "V205C", "Y177C", "S142V")
+
+comm_hosp <- function(){
+  
+  haven::read_sav(glue("/conf/irf/03-Integration-Indicators/02-MSG/",
+                       "01-Data/05-EoL - Community Hospital Lookup/",
+                       "HospTypesComm.sav")) %>%
+    
+    clean_names()
+  
+}
+
+deaths %<>%
+  
+  mutate(location_death = case_when(
+    #Specific Codes
+    institution == "G588C" ~ "Hospital",
+    
+    # Hospital
+    institution %in% comm_hosp() ~ "Hospital",
+    substr(institution, 5, 5) %in% c("H") ~ "Hospital",
+    institution %in% private ~ "Hospital",
+    
+    # Home & Other
+    institution == "D201N" ~ "Home",
+    institution == "d201n" ~ "Home",
+    institution  %in% other ~ "Other",
+    TRUE ~ "Other"
+    
+  ))
 
 ### 9 - Create flags for specific Causes of Death groupings ----
 
@@ -245,7 +277,7 @@ final_ir <-
   
   group_by(fy, quarter, hb, hbcode, ca, cacode, hscp, hscpcode,
            ca2018, hscp2018, locality, simd, simd_15, sex, age_grp, 
-           urban_rural, urban_rural_2, cancer,  circ_sys_dis, 
+           urban_rural, urban_rural_2, location_death, cancer,  circ_sys_dis, 
            ischaemic, stroke, respiratory, copd, dementia,
            accidental, covid) %>%
   
