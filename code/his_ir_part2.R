@@ -261,11 +261,18 @@ deaths_flags <- deaths %>%
                                    ~any(grepl("^W01|^W0[3-8]|^W10|^W1[7-9]", c(...)),
                                         na.rm = TRUE) * 1),
     
+    alcohol = purrr::pmap_dbl(select(., contains("cause_of_")),
+                              ~any(grepl("^E244|^F10|^G312|^G621|^G721|^I426|^K292|^K70|^K852|^K860|^Q860|^R780|^X45|^X65|^Y15", c(...)),
+                                   na.rm = TRUE) * 1),
+    
+    drug = purrr::pmap_dbl(select(., contains("cause_of_")),
+                           ~any(grepl("F1[1-6]|^F19|^X4[0-4]|^X6[0-4]|^X85|^Y1[0-4]", c(...)),
+                                na.rm = TRUE) * 1),
+    
     covid = purrr::pmap_dbl(select(., contains("cause_of_")),
                                    ~any(grepl("^U071|^U072|^U099|^U109", c(...)),
                                         na.rm = TRUE) * 1),
-    
-  )
+      )
 
 
 ### 10 - Create final basefile ----
@@ -277,9 +284,9 @@ final_ir <-
   
   group_by(fy, quarter, hb, hbcode, ca, cacode, hscp, hscpcode,
            ca2018, hscp2018, locality, simd, simd_15, sex, age_grp, 
-           urban_rural, urban_rural_2, location_death, cancer,  circ_sys_dis, 
+           urban_rural, urban_rural_2, location_death, cancer, circ_sys_dis, 
            ischaemic, stroke, respiratory, copd, dementia,
-           accidental, covid) %>%
+           accidental, alcohol, drug, covid) %>%
   
   summarise(los = sum(los, na.rm = TRUE),
             deaths = n()) %>%
@@ -288,7 +295,7 @@ final_ir <-
 
 
 write_rds(final_ir, 
-          here("data", "basefiles", glue("{pub_date}_base-file_IR.rds")),
+          here("data", "basefiles", glue("{pub_date}_base-file_IR_part2.rds")),
           compress = "gz")
 
 
@@ -298,41 +305,37 @@ basefile_IR <- final_ir %>%
 
 rm(final_ir)
 
+basefile_IR_hosp <- basefile_IR %>% 
+  filter(location_death == 'Hospital')
+
 # Add on extra ICD-10 groupings flags 
 excel_data_IR <-
   
   bind_rows(
     
     # Scotland level outputs for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Scotland",
                      category_split = "Scotland",
                      include_years = "all",
                      format_numbers = FALSE),
     
     # Health Board output for all financial years, health board name the category split
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "hb", 
                      category_split = hb,
                      include_years = "all",
                      format_numbers = FALSE),
     
     # Council Area output for all financial years, council area name the category split
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "ca", 
                      category_split = ca,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    # HSCP output with the HSCP names the category split, for all financial years
-    basefile_IR %>%
-      summarise_data(category = "hscp", 
-                     category_split = hscp,
-                     include_years = "all",
-                     format_numbers = FALSE),
-    
     # Age/Sex output with a combination of the age group and sex as the category split, for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       filter(!is.na(sex)) %>% 
       summarise_data(category = "age/sex", 
                      category_split = paste(age_grp, sex),
@@ -340,7 +343,7 @@ excel_data_IR <-
                      format_numbers = FALSE),
     
     # All Ages/Sex output with age groups combined to 'All ages' and sex defined as the category split for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       filter(!is.na(sex)) %>%
       summarise_data(category = "age/sex", 
                      category_split = paste("All Ages", sex),
@@ -348,97 +351,95 @@ excel_data_IR <-
                      format_numbers = FALSE),
     
     # Age/All Sex output with the patient sex combined to 'Both' to have age group and both as category split, for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "age/sex", 
                      category_split = paste(age_grp, "Both"),
                      include_years = "all",
                      format_numbers = FALSE),
     
     # All Ages/All Sex output with age groups combined to 'All ages' and gendr combined to 'Both' with All ages/Both as the category split
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "age/sex",
                      category_split = paste("All Ages", "Both"),
                      include_years = "all",
                      format_numbers = FALSE),
     
     # SIMD quintile as the category, with SIMD 1-5 as the category split for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "simd quintile", 
                      category_split = simd,
                      include_years = "all",
                      format_numbers = FALSE),
     
     # SIMD Top 15% as the category with the top 15% most deprived and other 85% as the category split for all financial years
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "simd 15", 
                      category_split = simd_15,
                      include_years = "all",
                      format_numbers = FALSE),
-    
-    # Urban Rural 6 fold as the category and the 6 options being the category split, for all financial years
-    basefile_IR %>%
-      summarise_data(category = "urban rural 6", 
-                     category_split = urban_rural,
-                     include_years = "all",
-                     format_numbers = FALSE),
-    
-    # Urban Rural 2 fold as the category and the urban/rural option being the category split, for all financial years
-    basefile_IR %>%
-      summarise_data(category = "urban rural 2", 
-                     category_split = urban_rural_2,
-                     include_years = "all",
-                     format_numbers = FALSE),
-    
+
     # Each of the specified ICD-10 groupings split, for all financial years 
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Cancer", 
                      category_split = cancer,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Circulatory system diseases", 
                      category_split = circ_sys_dis,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Ischaemic (coronary) heart disease", 
                      category_split = ischaemic,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Cerebrovascular disease (stroke)",  
                      category_split = stroke,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Respiratory Diseases", 
                      category_split = respiratory,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Chronic Obstructive Pulmonary Disease", 
                      category_split = copd,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Dementia and Alzheimer's disease", 
                      category_split = dementia,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
       summarise_data(category = "Accidental deaths that occur within the home", 
                      category_split = accidental,
                      include_years = "all",
                      format_numbers = FALSE),
     
-    basefile_IR %>%
+    basefile_IR_hosp %>%
+      summarise_data(category = "Alcohol-specific", 
+                     category_split = alcohol,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_hosp %>%
+      summarise_data(category = "Drug", 
+                     category_split = drug,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_hosp %>%
       summarise_data(category = "COVID-19", 
                      category_split = covid,
                      include_years = "all",
@@ -452,8 +453,8 @@ excel_data_IR <-
   mutate(qom = round(qom, digits = 1))
 
 
-write_rds(excel_data_IR, 
-          here("output", glue("{pub_date}_raw_excel_data_ir1.rds")),
+write_rds(excel_data_IR_hosp, 
+          here("output", glue("{pub_date}_raw_excel_data_ir_part2_hosp.rds")),
           compress = "gz")
 
 #### Create excel output
