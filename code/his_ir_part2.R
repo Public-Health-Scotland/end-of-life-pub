@@ -299,7 +299,8 @@ write_rds(final_ir,
           compress = "gz")
 
 
-### 11 - Create excel summaries ----
+### 11 - Create excel summaries for hospital and other location of death ----
+
 basefile_IR <- final_ir %>%
   mutate_at(vars(cancer:covid), as.character) 
 
@@ -308,8 +309,13 @@ rm(final_ir)
 basefile_IR_hosp <- basefile_IR %>% 
   filter(location_death == 'Hospital')
 
-# Add on extra ICD-10 groupings flags 
-excel_data_IR <-
+basefile_IR_other <- basefile_IR %>% 
+  filter(location_death == 'Other')
+
+
+# For the hospital setting add on extra ICD-10 groupings flags
+
+excel_data_IR_hosp <-
   
   bind_rows(
     
@@ -457,57 +463,194 @@ write_rds(excel_data_IR_hosp,
           here("output", glue("{pub_date}_raw_excel_data_ir_part2_hosp.rds")),
           compress = "gz")
 
-#### Create excel output
+# For the Other setting add on extra ICD-10 groupings flags
 
-hb_split <- excel_data_IR %>%
+excel_data_IR_other <-
+  
+  bind_rows(
+    
+    # Scotland level outputs for all financial years
+    basefile_IR_other %>%
+      summarise_data(category = "Scotland",
+                     category_split = "Scotland",
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Health Board output for all financial years, health board name the category split
+    basefile_IR_other %>%
+      summarise_data(category = "hb", 
+                     category_split = hb,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Council Area output for all financial years, council area name the category split
+    basefile_IR_other %>%
+      summarise_data(category = "ca", 
+                     category_split = ca,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Age/Sex output with a combination of the age group and sex as the category split, for all financial years
+    basefile_IR_other %>%
+      filter(!is.na(sex)) %>% 
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, sex),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # All Ages/Sex output with age groups combined to 'All ages' and sex defined as the category split for all financial years
+    basefile_IR_other %>%
+      filter(!is.na(sex)) %>%
+      summarise_data(category = "age/sex", 
+                     category_split = paste("All Ages", sex),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Age/All Sex output with the patient sex combined to 'Both' to have age group and both as category split, for all financial years
+    basefile_IR_other %>%
+      summarise_data(category = "age/sex", 
+                     category_split = paste(age_grp, "Both"),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # All Ages/All Sex output with age groups combined to 'All ages' and gendr combined to 'Both' with All ages/Both as the category split
+    basefile_IR_other %>%
+      summarise_data(category = "age/sex",
+                     category_split = paste("All Ages", "Both"),
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # SIMD quintile as the category, with SIMD 1-5 as the category split for all financial years
+    basefile_IR_other %>%
+      summarise_data(category = "simd quintile", 
+                     category_split = simd,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # SIMD Top 15% as the category with the top 15% most deprived and other 85% as the category split for all financial years
+    basefile_IR_other %>%
+      summarise_data(category = "simd 15", 
+                     category_split = simd_15,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    # Each of the specified ICD-10 groupings split, for all financial years 
+    basefile_IR_other %>%
+      summarise_data(category = "Cancer", 
+                     category_split = cancer,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Circulatory system diseases", 
+                     category_split = circ_sys_dis,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Ischaemic (coronary) heart disease", 
+                     category_split = ischaemic,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Cerebrovascular disease (stroke)",  
+                     category_split = stroke,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Respiratory Diseases", 
+                     category_split = respiratory,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Chronic Obstructive Pulmonary Disease", 
+                     category_split = copd,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Dementia and Alzheimer's disease", 
+                     category_split = dementia,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Accidental deaths that occur within the home", 
+                     category_split = accidental,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Alcohol-specific", 
+                     category_split = alcohol,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "Drug", 
+                     category_split = drug,
+                     include_years = "all",
+                     format_numbers = FALSE),
+    
+    basefile_IR_other %>%
+      summarise_data(category = "COVID-19", 
+                     category_split = covid,
+                     include_years = "all",
+                     format_numbers = FALSE)
+    
+    
+    
+    
+  ) %>%
+  
+  mutate(qom = round(qom, digits = 1))
+
+
+write_rds(excel_data_IR_other, 
+          here("output", glue("{pub_date}_raw_excel_data_ir_part2_other.rds")),
+          compress = "gz")
+
+
+#### Create excel output for Hospital
+
+hb_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("Scotland", "hb")) %>%
   pivot_wider(values_from = qom,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Healthboard = category_split)
 
-ca_split <- excel_data_IR %>%
+ca_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("Scotland", "ca")) %>%
   pivot_wider(values_from = qom,
               names_from = fy,
               id_cols = category_split) %>%
   rename(`Council Area` = category_split)
 
-hscp_split <- excel_data_IR %>%
-  filter(category %in% c("Scotland", "hscp")) %>%
-  pivot_wider(values_from = qom,
-              names_from = fy,
-              id_cols = category_split) %>%
-  rename(HSCP = category_split)
-
-age_sex_split <- excel_data_IR %>%
+age_sex_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("age/sex")) %>%
   pivot_wider(values_from = qom,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Age_Sex = category_split)
 
-simd_split <- excel_data_IR %>%
+simd_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("simd quintile")) %>%
   pivot_wider(values_from = qom,
               names_from = fy,
               id_cols = category_split) %>%
   rename(SIMD = category_split)
 
-ur_split <- excel_data_IR %>%
-  filter(category %in% c("urban rural 6")) %>%
-  pivot_wider(values_from = qom,
-              names_from = fy,
-              id_cols = category_split) %>%
-  rename(`Urban Rural` = category_split)
-
-icd10_split <- excel_data_IR %>% 
+icd10_split_hosp <- excel_data_IR_hosp %>% 
   filter(category %in% c("Cancer", "Circulatory system diseases",
                          "Ischaemic (coronary) heart disease",
                          "Cerebrovascular disease (stroke)", "Respiratory Diseases",
                          "Chronic Obstructive Pulmonary Disease", 
                          "Dementia and Alzheimer's disease", 
-                         "Accidental deaths that occur within the home",
+                         "Accidental deaths that occur within the home", "Alcohol-specific", "Drug",
                          "COVID-19"
                          )) %>%
   filter(category_split == 1) %>%
@@ -516,32 +659,102 @@ icd10_split <- excel_data_IR %>%
               id_cols = category) %>%
   rename(`ICD-10 Grouping` = category)
 
-# Create empty workbook and worksheets
+# Create empty workbook and worksheets - Hospital
 
-output_ir <- createWorkbook()
+output_ir_hosp <- createWorkbook()
 
-addWorksheet(output_ir, "Healthboard")
-addWorksheet(output_ir, "Council Area")
-addWorksheet(output_ir, "Age & Gender")
-addWorksheet(output_ir, "HSCP")
-addWorksheet(output_ir, "SIMD")
-addWorksheet(output_ir, "Urban Rural")
-addWorksheet(output_ir, "ICD-10 Groupings")
+addWorksheet(output_ir_hosp, "Healthboard")
+addWorksheet(output_ir_hosp, "Council Area")
+addWorksheet(output_ir_hosp, "Age & Gender")
+addWorksheet(output_ir_hosp, "SIMD")
+addWorksheet(output_ir_hosp, "ICD-10 Groupings")
 
-# Add each split data in to tabs in the workbook 
+# Add each split data in to tabs in the workbook - Hospital
 
-writeData(output_ir, "Healthboard", x = hb_split)
-writeData(output_ir, "Council Area", x = ca_split)
-writeData(output_ir, "Age & Gender", x = age_sex_split)
-writeData(output_ir, "HSCP", x = hscp_split)
-writeData(output_ir, "SIMD", x = simd_split)
-writeData(output_ir, "Urban Rural", x = ur_split)
-writeData(output_ir, "ICD-10 Groupings", x = icd10_split)
+writeData(output_ir_hosp, "Healthboard", x = hb_split_hosp)
+writeData(output_ir_hosp, "Council Area", x = ca_split_hosp)
+writeData(output_ir_hosp, "Age & Gender", x = age_sex_split_hosp)
+writeData(output_ir_hosp, "SIMD", x = simd_split_hosp)
+writeData(output_ir_hosp, "ICD-10 Groupings", x = icd10_split_hosp)
 
  
-#Save out excel workbook 
+#Save out excel workbook - Hospital
 
-saveWorkbook(output_ir,
-             here("output", glue("{pub_date}_his_ir_qom.xlsx")),
+saveWorkbook(output_ir_hosp,
+             here("output", glue("{pub_date}_his_ir_qom_hosp.xlsx")),
              overwrite = TRUE)
+
+
+
+#### Create excel output for Other 
+
+hb_split_other <- excel_data_IR_other %>%
+  filter(category %in% c("Scotland", "hb")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(Healthboard = category_split)
+
+ca_split_other <- excel_data_IR_other %>%
+  filter(category %in% c("Scotland", "ca")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(`Council Area` = category_split)
+
+age_sex_split_other <- excel_data_IR_other %>%
+  filter(category %in% c("age/sex")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(Age_Sex = category_split)
+
+simd_split_other <- excel_data_IR_other %>%
+  filter(category %in% c("simd quintile")) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category_split) %>%
+  rename(SIMD = category_split)
+
+icd10_split_other <- excel_data_IR_other %>% 
+  filter(category %in% c("Cancer", "Circulatory system diseases",
+                         "Ischaemic (coronary) heart disease",
+                         "Cerebrovascular disease (stroke)", "Respiratory Diseases",
+                         "Chronic Obstructive Pulmonary Disease", 
+                         "Dementia and Alzheimer's disease", 
+                         "Accidental deaths that occur within the home", "Alcohol-specific", "Drug",
+                         "COVID-19"
+  )) %>%
+  filter(category_split == 1) %>%
+  pivot_wider(values_from = qom,
+              names_from = fy,
+              id_cols = category) %>%
+  rename(`ICD-10 Grouping` = category)
+
+# Create empty workbook and worksheets - Other
+
+output_ir_other <- createWorkbook()
+
+addWorksheet(output_ir_other, "Healthboard")
+addWorksheet(output_ir_other, "Council Area")
+addWorksheet(output_ir_other, "Age & Gender")
+addWorksheet(output_ir_other, "SIMD")
+addWorksheet(output_ir_other, "ICD-10 Groupings")
+
+# Add each split data in to tabs in the workbook - Other
+
+writeData(output_ir_other, "Healthboard", x = hb_split_other)
+writeData(output_ir_other, "Council Area", x = ca_split_other)
+writeData(output_ir_other, "Age & Gender", x = age_sex_split_other)
+writeData(output_ir_other, "SIMD", x = simd_split_other)
+writeData(output_ir_other, "ICD-10 Groupings", x = icd10_split_other)
+
+
+# Save out excel workbook - Other
+
+saveWorkbook(output_ir_other,
+             here("output", glue("{pub_date}_his_ir_qom_other.xlsx")),
+             overwrite = TRUE)
+
+
 # ### END OF SCRIPT ###
