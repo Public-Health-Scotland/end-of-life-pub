@@ -618,28 +618,28 @@ write_rds(excel_data_IR_other,
 
 hb_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("Scotland", "hb")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Healthboard = category_split)
 
 ca_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("Scotland", "ca")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(`Council Area` = category_split)
 
 age_sex_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("age/sex")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Age_Sex = category_split)
 
 simd_split_hosp <- excel_data_IR_hosp %>%
   filter(category %in% c("simd quintile")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(SIMD = category_split)
@@ -654,7 +654,7 @@ icd10_split_hosp <- excel_data_IR_hosp %>%
                          "COVID-19"
                          )) %>%
   filter(category_split == 1) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category) %>%
   rename(`ICD-10 Grouping` = category)
@@ -686,32 +686,32 @@ saveWorkbook(output_ir_hosp,
 
 
 
-#### Create excel output for Other 
+#### Create excel output for Other - NOTE THAT UNLESS I CHANGE THE FUNCTION'summarise_data_IR', THE VAR qom_hosp CONTAINS VALUES FOR 'qom Other'
 
 hb_split_other <- excel_data_IR_other %>%
   filter(category %in% c("Scotland", "hb")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Healthboard = category_split)
 
 ca_split_other <- excel_data_IR_other %>%
   filter(category %in% c("Scotland", "ca")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(`Council Area` = category_split)
 
 age_sex_split_other <- excel_data_IR_other %>%
   filter(category %in% c("age/sex")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(Age_Sex = category_split)
 
 simd_split_other <- excel_data_IR_other %>%
   filter(category %in% c("simd quintile")) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category_split) %>%
   rename(SIMD = category_split)
@@ -726,7 +726,7 @@ icd10_split_other <- excel_data_IR_other %>%
                          "COVID-19"
   )) %>%
   filter(category_split == 1) %>%
-  pivot_wider(values_from = qom,
+  pivot_wider(values_from = qom_hosp,
               names_from = fy,
               id_cols = category) %>%
   rename(`ICD-10 Grouping` = category)
