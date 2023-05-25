@@ -191,34 +191,17 @@ deaths %<>%
   left_join(simd(), by = c("postcode" = "pc7")) %>%
   left_join(locality(), by = "datazone2011")
 
-private  <- c("G412V", "G502V", "L330V", "S124V")
-
-other  <- c("G585C", "N693C", "V205C", "Y177C", "S142V")
-
-comm_hosp <- function(){
-  
-  haven::read_sav(glue("/conf/irf/03-Integration-Indicators/02-MSG/",
-                       "01-Data/05-EoL - Community Hospital Lookup/",
-                       "HospTypesComm.sav")) %>%
-    
-    clean_names()
-  
-}
-
 deaths %<>%
   
   mutate(location_death = case_when(
     #Specific Codes
-    institution == "G588C" ~ "Hospital",
+    institution == "G588C" | institution %in% comm_hosp()$location |
+      substr(institution, 5, 5) == "H" | institution %in% private ~ "Hospital",
+  
+    # Home
+    institution %in% c("D201N", "d201n") ~ "Home",
     
-    # Hospital
-    institution %in% comm_hosp() ~ "Hospital",
-    substr(institution, 5, 5) %in% c("H") ~ "Hospital",
-    institution %in% private ~ "Hospital",
-    
-    # Home & Other
-    institution == "D201N" ~ "Home",
-    institution == "d201n" ~ "Home",
+    # Other
     institution  %in% other ~ "Other",
     TRUE ~ "Other"
     
@@ -274,7 +257,7 @@ deaths_flags <- deaths %>%
                                         na.rm = TRUE) * 1),
       )
 
-
+underlying_flags <- as.data.frame(table(deaths_flags$underlying_cause_of_death))
 ### 10 - Create final basefile ----
 # Match on deaths data set to SMR by link number, keep required variables and save
 

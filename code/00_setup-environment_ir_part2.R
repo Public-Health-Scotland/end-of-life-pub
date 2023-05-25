@@ -122,8 +122,9 @@ if(!fs::is_dir(here::here("data", "open-data", pub_date))){
 external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
               paste0("W", 20:99),
               "W00", "W02", "W09", paste0("W1", 1:6),
-              paste0("X", 0, 0:9), paste0("X", 10:99),
-              paste0("Y", 0, 0:9), paste0("Y", 10:84))
+              paste0("X", 0, 0:9), paste0("X", 10:39),
+              paste0("X", 46:59), paste0("X", 66:84), paste0("X", 86:99),
+              paste0("Y", 0, 0:9), paste0("Y", 16:84))
 
 falls <- c("W01", paste0("W0", 3:8), "W10", paste0("W1", 7:9))
 
@@ -136,6 +137,9 @@ care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V",
                 "S327V", "T315S", "T337V", "Y121V")
 
 other <- c("G585C", "N693C", "V205C", "Y177C", "S142V")
+
+private  <- c("G412V", "G502V", "L330V", "S124V")
+
 
 ### 7 - Read in lookup files ----
 # Read in postcode, SIMD and locality lookup files, keep only relevant variables
@@ -216,6 +220,18 @@ shapefile <- function(){
           "SG_NHS_HealthBoards_2019")
   
 }
+
+
+comm_hosp <- function(){
+  
+  haven::read_sav(glue("/conf/irf/03-Integration-Indicators/02-MSG/",
+                       "01-Data/05-EoL - Community Hospital Lookup/",
+                       "HospTypesComm.sav")) %>%
+    
+    clean_names()
+  
+}
+
 
 
 ### END OF SCRIPT ###
