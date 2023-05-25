@@ -249,7 +249,7 @@ deaths_flags <- deaths %>%
                                    na.rm = TRUE) * 1),
     
     drug = purrr::pmap_dbl(select(., contains("cause_of_")),
-                           ~any(grepl("F1[1-6]|^F19|^X4[0-4]|^X6[0-4]|^X85|^Y1[0-4]", c(...)),
+                           ~any(grepl("^F1[1-6]|^F19|^X4[0-4]|^X6[0-4]|^X85|^Y1[0-4]", c(...)),
                                 na.rm = TRUE) * 1),
     
     covid = purrr::pmap_dbl(select(., contains("cause_of_")),
