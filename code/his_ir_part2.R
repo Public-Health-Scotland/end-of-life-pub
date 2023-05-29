@@ -202,9 +202,7 @@ deaths %<>%
     institution %in% c("D201N", "d201n") ~ "Home",
     
     # Other
-    institution  %in% other ~ "Other",
     TRUE ~ "Other"
-    
   ))
 
 ### 9 - Create flags for specific Causes of Death groupings ----
