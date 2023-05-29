@@ -257,7 +257,7 @@ deaths_flags <- deaths %>%
                                         na.rm = TRUE) * 1),
       )
 
-underlying_flags <- as.data.frame(table(deaths_flags$underlying_cause_of_death))
+
 ### 10 - Create final basefile ----
 # Match on deaths data set to SMR by link number, keep required variables and save
 
