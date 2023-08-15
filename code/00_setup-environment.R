@@ -198,7 +198,7 @@ simd     <- function(){
 locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
-                "HSCP Localities_DZ11_Lookup_20220630.rds")) %>%
+                "HSCP Localities_DZ11_Lookup_20230804.rds")) %>%
   
   clean_names() %>%
   
