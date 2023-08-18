@@ -14,6 +14,7 @@
 # Approximate run time - 60 minutes
 #########################################################################
 
+
 ### 1 - Load packages ----
 # If any of the below packages don't run, install will be required using install.packages("")
 
@@ -68,7 +69,7 @@ filepath <- dplyr::if_else(platform == "server",
 end_date   <- ymd(20230331)
 
 # Date of publication
-pub_date <- ymd(20231003)
+pub_date <- ymd(20231010)
 
 # Date of last publication
 last_pub_date <- ymd(20221004)
@@ -197,7 +198,7 @@ simd     <- function(){
 locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
-                "HSCP Localities_DZ11_Lookup_20220630.rds")) %>%
+                "HSCP Localities_DZ11_Lookup_20230804.rds")) %>%
   
   clean_names() %>%
   
