@@ -172,7 +172,7 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2023_1_simd2020v2.rds")) %>%
+                "postcode_2023_2_simd2020v2.rds")) %>%
   
   clean_names() %>%
   

@@ -4,7 +4,8 @@ The following provides a description of each folder and file in the publication 
 
 ### code/
 
-* **00_setup-environment.R** - This script loads all packages required by the scripts in the repo and defines all parameters required to produce the basefile; e.g. dates, external cause of death codes, etc. This script is automatically run at the beginning of every R script that is run.
+* **00_geospatial-package-install.R** - This script loads all packages required by Geospatial to enable analysis and visualisation of geospatial data, such as maps, coordinates and spatial features. This script is very first script that you must manually run at the beginning of every R script and you must run it in blocks.
+* **00_setup-environment.R** - This script loads all packages required by the scripts in the repo and defines all parameters required to produce the basefile; e.g. dates, external cause of death codes, etc. Even this script is manually run at the beginning of every R script that is run soon after running the geospatial script.
 * **01_create-basefile.R** - This script extracts data from SMRA, calculates length of stay in the last 6 months for each death, and aggregates to the required level for the basefile.
 * **02_old-method.R** - This script uses the SMRA extracts created in the previous script and applies the old methodology (to count Care Home episodes as hospital activity). The script then appends an extra column, `los_old`, to the basefile. This is then used to provide a methodology comparison in an appendix of the report.
 * **03_create-figures.R** - This script uses the basefile to create a .png file of every figure to be included in the report and summary.
@@ -15,7 +16,7 @@ The following provides a description of each folder and file in the publication 
 ### functions/
 The scripts in this folder define functions that are sourced and used by the scripts in the `code/` and `markdown/` folders.
 
-* **completeness.R** - Given the end date of the publication reporting period, this function sources SMR01 completeness information from the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness) and formats this as a table for use in the report appendix.
+* **completeness.R** - Given the end date of the publication reporting period, this function sources SMR01, SMR01 GLS and SMR04 completeness information from the [NHS Scotland Open Data platform](https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness) and formats this as a tables for use in the report appendix.
 * **day_diff.R** - Given two QoM figures representing the percentage of the last six months, this function calculates the difference in average days between these two figures.
 * **extract_date.R** - Given the publication date, this function finds the date the relevant basefile was created. This is used in the metadata table in the report.
 * **flextable_style.R** - Given a flextable object, this function applies required formatting for tables in publication report; e.g. purple background in header, bold Scotland row, etc.
@@ -23,7 +24,7 @@ The scripts in this folder define functions that are sourced and used by the scr
 * **summarise_data.R** - This function takes the basefile and named variables to breakdown by, returning a tibble with commonly used figures required for outputs; e.g. QoM, number of deaths, average days spent in hospital, etc. The function also takes arguments to control which financial years are returned and whether figures are formatted.
 
 ### markdown/
-The templates in this folder are adapted from the [National Stats Templates](https://github.com/NHS-NSS-transforming-publications/National-Stats-Template) produced by the TPP team.
+The templates in this folder are adapted from the [National Stats Templates](https://spark.publichealthscotland.org/downloads/official-statistics-publications-templates/) produced by the TPP team.
 
 * **cover-page-provisional.docx** - The template cover page added to the provisional publication report.
 * **cover-page-update.docx** - Same as above but for the update version.
