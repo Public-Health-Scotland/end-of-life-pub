@@ -18,8 +18,7 @@ These folders also contain up-to-date copies of the repository and these are the
 
 ### Required Software and Accesses
 
-* RStudio Server - this can be requested from DaS via the Service Portal.
-* RStudio Desktop v1.2 or later - RStudio Desktop is available to download via the software centre. The current version used in PHS is v1.1, however v1.2 or later is required for this publication. This can be installed by special request to DaS via the Service Portal. 
+* Posit Workbench - this can be requested from DaS via the Service Portal. Your R session needs to be ran with 8 Central Processing Units (CPUs) and a memory equals to 131072. If your allocated Kubernetes profile doesn't have this memory to need to complete a form provided by the Data Science team.
 * Git - this is available to download via the software centre.
 * The following SMRA Analysis Views; GRO_DEATHS_C, SMR01_PI, SMR01_PE_1E, SMR04 - these can be requested via the Service Portal.
 
@@ -33,7 +32,7 @@ If you have not run the publication before, please also follow these one time pr
 * Save custom cover page and footer to Microsoft Word.
    * Open `markdown/cover-page-provisional.docx`. Press Ctrl + A to select all contents. Go to Insert –> Cover Page –> Save Selection to Cover Page Gallery. Give it a name (e.g. eol-provisional) and click OK. Repeat for `cover-page-update.docx`.
    * Double click on the footer in one of the cover page templates (doesn't matter which one), and select the whole footer by pressing Ctrl + A. Select Insert –> Footer –> Save Selection to Footer Gallery. Give it a name (e.g. official-stats-footer) and click OK.
-* Both RStudio Server and RStudio Desktop are required to run the publication in full. Ideally, RStudio Server would be used to run all scripts, however the package `flextable` is used by the markdown scripts, which requires a version of pandoc only available when using RStudio v1.2. Neither RStudio Server nor RStudio Desktop versions currently used by ISD have been upgraded to v1.2, however RStudio Desktop can be upgraded to v1.2 on request to IT. **This version of RStudio is a requirement to run this publication.**
+* To run the publication in full you must installing geospatial R packages first. The PEoLC R Script review.docx explains the steps to follow in the `00_geospatial-package-install.R` script. However, it's good practice to look for the latest updates on installing geospatial packages via the Knowledge Base. Guidance can be found here: PHS Data Science - Knowledge Base (public-health-scotland.github.io). 
 * You will need to ensure you have installed all packages that are used in the code - a list of required packages can be found in the `code/00_setup-environment.R` script. This must be done in both RStudio Server and RStudio Desktop. Any that have not been installed can be done so by running `install.packages("<PACKAGE NAME>")`, or `install.packages(c("<PACKAGE NAME>", "<PACKAGE NAME>", ...))` to install multiple.
 
 ### Updating the code
@@ -59,10 +58,8 @@ The project is designed to require as little human intervention as possible. To 
     * Highlight the entire script and run
     * Check for any errors and investigate as necessary
     * Check the output of the script looks as it should
-    
-* The first two scripts, `01_create-basefile.R` and `02_old-method.R` need to be run using the RStudio Server as desktop memory is not sufficient to extract data from SMRA. The last script, `06_knit-markdown.R` must be run using RStudio Desktop v1.2 as it requires pandoc v2 to run successfully (see [preparation section](#preparation)). The other scripts can be run using either Server or Desktop, it doesn't matter.
 
-* Depending on when the scripts are run, completeness data may not be available for the most recent quarter. Therefore, a completeness workaround was created (this can be seen in line 212 in the `01_create-basefile.R` script - this line should be run **ONLY** if lines 207-208 do not work. 
+* Depending on when the scripts are run, completeness data may not be available for the most recent quarter. Therefore, a completeness workaround was created (this can be seen in line 212 in the `01_create-basefile.R` script - this line should be run **ONLY** if lines 205-210 do not work. 
 
 * When running `03_create-figures.R`, check what Health Boards have the maximum and minimum QoM figures. These boards should be labelled on the map (Figure 2), however the positioning of these labels has not been automated (see [Issue #12](/../../issues/12)) and may need to be tweaked if the max/min boards change.
 
@@ -79,7 +76,7 @@ Some manual steps are required to finish off the markdown documents. Once these 
    * Add page 2: Copy page 2 from the template and paste it in the document produced by rmarkdown. Some margins may need to be adjusted to display properly.
    * Add footer: If this does not appear automatically, With the cursor still on the cover page, select Insert -> Footer and select the custom footer.
    * Add table of contents: Click on the end of last text line on the page “This is a National Publication” (page number 1). Select Insert –> Blank Page, so that a new blank page will be inserted. Next, select References –> Table of Contents. Choose Built-in template Automatic Table 1. Use the Format Painter to format the Contents title text to the same as the header for Introduction on the next page.
-   * Centre the map (Figure 2).
+   * Centre the map (Figure 2) and add the legend.
 
 * The open data files saved in `data/open-data/` should be copied to the appropriate folder in the Open Data team's network area (there is a shortcut to this in the End of Life publication folder). Make any necessary changes to the metadata document also in this folder; e.g. update revisions statement. Then email the Open Data mailbox to let them know the files are there and request that these are uploaded to the Open Data platform on the publication date.
 

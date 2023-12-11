@@ -351,7 +351,8 @@ figa11 <-
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ hb, ncol = 3) +
-  theme(panel.background = element_blank(),
+  theme(panel.spacing = unit(-0.5, "lines"),
+    panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
@@ -396,7 +397,8 @@ figa12 <-
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ hscp, ncol = 4) +
-  theme(panel.background = element_blank(),
+  theme(panel.spacing = unit(-0.5, "lines"),
+    panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
@@ -450,7 +452,8 @@ figa13 <-
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ simd, ncol = 3) +
-  theme(panel.background = element_blank(),
+  theme(panel.spacing = unit(-0.5, "lines"),
+    panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
@@ -497,7 +500,8 @@ figa14 <-
   ggplot(aes(x = fy, y = qom, group = 1)) +
   geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ urban_rural, ncol = 3) +
-  theme(panel.background = element_blank(),
+  theme(panel.spacing = unit(-0.5, "lines"),
+    panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         axis.title.x = element_text(size = 8, face = "bold"),
@@ -549,8 +553,8 @@ figa31 <-
                values_to = "qom") %>%
   
   mutate(method = case_when(
-    method == "qom_old" ~ str_wrap("Old measure", width = 12),
-    method == "qom_new" ~ str_wrap(paste0("New measure (including ",
+    method == "qom_old" ~ str_wrap("Old methodology", width = 12),
+    method == "qom_new" ~ str_wrap(paste0("Revised methodology (including ",
                                       "care home activity)"),
                                    width = 12)
   )) %>%

@@ -16,12 +16,22 @@ flextable_style <- function(flextable,
     
     # Make header text bold
     bold(part = "header") %>%
+
+    # Set font as Arial
+    font(part = "all", fontname = "Arial") %>%
+
+    # Set font size as 12
+    fontsize(part = "all", size = 12) %>%
     
     # Add line after first column
     border(j = 1, border.right = fp_border("black")) %>%
     
     # Add outer border to whole table
-    border_outer(fp_border("black"))
+    border_outer(fp_border("black")) %>%
+
+    # Add inner border to whole table
+    border_inner(fp_border("black"))
+
   
   # Formatting for Metadata
   

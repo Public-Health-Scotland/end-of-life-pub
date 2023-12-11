@@ -89,10 +89,11 @@ install.packages("sf",
                  Ncpus = ncpus)
 
 # Install the {terra} package
-install.packages("terra",
+install.packages("https://ppm.publichealthscotland.org/all-r/latest/src/contrib/Archive/terra/terra_1.7-29.tar.gz",
+                 repos = NULL,
+                 type = "source",
                  configure.args = geo_config_args,
                  INSTALL_opts = "--no-test-load",
-                 repos = c("https://ppm.publichealthscotland.org/all-r/latest"),
                  Ncpus = ncpus)
 
 # Install the {sp} package
@@ -121,6 +122,10 @@ install.packages("https://ppm.publichealthscotland.org/all-r/latest/src/contrib/
 # Install the {leaflet} package
 install.packages("leaflet",
                  repos = c("https://ppm.publichealthscotland.org/all-r/__linux__/centos7/latest"),
+                 type = "source",
+                 dependencies = FALSE,
+                 configure.args = geo_config_args,
+                 INSTALL_opts = "--no-test-load",
                  Ncpus = ncpus)
 
 dyn.load("/usr/gdal34/lib/libgdal.so")
