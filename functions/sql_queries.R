@@ -21,7 +21,9 @@ deaths_query <- function(extract_start, extract_end,
   glue("select link_no, date_of_death, postcode, ",
        
        # Age groups
-       "case when age between 0 and 54 then '0-54' ",
+       "case when age between 0 and 17 then '0-17' ",
+       "when age between 18 and 44 then '18-44' ",
+       "when age between 45 and 54 then '45-54' ",
        "when age between 55 and 64 then '55-64' ",
        "when age between 65 and 74 then '65-74' ",
        "when age between 75 and 84 then '75-84' ",
