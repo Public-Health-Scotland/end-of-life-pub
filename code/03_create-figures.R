@@ -25,10 +25,12 @@ basefile <- read_rds(here("data", "basefiles",
                           glue("{pub_date}_base-file.rds")))
 
 
-# If provisional publication, add p superscript to latest FY
+# If provisional publication, add p superscript to latest FY and add 1 superscript to the 2 FYs affected by COVID-19 pandemic.
 if(pub_type == "update")
   basefile %<>%
-  mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy))
+  mutate(fy = if_else(fy == max(.$fy), paste0(fy, "^p"), fy)) %<>%
+  mutate(fy = if_else(fy == "2020/21", paste0(fy, "^1"), fy)) %<>%
+  mutate(fy = if_else(fy == "2021/22", paste0(fy, "^1"), fy))
 
 
 ### 3 - Figure 1 - Trend Bar Chart ----
@@ -44,7 +46,7 @@ fig1 <-
                names_to = "qom") %>%
   mutate(qom = if_else(qom == "qom_hosp",
                        "Hospital",
-                       "Home/ \nCommunity")) %>%
+                       "Home/Community")) %>%
   
   # Control order of stacks in chart
   # Formats the design of the graph, such as font size of axis titles, legend and axis labels are also defined
@@ -58,7 +60,7 @@ fig1 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
         axis.text = element_text(size = 10),
         axis.text.x = element_text(size = 8, hjust = 0.5, colour="black"),
@@ -83,8 +85,10 @@ ggsave(here("markdown", "figures", "figure-1-summary.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 4 - Figure 2 - Health Board Map ----
+### 4 - Figure 2 - Health Board Map ---- READ NOTE BELOW.
 # Creates the health board map, using the basefile as the data source and mark health board as the measure
+##### NOTE The legend MUST be taken from previous analyst personal folder (saved in ..markdown/figures/) and moved into the 
+##### correspondent folder of your current project. Otherwise it will NOT be attached to the main report #####
 
 fig2 <- shapefile()
 
@@ -242,7 +246,7 @@ fig3 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
         axis.text = element_text(size = 10, colour = "gray4"),
         legend.position = "bottom",
@@ -275,7 +279,7 @@ fig4 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
         axis.text = element_text(size = 9, colour = "gray4"),
         legend.title = element_blank(),
@@ -309,7 +313,7 @@ fig5 <-
   theme(panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 10, face = "bold"),
+        axis.title.x = element_text(size = 10, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 10, face = "bold", angle = 0, vjust = 0.5),
         axis.text = element_text(size = 8.5, colour = "gray4"),
         legend.title = element_blank(),
@@ -355,7 +359,7 @@ figa11 <-
     panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
@@ -364,7 +368,7 @@ figa11 <-
         strip.background = element_blank(),
         axis.line = element_line(size = 0.1)) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(75, 100) +
+  ylim(50, 100) +
   xlab("Financial Year of Death") + 
   ylab("Percentage") +
   geom_text(data = 
@@ -382,11 +386,30 @@ ggsave(here("markdown", "figures", "figure-a1-1.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 9 - Figure A1.2 - HSCP Trends ----
-# Creates multiple line charts by health and social care partnership, basefile is the data set to be used
+### 9 - Figure A1.2 Part 1- HSCP Trends for the first 16 HSCPs----
+# Creates multiple line charts by health and social care partnership, a backup basefile file is the data set to be used for this figure
 
-figa12 <- 
-  
+basefile_backup = basefile
+
+basefile = basefile_backup %>% 
+  filter(hscp %in% c("Aberdeen City",
+                     "Aberdeenshire",
+                     "Angus",
+                     "Argyll and Bute",
+                     "Clackmannanshire and Stirling",
+                     "Dumfries and Galloway",
+                     "Dundee City",
+                     "East Ayrshire",
+                     "East Dunbartonshire",
+                     "East Lothian",
+                     "East Renfrewshire",
+                     "Edinburgh",
+                     "Falkirk",
+                     "Fife",
+                     "Glasgow City",
+                     "Highland"))
+
+figa121 <- 
   basefile %>%
   summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
   
@@ -398,10 +421,10 @@ figa12 <-
   geom_line(color = "#0078D4") +
   facet_rep_wrap( ~ hscp, ncol = 4) +
   theme(panel.spacing = unit(-0.5, "lines"),
-    panel.background = element_blank(),
+        panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle = 90),
@@ -409,7 +432,7 @@ figa12 <-
         strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(75, 100) +
+  ylim(50, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
@@ -417,16 +440,79 @@ figa12 <-
   geom_text(data = 
               data.frame(
                 hscp = sort(unique(basefile$hscp)),
-                xpos  = rep(10, 31), ypos = rep(98, 31)), 
+                xpos  = rep(10, 16), ypos = rep(98, 16)), 
             aes(x = xpos, y = ypos, label = hscp, group = NULL),
-            size = 2.4, hjust = 1)
+            size = 2, hjust = 1)
 
 # Final chart is then saved in the markdown folder
 
-ggsave(here("markdown", "figures", "figure-a1-2.png"), 
-       plot = figa12,
-       width = 17.48, height = 19.9, 
+ggsave(here("markdown", "figures", "figure-a1-2-1.png"), 
+       plot = figa121,
+       width = 17.48, height = 15.0, 
        units = "cm", device = "png", dpi = 600)
+
+#Figure A1.2 Part 2- HSCP Trends for the remaining 15 HSCPs----
+
+basefile = basefile_backup %>% 
+  filter(hscp %in% c("Inverclyde",
+                     "Midlothian",
+                     "Moray",
+                     "North Ayrshire",
+                     "North Lanarkshire",
+                     "Orkney Islands",
+                     "Perth and Kinross",
+                     "Renfrewshire",
+                     "Scottish Borders",
+                     "Shetland Islands",
+                     "South Ayrshire",
+                     "South Lanarkshire",
+                     "West Dunbartonshire",
+                     "West Lothian",
+                     "Western Isles"))
+
+figa122 <- 
+  basefile %>%
+  summarise_data(hscp, include_years = "all", format_numbers = FALSE) %>%
+  
+  # Designs the line charts, financial year of death as x axis, percentage as y axis
+  # Axis labels and font design are also defined
+  # Header given for each HSCP in alphabetical order and placed in specific position in each chart
+  
+  ggplot(aes(x = fy, y = qom, group = 1)) +
+  geom_line(color = "#0078D4") +
+  facet_rep_wrap( ~ hscp, ncol = 4) +
+  theme(panel.spacing = unit(-0.5, "lines"),
+        panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.x = element_text(size = 8, face = "bold", vjust = -2),
+        axis.title.y = element_text(size = 8, face = "bold"),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle = 90),
+        legend.title = element_blank(),
+        strip.text = element_blank(),
+        strip.background = element_blank()) +
+  scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
+  ylim(50, 100) +
+  geom_hline(aes(yintercept = -Inf)) + 
+  geom_vline(aes(xintercept = -Inf)) +
+  xlab("Financial Year of Death") + 
+  ylab("Percentage") +
+  geom_text(data = 
+              data.frame(
+                hscp = sort(unique(basefile$hscp)),
+                xpos  = rep(10, 15), ypos = rep(98, 15)), 
+            aes(x = xpos, y = ypos, label = hscp, group = NULL),
+            size = 2, hjust = 1)
+
+# Final chart is then saved in the markdown folder
+
+ggsave(here("markdown", "figures", "figure-a1-2-2.png"), 
+       plot = figa122,
+       width = 17.48, height = 15.0, 
+       units = "cm", device = "png", dpi = 600)
+
+basefile = basefile_backup
 
 
 ### 10 - Figure A1.3 - Deprivation Trends ----
@@ -456,7 +542,7 @@ figa13 <-
     panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
@@ -464,7 +550,7 @@ figa13 <-
         strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(75, 100) +
+  ylim(50, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 
@@ -504,7 +590,7 @@ figa14 <-
     panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.title.x = element_text(size = 8, face = "bold"),
+        axis.title.x = element_text(size = 8, face = "bold", vjust = -2),
         axis.title.y = element_text(size = 8, face = "bold"),
         axis.text = element_text(size = 8),
         axis.text.x = element_text(angle = 90),
@@ -512,7 +598,7 @@ figa14 <-
         strip.text = element_blank(),
         strip.background = element_blank()) +
   scale_x_discrete(labels = parse(text = sort(unique(basefile$fy)))) +
-  ylim(75, 100) +
+  ylim(50, 100) +
   geom_hline(aes(yintercept = -Inf)) + 
   geom_vline(aes(xintercept = -Inf)) +
   xlab("Financial Year of Death") + 

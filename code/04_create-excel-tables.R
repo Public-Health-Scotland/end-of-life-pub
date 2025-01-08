@@ -193,7 +193,7 @@ writeData(figures,
           startCol = 3,
           x = link)
 
-sheetVisibility(figures)[15:16] <- "hidden"
+sheetVisibility(figures)[13:14] <- "hidden"
 
 # Saves the figures excel document in the output folder, adding publication date to the file name
 
