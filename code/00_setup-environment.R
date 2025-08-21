@@ -66,13 +66,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20230331)
+end_date   <- ymd(20240331)
 
 # Date of publication
-pub_date <- ymd(20231010)
+pub_date <- ymd(20241008)
 
 # Date of last publication
-last_pub_date <- ymd(20221004)
+last_pub_date <- ymd(20231010)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -85,16 +85,14 @@ start_date <- ymd(glue("{year(end_date) - 10}0401"))
 
 # Date of next publication
 next_pub_date <- 
-  if_else(month(pub_date) == 5,
-          paste("October", year(pub_date)),
-          paste("May", year(pub_date) + 1))
+          paste("October", year(pub_date) + 1)
 
-# Publication date in format for beta website link
+
+# Publication date in format for beta website link. Update 2024:Not applicable anymore,it is the link for the landing page for 'data tables'.
 pub_date_link <- 
-  glue("https://beta.isdscotland.org/find-publications-and-data/",
-       "health-and-social-care/social-and-community-care/percentage-",
-       "of-end-of-life-spent-at-home-or-in-a-community-setting/",
-       "{day(pub_date)}-{format(pub_date, '%b-%Y')}")
+  glue("https://www.publichealthscotland.scot/publications/",
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/",
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2015-to-2024/")
 
 
 ### 4 - Create folders ----
@@ -172,7 +170,7 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2023_2_simd2020v2.rds")) %>%
+                "postcode_2024_2_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
@@ -198,7 +196,7 @@ simd     <- function(){
 locality <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Geography/HSCP Locality/",
-                "HSCP Localities_DZ11_Lookup_20230804.rds")) %>%
+                "HSCP Localities_DZ11_Lookup_20240513.rds")) %>%
   
   clean_names() %>%
   
