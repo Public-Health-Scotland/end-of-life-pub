@@ -17,7 +17,15 @@
 
 ### 1 - Load packages ----
 # If any of the below packages don't run, install will be required using install.packages("")
-
+library(sf)
+library(terra)
+library(sp)        # only if you have legacy code needing it
+library(raster)    # same note as sp
+library(leaflet)
+# library(maptools)   # retired on R ≥ 4.3
+# library(rgdal)      # retired
+# library(rgeos)      # retired
+library(leaflet)
 library(odbc)          # For accessing SMRA
 library(dplyr)         # For data manipulation in the "tidy" way
 library(readr)         # For reading in csv files
@@ -33,9 +41,6 @@ library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
-library(rgeos)         # For reading shapefiles
-library(rgdal)         # For reading shapefiles
-library(maptools)      # For working with shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots

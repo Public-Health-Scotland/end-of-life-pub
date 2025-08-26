@@ -85,143 +85,90 @@ ggsave(here("markdown", "figures", "figure-1-summary.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 4 - Figure 2 - Health Board Map ---- READ NOTE BELOW.
-# Creates the health board map, using the basefile as the data source and mark health board as the measure
-##### NOTE The legend MUST be taken from previous analyst personal folder (saved in ..markdown/figures/) and moved into the 
-##### correspondent folder of your current project. Otherwise it will NOT be attached to the main report #####
+### 4 - Figure 2 - Health Board Map ----
+# Creates the health board map with sf/geom_sf (modern approach)
+# This replaces the old shapefile()/geom_polygon(long/lat) workflow that relied on rgdal/maptools.
 
-fig2 <- shapefile()
+# ---- 4.1 Read HB boundaries as sf ----
+# Look in reference-files/ for a .gpkg, .shp, or .geojson boundary file.
+# If you know the exact file, replace the auto-detect with st_read(here("reference-files","<file>.gpkg")).
+bnd_files <- list.files(here::here("reference-files"),
+                        pattern = "\\.(gpkg|shp|geojson)$", ignore.case = TRUE, full.names = TRUE)
+stopifnot(length(bnd_files) > 0)  # fail if no boundary file is found
 
-fig2@data %<>%
-  left_join(summarise_data(basefile, hb,
-                           format_numbers = FALSE) %>% 
-              mutate(hb = substring(hb, 5)) %>%
-              select(hb, qom),
-            by = c("HBName" = "hb"))
+hb_sf <- sf::st_read(bnd_files[1], quiet = TRUE)
 
-fig2@data$id <- rownames(fig2@data)
+# Ensure we have an HB name column called HBName (rename if the file uses something different).
+nms <- names(hb_sf)
+if (!"HBName" %in% nms) {
+  cand <- nms[grepl("^hb[_ ]?name$|^hbname$|^name$", tolower(nms))]
+  if (length(cand)) {
+    hb_sf <- dplyr::rename(hb_sf, HBName = !!rlang::sym(cand[1]))
+  } else {
+    stop("Could not find a Health Board name column. Please rename it to 'HBName' or adjust the join below.")
+  }
+}
 
-# Design of the map is created, uses geom_polygon and latitude and longitude as the axis design
-# Text inserted to mark the health boards with the lowest and highest percentages
+# ---- 4.2 Join QoM data from basefile to boundaries ----
+hb_qom <- summarise_data(basefile, hb, format_numbers = FALSE) |>
+  dplyr::mutate(hb = substring(hb, 5)) |>      # drop 'HB: ' prefix like in original script
+  dplyr::select(hb, qom)
 
-fig2 <-
-  full_join(tidy(fig2, region = "id"),
-            fig2@data,
-            by = "id")
+hb_sf <- dplyr::left_join(hb_sf, hb_qom, by = c("HBName" = "hb"))
 
-fig2 <-
-  
-  ggplot() +
-  geom_polygon(data = fig2,
-               aes(x = long,
-                   y = lat,
-                   group = group,
-                   fill = qom),
-               colour = "white",
-               size = 0.3) +
-  scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
-                        limits=c(floor(min(fig2$qom)),
-                                 ceiling(max(fig2$qom)))) +
-  theme(panel.background = element_blank(),
-        panel.grid = element_blank(),
-        axis.text = element_blank(),
-        axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        legend.title = element_blank()) +
-  annotate("text", 
-           x = 4.30e+05, y = 628000, 
-           label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
-                          ": ", 
-                          sprintf("%.1f", round_half_up(min(fig2$qom), 1)), 
-                          "%"), 
-           size = 2,
-           fontface = 2) +
-  annotate("text", 
-           x = 4e+05, y = 1100000, 
-           label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
-                          ": ", 
-                          sprintf("%.1f", round_half_up(max(fig2$qom), 1)), 
-                          "%"), 
-           size = 2,
-           fontface = 2) +
-  annotate("text",
-           x = 2.45e+05, y = 627000,
-           label = "A",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.5e+05, y = 630000,
-           label = "B",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.4e+05, y = 715000,
-           label = "F",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.45e+05, y = 670000,
-           label = "G",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.4e+05, y = 820000,
-           label = "H",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.85e+05, y = 645000,
-           label = "L",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.5e+05, y = 825000,
-           label = "N",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.7e+05, y = 1000000,
-           label = "R",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.3e+05, y = 665000,
-           label = "S",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3e+05, y = 745000,
-           label = "T",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.6e+05, y = 700000,
-           label = "V",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 0.8e+05, y = 920000,
-           label = "W",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.75e+05, y = 575000,
-           label = "Y",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 4.2e+05, y = 1125000,
-           label = "Z",
-           size = 2.5,
-           fontface = 2)
+# ---- 4.3 Build the map with geom_sf ----
+fill_min <- floor(min(hb_sf$qom, na.rm = TRUE))
+fill_max <- ceiling(max(hb_sf$qom, na.rm = TRUE))
 
-# Map is saved in the required folder
+fig2 <- ggplot2::ggplot(hb_sf) +
+  ggplot2::geom_sf(ggplot2::aes(fill = qom), colour = "white", linewidth = 0.3) +
+  ggplot2::scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
+                                 limits = c(fill_min, fill_max)) +
+  ggplot2::theme(panel.background = element_blank(),
+                 panel.grid = element_blank(),
+                 axis.text = element_blank(),
+                 axis.title = element_blank(),
+                 axis.ticks = element_blank(),
+                 legend.title = element_blank())
 
-ggsave(here("markdown", "figures", "figure-2.png"), 
-       plot = fig2,
-       width = 11.67, height = 14, 
-       units = "cm", device = "png", dpi = 600)  
+# ---- 4.4 Labels for min & max HB using centroids ----
+min_row  <- hb_sf[which.min(hb_sf$qom), ]
+max_row  <- hb_sf[which.max(hb_sf$qom), ]
+cent_min <- sf::st_coordinates(sf::st_point_on_surface(sf::st_geometry(min_row)))
+cent_max <- sf::st_coordinates(sf::st_point_on_surface(sf::st_geometry(max_row)))
+fmt1     <- function(x) sprintf("%.1f", round(as.numeric(x), 1))
 
+fig2 <- fig2 +
+  ggplot2::annotate("text", x = cent_min[1], y = cent_min[2],
+                    label = paste0("NHS ", as.character(min_row$HBName), ": ", fmt1(min_row$qom), "%"),
+                    size = 2, fontface = 2) +
+  ggplot2::annotate("text", x = cent_max[1], y = cent_max[2],
+                    label = paste0("NHS ", as.character(max_row$HBName), ": ", fmt1(max_row$qom), "%"),
+                    size = 2, fontface = 2)
+
+# ---- 4.5 Optional: add A/B/F... letter annotations at fixed coords ----
+# These coords assume British National Grid (EPSG:27700). If your file isn't in that CRS,
+# either remove this block or first run: hb_sf <- sf::st_transform(hb_sf, 27700)
+fig2 <- fig2 +
+  ggplot2::annotate("text", x = 4.30e+05, y =  628000, label = "A", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 4.00e+05, y = 1100000, label = "B", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.40e+05, y =  715000, label = "F", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.45e+05, y =  670000, label = "G", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.40e+05, y =  820000, label = "H", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.85e+05, y =  645000, label = "L", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.50e+05, y =  825000, label = "N", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.70e+05, y = 1000000, label = "R", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.30e+05, y =  665000, label = "S", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.00e+05, y =  745000, label = "T", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.60e+05, y =  700000, label = "V", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 0.80e+05, y =  920000, label = "W", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.75e+05, y =  575000, label = "Y", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 4.20e+05, y = 1125000, label = "Z", size = 2.5, fontface = 2)
+
+# ---- 4.6 Save the map ----
+ggplot2::ggsave(here::here("markdown", "figures", "figure-2.png"),
+                plot = fig2, width = 11.67, height = 14,
+                units = "cm", device = "png", dpi = 600)
 
 
 ### 5 - Figure 3 - Age/Sex Bar Chart ----
