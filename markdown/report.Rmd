@@ -474,6 +474,9 @@ The trend in the percentage of the last six months of life spent at home or in a
 
 <Div custom-style = "Heading 2">Age and Sex</div>
 Figure 3 presents the percentage of time spent at home or in the community by people in the last six months of their life by age group and sex (Table 3 of the [data tables](`r pub_date_link`)). In `r latest$fy`, for all ages combined there was a similar percentage of time spent at home or in a community setting for females (`r allages %>% filter(sex == "Female") %>% pull(qom)`%) and males (`r allages %>% filter(sex == "Male") %>% pull(qom)`%).
+</div>
+
+
 In the age group 0-17 years (??? CHECK THE AGEGROUP TO USE), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community. For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community.
 
 <div custom-style = "Table or chart caption">
@@ -580,11 +583,11 @@ For all media enquiries please email <phs.comms@phs.scot> or call 0131 275 6105.
 
 <Div custom-style = "Heading 1">Further information</div>
 
-Further information and data for this publication are available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2015-to-2024/) on our website.
+Further information and data for this publication are available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/) on our website.
 
 For more information on Palliative and End of Life Care see the [End of Life Care section of our website](https://publichealthscotland.scot/our-areas-of-work/social-and-community-care/end-of-life-care/overview/).
 
-The next release of this publication will be October `r year(end_date)`.
+The next release of this publication will be October `r year(end_date) + 1`.
 
 <br>
 
@@ -596,7 +599,7 @@ Data from this publication is available to download from the [Scottish Health an
 
 <Div custom-style = "Heading 1">Rate this publication</div>
 
-Let us know what you think about this publication via the link at the bottom of this [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2015-to-2024/) on the PHS website.
+Let us know what you think about this publication via the link at the bottom of this [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/) on the PHS website.
 
 \newpage
 
@@ -873,16 +876,16 @@ SMR01 hospital completeness for the financial year `r latest$fy` is estimated to
 Due to a small revision in the methodology in 2020, figures presented in this publication are not comparable to figures published previously. Trend information from `r min(basefile$fy)` to `r latest$fy` is available in this publication. See [Appendix 3](#appendix3) for more information on the revision and its impact.  
 <br>  
 **Accessibility**  
-It is the policy of PHS to make its web sites and products accessible according to published guidelines. More information on accessibility can be found on the [PHS website] (https://www.publichealthscotland.scot/accessibility/).  
+It is the policy of PHS to make its web sites and products accessible according to published guidelines. More information on accessibility can be found on the [PHS website](https://publichealthscotland.scot/accessibility-statement-for-public-health-scotland/).  
 <br>  
 **Coherence and clarity**  
-Publication is made available via the PHS website.  
+Publication is made available via the PHS website  
 <br>  
 **Value type and unit of measurement**  
 Proportions expressed as a percentage  
 <br>  
 **Disclosure**  
-The [PHS protocol on Statistical Disclosure Protocol](https://publichealthscotland.scot/publications/public-health-scotland-statistical-disclosure-protocol/public-health-scotland-statistical-disclosure-protocol-version-22/) is followed.  
+The [PHS protocol on Statistical Disclosure   Protocol](https://publichealthscotland.scot/publications/public-health-scotland-statistical-disclosure-protocol/public-health-scotland-statistical-disclosure-protocol-version-22/) is followed  
 <br>  
 **Official Statistics designation**  
 Official Statistics  
