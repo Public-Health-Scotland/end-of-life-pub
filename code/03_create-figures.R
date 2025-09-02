@@ -85,142 +85,134 @@ ggsave(here("markdown", "figures", "figure-1-summary.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 4 - Figure 2 - Health Board Map ---- READ NOTE BELOW.
-# Creates the health board map, using the basefile as the data source and mark health board as the measure
-##### NOTE The legend MUST be taken from previous analyst personal folder (saved in ..markdown/figures/) and moved into the 
-##### correspondent folder of your current project. Otherwise it will NOT be attached to the main report #####
+### 4 — Figure 2: Health Board map (sf/geom_sf) ----
 
-fig2 <- shapefile()
-
-fig2@data %<>%
-  left_join(summarise_data(basefile, hb,
-                           format_numbers = FALSE) %>% 
-              mutate(hb = substring(hb, 5)) %>%
-              select(hb, qom),
-            by = c("HBName" = "hb"))
-
-fig2@data$id <- rownames(fig2@data)
-
-# Design of the map is created, uses geom_polygon and latitude and longitude as the axis design
-# Text inserted to mark the health boards with the lowest and highest percentages
-
-fig2 <-
-  full_join(tidy(fig2, region = "id"),
-            fig2@data,
-            by = "id")
-
-fig2 <-
+# 4.1 Find & read HB boundaries (prefer repo file; fall back to corporate lookups)
+get_hb_boundaries <- function() {
+  # 1) try project folder
+  bnd_path <- NULL
+  proj_dir <- here::here("reference-files")
+  if (dir.exists(proj_dir)) {
+    cand <- list.files(
+      proj_dir,
+      pattern = "\\.(gpkg|shp|geojson)$",
+      ignore.case = TRUE, full.names = TRUE, recursive = TRUE
+    )
+    if (length(cand)) {
+      ord <- grepl("health.*board|\\bhb\\b", basename(cand), ignore.case = TRUE)
+      cand <- c(cand[ord], cand[!ord])
+      bnd_path <- cand[1]
+    }
+  }
   
-  ggplot() +
-  geom_polygon(data = fig2,
-               aes(x = long,
-                   y = lat,
-                   group = group,
-                   fill = qom),
-               colour = "white",
-               size = 0.3) +
-  scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
-                        limits=c(floor(min(fig2$qom)),
-                                 ceiling(max(fig2$qom)))) +
-  theme(panel.background = element_blank(),
-        panel.grid = element_blank(),
-        axis.text = element_blank(),
-        axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        legend.title = element_blank()) +
-  annotate("text", 
-           x = 4.30e+05, y = 628000, 
-           label = paste0("NHS ", unique(fig2$HBName[which.min(fig2$qom)]),
-                          ": ", 
-                          sprintf("%.1f", round_half_up(min(fig2$qom), 1)), 
-                          "%"), 
-           size = 2,
-           fontface = 2) +
-  annotate("text", 
-           x = 4e+05, y = 1100000, 
-           label = paste0("NHS ", unique(fig2$HBName[which.max(fig2$qom)]),
-                          ": ", 
-                          sprintf("%.1f", round_half_up(max(fig2$qom), 1)), 
-                          "%"), 
-           size = 2,
-           fontface = 2) +
-  annotate("text",
-           x = 2.45e+05, y = 627000,
-           label = "A",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.5e+05, y = 630000,
-           label = "B",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.4e+05, y = 715000,
-           label = "F",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.45e+05, y = 670000,
-           label = "G",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.4e+05, y = 820000,
-           label = "H",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.85e+05, y = 645000,
-           label = "L",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.5e+05, y = 825000,
-           label = "N",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.7e+05, y = 1000000,
-           label = "R",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3.3e+05, y = 665000,
-           label = "S",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 3e+05, y = 745000,
-           label = "T",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.6e+05, y = 700000,
-           label = "V",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 0.8e+05, y = 920000,
-           label = "W",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 2.75e+05, y = 575000,
-           label = "Y",
-           size = 2.5,
-           fontface = 2) +
-  annotate("text",
-           x = 4.2e+05, y = 1125000,
-           label = "Z",
-           size = 2.5,
-           fontface = 2)
+  # 2) fall back to /conf lookups (uses `filepath` from 00_setup-environment.R)
+  if (is.null(bnd_path)) {
+    root <- file.path(filepath, "lookups/Unicode/Geography")
+    if (dir.exists(root)) {
+      cand <- fs::dir_ls(
+        root, recurse = TRUE,
+        regexp = "(?i)(health.*board|\\bhb\\b).*(gpkg|shp|geojson)$"
+      )
+      if (length(cand)) bnd_path <- cand[1]
+    }
+  }
+  
+  stopifnot(!is.null(bnd_path))
+  
+  # read vector data (handle GPKG multi-layer gracefully)
+  if (grepl("\\.gpkg$", bnd_path, ignore.case = TRUE)) {
+    lyr <- sf::st_layers(bnd_path)$name
+    sf::st_read(bnd_path, layer = lyr[1], quiet = TRUE)
+  } else {
+    sf::st_read(bnd_path, quiet = TRUE)
+  }
+}
 
-# Map is saved in the required folder
+hb_sf <- get_hb_boundaries() %>%
+  sf::st_transform(27700)  # British National Grid, to match your fixed label coords
 
-ggsave(here("markdown", "figures", "figure-2.png"), 
-       plot = fig2,
-       width = 11.67, height = 14, 
-       units = "cm", device = "png", dpi = 600)  
+# normalise a board-name column to HBName (guess common variants)
+if (!"HBName" %in% names(hb_sf)) {
+  guess <- names(hb_sf)[grepl("^hb[_ ]?name$|^hbname$|^board.*name$|^name$",
+                              tolower(names(hb_sf)))]
+  stopifnot(length(guess) > 0)
+  hb_sf <- dplyr::rename(hb_sf, HBName = !!rlang::sym(guess[1]))
+}
+
+# 4.2 QoM by board from basefile
+hb_qom <- summarise_data(basefile, hb, format_numbers = FALSE) %>%
+  dplyr::mutate(hb = substring(hb, 5)) %>%  # drop "HB: " prefix
+  dplyr::select(hb, qom)
+
+hb_sf <- dplyr::left_join(hb_sf, hb_qom, by = c("HBName" = "hb"))
+
+# 4.3 Build the map
+fill_min <- floor(min(hb_sf$qom, na.rm = TRUE))
+fill_max <- ceiling(max(hb_sf$qom, na.rm = TRUE))
+
+fig2 <- ggplot2::ggplot(hb_sf) +
+  ggplot2::geom_sf(ggplot2::aes(fill = qom), colour = "white", linewidth = 0.3) +
+  ggplot2::scale_fill_continuous(low = "#E6F2FB", high = "#0078D4",
+                                 limits = c(fill_min, fill_max)) +
+  ggplot2::theme(
+    panel.background = ggplot2::element_blank(),
+    panel.grid       = ggplot2::element_blank(),
+    axis.text        = ggplot2::element_blank(),
+    axis.title       = ggplot2::element_blank(),
+    axis.ticks       = ggplot2::element_blank(),
+    legend.title     = ggplot2::element_blank()
+  )
+
+# ---- 4.4 Labels for min & max boards ----
+min_row  <- hb_sf[which.min(hb_sf$qom), ]
+max_row  <- hb_sf[which.max(hb_sf$qom), ]
+
+# default: put labels at polygon point-on-surface (EPSG:27700)
+cent_min <- sf::st_coordinates(sf::st_point_on_surface(sf::st_geometry(min_row)))
+cent_max <- sf::st_coordinates(sf::st_point_on_surface(sf::st_geometry(max_row)))
+
+# text to print
+fmt1 <- function(x) sprintf("%.1f", round(as.numeric(x), 1))
+lab_min <- paste0("NHS ", as.character(min_row$HBName), ": ", fmt1(min_row$qom), "%")
+lab_max <- paste0("NHS ", as.character(max_row$HBName), ": ", fmt1(max_row$qom), "%")
+
+# --- special placement for Borders (min) and Shetland (max), using legacy coords ---
+# Keep these numbers in British National Grid (EPSG:27700).
+if (grepl("Borders", as.character(min_row$HBName))) {
+  cent_min <- c(4.30e5, 628000)     # Borders
+}
+if (grepl("Shetland", as.character(max_row$HBName))) {
+  cent_max <- c(4.00e5, 1100000)    # Shetland
+}
+
+fig2 <- fig2 +
+  ggplot2::annotate("text", x = cent_min[1], y = cent_min[2], label = lab_min, size = 2, fontface = 2) +
+  ggplot2::annotate("text", x = cent_max[1], y = cent_max[2], label = lab_max, size = 2, fontface = 2)
+
+
+# 4.5 Fixed letter annotations (EPSG:27700 coords, as per legacy figure)
+fig2 <- fig2 +
+  ggplot2::annotate("text", x = 2.45e+05, y =  627000, label = "A", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.5e+05, y = 630000, label = "B", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.40e+05, y =  715000, label = "F", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.45e+05, y =  670000, label = "G", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.40e+05, y =  820000, label = "H", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.85e+05, y =  645000, label = "L", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.50e+05, y =  825000, label = "N", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.70e+05, y = 1000000, label = "R", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.30e+05, y =  665000, label = "S", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 3.00e+05, y =  745000, label = "T", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.60e+05, y =  700000, label = "V", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 0.80e+05, y =  920000, label = "W", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 2.75e+05, y =  575000, label = "Y", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 4.20e+05, y = 1125000, label = "Z", size = 2.5, fontface = 2)
+
+# 4.6 Save
+ggplot2::ggsave(
+  here::here("markdown", "figures", "figure-2.png"),
+  plot   = fig2,
+  width  = 11.67, height = 14, units = "cm", dpi = 600, device = "png"
+)
 
 
 

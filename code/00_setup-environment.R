@@ -17,7 +17,15 @@
 
 ### 1 - Load packages ----
 # If any of the below packages don't run, install will be required using install.packages("")
-
+library(sf)
+library(terra)
+library(sp)        # only if you have legacy code needing it
+library(raster)    # same note as sp
+library(leaflet)
+# library(maptools)   # retired on R ≥ 4.3
+# library(rgdal)      # retired
+# library(rgeos)      # retired
+library(leaflet)
 library(odbc)          # For accessing SMRA
 library(dplyr)         # For data manipulation in the "tidy" way
 library(readr)         # For reading in csv files
@@ -33,9 +41,6 @@ library(ggplot2)       # For producing charts/figures
 library(english)       # For converting numbers to words
 library(forcats)       # For dealing with factors
 library(purrr)         # For functional programming
-library(rgeos)         # For reading shapefiles
-library(rgdal)         # For reading shapefiles
-library(maptools)      # For working with shapefiles
 library(broom)         # For tidying shapefile
 library(openxlsx)      # For writing to excel workbook
 library(lemon)         # To add tick marks to facet plots
@@ -58,7 +63,7 @@ if (sessionInfo()$platform %in% c("x86_64-redhat-linux-gnu (64-bit)",
 # locally or on server
 filepath <- dplyr::if_else(platform == "server",
                            "/conf/linkage/output/",
-                           "//stats/cl-out/")
+                           "/conf/linkage/output/")
 
 
 ### 3 - Define dates ----
@@ -153,8 +158,8 @@ postcode <- function(version =""){
   clean_names() %>%
   
   select(pc7, ca2019, ca2019name, ca2018, hb2019, hb2019name,
-         hscp2019, hscp2019name, hscp2018, ur6_2020_name, 
-         ur2_2020_name, datazone2011) %>%
+         hscp2019, hscp2019name, hscp2018, ur6_2022_name, 
+         ur2_2022_name, datazone2011) %>%
     
   rename(hb = hb2019name,
          hbcode = hb2019,
@@ -162,8 +167,8 @@ postcode <- function(version =""){
          hscpcode = hscp2019,
          ca = ca2019name,
          cacode = ca2019,
-         urban_rural = ur6_2020_name,
-         urban_rural_2 = ur2_2020_name)
+         urban_rural = ur6_2022_name,
+         urban_rural_2 = ur2_2022_name)
 
 }
             
