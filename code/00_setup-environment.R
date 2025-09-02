@@ -71,13 +71,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20240331)
+end_date   <- ymd(20250331)
 
 # Date of publication
-pub_date <- ymd(20241008)
+pub_date <- ymd(20251007)
 
 # Date of last publication
-last_pub_date <- ymd(20231010)
+last_pub_date <- ymd(20241008)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -97,7 +97,7 @@ next_pub_date <-
 pub_date_link <- 
   glue("https://www.publichealthscotland.scot/publications/",
        "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/",
-       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2015-to-2024/")
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/")
 
 
 ### 4 - Create folders ----
