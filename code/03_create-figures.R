@@ -178,8 +178,8 @@ lab_max <- paste0("NHS ", as.character(max_row$HBName), ": ", fmt1(max_row$qom),
 
 # --- special placement for Borders (min) and Shetland (max), using legacy coords ---
 # Keep these numbers in British National Grid (EPSG:27700).
-if (grepl("Borders", as.character(min_row$HBName))) {
-  cent_min <- c(4.30e5, 628000)     # Borders
+if (grepl("Dumfries and Galloway", as.character(min_row$HBName))) {
+  cent_min <- c(3.00e5, 565000)     # Borders
 }
 if (grepl("Shetland", as.character(max_row$HBName))) {
   cent_max <- c(4.00e5, 1100000)    # Shetland
