@@ -10,6 +10,7 @@
 # Description - Functions for extracting data.
 #
 # Approximate run time - xx minutes
+#Create a flag for Independent hospices
 #########################################################################
 
 
@@ -176,6 +177,12 @@ smr01_query <- function(extract_start, extract_end,
     "else 0 ",
     "end ch_flag ",
     
+    # Independent Hospices Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(hospices, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end hospice_flag ", 
+    
     "from analysis.{data} s, analysis.gro_deaths_c d ",
     
     # Only extract SMR records with matching death record
@@ -318,6 +325,12 @@ smr04_query <- function(extract_start, extract_end,
     "({paste0(shQuote(care_homes, type = 'sh'), collapse = ',')}) then 1 ",
     "else 0 ",
     "end ch_flag ",
+    
+    # Independent Hospices Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(hospices, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end hospice_flag ", 
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
     
