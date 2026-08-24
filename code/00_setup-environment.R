@@ -13,7 +13,8 @@
 #
 # Approximate run time - 60 minutes
 # Latest version of R - 4.4.2
-# 24/08/2026 Define list of hospices to class as community and NOT as Hospital
+# 24/08/2026 Define list of independent hospices to class as community and NOT as Hospital.
+# Do not include in this list the 'NHS specialist palliative care unit' 
 #########################################################################
 
 
@@ -132,7 +133,7 @@ external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
 falls    <- c(paste0("W", 0, 0:9), paste0("W", 10:19))
 
 
-### 6 - Define list of care homes and hospices to class as community ----
+### 6 - Define list of care homes and indipendent hospices to class as community ----
 
 care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V", 
                 "G424V", "G541V", "G557V", "H239V", "L112V", "L213V", 
