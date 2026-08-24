@@ -12,6 +12,7 @@
 # the process is run.
 #
 # Approximate run time - 60 minutes
+# Latest version of R - 4.4.2
 #########################################################################
 
 
@@ -25,7 +26,6 @@ library(leaflet)
 # library(maptools)   # retired on R ≥ 4.3
 # library(rgdal)      # retired
 # library(rgeos)      # retired
-library(leaflet)
 library(odbc)          # For accessing SMRA
 library(dplyr)         # For data manipulation in the "tidy" way
 library(readr)         # For reading in csv files
@@ -71,13 +71,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20250331)
+end_date   <- ymd(20260331)
 
 # Date of publication
-pub_date <- ymd(20251007)
+pub_date <- ymd(20261006)
 
 # Date of last publication
-last_pub_date <- ymd(20241008)
+last_pub_date <- ymd(20251007)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -97,7 +97,7 @@ next_pub_date <-
 pub_date_link <- 
   glue("https://www.publichealthscotland.scot/publications/",
        "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/",
-       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/")
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2017-to-2026/")
 
 
 ### 4 - Create folders ----
@@ -175,7 +175,7 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2024_2_simd2020v2.rds")) %>%
+                "postcode_2026_1_simd2020v2.rds")) %>%
   
   clean_names() %>%
   
