@@ -13,6 +13,7 @@
 #
 # Approximate run time - 60 minutes
 # Latest version of R - 4.4.2
+# 24/08/2026 Define list of hospices to class as community and NOT as Hospital
 #########################################################################
 
 
@@ -131,12 +132,16 @@ external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
 falls    <- c(paste0("W", 0, 0:9), paste0("W", 10:19))
 
 
-### 6 - Define list of care homes to class as community ----
+### 6 - Define list of care homes and hospices to class as community ----
 
 care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V", 
                 "G424V", "G541V", "G557V", "H239V", "L112V", "L213V", 
                 "L215V", "L330V", "L365V", "N465R", "N498V", "S312R", 
                 "S327V", "T315S", "T337V", "Y121V")
+
+hospice <- c("C413V", "A227V", "C306V", "C407V", "G583V", "G604V", 
+             "H220V", "S121K", "V103V", "W102V", "G584V", "T317V",
+             "L102K", "S203K", "G501K", "G606V", "L372V")
 
 
 ### 7 - Read in lookup files ----
