@@ -12,6 +12,9 @@
 # the process is run.
 #
 # Approximate run time - 60 minutes
+# Latest version of R - 4.4.2
+# 31/08/2026 Define list of independent hospices and to class as community and NOT as Hospital.
+# Do not include in this list the 'NHS specialist palliative care unit' 
 #########################################################################
 
 
@@ -25,7 +28,6 @@ library(leaflet)
 # library(maptools)   # retired on R ≥ 4.3
 # library(rgdal)      # retired
 # library(rgeos)      # retired
-library(leaflet)
 library(odbc)          # For accessing SMRA
 library(dplyr)         # For data manipulation in the "tidy" way
 library(readr)         # For reading in csv files
@@ -71,13 +73,13 @@ filepath <- dplyr::if_else(platform == "server",
 #### UPDATE THIS SECTION ####
 
 # End date
-end_date   <- ymd(20250331)
+end_date   <- ymd(20260331)
 
 # Date of publication
-pub_date <- ymd(20251007)
+pub_date <- ymd(20261006)
 
 # Date of last publication
-last_pub_date <- ymd(20241008)
+last_pub_date <- ymd(20251007)
 
 # Provisional/Update
 # pub_type <- "provisional"
@@ -97,7 +99,7 @@ next_pub_date <-
 pub_date_link <- 
   glue("https://www.publichealthscotland.scot/publications/",
        "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/",
-       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/")
+       "percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2017-to-2026/")
 
 
 ### 4 - Create folders ----
@@ -131,13 +133,19 @@ external <- c(paste0("V", 0, 1:9), paste0("V", 10:99),
 falls    <- c(paste0("W", 0, 0:9), paste0("W", 10:19))
 
 
-### 6 - Define list of care homes to class as community ----
+### 6 - Define list of care homes and independent hospices to class as community ----
 
 care_homes <- c("A240V", "F821V", "G105V", "G518V", "G203V", "G315V", 
                 "G424V", "G541V", "G557V", "H239V", "L112V", "L213V", 
                 "L215V", "L330V", "L365V", "N465R", "N498V", "S312R", 
                 "S327V", "T315S", "T337V", "Y121V")
 
+ind_hospices <- c("C413V", "A227V", "C306V", "C407V", "G583V", "G604V",
+             "H220V", "S121K", "V103V", "W102V", "G584V", "T317V",
+             "L102K", "S203K", "G501K", "G606V", "L372V")
+
+nhs_hospitals <- c("N183H", "B156C", "T341V",
+                  "B120H", "T202H", "T101H", "Y146H", "T107H", "F704H")
 
 ### 7 - Read in lookup files ----
 # Read in postcode, SIMD and locality lookup files, keep only relevant variables
@@ -175,7 +183,7 @@ postcode <- function(version =""){
 simd     <- function(){
   
   read_rds(glue("{filepath}lookups/Unicode/Deprivation/",
-                "postcode_2024_2_simd2020v2.rds")) %>%
+                "postcode_2026_1_simd2020v2.rds")) %>%
   
   clean_names() %>%
   

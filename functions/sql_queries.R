@@ -10,6 +10,7 @@
 # Description - Functions for extracting data.
 #
 # Approximate run time - xx minutes
+#Create a flag for Independent hospices & nhs pcu
 #########################################################################
 
 
@@ -168,13 +169,27 @@ smr01_query <- function(extract_start, extract_end,
   
   glue(
     "select s.link_no, s.gls_cis_marker, ",
-    "s.admission_date, s.discharge_date, d.date_of_death, ",
+    "s.admission_date, s.discharge_date, d.date_of_death, s.location, s.significant_facility, ",
     
     # Care Home Location flag
     "case when s.location in ",
     "({paste0(shQuote(care_homes, type = 'sh'), collapse = ',')}) then 1 ",
     "else 0 ",
-    "end ch_flag ",
+    "end ch_flag, ",
+    
+    # Independent Hospices Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(ind_hospices, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end ind_hospice_flag, ", 
+    
+    # NHS Hospitals Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(nhs_hospitals, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end nhs_hospital_flag ", 
+
+    
     
     "from analysis.{data} s, analysis.gro_deaths_c d ",
     
@@ -304,7 +319,7 @@ smr04_query <- function(extract_start, extract_end,
   
   glue(
     "select s.link_no, s.cis_marker, ",
-    "s.admission_date, ",
+    "s.admission_date, s.location, s.significant_facility, ",
     
     # Use date of death where discharge date is missing
     "case when s.discharge_date is null then d.date_of_death ",
@@ -317,7 +332,20 @@ smr04_query <- function(extract_start, extract_end,
     "case when s.location in ",
     "({paste0(shQuote(care_homes, type = 'sh'), collapse = ',')}) then 1 ",
     "else 0 ",
-    "end ch_flag ",
+    "end ch_flag, ",
+    
+    # Independent Hospices Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(ind_hospices, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end ind_hospice_flag, ", 
+    
+    # NHS Hospitals Location flag
+    "case when s.location in ",
+    "({paste0(shQuote(nhs_hospitals, type = 'sh'), collapse = ',')}) then 1 ",
+    "else 0 ",
+    "end nhs_hospital_flag ", 
+
     
     "from analysis.smr04_pi s, analysis.gro_deaths_c d ",
     

@@ -78,14 +78,14 @@ Publication date: `r format(pub_date, "%d %B %Y")`
 
 # About this release
 
-This release by Public Health Scotland (PHS) provides information on the percentage of time spent at home or in a community setting in the last six months of life. Data is presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. The figures presented for financial year `r max(basefile$fy)` are provisional. 
+This annual release by Public Health Scotland (PHS) provides estimated information on the percentage of time spent at home or in a community setting setting by individuals who were in their last six months of life. Community settings include any location outside a hospital setting, such as home, care home, independent hospice or NHS specialist palliative care unit. Data is presented by financial year from `r min(basefile$fy)` to `r max(basefile$fy)`, by NHS Board, Health and Social Care Partnership of residence and for Scotland. The figures presented for financial year `r max(basefile$fy)` are provisional. 
 </div>
 <Div custom-style = "Heading 1">
 # Main points
 </div>
 
 <Div custom-style = "Bullet 1">
-In `r latest$fy`, there were `r latest$deaths` deaths in Scotland. This includes people who died after a fall but excludes deaths from other external causes such as accidents. These individuals spent on average `r latest$qom`% of their last six months of life either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death, an `r if (trend[10,7] < trend[9,7]){"decrease"}else{"increase"}` of `r if(trend[10,7] < trend[9,7]){trend[9,7] - trend[10,7]}else{trend[10,7] - trend[9,7]}` days from `r trend[9,1]`.
+In `r latest$fy`, there were `r latest$deaths` deaths in Scotland. This includes people who died after a fall but excludes deaths from other external causes such as accidents (see [excel tables](`r pub_date_link`) for more information on the exclusions). These individuals spent on average `r latest$qom`% of their last six months of life either at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death, an `r if (trend[10,7] < trend[9,7]){"decrease"}else{"increase"}` of `r if(trend[10,7] < trend[9,7]){trend[9,7] - trend[10,7]}else{trend[10,7] - trend[9,7]}` days from `r trend[9,1]`.
 </div>
 
 <Div custom-style = "Table or chart caption">**Percentage of last six months of life spent at home or in a community setting; `r min(basefile$fy)` - `r max(basefile$fy)`^p,1^** </div>
@@ -98,11 +98,11 @@ In `r latest$fy`, there were `r latest$deaths` deaths in Scotland. This includes
 
 </div>
 <Div custom-style = "Bullet 1">
-Looking at the trend in the percentage of time spent at home or in the community in the last six months of life, `r latest$fy` (`r latest$qom`%) was slightly lower than 2020/21 (`r trend$qom[trend$fy=="2020/21"]`%) and 2021/22 (`r trend$qom[trend$fy=="2021/22"]`%) but was higher than before the COVID-19 pandemic. On average, an extra `r if(trend[10,7] < trend[1,7]){trend[1,7] - trend[10,7]}else{trend[10,7] - trend[1,7]}` days within the last six months of life was spent at home or in a community setting in `r max(trend$fy)` compared to `r min(trend$fy)`. Due to the COVID-19 pandemic inpatient services in hospitals in the years 2020/21 and 2021/22 were greatly impacted. This is likely to have reduced the time individuals spent in hospital in these years.
+Looking at the trend in the percentage of time spent at home or in the community in the last six months of life, `r latest$fy` (`r latest$qom`%) was slightly lower(?) than 2020/21 (`r trend$qom[trend$fy=="2020/21"]`%) and 2021/22 (`r trend$qom[trend$fy=="2021/22"]`%) but was higher than before the COVID-19 pandemic (ADD % HERE). On average, an extra `r if(trend[10,7] < trend[1,7]){trend[1,7] - trend[10,7]}else{trend[10,7] - trend[1,7]}` days within the last six months of life was spent at home or in a community setting in `r max(trend$fy)` compared to `r min(trend$fy)`. Due to the COVID-19 pandemic inpatient services in hospitals in the years 2020/21 and 2021/22 were greatly impacted. This is likely to have reduced the time individuals spent in hospital in these years.
 </div>
 
 <Div custom-style = "Bullet 1">
-In `r latest$fy`, males and females spent on average the same percentage of their last six months of life in the community. This varies by age group with males (XX.X%) aged XX-XX spending a higher(lower?) percentage of their last six months of life in the community than females (XX.X%); an average of X days more(less?) for males. YOU NEED TO MANUALLY FIND THE VALUES ON THE TABLE. Whereas for those aged 85 and over, `r max_sex` (`r max(sex$qom)`%) spent a slightly higher(lower?) percentage of their last six months of life in the community than `r if_else(max_sex == "females", "males", "females")` (`r min(sex$qom)`%); an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
+In `r latest$fy`, males and females spent on average, a similar percentage of their last six months of life at home or in the community. This varies by age group with males aged XX-XX spending a higher(lower?) percentage (XX.X%) of their last six months of life at home or in the community than females (XX.X%); an average of X days more(less?) for males. YOU NEED TO MANUALLY FIND THE VALUES ON THE TABLE. Whereas for those aged 85 and over, `r max_sex` (`r max(sex$qom)`%) spent a slightly higher(lower?) percentage of their last six months of life in the community than `r if_else(max_sex == "females", "males", "females")` (`r min(sex$qom)`%); an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
 </div>
 
 
@@ -112,8 +112,8 @@ In `r latest$fy`, males and females spent on average the same percentage of thei
 </div>
 This Quality Outcome is a measure of the impact of the Scottish Government’s [“Strategic Framework for Action on Palliative and End of Life Care”](http://www.gov.scot/Resource/0049/00491388.pdf).
 
-The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress made on the strategic framework for action. This is calculated by measuring the amount of time spent in an NHS hospital in Scotland during the last six months of life and using this information to estimate the time spent at home or in a community setting.
-It is estimated that hospital data for Scotland are XX% complete for `r latest$fy` and figures for this year should be treated as provisional. For more information, please see the full [report](https://www.publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/).
+The percentage of time spent at home or in a community setting towards the end of life provides a high level indication of progress made on the strategic framework for action. This is calculated by measuring the amount of time spent in an NHS hospital in Scotland during the last six months of life and using this information to estimate the time spent at home or in a community setting, which includes any location outside a hospital setting, such as: home, care home, independent hospice or NHS specialist palliative care unit. (DO WE NEED TO INCLUDE THE CHANGE IN METHODOLOGY EVEN THIS YEAR?)
+It is estimated that hospital data for Scotland are XX% complete for `r latest$fy` and figures for this year should be treated as provisional. For more information, please see the full [report](`r pub_date_link`).
 </div>
 <Div custom-style = "Heading 1">
 # Contact

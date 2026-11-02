@@ -203,7 +203,7 @@ fig2 <- fig2 +
   ggplot2::annotate("text", x = 3.30e+05, y =  665000, label = "S", size = 2.5, fontface = 2) +
   ggplot2::annotate("text", x = 3.00e+05, y =  745000, label = "T", size = 2.5, fontface = 2) +
   ggplot2::annotate("text", x = 2.60e+05, y =  700000, label = "V", size = 2.5, fontface = 2) +
-  ggplot2::annotate("text", x = 0.80e+05, y =  920000, label = "W", size = 2.5, fontface = 2) +
+  ggplot2::annotate("text", x = 0.80e+05, y =  940000, label = "W", size = 2.5, fontface = 2) +
   ggplot2::annotate("text", x = 2.75e+05, y =  575000, label = "Y", size = 2.5, fontface = 2) +
   ggplot2::annotate("text", x = 4.20e+05, y = 1125000, label = "Z", size = 2.5, fontface = 2)
 
@@ -610,7 +610,7 @@ ggsave(here("markdown", "figures", "figure-a1-4.png"),
        units = "cm", device = "png", dpi = 600)
 
 
-### 12 - Figure A3.1 - Old Methodology Comparison ----
+### 12 - Figure A3.1 - Old Methodology Comparison ---- 27/08/2026 Do Not Run It. This part has been removed from the report
 # Creates final line chart which compares old measure with the new measure which excludes care home activity
 # Basefile defined as the data set and also redefinee measures to distinguish between old and new
 

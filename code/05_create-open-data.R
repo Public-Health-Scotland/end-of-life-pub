@@ -67,6 +67,9 @@ hb <-
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
+# Remove provisional publication variables
+hb <- select(hb, -FinancialYearQF, -HBR2014QF)
+
 
 #### 4 - HSCP file ----
 # Compute HSCP file by summarising the basefile, mark 2018/19 data with the provisional marker
@@ -97,6 +100,9 @@ hscp <-
          AverageDaysInHospital = hosp)
 
 
+# No need of the following
+hscp <- select(hscp, -FinancialYearQF)
+
 #### 5 - Council Area file ----
 # Compute Council Area file by summarising the basefile, then mark the 2018/19 data with the provisional marker
 
@@ -125,6 +131,8 @@ ca <-
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
+# No need of the following
+ca <- select(ca, -FinancialYearQF)
 
 #### 6 - Age/Sex file ----
 # Compute Age/Sex file by summarising the basefile, create Scotland health board code and mark 2018/19 data with provisional marker
@@ -167,6 +175,9 @@ agesex <-
          AverageDaysInHospital = hosp)
 
 
+# No need of the following
+agesex <- select(agesex, -FinancialYearQF)
+
 #### 7 - Deprivation file ----
 # Compute deprivation file summarising the basefile, create Scotland health board code and mark 2018/19 data as provisional
 # Tidy up deprivation quintiles for excel file to just show numbers 1-5
@@ -200,6 +211,9 @@ simd <-
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
+# No need of the following
+simd <- select(simd, -FinancialYearQF)
+
 #### 8 - Urban Rural file ----
 # Compute urban/rural file by summarising the basefile, create Scotland and mark 2018/19 data as provisional
 
@@ -230,6 +244,9 @@ rurality <-
          AverageDaysInCommunity = comm,
          AverageDaysInHospital = hosp)
 
+
+# No need of the following
+rurality <- select(rurality, -FinancialYearQF)
 
 #### 9 - Save files ----
 # Create open data folder and save each of the outfiles as a csv document into the folder using required file name with the publication date

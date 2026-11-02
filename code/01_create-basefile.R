@@ -15,8 +15,8 @@
 
 ### 1 - Setup environment and load functions ----
 
-source(here::here("code", "00_setup-environment.R"))
-source(here::here("functions", "sql_queries.R"))
+#source(here::here("code", "00_setup-environment.R"))
+source(here::here("functions", "sql_queries_with_hospices.R"))
 source(here::here("functions", "completeness.R"))
 source(here::here("functions", "completeness_workaround.R"))
 
@@ -83,14 +83,22 @@ write_rds(smr04,
 
 
 ### 5 - Aggregate SMR data to CIS level ----
-# Aggregate SMR01 and SMR04 data by CIS which includes community care home episodes, these are flagged and removed
+# Aggregate SMR01 and SMR04 data by CIS which includes community care home episodes, hospices (Ind & NHS) these are flagged and removed
 
+#Overwrite nhs_hospital_flag so that it keeps the existing hospital logic, and only retains those with significant_facility 1G.
+smr01 <- smr01 %>%
+  mutate(
+    nhs_hospital_flag = if_else(
+      nhs_hospital_flag == 1 & significant_facility == "1G",1,0))
+        
 smr01 %<>%
-  group_by(link_no) %>%
+    group_by(link_no) %>%
   arrange(admission_date) %>%
   mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
+                               lead(ind_hospice_flag) != ind_hospice_flag | 
+                               lead(nhs_hospital_flag) != nhs_hospital_flag |                                
                                lead(gls_cis_marker) != gls_cis_marker)[-n()])) %>%
-  filter(ch_flag == 0) %>%
+  filter(ch_flag == 0 & ind_hospice_flag == 0 & nhs_hospital_flag == 0) %>%
   group_by(link_no, index) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
@@ -98,12 +106,22 @@ smr01 %<>%
   ungroup() %>%
   select(-index)
 
+
+
+#Overwrite nhs_hospital_flag so that it keeps the existing hospital logic, and only retains those with significant_facility 1G.
+smr04 <- smr04 %>%
+  mutate(
+    nhs_hospital_flag = if_else(
+      nhs_hospital_flag == 1 & significant_facility == "1G",1,0))
+
 smr04 %<>%
   group_by(link_no) %>%
   arrange(admission_date) %>%
-  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag | 
+  mutate(index = c(0, cumsum(lead(ch_flag) != ch_flag |
+                               lead(ind_hospice_flag) != ind_hospice_flag |
+                               lead(nhs_hospital_flag) != nhs_hospital_flag |                             
                                lead(cis_marker) != cis_marker)[-n()])) %>%
-  filter(ch_flag == 0) %>%
+  filter(ch_flag == 0 & ind_hospice_flag == 0 & nhs_hospital_flag == 0) %>%
   group_by(link_no, index) %>%
   summarise(admission_date = min(admission_date),
             discharge_date = max(discharge_date),
@@ -213,5 +231,10 @@ completeness(end_date)
 # If the above doesn't work, try the alternative function (it search directly on beta.isdscotland.org instead of open data)
 
 completeness_workaround()
+
+# 26/08/2026 If the above 2 don't work, try this alternative function that saves the html file as a real Excel file (not like completeness_workaround)
+# The Excel file (yyyy-mm-dd-smr_estimates.xlsx) is produced by the DM Team. The tables may be positioned in different cells,
+# and the table headers may vary slightly in both wording and location.
+completeness_workaround_excel-file()
 
 ### END OF SCRIPT ###

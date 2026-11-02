@@ -306,9 +306,7 @@ The [NHS Healthcare Quality Strategy](https://www.gov.scot/publications/healthca
 
 This release by Public Health Scotland presents information in support of the objectives set out in the December 2015 [Strategic Framework for Action on Palliative and End of Life Care](http://www.gov.scot/Resource/0049/00491388.pdf) which has one of its commitments to “support improvements in the collection, analysis, interpretation and dissemination of data and evidence relating to needs, provision, activity, indicators and outcomes in respect of palliative and end of life care”. This strategic framework superseded [Living and Dying Well: A National Action Plan for Palliative and End of Life in Scotland](https://lx.iriss.org.uk/sites/default/files/resources/living%20and%20dying.pdf). 
 
-Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the strategic framework for action. Individuals should be in the most appropriate setting for their circumstances. As a result, for some individuals hospital may be the best place for their care based on clinical judgement and this is reflected in the published figures.
-
-In December 2016 the [Health and Social Care Delivery Plan](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities.A [new palliative care strategy](https://www.gov.scot/publications/palliative-care-matters-palliative-care-strategy-202530/) was published in September 2025.
+Ideally, the measure would relate directly to an individual’s preferred place of care at the end of their life. However, there are challenges around capturing this information. There is no national and systematic data recorded on a person’s preferred place of care at the end of life and this publication uses instead the following surrogate measure: *“Percentage of last six months spent at home or in a community setting”*. Although this is not a direct measure of compliance with an individual’s preferred place of death, it can serve to provide a broad indication of progress in implementing the strategic framework for action. Individuals should be in the most appropriate setting for their circumstances. As a result, for some individuals hospital may be the best place for their care based on clinical judgement and this is reflected in the published figures. In December 2016 the [Health and Social Care Delivery Plan](http://www.gov.scot/Resource/0051/00511950.pdf) was launched, which reinforces key actions and services to respond to palliative and end of life care needs among other health and social care priorities. In September 2025, a [new palliative care strategy](https://www.gov.scot/publications/palliative-care-matters-palliative-care-strategy-202530/) was published; to focus on actions required to improve population palliative care data to inform service planning and delivery, monitoring, evaluation and reporting, including experiences of palliative care and care around dying (outcome 7).
 
 <br>
 <Div custom-style = "Heading 2">Provisional Figures</div>
@@ -319,22 +317,22 @@ Please note that hospital data and National Records of Scotland deaths data are 
 <Div custom-style = "Heading 1">Main Points</div>
 
 <Div custom-style = "Bullet 1">
-In `r latest$fy`, there were `r latest$deaths` deaths in Scotland. This includes people who died after a fall but excludes deaths from other external causes such as accidents. These individuals spent on average `r latest$qom`% of their last six months of life at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death,  an `r if (trend[10,7] < trend[9,7]){"decrease"}else{"increase"}` of `r if(trend[10,7] < trend[9,7]){trend[9,7] - trend[10,7]}else{trend[10,7] - trend[9,7]}` days from `r trend[9,1]`.
+In `r latest$fy`, there were `r latest$deaths` deaths in Scotland. This includes people who died after a fall but excludes deaths from other external causes such as accidents (see [excel tables](https://www.publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2017-to-2026/) for more information on the exclusions). These individuals spent on average `r latest$qom`% of their last six months of life at home or in a community setting, with the remaining `r latest$qom_hosp`% spent in hospital. This is equivalent to an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to death,  an `r if (trend[10,7] < trend[9,7]){"decrease"}else{"increase"}` of `r if(trend[10,7] < trend[9,7]){trend[9,7] - trend[10,7]}else{trend[10,7] - trend[9,7]}` days from `r trend[9,1]`.
 </div>
 
 <Div custom-style = "Bullet 1">
-Looking at the trend of the percentage of time spent at home or in the community in the last six months of life `r latest$fy` (`r latest$qom`%) was slightly lower than 2020/21 (`r trend$qom[trend$fy=="2020/21"]`%) and 2021/22 (`r trend$qom[trend$fy=="2021/22"]`%), which had the highest percentages, but was higher than before the COVID-19 pandemic. On average, an extra `r if(trend[10,7] < trend[1,7]){trend[1,7] - trend[10,7]}else{trend[10,7] - trend[1,7]}` days within the last six months of life was spent at home or in a community setting in `r max(trend$fy)` compared to `r min(trend$fy)`. Due to the COVID-19 pandemic inpatient services in hospitals in the years 2020/21 and 2021/22 were greatly impacted. This is likely to have reduced the time individuals spent in hospital in these years.
+Looking at the trend of the percentage of time spent at home or in the community in the last six months of life `r latest$fy` (`r latest$qom`%) was slightly lower(?) than 2020/21 (`r trend$qom[trend$fy=="2020/21"]`%) and 2021/22 (`r trend$qom[trend$fy=="2021/22"]`%), which had the highest percentages, but was higher than before the COVID-19 pandemic. On average, an extra `r if(trend[10,7] < trend[1,7]){trend[1,7] - trend[10,7]}else{trend[10,7] - trend[1,7]}` days within the last six months of life was spent at home or in a community setting in `r max(trend$fy)` compared to `r min(trend$fy)`. Due to the COVID-19 pandemic inpatient services in hospitals in the years 2020/21 and 2021/22 were greatly impacted. This is likely to have reduced the time individuals spent in hospital in these years.
 </div>
 
 <Div custom-style = "Bullet 1">
-In `r latest$fy`, males and females spent on average a similar proportion of their last six months of life in the community. This varies by age group with males (XX.X%) aged XX-XX (CHECK AGE GROUP TO USE) spending a higher(lower?) proportion of their last six months of life in the community than females (XX.X%); an average of X days more(less?) for males. YOU NEED TO MANUALLY FIND THE VALUES ON THE TABLE. Whereas for those aged 85 and over, `r max_sex` (`r max(sex$qom)`%) spent a slightly higher proportion of their last six months of life in the community than `r if_else(max_sex == "females", "males", "females")` (`r min(sex$qom)`%); an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
+In `r latest$fy`, males and females spent on average a similar proportion of their last six months of life in the community. This varies by age group with males aged XX-XX (CHECK AGE GROUP TO USE) spending a higher(lower?) percentage  (XX.X%) of their last six months of life at home or in the community than females (XX.X%); an average of X days more(less?) for males. YOU NEED TO MANUALLY FIND THE VALUES ON THE TABLE. Whereas for those aged 85 and over, `r max_sex` (`r max(sex$qom)`%) spent a slightly higher proportion of their last six months of life in the community than `r if_else(max_sex == "females", "males", "females")` (`r min(sex$qom)`%); an average of `r as.character(day_diff(max(sex$qom), min(sex$qom)))` days more for `r max_sex`.
 </div>
 
 \newpage
 
 <Div custom-style = "Heading 1">Results and Commentary</div>
 
-In financial year `r latest$fy`, the estimated `r latest$deaths` residents of Scotland who died spent on average `r latest$qom`% of their last six months of life either at home or in the community (Table 1 of the [data tables](`r pub_date_link`)) and `r latest$qom_hosp`% of their last six months of life was spent in hospital (Figure 1). This is equivalent to each individual spending an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to their death, an increase of 2 days from  `r trend[9,1]`.
+In financial year `r latest$fy`, the estimated `r latest$deaths` residents of Scotland who died spent on average `r latest$qom`% of their last six months of life either at home or in the community (Table 1 of the [data tables](`r pub_date_link`)) and `r latest$qom_hosp`% of their last six months of life was spent in hospital (Figure 1). This is equivalent to each individual spending an average of `r if(latest$hosp < 10){as.character(as.english(latest$hosp))}else{latest$hosp}` days in hospital in the six months prior to their death, an increase(?) of X days from  `r trend[9,1]`.
 
 <div custom-style = "Table or chart caption">
 Figure 1: Percentage of last six months of life spent in hospital and at home or in a community setting; `r min(basefile$fy)` - `r latest$fy`^p,1^
@@ -350,7 +348,7 @@ p. `r prov_footnote`
 
 <br>
 
-The percentage of time spent at home or in a community setting by people in the last six months of their life has increased gradually from (XX.X%) in `r min(basefile$fy)` to (XX.X%) in 2019/20. There was a larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to the previous years, (increasing from XX.X% to XX.X%). The length of hospital stays in 2020/21 and 2021/22 are likely to have been impacted by the measures in place at different stages of the COVID-19 pandemic; and this may be an underlying reason for this increase. Since 2020/21, there has been a reduction in the percentage of time spent at home or in the community to `r latest$qom`% in `r latest$fy`.
+The percentage of time spent at home or in a community setting by people in the last six months of their life has increased gradually from (XX.X%) in `r min(basefile$fy)` to (XX.X%) in 2019/20. There was a larger increase in the percentage of time spent at home or in a community setting between 2019/20 and 2020/21, compared to the previous years, (increasing from XX.X% to XX.X%). The length of hospital stays in 2020/21 and 2021/22 are likely to have been impacted by the measures in place at different stages of the COVID-19 pandemic; and this may be an underlying reason for this increase. Since 2020/21, there has been a reduction in the percentage of time spent at home or in the community to `r latest$qom`% in `r latest$fy`[REWRITE THIS SENTENCE].
 
 Although there has been a small reduction in the percentage of time spent at home or in the community since 2020/21, overall in the decade presented there has been a reduction in the time spent in the hospital setting by people in the last six months of their life and this equates to, on average, an extra `r day_diff(basefile %>% summarise_data(include_years = "first") %>% pull(qom), latest$qom)` days within the last six months of life being spent at home or in a community setting in `r latest$fy` compared to `r min(basefile$fy)` (see Figure 1 or [Appendix 1](#appendix1)).
 
@@ -388,7 +386,7 @@ Information on the average number of days and the percentage of the last six mon
 
 
 <div custom-style = "Table or chart caption">
-Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by NHS Board of Residence^2,3^,4^
+Table 1: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by NHS Board of Residence^2,3,4^
 </div>
 
 ```{r hb-table, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -434,7 +432,7 @@ glue("Note that Data completeness should be taken into account when making compa
 ```
 
 <div custom-style = "Table or chart caption">
-Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by Health and Social Care Partnership^2^,3^
+Table 2: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p,1^; by Health and Social Care Partnership^2,3^
 </div>
 
 ```{r hscp-table, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE}
@@ -466,7 +464,7 @@ p. `r prov_footnote`
 
 <br>
 
-Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). The variation in the percentages between partnerships could be due to a number of factors including differences in the age profile, the urban/rural mix of the partnerships and data completeness.
+Table 2 shows that there is some variation between Partnerships with the percentage of time spent at home or in a community setting ranging from `r min_hscp$qom`% (`r min_hscp$hscp`) to `r max_hscp$qom`% (`r max_hscp$hscp`). The variation in the percentages between HSCPs could be due to a number of factors including differences in the age profile, the urban/rural mix of the partnerships and data completeness.
 </div>
 
 
@@ -479,7 +477,7 @@ Figure 3 presents the percentage of time spent at home or in the community by in
 </div>
 
 
-In the age group XX-XX years (??? CHECK THE AGEGROUP TO USE), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community. For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days in the community.
+In the age group XX-XX years (??? CHECK THE AGEGROUP TO USE), `r max_young`s (`r max(young$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_young`s (`r min(young$qom)`%); this equates to, on average, an extra `r as.character(day_diff(max(young$qom), min(young$qom)))` days at home or in the community. For individuals aged 85 years and over, `r max_old`s (`r max(old$qom)`%) spent a higher percentage of their last six months of life at home or in the community compared to `r min_old`s (`r min(old$qom)`%); this equates to `r max_old`s spending on average, an extra `r as.character(day_diff(max(old$qom), min(old$qom)))` days at home or in the community.
 
 <div custom-style = "Table or chart caption">
 Figure 3: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p^; by age and sex
@@ -494,7 +492,7 @@ p. `r prov_footnote`
 <br>
 
 <Div custom-style = "Heading 2">Deprivation</div>
-The percentage of time spent at home or in a community setting by individuals in the last six months of life by deprivation is shown in Figure 4 (Table 4 of the [data tables](`r pub_date_link`)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. There are five deprivation categories in the measure used and at a Scotland level approximately 20% of the population as a whole are within each deprivation quintile with deprivation category 1 relating to the most deprived areas and deprivation category 5 to the least deprived areas. See the [Glossary](#glossary) for further information on Deprivation. 
+The percentage of time spent at home or in a community setting by individuals in the last six months of life by deprivation is shown in Figure 4 (Table 4 of the [data tables](`r pub_date_link`)). Deprivation category has been assigned using the Scottish Index of Multiple Deprivation. There are five deprivation categories in the measure used and at Scotland level approximately 20% of the population as a whole are within each deprivation quintile, with deprivation category 1 relating to the 20% most deprived communities and deprivation category 5 relating to the 20% least deprived communities. See the [Glossary](#glossary) for further information on Deprivation. 
 
 <div custom-style = "Table or chart caption">
 Figure 4: Percentage of last six months of life spent at home or in a community setting in `r latest$fy`^p^; by Deprivation Category^1^
@@ -509,7 +507,7 @@ p. `r prov_footnote`
 
 <br>
 
-Figure 4 shows that there is little variation in the percentage of time spent at home or in a community setting in the last six months of life across the different quintiles. The percentages range from `r min(simd$qom)`% (quintile `r min_simd`) to `r max(simd$qom)`% (quintile `r max_simd`). The trend over time by deprivation quintile is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix1)) and the corresponding data can be found in Table 4 of the [data tables](`r pub_date_link`). All deprivation quintiles show a similar trend over time, with a slight increase in the percentage of time in the last six months spent at home or in the community.
+Figure 4 shows that there is only a small amount of variation in the percentage of time spent at home or in a community setting in the last six months of life across the different deprivation quintiles. The percentages range from `r min(simd$qom)`% (quintile `r min_simd`) to `r max(simd$qom)`% (quintile `r max_simd`). The trend over time by deprivation quintile is presented in graphical format in Figure A1.3 (see [Appendix 1](#appendix1)) and the corresponding data can be found in Table 4 of the [data tables](`r pub_date_link`). All deprivation quintiles show a similar trend over time, with a slight increase in the percentage of time in the last six months spent at home or in the community.
 
 <br>
 
@@ -540,9 +538,9 @@ Trend data on the percentage of the last six months of life spent at home or in 
 
 Palliative care is holistic care of a person of any age living with life shortening conditions and their family and carers that focuses on what matters to them. It can start from around the time of diagnosis and includes care when someone is dying.
 
-**End of Life**
+**Care around dying**
 
-End of Life Care is that part of palliative care which follow from the diagnosis that a person has entered the process of dying, whether or not they are already in receipt of palliative care. This phase could vary between weeks, days or hours in the context of different disease trajectories. There can be uncertainty involved in identifying when someone might be expected to die – illness can be unpredictable, and changes can occur suddenly and unexpectedly.
+Care around dying means holistic care of a person of any age who is dying and in the last hours, days or few weeks of their life, that focuses on comfort and includes people close to them who are supported into bereavement.
 
 **Bed Day**
 
@@ -552,9 +550,13 @@ Unit of measurement relating to an overnight stay in an inpatient hospital bed.
 
 Time spent in acute, community or psychiatric hospitals. Refers to all hospital bed days calculated from SMR01 records (Acute and Geriatric Long Stay specialties) and SMR04 records (Mental Health specialties).
 
+**Time spent at home or in a community setting**
+
+The percentage is calculated by measuring the amount of time spent in an NHS hospital in Scotland during the last six months of life and subtracting this from 100 to estimate the time spent at home or in a community setting.
+
 **Deprivation (SIMD)**
 
-SIMD - Scottish Index of Multiple Deprivation. Deprivation for individuals is estimated from aggregate data derived from the census and other routine sources. These are used to estimate the deprivation of small geographical areas. Data in this report are analysed by the ‘Scotland level’ Scottish Index of Multiple Deprivation population weighted quintiles. Each quintile consists of approximately 20% of the population living in Scotland, with deprivation quintile 1 indicating the 20% of the population living in the most deprived areas and deprivation quintile 5 the 20% of the population living in the least deprived areas.
+SIMD refers to the Scottish Index of Multiple Deprivation. Deprivation for individuals is estimated from aggregate data derived from the census and other routine sources. These are used to estimate the deprivation of small geographical areas. Data in this report are analysed by the ‘Scotland level’ Scottish Index of Multiple Deprivation population weighted quintiles. Each quintile consists of approximately 20% of the population living in Scotland, with deprivation quintile 1 indicating the 20% of the population living in the most deprived communities  and deprivation quintile 5 the 20% of the population living in the least deprived communities.
 
 **Data Zone**
 
@@ -564,21 +566,19 @@ The Scottish Government introduced Data Zones in 2004 as their preferred small a
 
 The Scottish Government Urban/Rural classification can be used to classify geographies as urban, rural or remote. Each data zone is assigned to an urban rural category based upon the location of its population weighted centroid. The 2022 Urban/Rural classification has been used for the analyses in this report. Further information can be found on the [Scottish Government website](https://www.gov.scot/publications/scottish-government-urban-rural-classification-2022/).
 
-**Percentage of time spent at home or in the community setting**
-This is calculated by measuring the amount of time spent in an NHS hospital in Scotland during the last six months of life and using this information to estimate the time spent at home or in a community setting.
 
 <Div custom-style = "Heading 1">Contact</div>
 
 **Sinforosa Pizzo, Senior Information Analyst**  
-Health and Social Care  
+Social Care  
 phs.peolc@phs.scot 
 
 **Ryan Harris, Senior Information Analyst**  
-Health and Social Care  
+Social Care  
 phs.peolc@phs.scot
 
 **Aghimien Iyayi-Igbinovia, Principal Information Analyst**  
-Health and Social Care  
+Social Care  
 phs.peolc@phs.scot 
 
 For all media enquiries please email <phs.comms@phs.scot> or call 0131 275 6105.
@@ -586,7 +586,7 @@ For all media enquiries please email <phs.comms@phs.scot> or call 0131 275 6105.
 <br>
 <Div custom-style = "Heading 1">Further information</div>
 
-Further information and data for this publication are available from the [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/) on our website.
+Further information and data for this publication are available from the [publication page](`r pub_date_link`) on our website.
 
 For more information on Palliative and End of Life Care see the [End of Life Care section of our website](https://publichealthscotland.scot/our-areas-of-work/social-and-community-care/end-of-life-care/overview/).
 
@@ -600,7 +600,7 @@ Data from this publication is available to download from the [Scottish Health an
 <br>
 <Div custom-style = "Heading 1">Rate this publication</div>
 
-Let us know what you think about this publication via the link at the bottom of this [publication page](https://publichealthscotland.scot/publications/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting/percentage-of-end-of-life-spent-at-home-or-in-a-community-setting-financial-years-ending-31-march-2016-to-2025/) on the PHS website.
+Let us know what you think about this publication via the link at the bottom of this [publication page](`r pub_date_link`) on the PHS website.
 
 \newpage
 
@@ -621,7 +621,7 @@ p. `r prov_footnote`
 </div>
 
 <div custom-style = "Table or chart caption">
-Figure A1.2 - Percentage of last six months of the last 6 months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
+Figure A1.2 - Percentage of last six months of life spent at home or in a community setting by financial year for each Health and Social Care Partnership of residence; `r min(basefile$fy)` - `r latest$fy`^p,1,2^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting for each of the Health and Social Care Partnerships over the financial years `r min(basefile$fy)` to `r latest$fy`. Many of the partnerships show a broadly consistent pattern over this ten year period.](figures/figure-a1-2-1.png)</div>
@@ -635,7 +635,7 @@ p. `r prov_footnote`
 </div>
 
 <div custom-style = "Table or chart caption">
-Figure A1.3 - Percentage of last six months of the last 6 months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^p,1,3^
+Figure A1.3 - Percentage of last six months of life spent at home or in a community setting by financial year for each Deprivation Quintile^2^; `r min(basefile$fy)` - `r latest$fy`^p,1,3^
 </div>
 
 ![Series of line charts showing the percentage of end of life spent at home or in a community setting by SIMD Quintiles over the financial years `r min(basefile$fy)` to `r latest$fy`. Each deprivation category shows a broadly consistent pattern over this ten year period.](figures/figure-a1-3.png)</div>
@@ -656,12 +656,12 @@ Figure A1.4 - Percentage of last six months of life spent at home or in a commun
 <div custom-style = "Footnote numbered">
 p. `r prov_footnote`
 1. Figures in 2020/21 and 2021/22 are likely to have been affected by the measures in place at different stages of the COVID-19 pandemic.
-2. Please note that results presented in this publication use the 2022 urban/rural classification. This has been applied to all years to enable comparisons between them. It should be noted that the figures in some urban/rural categories in this publication for years prior to 2024/25 may vary slightly from previous publications.
+2. Please note that results presented in this publication use the 2022 urban/rural classification.
 3. Please note that the y-axes do not start at zero.
 </div>
 
 ## Appendix 2 - Background Information {#appendix2}
-End of life care (palliative care) is an important, integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition. 
+Palliative care is an integral aspect of the health care provided to those living with and dying from any advanced or progressive and life-threatening condition focusing on what matters to them. 
 
 The [NHS Healthcare Quality Strategy](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/) (May 2010) was launched with the aim of delivering high quality healthcare services to people in Scotland. A direct action identified by the Quality Strategy was to develop a [Quality Measurement Framework](https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/pages/4/) supporting a number of Quality Outcome Measures (QOMs). These measures cover a range of healthcare topics including; care experience, healthcare acquired infections, hospital mortality rates and end of life care.
 
@@ -677,15 +677,15 @@ It is envisaged that an increase in this measure will reflect both quality and v
 
 Over time, an increase in the proportion of time spent at home / in a community setting at the end of life may indicate an improvement in the quality and efficiency of palliative care. This increase would be expected in the medium to long term as a result of an increase in the use of anticipatory care plans and electronic palliative care summaries. 
 
-Individuals should be in the most appropriate setting for their circumstances. As a result, for some individuals, hospital may be the best place for their care based on clinical judgement and this is reflected in the published figures. 
+Individuals should cared for in the most appropriate setting for their circumstances. As a result, for some individuals, hospital may be the best place for their care based on clinical judgement and this is reflected in the published figures. 
 
-This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. A [new palliative care strategy](https://www.gov.scot/publications/palliative-care-matters-palliative-care-strategy-202530/) was published in September 2025.
+This measure is based on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04), returns covering non-obstetric hospitals in Scotland. A [new palliative care strategy](https://www.gov.scot/publications/palliative-care-matters-palliative-care-strategy-202530/) was published in September 2025 with a focus on actions required to improve population palliative care data to inform service planning and delivery, monitoring, evaluation and reporting, including experiences of palliative care and care around dying (outcome 7).
 
 <Div custom-style = "Heading 3">Data Quality and Completeness</div>
 
 `r if_else(pub_type == "provisional", "Hospital data and ", "")`National Records of Scotland deaths data are provisional for `r latest$fy`. It is anticipated that any changes in the future are likely to have a minimal impact on the measure presented.
 
-Estimated completeness figures for Acute Inpatient and Day Case and Geriatric Long Stay records (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case records (SMR04) are presented in Table 3.1, Table 3.2 and Table 3.3. Figures for the latest year are provisional as there could be an undercount of hospital admissions, particularly for people who died in the last six months of the financial year. `r comp_appendix_smr01` OR CHECK IF ANY - smr01, gls, smr04 IS <60%, OTHERWISE DELETE
+Estimated completeness figures for Acute Inpatient and Day Case and Geriatric Long Stay records (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case records (SMR04) are presented in Table 3.1, Table 3.2 and Table 3.3. Figures for the latest year are provisional as there could be an undercount of hospital admissions, particularly for people who died in the last six months of the financial year; where hospital data are incomplete, this may impact the estimated amount of time spent at home or in the community. `r comp_appendix_smr01`
 
 More information regarding completeness of hospital activity data can be found on the [PHS website](https://publichealthscotland.scot/services/data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/).
 
@@ -779,7 +779,7 @@ This publication includes data from financial years `r min(basefile$fy)` to `r l
 
 Scottish residents who died between `r min(basefile$fy)` and `r latest$fy` are identified using the date of death on National Records of Scotland death records. The possible number of bed days that could have been spent in hospital in a six-month period is calculated by multiplying the total number of deaths by 182.5. People who died where an external cause of death (e.g. unintentional injuries) is recorded on the death record have been excluded from the analysis; however patients who died where a fall is recorded are included. People with missing postcodes have also been excluded. 
 
-The deaths data are linked to hospital discharge data (acute inpatient and day case records (SMR01), psychiatric records (SMR04) or geriatric long stay records (SMR01 GLS)) and the actual number of bed days spent in hospital in Scotland in the six months prior to the death of each individual is calculated and added together for all individuals.
+The deaths data are linked to hospital discharge data (acute inpatient and day case records (SMR01), mental health records (SMR04) or geriatric long stay records (SMR01 GLS)), and the actual number of bed days spent in hospital in Scotland in the six months prior to the death of each individual is calculated and added together for all individuals.
 
 The percentage of time spent in hospital in the last six months of life is therefore arrived at by dividing the actual number of bed days by the possible number of bed days. The percentage of time spent at home or in a community setting is then obtained by subtracting the percentage of time spent in hospital from 100%. 
 
@@ -817,6 +817,9 @@ tibble(
 <Div custom-style = "Heading 3">Revision of methodology</div>
 
 In publications released prior to 2020, a small amount of inpatient activity located in care homes were captured as part of the 'Hospital' setting. This activity represents beds funded by the NHS which are located within a care home and affects a relatively small number of inpatient records. For publications released from 2020 onwards, these Care home activities have been excluded from our calculations for time spent in the Hospital setting and are now counted as time spent in the Community setting. The change in methodology was implemented across all years and for all analyses presented from 2020. The impact of this change varies but compared to publications prior to 2020, the proportion of time spent at home or in a community setting has largely remained the same or increased only slightly.
+In 2025/26, a further update to the publication methodology has been implemented which impacts the classification of community settings across all years reported. Previously, activity for individuals cared for in independent hospices and NHS specialist palliative care units were counted as part of hospital settings. This activity is part of specialist palliative care services provided by hospices and they are now excluded from the calculation for hospital setting. The change in methodology has been applied across all years reported (2016/17 to 2025/26) and this has resulted in a small increase in the proportion of time spent at home or in the community setting across all years.
+Further information on the list of location codes used to identify Independent Hospices and NHS Specialist Palliative Care Units in the revised methodology is available in the National Reference Files section of the Public Health Scotland website. [Care home and hospice locations - National reference files - Medical practice and pharmaceuticals - Resources and tools - Public Health Scotland](https://www.publichealthscotland.scot/resources-and-tools/medical-practice-and-pharmaceuticals/national-reference-files/care-home-and-hospice-locations)
+TO CHECK IF WE NEED FIGURE A3.1
 
 
 <Div custom-style = "Heading 2">Appendix 4 - Publication Metadata</div>
@@ -860,7 +863,7 @@ Reports include annual data up to `r latest$fy`
 Figures contained within each publication may also be subject to change in future publications. Further detail can be found on the [about our statistics](https://publichealthscotland.scot/our-organisation/about-our-statistics/overview/) section of the website.  
 <br>  
 **Revisions relevant to this publication**  
-Data for the most recent financial year are provisional. All data are revised each year to ensure the most complete data are presented. Revisions of this nature are due to incomplete data returns at the time of publication. See [Appendix 2](#appendix2) for more information on data completeness.  
+Data for the most recent financial year are provisional. All data are revised each year to ensure the most complete data are presented. Revisions of this nature are due to incomplete data returns at the time of publication. An update to the methodology on how community setting is calculated has been applied to all years reported. See [Appendix 2](#appendix2) for more information on data completeness and [Appendix 3](#appendix3) for Revision methodology.
 <br>  
 **Concepts and definitions**  
 Policy concepts: https://www.gov.scot/publications/healthcare-quality-strategy-nhsscotland/  
@@ -875,16 +878,16 @@ Making information publicly available; allowing assessment of implementation/imp
 [Data management](https://www.publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/overview/services-we-provide/) undertakes SMR01 and SMR04 standard validation processes; wide stakeholder consultation on technical methodology  
 <br>  
 **Completeness**  
-SMR01, SMR01 GLS and SMR04 hospital completeness for the financial year `r latest$fy` is estimated to be `r comp_scot_smr01` complete for Scotland`r if_else(pub_type == "provisional", glue("and this could have an impact on the time spent in hospital in the last six months of life. "), ". ")`See [Appendix 2](#appendix2) for more information and completeness figures for each quarter. Additional information on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04) data completeness will be made available at the following link:  https://publichealthscotland.scot/services/data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/.  
+Acute Inpatient and Day Case (SMR01), Geriatric Long Stay (SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04) hospital completeness for the financial year `r latest$fy` is estimated to be `r comp_scot_smr01` complete for Scotland`r if_else(pub_type == "provisional", glue("and this could have an impact on the time spent in hospital in the last six months of life. "), ". ")`See [Appendix 2](#appendix2) for more information and completeness figures for each quarter. Additional information on Acute Inpatient and Day Case and Geriatric Long Stay (SMR01 and SMR01 GLS) and Mental Health Inpatient and Day Case (SMR04) data completeness will be made available at the following link:  https://publichealthscotland.scot/services/data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/.  
 <br>  
 **Comparability**  
-Due to a small revision in the methodology in 2020, figures presented in this publication are not comparable to figures published previously. Trend information from `r min(basefile$fy)` to `r latest$fy` is available in this publication. See [Appendix 3](#appendix3) for more information on the revision and its impact.  
+Due to a small revision in the methodology in 2020 and 2026, figures presented in this publication are not comparable to figures published prior to the 2026 publication. See [Appendix 3](#appendix3) for more information on the revision and its impact.  
 <br>  
 **Accessibility**  
 It is the policy of PHS to make its web sites and products accessible according to published guidelines. More information on accessibility can be found on the [PHS website](https://publichealthscotland.scot/accessibility-statement-for-public-health-scotland/).  
 <br>  
 **Coherence and clarity**  
-Publication is made available via the PHS website  
+Publication is made available via the PHS website. The summary and report have been produced using the standard PHS Official Statistics publications template and are available as word documents. Statistics are presented within excel workbooks.  
 <br>  
 **Value type and unit of measurement**  
 Proportions expressed as a percentage  
